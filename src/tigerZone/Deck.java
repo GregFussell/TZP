@@ -7,3 +7,4 @@ public class Deck {
 	}
 	
 }
+//Are we using 5 for testing or all 78?
