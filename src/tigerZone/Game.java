@@ -56,7 +56,7 @@ public class Game {
 		System.out.print(board[36][36].id);
 		System.out.println();
 		for (int i=0;i<9;i++){
-			System.out.print(board[36][36].fields[i].territory + " ");
+			System.out.print(board[36][36].subtiles[i].territory + " ");
 			if ((i+1)%3==0)
 			{
 				System.out.println();
@@ -70,7 +70,7 @@ public class Game {
 		System.out.print(board[36][36].id);
 		System.out.println();
 		for (int i=0;i<9;i++){
-			System.out.print(board[36][36].fields[i].territory + " ");
+			System.out.print(board[36][36].subtiles[i].territory + " ");
 			if ((i+1)%3==0)
 			{
 				System.out.println();
@@ -90,7 +90,7 @@ public class Game {
 					for(int k=x; k<x+3; k++)//k is subtile, x is iteration over tile
 					{
 						if(board[i][j]==null) System.out.print(" ");
-						else System.out.print(board[i][j].fields[k].territory);
+						else System.out.print(board[i][j].subtiles[k].territory);
 						if(k == x+2) System.out.print("|");
 					}
 			}
