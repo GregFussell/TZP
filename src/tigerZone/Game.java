@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-
+//please clap
 	public static void updatePlaceable(ArrayList<ArrayCoord> placedPos, 
 								ArrayList<ArrayCoord> placeablePos,
 								int x, int y)
