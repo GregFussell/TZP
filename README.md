@@ -4,5 +4,3 @@ ello
 
 
 hello world
-y
-Fuck it all
