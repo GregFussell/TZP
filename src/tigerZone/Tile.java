@@ -1,5 +1,5 @@
 package tigerZone;
-
+//tile class!
 public class Tile {
 	
 	Subtile fields[];
