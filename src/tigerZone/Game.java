@@ -169,13 +169,13 @@ public class Game {
 				return false;
 			}
 		}
-		if (currentBoard[x][y - 1] != null) {
-			if (currentTile.subtiles[4].territory != currentBoard[x][y - 1].subtiles[10].territory) {
+		if (currentBoard[x][y + 1] != null) {
+			if (currentTile.subtiles[4].territory != currentBoard[x][y + 1].subtiles[10].territory) {
 				return false;
 			}
 		}
-		if (currentBoard[x][y + 1] != null) {
-			if (currentTile.subtiles[10].territory != currentBoard[x][y + 1].subtiles[4].territory) {
+		if (currentBoard[x][y - 1] != null) {
+			if (currentTile.subtiles[10].territory != currentBoard[x][y - 1].subtiles[4].territory) {
 				return false;
 			}
 		}
