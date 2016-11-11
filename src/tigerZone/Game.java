@@ -1,5 +1,5 @@
 package tigerZone;
-
+//hello
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,15 +30,29 @@ public class Game {
 		Tile D = new Tile("lllllljtjlllR", 5);
 		Tile E = new Tile("llljjjjjjjjjR", 6);
 		Deck myDeck = new Deck(A, B, C, D, E);
-
+		
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
+		//remove later
+		board[0][0] = A;
+		board[5][6] = B;
+		updatePlaceable(placedPos, placeablePos, 0, 0);
+		updatePlaceable(placedPos, placeablePos, 5, 6);
+		//remove later end
+		
+		
 		// Starter location is added as a placeablePos, starter tile is then
 		// automatically placed and the placed/placeable array lists are updated
 		placeablePos.add(new ArrayCoord(36, 36));
 		board[36][36] = starter;
 		updatePlaceable(placedPos, placeablePos, 36, 36);
 		
+		//remove
+		printPlaceable(placeablePos);
+		printPlaced(placedPos);
+		//remove end
+		
+		printBoard(board, placeablePos);
 		
 		printTile(starter);
 
@@ -111,7 +125,7 @@ public class Game {
 		// printPlaceable(placeablePos);
 		// printPlaced(placedPos);
 
-		printBoard(board);
+	//	printBoard(board);
 	}
 
 	// METHODS
@@ -258,23 +272,85 @@ public class Game {
 		System.out.println();
 	}
 
-	static void printBoard(Tile[][] board) {
+	static char[] printer(Tile tile)
+	{
+		char[] subtiles = new char[30];
+		subtiles[0] = '*';
+		subtiles[4] ='*';
+		subtiles[20] ='*';
+		subtiles[24] = '*';
+		
+		subtiles[6] = ' ';
+		subtiles[7] = ' ';
+		subtiles[8] = ' ';
+		subtiles[11] = ' ';		
+		subtiles[13] = ' ';
+		subtiles[16] = ' ';
+		subtiles[17] = ' ';
+		subtiles[18] = ' ';
+		subtiles[25] = '-';
+		subtiles[26] = '-';		
+		subtiles[27] = '-';
+		subtiles[28] = '-';
+		subtiles[29] = '-';
+		
+		subtiles[1] = tile.subtiles[0].territory;
+		subtiles[2] = tile.subtiles[1].territory;
+		subtiles[3] = tile.subtiles[2].territory;
+		subtiles[5] = tile.subtiles[11].territory;
+		subtiles[9] = tile.subtiles[3].territory;
+		subtiles[10] = tile.subtiles[10].territory;
+		subtiles[12] = tile.subtiles[12].territory;
+		subtiles[14] = tile.subtiles[4].territory;
+		subtiles[15] = tile.subtiles[9].territory;
+		subtiles[19] = tile.subtiles[5].territory;
+		subtiles[23] = tile.subtiles[6].territory;
+		subtiles[22] = tile.subtiles[7].territory;
+		subtiles[21] = tile.subtiles[8].territory;
+		return subtiles;
+	}
+	
+	static void printBoard(Tile[][] board, ArrayList<ArrayCoord> placedPos) {
+		int minx = 77;
+		int miny = 77;
+		int maxx = 0;
+		int maxy = 0;
+		for(int i =0; i <placedPos.size(); i++)
+		{
+			if(placedPos.get(i).x<minx)
+				minx=placedPos.get(i).x;
+			if(placedPos.get(i).y<miny)
+				miny=placedPos.get(i).y;
+			if(placedPos.get(i).x>maxx)
+				maxx=placedPos.get(i).x;
+			if(placedPos.get(i).y>maxy)
+				maxy=placedPos.get(i).y;
+		}
+		System.out.println("min x " + minx);
+		System.out.println("min y " + miny);
+		System.out.println("max x " + maxx);
+		System.out.println("max y " + maxy);
 		int x = 0;
-		for (int i = 0; i < 77; i++) {// i is row
-			for (int h = 0; h < 3; h++) {
-				for (int j = 0; j < 77; j++) {// j is column
-					for (int k = x; k < x + 3; k++)// k is subtile, x is
+		for (int i = 0; i < maxy; i++) {// i is row or y
+			for (int h = 0; h < 6; h++) {//makes sure you go through the row 6 times for each of the 6 rows of characters
+				for (int j = 0; j < maxx; j++) {// j is column or x
+					for (int k = x; k < x + 5; k++)// k is subtile, x is
 													// iteration over tile
 					{
 						if (board[i][j] == null)
+						{
 							System.out.print(" ");
+						}
 						else
-							System.out.print(board[i][j].subtiles[k].territory);
-						if (k == x + 2)
+						{
+							System.out.print(printer(board[i][j])[k]);
+						}
+						if (k == x + 4){
 							System.out.print("|");
+						}
 					}
 				}
-				x = x + 3;
+				x = x + 5;
 				System.out.println();
 			}
 			x = 0;
