@@ -27,7 +27,10 @@ public class Tile {
 		id = identifier;
 	}
 
-	public void Rotate() {
+	public void Rotate(int rotationDegree) {
+		
+		for (int i = 0; i < rotationDegree; i++)
+		{
 		Subtile temp;
 		temp = subtiles[6];
 		subtiles[6] = subtiles[8];
@@ -40,6 +43,7 @@ public class Tile {
 		subtiles[7] = subtiles[5];
 		subtiles[5] = subtiles[1];
 		subtiles[1] = temp;
+		}
 
 	}
 }

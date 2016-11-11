@@ -15,11 +15,21 @@ public class Game {
 
 		// Initializes the array lists that contain placed positions and
 		// placeable positions
+		Scanner sc = new Scanner(System.in);
+
 		ArrayList<ArrayCoord> placeablePos = new ArrayList<ArrayCoord>();
 		ArrayList<ArrayCoord> placedPos = new ArrayList<ArrayCoord>();
 
 		// Creates Starter Tile
 		Tile starter = new Tile("jljtttjjj", 1);
+
+		// Initializes the deck with tiles
+		Tile A = new Tile("jtjjtjjtj", 2);
+		Tile B = new Tile("jjjttjjtj", 3);
+		Tile C = new Tile("jtjtjtjtj", 4);
+		Tile D = new Tile("lllllljtj", 5);
+		Tile E = new Tile("jljjjjjjj", 6);
+		Deck myDeck = new Deck(A, B, C, D, E);
 
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
@@ -29,10 +39,46 @@ public class Game {
 		board[36][36] = starter;
 		updatePlaceable(placedPos, placeablePos, 36, 36);
 
-		printPlaceable(placeablePos);
+		// Users plays game
+		while (myDeck.deck.size() > 0) {
+			int x = 0;
+			int y = 0;
 
-		printPlaceable(placeablePos);
-		printPlaced(placedPos);
+			System.out.print("The current tile is: ");
+			Tile myTile = myDeck.deck.remove();
+			printTile(myTile);
+
+			boolean valid = false;
+			while (valid == false) {
+
+				System.out.println("Please choose a rotation degree for the tile (0, 1, 2, 3)");
+				int degree = sc.nextInt();
+				myTile.Rotate(degree);
+				if (degree > 0) {
+					System.out.println("The current tile is now: ");
+					printTile(myTile);
+				}
+
+				printPlaceable(placeablePos);
+				System.out.println("Please select an X and Y coordinate to place the tile");
+				x = sc.nextInt();
+				y = sc.nextInt();
+
+				valid = validPlacement(myTile, board, placeablePos, x, y);
+				if (valid == false) {
+					System.out.println("Invalid placement, please place again");
+				} else {
+					System.out.println("Tile successfully placed");
+				}
+			}
+
+			board[x][y] = myTile;
+			updatePlaceable(placedPos, placeablePos, x, y);
+		}
+
+		// printPlaceable(placeablePos);
+		// printPlaceable(placeablePos);
+		// printPlaced(placedPos);
 
 		// TESTING
 
@@ -62,7 +108,7 @@ public class Game {
 		// printPlaceable(placeablePos);
 		// printPlaced(placedPos);
 
-		// printBoard(board);
+		printBoard(board);
 	}
 
 	// METHODS
@@ -96,8 +142,19 @@ public class Game {
 	}
 
 	// Method for evaluating whether continuity in territory types is preserved
-	// in adjacent tiles
-	public static boolean validPlacement(Tile currentTile, Tile[][] currentBoard, int x, int y) {
+	// in adjacent tiles. Returns True if valid
+	public static boolean validPlacement(Tile currentTile, Tile[][] currentBoard, ArrayList<ArrayCoord> placeablePos,
+			int x, int y) {
+
+		boolean flag = false;
+		for (int i = 0; i < placeablePos.size(); i++) {
+			if (x == placeablePos.get(i).x && y == placeablePos.get(i).y) {
+				flag = true;
+			}
+		}
+		if (flag == false) {
+			return false;
+		}
 
 		if (currentBoard[x - 1][y] != null) {
 			if (currentTile.subtiles[1].territory != currentBoard[x - 1][y].subtiles[7].territory) {
@@ -135,10 +192,10 @@ public class Game {
 			if (x == placeablePos.get(i).x && y == placeablePos.get(i).y) {
 				placedPos.add(placeablePos.get(i));
 				if (placeablePos.remove(placeablePos.get(i)) == true) {
-					System.out.println("Hello world");
+					// System.out.println("Hello world");
 				}
 			} else {
-				System.out.println("Goodbye world");
+				// System.out.println("Goodbye world");
 			}
 		}
 
@@ -175,6 +232,18 @@ public class Game {
 			placeablePos.add(new ArrayCoord(x, (y + 1)));
 		}
 
+	}
+
+	static void printTile(Tile tile) {
+		// System.out.print(tile.id);
+		System.out.println();
+		for (int i = 0; i < 9; i++) {
+			System.out.print(tile.subtiles[i].territory + " ");
+			if ((i + 1) % 3 == 0) {
+				System.out.println();
+			}
+		}
+		System.out.println();
 	}
 
 	static void printBoard(Tile[][] board) {
