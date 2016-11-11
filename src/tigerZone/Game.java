@@ -21,14 +21,14 @@ public class Game {
 		ArrayList<ArrayCoord> placedPos = new ArrayList<ArrayCoord>();
 
 		// Creates Starter Tile
-		Tile starter = new Tile("jljtttjjj", 1);
+		Tile starter = new Tile("llljtjjjjjtjR", 1);
 
 		// Initializes the deck with tiles
-		Tile A = new Tile("jtjjtjjtj", 2);
-		Tile B = new Tile("jjjttjjtj", 3);
-		Tile C = new Tile("jtjtjtjtj", 4);
-		Tile D = new Tile("lllllljtj", 5);
-		Tile E = new Tile("jljjjjjjj", 6);
+		Tile A = new Tile("jtjjjjjtjjjjR", 2);
+		Tile B = new Tile("jjjjjjjtjjtjR", 3);
+		Tile C = new Tile("jtjjtjjtjjtjR", 4);
+		Tile D = new Tile("lllllljtjlllR", 5);
+		Tile E = new Tile("llljjjjjjjjjR", 6);
 		Deck myDeck = new Deck(A, B, C, D, E);
 
 		// Initializes the board
@@ -38,13 +38,16 @@ public class Game {
 		placeablePos.add(new ArrayCoord(36, 36));
 		board[36][36] = starter;
 		updatePlaceable(placedPos, placeablePos, 36, 36);
+		
+		
+		printTile(starter);
 
 		// Users plays game
 		while (myDeck.deck.size() > 0) {
 			int x = 0;
 			int y = 0;
 
-			System.out.print("The current tile is: ");
+			System.out.println("The current tile is: ");
 			Tile myTile = myDeck.deck.remove();
 			printTile(myTile);
 
@@ -167,12 +170,12 @@ public class Game {
 			}
 		}
 		if (currentBoard[x][y - 1] != null) {
-			if (currentTile.subtiles[3].territory != currentBoard[x][y - 1].subtiles[5].territory) {
+			if (currentTile.subtiles[4].territory != currentBoard[x][y - 1].subtiles[10].territory) {
 				return false;
 			}
 		}
 		if (currentBoard[x][y + 1] != null) {
-			if (currentTile.subtiles[5].territory != currentBoard[x][y + 1].subtiles[3].territory) {
+			if (currentTile.subtiles[10].territory != currentBoard[x][y + 1].subtiles[4].territory) {
 				return false;
 			}
 		}
@@ -236,13 +239,22 @@ public class Game {
 
 	static void printTile(Tile tile) {
 		// System.out.print(tile.id);
-		System.out.println();
-		for (int i = 0; i < 9; i++) {
-			System.out.print(tile.subtiles[i].territory + " ");
-			if ((i + 1) % 3 == 0) {
-				System.out.println();
-			}
-		}
+		
+		System.out.println(" " + tile.subtiles[0].territory + tile.subtiles[1].territory + tile.subtiles[2].territory + " ");
+		System.out.println(tile.subtiles[11].territory + "   " + tile.subtiles[3].territory);
+		System.out.println(tile.subtiles[10].territory + " " + tile.subtiles[12].territory + " " + tile.subtiles[4].territory);
+		System.out.println(tile.subtiles[9].territory + "   " + tile.subtiles[5].territory);
+		System.out.println(" " + tile.subtiles[8].territory + tile.subtiles[7].territory + tile.subtiles[6].territory + " ");
+		
+		
+		
+//		System.out.println();
+//		for (int i = 0; i < 13; i++) {
+//			System.out.print(tile.subtiles[i].territory + " ");
+//			if ((i + 1) % 3 == 0) {
+//				System.out.println();
+//			}
+//		}
 		System.out.println();
 	}
 

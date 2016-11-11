@@ -10,8 +10,8 @@ public class Tile {
 	boolean shield;
 
 	public Tile(String territories, int identifier) {
-		subtiles = new Subtile[9];
-		for (int i = 0; i < 9; i++) {
+		subtiles = new Subtile[13];
+		for (int i = 0; i < 13; i++) {
 			subtiles[i] = new Subtile(territories.charAt(i));
 		}
 
@@ -31,18 +31,37 @@ public class Tile {
 		
 		for (int i = 0; i < rotationDegree; i++)
 		{
-		Subtile temp;
-		temp = subtiles[6];
-		subtiles[6] = subtiles[8];
-		subtiles[8] = subtiles[2];
-		subtiles[2] = subtiles[0];
-		subtiles[0] = temp;
-
-		temp = subtiles[3];
-		subtiles[3] = subtiles[7];
-		subtiles[7] = subtiles[5];
-		subtiles[5] = subtiles[1];
-		subtiles[1] = temp;
+			Subtile t1 = subtiles[3];
+			Subtile t2 = subtiles[4];
+			Subtile t3 = subtiles[5];
+			
+			subtiles[3] = subtiles[0];
+			subtiles[4] = subtiles[1];
+			subtiles[5] = subtiles[2];
+			
+			subtiles[0] = subtiles[9];
+			subtiles[1] = subtiles[10];
+			subtiles[2] = subtiles[11];
+			
+			subtiles[9] = subtiles[6];
+			subtiles[10] = subtiles[7];
+			subtiles[11] = subtiles[8];
+			
+			subtiles[6] = t1;
+			subtiles[7] = t2;
+			subtiles[8] = t3;
+//		Subtile temp;
+//		temp = subtiles[6];
+//		subtiles[6] = subtiles[8];
+//		subtiles[8] = subtiles[2];
+//		subtiles[2] = subtiles[0];
+//		subtiles[0] = temp;
+//
+//		temp = subtiles[3];
+//		subtiles[3] = subtiles[7];
+//		subtiles[7] = subtiles[5];
+//		subtiles[5] = subtiles[1];
+//		subtiles[1] = temp;
 		}
 
 	}
