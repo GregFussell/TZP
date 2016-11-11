@@ -12,42 +12,55 @@ public class Game {
 		// 't','t','t',
 		// 'j','j','j',
 		// 1);
-		Tile starter = new Tile("jljtttjjj", 1);
 
-		Tile[][] board = new Tile[77][77];
-		board[36][36] = starter;
-
+		// Initializes the array lists that contain placed positions and
+		// placeable positions
 		ArrayList<ArrayCoord> placeablePos = new ArrayList<ArrayCoord>();
-
 		ArrayList<ArrayCoord> placedPos = new ArrayList<ArrayCoord>();
 
+		// Creates Starter Tile
+		Tile starter = new Tile("jljtttjjj", 1);
+
+		// Initializes the board
+		Tile[][] board = new Tile[77][77];
+		// Starter location is added as a placeablePos, starter tile is then
+		// automatically placed and the placed/placeable array lists are updated
 		placeablePos.add(new ArrayCoord(36, 36));
+		board[36][36] = starter;
+		updatePlaceable(placedPos, placeablePos, 36, 36);
 
 		printPlaceable(placeablePos);
-
-		updatePlaceable(placedPos, placeablePos, 36, 36);
 
 		printPlaceable(placeablePos);
 		printPlaced(placedPos);
 
 		// TESTING
-		/*
-		 * System.out.println(placedPos.get(0).x);
-		 * 
-		 * System.out.print(board[36][36].id); System.out.println(); for (int i
-		 * = 0; i < 9; i++) {
-		 * System.out.print(board[36][36].subtiles[i].territory + " "); if ((i +
-		 * 1) % 3 == 0) { System.out.println(); } }
-		 * 
-		 * System.out.println(); board[36][36].Rotate();
-		 * 
-		 * System.out.print(board[36][36].id); System.out.println(); for (int i
-		 * = 0; i < 9; i++) {
-		 * System.out.print(board[36][36].subtiles[i].territory + " "); if ((i +
-		 * 1) % 3 == 0) { System.out.println(); } }
-		 * 
-		 * printPlaceable(placeablePos); printPlaced(placedPos);
-		 */
+
+		// System.out.println(placedPos.get(0).x);
+		//
+		// System.out.print(board[36][36].id);
+		// System.out.println();
+		// for (int i = 0; i < 9; i++) {
+		// System.out.print(board[36][36].subtiles[i].territory + " ");
+		// if ((i + 1) % 3 == 0) {
+		// System.out.println();
+		// }
+		// }
+		//
+		// System.out.println();
+		// board[36][36].Rotate();
+		//
+		// System.out.print(board[36][36].id);
+		// System.out.println();
+		// for (int i = 0; i < 9; i++) {
+		// System.out.print(board[36][36].subtiles[i].territory + " ");
+		// if ((i + 1) % 3 == 0) {
+		// System.out.println();
+		// }
+		// }
+		//
+		// printPlaceable(placeablePos);
+		// printPlaced(placedPos);
 
 		// printBoard(board);
 	}
@@ -82,9 +95,32 @@ public class Game {
 		System.out.println();
 	}
 
-	// Method for
-	public static void validPlacement() {
+	// Method for evaluating whether continuity in territory types is preserved
+	// in adjacent tiles
+	public static boolean validPlacement(Tile currentTile, Tile[][] currentBoard, int x, int y) {
 
+		if (currentBoard[x - 1][y] != null) {
+			if (currentTile.subtiles[1].territory != currentBoard[x - 1][y].subtiles[7].territory) {
+				return false;
+			}
+		}
+		if (currentBoard[x + 1][y] != null) {
+			if (currentTile.subtiles[7].territory != currentBoard[x + 1][y].subtiles[1].territory) {
+				return false;
+			}
+		}
+		if (currentBoard[x][y - 1] != null) {
+			if (currentTile.subtiles[3].territory != currentBoard[x][y - 1].subtiles[5].territory) {
+				return false;
+			}
+		}
+		if (currentBoard[x][y + 1] != null) {
+			if (currentTile.subtiles[5].territory != currentBoard[x][y + 1].subtiles[3].territory) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	// Method that takes the user's chosen position out of the placeablePos
@@ -140,17 +176,6 @@ public class Game {
 		}
 
 	}
-
-	// OLD placeable
-	/*
-	 * public static void updatePlaceable(ArrayList<ArrayCoord> placedPos,
-	 * ArrayList<ArrayCoord> placeablePos, int x, int y) { for (int i = 0; i <
-	 * placeablePos.size(); i++) { if (x == placeablePos.get(i).x && y ==
-	 * placeablePos.get(i).y) { placedPos.add(placeablePos.get(i)); if
-	 * (placeablePos.remove(placeablePos.get(i)) == true) {
-	 * System.out.println("Hello world"); } } else {
-	 * System.out.println("Goodbye world"); } } }
-	 */
 
 	static void printBoard(Tile[][] board) {
 		int x = 0;
