@@ -1,5 +1,7 @@
 package tigerZone;
 
+import java.util.ArrayList;
+
 public class ArrayCoord {
 	int x;
 	int y;
@@ -9,4 +11,5 @@ public class ArrayCoord {
 		this.y = y;
 	}
 
+	
 }

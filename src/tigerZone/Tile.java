@@ -2,17 +2,19 @@ package tigerZone;
 
 public class Tile {
 
-	Subtile subtiles[];
+	Territory subtiles[];
 
 	int position[] = new int[2];
 	int id;
 
 	boolean shield;
 
-	public Tile(String territories, int identifier) {
-		subtiles = new Subtile[13];
+	public Tile(Territory[] territories, int identifier) {
+		subtiles = new Territory[13];
 		for (int i = 0; i < 13; i++) {
-			subtiles[i] = new Subtile(territories.charAt(i));
+			
+			subtiles[i] = territories[i];
+			//subtiles[i] = new Territory(territories.charAt(i));
 		}
 
 		// subtiles[0] = new Subtile(zero);
@@ -31,9 +33,9 @@ public class Tile {
 		
 		for (int i = 0; i < rotationDegree; i++)
 		{
-			Subtile t1 = subtiles[3];
-			Subtile t2 = subtiles[4];
-			Subtile t3 = subtiles[5];
+			Territory t1 = subtiles[3];
+			Territory t2 = subtiles[4];
+			Territory t3 = subtiles[5];
 			
 			subtiles[3] = subtiles[0];
 			subtiles[4] = subtiles[1];

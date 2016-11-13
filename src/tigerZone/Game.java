@@ -19,28 +19,274 @@ public class Game {
 
 		ArrayList<ArrayCoord> placeablePos = new ArrayList<ArrayCoord>();
 		ArrayList<ArrayCoord> placedPos = new ArrayList<ArrayCoord>();
+		
+		Territory[] myTerritories = new Territory[246];
+		
+		//Creates Territories for Starter Tile
+		Territory[] territories = new Territory[13];
+		
+		Territory ter = new Territory(0, ' ', 0, false);
+		myTerritories[0] = ter;
+		
+		//Tile D : starter tile
+		Territory ter1 = new Territory(1, 'l', 1, false); myTerritories[1] = ter1;//North lake
+		Territory ter2 = new Territory(2, 'j', 2, false); myTerritories[2] = ter2;//North Jungle
+		Territory ter3 = new Territory(3, 't', 2, false); myTerritories[3] = ter3;//Road
+		Territory ter4 = new Territory(4, 'j', 3, false); myTerritories[0] = ter4;//South Jungle
+		ter1.containedTiles.add(new ArrayCoord (36,36));
+		ter2.containedTiles.add(new ArrayCoord (36,36));
+		ter3.containedTiles.add(new ArrayCoord (36,36));
+		ter4.containedTiles.add(new ArrayCoord (36,36));
+		
+		
+		territories[0] = ter1;
+		territories[1] = ter1;
+		territories[2] = ter1;
+		territories[3] = ter2;
+		territories[4] = ter3;
+		territories[5] = ter4;
+		territories[6] = ter4;
+		territories[7] = ter4;
+		territories[8] = ter4;
+		territories[9] = ter4;
+		territories[10] = ter3;
+		territories[11] = ter2;
+		territories[12] = ter;
+		//
+		Tile starter = new Tile(territories, 1);
+		
+		
+		//Tile U
+		Territory ter5 = new Territory(5, 'j', 3, false); myTerritories[5] = ter5;//North jungle
+		Territory ter6 = new Territory(6, 't', 2, false); myTerritories[6] = ter6;//Road
+		Territory ter7 = new Territory(7, 'j', 3, false); myTerritories[7] = ter7;//South Jungle
+		
+		territories[0] = ter5;
+		territories[1] = ter5;
+		territories[2] = ter5;
+		territories[3] = ter5;
+		territories[4] = ter6;
+		territories[5] = ter7;
+		territories[6] = ter7;
+		territories[7] = ter7;
+		territories[8] = ter7;
+		territories[9] = ter7;
+		territories[10] = ter6;
+		territories[11] = ter5;
+		territories[12] = ter;
+		
+		Tile A = new Tile(territories, 2);
+	
+		//Tile V.1 
+		Territory ter8 = new Territory(8, 'j', 3, false); myTerritories[8] = ter8;//North jungle
+		Territory ter9 = new Territory(9, 't', 2, false); myTerritories[9] = ter9;//Road
+		Territory ter10 = new Territory(10, 'j', 2, false); myTerritories[10] = ter10;//South Jungle
+		
+		territories[0] = ter8;
+		territories[1] = ter8;
+		territories[2] = ter8;
+		territories[3] = ter8;
+		territories[4] = ter8;
+		territories[5] = ter8;
+		territories[6] = ter8;
+		territories[7] = ter9;
+		territories[8] = ter10;
+		territories[9] = ter10;
+		territories[10] = ter9;
+		territories[11] = ter10;
+		territories[12] = ter;
+		
+		Tile B = new Tile(territories, 3);
+		ter8.containedTiles.add(new ArrayCoord (36,36));
+		ter9.containedTiles.add(new ArrayCoord (36,36));
+		ter10.containedTiles.add(new ArrayCoord (36,36));
 
+		
+		//Tile V.2
+		Territory ter11 = new Territory(11, 'j', 3, false); myTerritories[11] = ter11;//North jungle
+		Territory ter12 = new Territory(12, 't', 2, false); myTerritories[12] = ter12;//Road
+		Territory ter13 = new Territory(13, 'j', 2, false); myTerritories[13] = ter13;//South Jungle
+		
+		territories[0] = ter11;
+		territories[1] = ter11;
+		territories[2] = ter11;
+		territories[3] = ter11;
+		territories[4] = ter11;
+		territories[5] = ter11;
+		territories[6] = ter11;
+		territories[7] = ter12;
+		territories[8] = ter13;
+		territories[9] = ter13;
+		territories[10] = ter12;
+		territories[11] = ter13;
+		territories[12] = ter;
+		
+		Tile C = new Tile(territories, 4);
+		
+		//Tile V.3
+		Territory ter14 = new Territory(14, 'j', 3, false); myTerritories[14] = ter14;
+		Territory ter15 = new Territory(15, 't', 2, false); myTerritories[15] = ter15;
+		Territory ter16 = new Territory(16, 'j', 2, false); myTerritories[16] = ter16;
+		
+		territories[0] = ter14;
+		territories[1] = ter14;
+		territories[2] = ter14;
+		territories[3] = ter14;
+		territories[4] = ter14;
+		territories[5] = ter14;
+		territories[6] = ter14;
+		territories[7] = ter15;
+		territories[8] = ter16;
+		territories[9] = ter16;
+		territories[10] = ter15;
+		territories[11] = ter16;
+		territories[12] = ter;
+		
+		Tile D = new Tile(territories, 5);
+		
+		//Tile V.4
+		Territory ter17 = new Territory(17, 'j', 3, false); myTerritories[17] = ter17;
+		Territory ter18 = new Territory(18, 't', 2, false); myTerritories[18] = ter18;
+		Territory ter19 = new Territory(19, 'j', 2, false); myTerritories[19] = ter19;
+		
+		territories[0] = ter17;
+		territories[1] = ter17;
+		territories[2] = ter17;
+		territories[3] = ter17;
+		territories[4] = ter17;
+		territories[5] = ter17;
+		territories[6] = ter17;
+		territories[7] = ter18;
+		territories[8] = ter19;
+		territories[9] = ter19;
+		territories[10] = ter18;
+		territories[11] = ter19;
+		territories[12] = ter;
+		
+		Tile E = new Tile(territories, 6);
+		
 		// Creates Starter Tile
-		Tile starter = new Tile("llljtjjjjjtjR", 1);
+		//Tile starter = new Tile("llljtjjjjjtjR", 1);
+		//Tile starter = new Tile(territories, 1);
 
 		// Initializes the deck with tiles
-		Tile A = new Tile("jtjjjjjtjjjjR", 2);
-		Tile B = new Tile("jjjjjjjtjjtjR", 3);
-		Tile C = new Tile("jtjjtjjtjjtjR", 4);
-		Tile D = new Tile("lllllljtjlllR", 5);
-		Tile E = new Tile("llljjjjjjjjjR", 6);
-		Deck myDeck = new Deck(A, B, C, D, E);
+//		Tile A = new Tile("jtjjjjjtjjjjR", 2);
+//		Tile B = new Tile("jjjjjjjtjjtjR", 3);
+//		Tile C = new Tile("jtjjtjjtjjtjR", 4);
+//		Tile D = new Tile("lllllljtjlllR", 5);
+//		Tile E = new Tile("llljjjjjjjjjR", 6);
+		Deck myDeck = new Deck(starter, starter, starter, starter, starter);
 
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
 		// Starter location is added as a placeablePos, starter tile is then
 		// automatically placed and the placed/placeable array lists are updated
 		placeablePos.add(new ArrayCoord(36, 36));
-		board[36][36] = starter;
+		board[36][36] = B;
 		updatePlaceable(placedPos, placeablePos, 36, 36);
 		
+		//Merge Testing
+	//	printTile(starter);
+	//	printTile(A);
+		printTile(B);
 		
-		printTile(starter);
+		C.Rotate(3);
+		D.Rotate(2);
+		E.Rotate(1);
+	
+		//Rewrite -> Then place tile
+
+		//
+		Territory merged = mergeTerritory(B.subtiles[10], C.subtiles[4], 36, 35);
+		int myID = C.subtiles[4].id;
+		int rewriteID = B.subtiles[10].id;
+		myTerritories[myID] = merged;
+		myTerritories[rewriteID].isDeleted = true;
+		mergeRewrite(board, myID, rewriteID, merged, 36, 35);
+		
+		board[36][35] = C;
+		updatePlaceable(placedPos, placeablePos, 36, 35);
+		
+
+		//
+		merged = mergeTerritory(C.subtiles[7], D.subtiles[1], 37, 35);
+		myID = D.subtiles[1].id;
+		rewriteID = C.subtiles[7].id;
+		myTerritories[myID] = merged;
+		myTerritories[rewriteID].isDeleted = true;
+		mergeRewrite(board, myID, rewriteID, merged, 37, 35);
+		
+		board[37][35] = D;
+		updatePlaceable(placedPos, placeablePos, 37, 35);
+		
+		
+		//
+		merged = mergeTerritory(D.subtiles[4], E.subtiles[10], 37, 36);
+		myID = E.subtiles[10].id;
+		rewriteID = D.subtiles[4].id;
+		myTerritories[myID] = merged;
+		myTerritories[rewriteID].isDeleted = true;
+		mergeRewrite(board, myID, rewriteID, merged, 37, 36);
+		
+		board[37][36] = E;
+		updatePlaceable(placedPos, placeablePos, 37, 36);
+		
+		
+		
+		System.out.println("Current IDs are: ");
+		System.out.println(board[36][35].subtiles[4].id);
+		System.out.println(board[36][35].subtiles[7].id);
+		System.out.println(board[36][36].subtiles[10].id);
+		System.out.println(board[36][36].subtiles[7].id);
+		
+		System.out.println(board[37][35].subtiles[1].id);
+		
+		System.out.println(board[37][36].subtiles[10].id);
+		
+		
+		System.out.println("Num Tiles = " + board[36][35].subtiles[7].containedTiles.size());
+		printArrayList(board[36][36].subtiles[1].containedTiles);
+		
+		printBoard(board, placedPos);
+	//	printBoardID(board, placedPos);
+		
+		board[37][36].subtiles[10].openFaces = 0;
+		System.out.println(board[36][36].subtiles[10].openFaces);
+
+		
+//		System.out.println("Current IDs are: ");
+//		System.out.println(board[36][35].subtiles[4].id);
+//		System.out.println(board[36][35].subtiles[10].id);
+//		System.out.println(board[36][36].subtiles[4].id);
+//		System.out.println(board[36][36].subtiles[10].id);
+//		
+//		Territory merged = mergeTerritory(starter.subtiles[4], A.subtiles[10], 36, 37);
+//		
+//		System.out.println("\nB");
+//		int myID = A.subtiles[10].id;
+//		int rewriteID = starter.subtiles[4].id;
+//		
+//		mergeRewrite(board, myID, rewriteID, merged, 36, 37);
+//		
+//		board[36][37] = A;
+//		updatePlaceable(placedPos, placeablePos, 36, 37);
+//		
+//		printArrayList(board[36][37].subtiles[4].containedTiles);
+//		
+//		System.out.println("Current IDs are: ");
+//		System.out.println(board[36][35].subtiles[4].id);
+//		System.out.println(board[36][35].subtiles[10].id);
+//		System.out.println(board[36][36].subtiles[4].id);
+//		System.out.println(board[36][36].subtiles[10].id);
+		
+		//printBoard(board, placedPos);
+		
+		//System.out.println(A.subtiles[10].id);
+		//System.out.println(starter.subtiles[4].id);
+		//End Merge
+		
+		//Loop of gameplay
+/*		printTile(starter);
 
 		// Users plays game
 		while (myDeck.deck.size() > 0) {
@@ -74,11 +320,19 @@ public class Game {
 					System.out.println("Tile successfully placed");
 				}
 			}
-
+			
+			
+			//Merge Territories Here
+			
+			//
+			
 			board[x][y] = myTile;
 			updatePlaceable(placedPos, placeablePos, x, y);
+		
+			
+			
 		}
-
+*/
 		// printPlaceable(placeablePos);
 		// printPlaceable(placeablePos);
 		// printPlaced(placedPos);
@@ -111,7 +365,8 @@ public class Game {
 		// printPlaceable(placeablePos);
 		// printPlaced(placedPos);
 
-		printBoard(board, placedPos);
+		
+	//	printBoard(board, placedPos);
 	}
 
 	// METHODS
@@ -236,7 +491,10 @@ public class Game {
 		}
 
 	}
-
+	
+	/////////////////////////////////////PRINTING METHODS/////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//Method for printing out a single tile, used for displaying the current tile to user
 	static void printTile(Tile tile) {
 		// System.out.print(tile.id);
 		
@@ -245,16 +503,6 @@ public class Game {
 		System.out.println(tile.subtiles[10].territory + " " + tile.subtiles[12].territory + " " + tile.subtiles[4].territory);
 		System.out.println(tile.subtiles[9].territory + "   " + tile.subtiles[5].territory);
 		System.out.println(" " + tile.subtiles[8].territory + tile.subtiles[7].territory + tile.subtiles[6].territory + " ");
-		
-		
-		
-//		System.out.println();
-//		for (int i = 0; i < 13; i++) {
-//			System.out.print(tile.subtiles[i].territory + " ");
-//			if ((i + 1) % 3 == 0) {
-//				System.out.println();
-//			}
-//		}
 		System.out.println();
 	}
 	
@@ -295,7 +543,7 @@ public class Game {
 		subtiles[21] = tile.subtiles[8].territory;
 		return subtiles;
 	}
-	
+	//Method for printing out the entire board
 	static void printBoard(Tile[][] board, ArrayList<ArrayCoord> placedPos) {
 		int minx = 77;
 		int miny = 77;
@@ -312,10 +560,10 @@ public class Game {
 			if(placedPos.get(i).y>maxy)
 				maxy=placedPos.get(i).y;
 		}
-		System.out.println("min x " + minx);
-		System.out.println("min y " + miny);
-		System.out.println("max x " + maxx);
-		System.out.println("max y " + maxy);
+//		System.out.println("min x " + minx);
+//		System.out.println("min y " + miny);
+//		System.out.println("max x " + maxx);
+//		System.out.println("max y " + maxy);
 		int x = 0;
 		for (int i = minx; i <= maxx; i++) {// i is row
 			for (int h = 0; h < 6; h++) {
@@ -343,9 +591,208 @@ public class Game {
 		}
 	}
 	
+	//TESTING PURPOSES ONLY DELETE LATER
 	
+	static String[] printerID(Tile tile)
+	{
+		String[] subtiles = new String[30];
+		subtiles[0] = Character.toString ((char) ' ');
+		subtiles[4] = Character.toString ((char) ' ');
+		subtiles[20] =Character.toString ((char) ' ');
+		subtiles[24] =Character.toString ((char) ' ');
+		
+		subtiles[6] = Character.toString ((char) ' ');
+		subtiles[7] = Character.toString ((char) ' ');
+		subtiles[8] = Character.toString ((char) ' ');
+		subtiles[11] = Character.toString ((char) ' ');		
+		subtiles[13] = Character.toString ((char) ' ');
+		subtiles[16] = Character.toString ((char) ' ');
+		subtiles[17] = Character.toString ((char) ' ');
+		subtiles[18] = Character.toString ((char) ' ');
+		subtiles[25] = Character.toString ((char) '-');
+		subtiles[26] = Character.toString ((char) '-');		
+		subtiles[27] = Character.toString ((char) '-');
+		subtiles[28] = Character.toString ((char) '-');
+		subtiles[29] = Character.toString ((char) '-');
+		
+		subtiles[1] = Integer.toString(tile.subtiles[0].id);
+		subtiles[2] = Integer.toString(tile.subtiles[1].id);
+		subtiles[3] = Integer.toString(tile.subtiles[2].id);
+		subtiles[5] = Integer.toString(tile.subtiles[11].id);
+		subtiles[9] = Integer.toString(tile.subtiles[3].id);
+		subtiles[10] = Integer.toString(tile.subtiles[10].id);
+		subtiles[12] = Integer.toString(tile.subtiles[12].id);
+		subtiles[14] = Integer.toString(tile.subtiles[4].id);
+		subtiles[15] = Integer.toString(tile.subtiles[9].id);
+		subtiles[19] = Integer.toString(tile.subtiles[5].id);
+		subtiles[23] = Integer.toString(tile.subtiles[6].id);
+		subtiles[22] = Integer.toString(tile.subtiles[7].id);
+		subtiles[21] = Integer.toString(tile.subtiles[8].id);
+		return subtiles;
+	}
 	
+	//Method for printing out the entire board
+	static void printBoardID(Tile[][] board, ArrayList<ArrayCoord> placedPos) {
+		int minx = 77;
+		int miny = 77;
+		int maxx = 0;
+		int maxy = 0;
+		for(int i =0; i < placedPos.size(); i++)
+		{
+			if(placedPos.get(i).x<minx)
+				minx=placedPos.get(i).x;
+			if(placedPos.get(i).y<miny)
+				miny=placedPos.get(i).y;
+			if(placedPos.get(i).x>maxx)
+				maxx=placedPos.get(i).x;
+			if(placedPos.get(i).y>maxy)
+				maxy=placedPos.get(i).y;
+		}
 
+		int x = 0;
+		for (int i = minx; i <= maxx; i++) {// i is row
+			for (int h = 0; h < 6; h++) {
+				for (int j = miny; j <= maxy; j++) {// j is column
+					for (int k = x; k < x + 5; k++)// k is subtile, x is
+													// iteration over tile
+					{
+						if (board[i][j] == null)
+						{
+							System.out.print(" ");
+						}
+						else
+						{
+							System.out.print(printerID(board[i][j])[k]);
+						}
+						if (k == x + 4){
+							System.out.print("|");
+						}
+					}
+				}
+				x = x + 5;
+				System.out.println();
+			}
+			x = 0;
+		}
+	}
+	
+	
+	//END TESTING 
+
+	public static void printArrayList(ArrayList<ArrayCoord> toPrint)
+	{
+		for(int i = 0; i < toPrint.size(); i++)
+		{
+			System.out.print("(" + toPrint.get(i).x + "," + toPrint.get(i).y + ") ");
+		}
+		System.out.println();
+	}
+	
+	
+	//Method to merge the contents of one territory with another.
+	public static Territory mergeTerritory(Territory toMerge, Territory currentTerritory, int x, int y)
+	{	
+		currentTerritory.numShields += toMerge.numShields;
+		currentTerritory.numTiles += toMerge.numTiles;
+		currentTerritory.openFaces += toMerge.openFaces - 2;
+		currentTerritory.player1Meeples += toMerge.player1Meeples;
+		currentTerritory.player2Meeples += toMerge.player2Meeples;
+		
+		//Checks if the tile is already in the territory to prevent double scoring a tile.
+		currentTerritory.containedTiles = toMerge.containedTiles;
+		boolean duplicate = false;
+		for (int i = 0; i < currentTerritory.containedTiles.size(); i++)
+		{
+			if (currentTerritory.containedTiles.get(i).x == x && currentTerritory.containedTiles.get(i).y == y)
+			{
+				duplicate = true;
+			}
+		}
+		if (duplicate == false)
+		{
+			currentTerritory.containedTiles.add(new ArrayCoord(x,y));
+		}
+		
+		toMerge.numTiles = 0;
+				
+		return currentTerritory;
+	}
+	
+	//Recursive call to rewrite previous territories into the newly placed territory
+	public static void mergeRewrite(Tile[][] board, int myID, int rewriteID, Territory merged, int x, int y)
+	{
+		//Check up tile
+		if (board[x-1][y] != null)
+		{
+			boolean up = false;
+			for (int i=0; i < 12; i++)
+			{
+				if (board[x-1][y].subtiles[i].id == rewriteID)
+				{
+					board[x-1][y].subtiles[i] = merged;
+					up = true;
+				}
+			}
+			if (up == true)
+			{
+				mergeRewrite(board, myID, rewriteID, merged, x-1, y);
+			}
+		}
+		//Check right tile
+		if (board[x][y+1] != null)
+		{
+			boolean right = false;
+			for (int i=0; i < 12; i++)
+			{
+				if (board[x][y+1].subtiles[i].id == rewriteID)
+				{
+					board[x][y+1].subtiles[i] = merged;
+					right = true;
+				}
+			}
+			if (right == true)
+			{
+				mergeRewrite(board, myID, rewriteID, merged, x, y+1);
+			}
+		}
+		//Check down tile	
+		if (board[x+1][y] != null)
+		{
+			boolean down = false;
+			for (int i=0; i < 12; i++)
+			{
+				if (board[x+1][y].subtiles[i].id == rewriteID)
+				{
+					board[x+1][y].subtiles[i] = merged;
+					down = true;
+				}
+			}
+			if (down == true)
+			{
+				mergeRewrite(board, myID, rewriteID, merged, x+1, y);
+			}
+		}
+		//Check left tile
+		if (board[x][y-1] != null)
+		{
+			boolean left = false;
+			for (int i=0; i < 12; i++)
+			{
+				if (board[x][y-1].subtiles[i].id == rewriteID)
+				{
+					board[x][y-1].subtiles[i] = merged;
+					left = true;
+				}
+			}
+			if (left == true)
+			{
+				mergeRewrite(board, myID, rewriteID, merged, x, y-1);
+			}
+		}	
+	}
+	
+	
+//OLD PRINT METHOD
 //	static void printBoard(Tile[][] board) {
 //		int x = 0;
 //		for (int i = 0; i < 77; i++) {// i is row
