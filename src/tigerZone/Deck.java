@@ -18,10 +18,6 @@ public class Deck {
 		deck.add(D);
 		deck.add(E);
 	}
-	public void initDeck()
-	{
-		
-	}
 
 }
 // Are we using 5 for testing or all 78?

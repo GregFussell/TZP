@@ -37,17 +37,11 @@ public class Game {
 		ter2.containedTiles.add(new ArrayCoord (36,36));
 		ter3.containedTiles.add(new ArrayCoord (36,36));
 		ter4.containedTiles.add(new ArrayCoord (36,36));
-		/*
-		  lll
-		 j   j
-		 r   r
-		  jjj
-		 */
+
 		
 		territories[0] = ter1;
 		territories[1] = ter1;
 		territories[2] = ter1;
-		ter2.Lakes.add(ter1);
 		territories[3] = ter2;
 		territories[4] = ter3;
 		territories[5] = ter4;
@@ -803,13 +797,6 @@ public class Game {
 	//Method to merge the contents of one territory with another.
 	public static Territory mergeTerritory(Territory toMerge, Territory currentTerritory, int x, int y)
 	{	
-		for(int i =0; i<toMerge.denLakes.size();i++)
-		{
-			Territory city = toMerge.denLakes.get(i);
-			if(!currentTerritory.denLakes.contains(city)){
-				currentTerritory.denLakes.add(city);
-			}
-		}
 		currentTerritory.numShields += toMerge.numShields;
 		currentTerritory.numTiles += toMerge.numTiles;
 		currentTerritory.openFaces += toMerge.openFaces - 2;

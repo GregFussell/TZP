@@ -8,8 +8,6 @@ public class Territory {
 	char territory;
 	boolean isComplete;
 	boolean isDeleted;
-	ArrayList<Territory> Lakes = new ArrayList<Territory>();
-	ArrayList<Territory> Dens = new ArrayList<Territory>();
 	int openFaces;
 	int player1Meeples;
 	int player2Meeples;
