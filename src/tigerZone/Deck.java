@@ -8,7 +8,7 @@ import java.util.Queue;
 public class Deck {
 	
 	//ArrayList<Tile> deck = new ArrayList<Tile>();
-	Queue<Tile> deck = new LinkedList<Tile>();
+	ArrayList<Tile> deck = new ArrayList<Tile>();
 	
 	public Deck(Tile A, Tile B, Tile C, Tile D, Tile E) {	
 
@@ -17,6 +17,10 @@ public class Deck {
 		deck.add(C);
 		deck.add(D);
 		deck.add(E);
+	}
+	public void initDeck()
+	{
+		
 	}
 
 }

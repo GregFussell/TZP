@@ -176,7 +176,9 @@ public class Game {
 //		Tile D = new Tile("lllllljtjlllR", 5);
 //		Tile E = new Tile("llljjjjjjjjjR", 6);
 		Deck myDeck = new Deck(C, D, E, A, A);
-
+		for(Tile tile:myDeck.deck){
+			printTile(tile);
+		}
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
 		// Starter location is added as a placeablePos, starter tile is then
@@ -199,7 +201,8 @@ public class Game {
 			printBoard(board, placedPos);
 			
 			System.out.println("The current tile is: ");
-			Tile myTile = myDeck.deck.remove();
+			Tile myTile = myDeck.deck.get(0);
+			myDeck.deck.remove(0);
 			printTile(myTile);
 
 			boolean valid = false;
@@ -760,11 +763,11 @@ public class Game {
 					{
 						if (board[i][j] == null)
 						{
-							System.out.print(" ");
+							System.out.print("  ");
 						}
 						else
 						{
-							System.out.print(printerID(board[i][j])[k]);
+							System.out.printf("%2s", printerID(board[i][j])[k]);
 						}
 						if (k == x + 4){
 							System.out.print("|");
@@ -794,6 +797,13 @@ public class Game {
 	//Method to merge the contents of one territory with another.
 	public static Territory mergeTerritory(Territory toMerge, Territory currentTerritory, int x, int y)
 	{	
+		for(int i =0; i<toMerge.denLakes.size();i++)
+		{
+			Territory city = toMerge.denLakes.get(i);
+			if(!currentTerritory.denLakes.contains(city)){
+				currentTerritory.denLakes.add(city);
+			}
+		}
 		currentTerritory.numShields += toMerge.numShields;
 		currentTerritory.numTiles += toMerge.numTiles;
 		currentTerritory.openFaces += toMerge.openFaces - 2;
