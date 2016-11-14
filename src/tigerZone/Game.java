@@ -22,23 +22,51 @@ public class Game {
 		ArrayList<ArrayCoord> placedPos = new ArrayList<ArrayCoord>();
 
 		// Creates Starter Tile
-		Tile starter = new Tile("llljtjjjjjtjR", 1);
+		Tile starter = new Tile("xlllx"
+				+ 				"jjjjj"
+				+ 				"ttttt"
+				+ 				"jjjjj"
+				+ 				"jjjjj", 1);
 
 		// Initializes the deck with tiles
-		Tile A = new Tile("jtjjjjjtjjjjR", 2);
-		Tile B = new Tile("jjjjjjjtjjtjR", 3);
-		Tile C = new Tile("jtjjtjjtjjtjR", 4);
-		Tile D = new Tile("lllllljtjlllR", 5);
-		Tile E = new Tile("llljjjjjjjjjR", 6);
+		Tile A = new Tile(		"xlllx"
+				+ 				"jjjjj"
+				+ 				"ttttt"
+				+ 				"jjjjj"
+				+ 				"jjjjj", 2);
+		Tile B = new Tile(		"xlllx"
+				+ 				"jjjjj"
+				+ 				"ttttt"
+				+ 				"jjjjj"
+				+ 				"jjjjj", 3);
+		Tile C = new Tile(		"xlllx"
+				+ 				"jjjjj"
+				+ 				"ttttt"
+				+ 				"jjjjj"
+				+ 				"jjjjj", 4);
+		Tile D = new Tile(		"xlllx"
+				+ 				"jjjjj"
+				+ 				"ttttt"
+				+ 				"jjjjj"
+				+ 				"jjjjj", 5);
+		Tile E = new Tile(		"xlllx"
+				+ 				"jjjjj"
+				+ 				"ttttt"
+				+ 				"jjjjj"
+				+ 				"jjjjj", 6);
+//		Tile B = new Tile("jjjjjjjtjjtjR", 3);
+//		Tile C = new Tile("jtjjtjjtjjtjR", 4);
+//		Tile D = new Tile("lllllljtjlllR", 5);
+//		Tile E = new Tile("llljjjjjjjjjR", 6);
 		Deck myDeck = new Deck(A, B, C, D, E);
 		
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
 		//remove later
-		board[0][0] = A;
-		board[5][6] = B;
-		updatePlaceable(placedPos, placeablePos, 0, 0);
-		updatePlaceable(placedPos, placeablePos, 5, 6);
+		//board[0][0] = A;
+//		board[5][6] = B;
+//		updatePlaceable(placedPos, placeablePos, 0, 0);
+//		updatePlaceable(placedPos, placeablePos, 5, 6);
 		//remove later end
 		
 		
@@ -47,15 +75,16 @@ public class Game {
 		placeablePos.add(new ArrayCoord(36, 36));
 		board[36][36] = starter;
 		updatePlaceable(placedPos, placeablePos, 36, 36);
+		//System.out.println(starter.subtiles[0][0].territory);
 		
 		//remove
-		printPlaceable(placeablePos);
-		printPlaced(placedPos);
+//		printPlaceable(placeablePos);
+//		printPlaced(placedPos);
 		//remove end
 		
-		printBoard(board, placeablePos);
+		//printBoard(board, placeablePos);
 		
-		printTile(starter);
+		//printTile(starter);
 
 		// Users plays game
 		while (myDeck.deck.size() > 0) {
@@ -78,6 +107,7 @@ public class Game {
 				}
 
 				printPlaceable(placeablePos);
+				printBoard(board,placeablePos);
 				System.out.println("Please select an X and Y coordinate to place the tile");
 				x = sc.nextInt();
 				y = sc.nextInt();
@@ -91,11 +121,32 @@ public class Game {
 			}
 
 			board[x][y] = myTile;
+			if (board[x - 1][y] != null)
+			{
+				myTile.subtiles[0][2].territory.openFaces--;
+				board[x - 1][y].subtiles[4][2].territory.openFaces--;
+				board[x - 1][y].subtiles[4][2].territory.merge(myTile.subtiles[0][2].territory);
+			}
+			if (board[x+1][y] != null){
+				myTile.subtiles[4][2].territory.openFaces--;
+				board[x + 1][y].subtiles[0][2].territory.openFaces--;
+				board[x - 1][y].subtiles[4][2].territory.merge(myTile.subtiles[0][2].territory);
+			}
+			if (board[x][y+1] != null){
+				myTile.subtiles[2][4].territory.openFaces--;
+				board[x][y - 1].subtiles[2][0].territory.openFaces--;
+				board[x][y - 1].subtiles[2][0].territory.merge(myTile.subtiles[2][4].territory);
+			}
+			if (board[x][y-1] != null){
+				myTile.subtiles[2][0].territory.openFaces--;
+				board[x][y + 1].subtiles[2][4].territory.openFaces--;
+				board[x][y + 1].subtiles[2][4].territory.merge(myTile.subtiles[2][0].territory);
+			}
 			updatePlaceable(placedPos, placeablePos, x, y);
 		}
 
-		// printPlaceable(placeablePos);
-		// printPlaceable(placeablePos);
+		printPlaceable(placeablePos);
+		printPlaceable(placeablePos);
 		// printPlaced(placedPos);
 
 		// TESTING
@@ -126,7 +177,7 @@ public class Game {
 		// printPlaceable(placeablePos);
 		// printPlaced(placedPos);
 
-	//	printBoard(board);
+		//printBoard(board);
 	}
 
 	// METHODS
@@ -175,24 +226,40 @@ public class Game {
 		}
 
 		if (currentBoard[x - 1][y] != null) {
-			if (currentTile.subtiles[1].territory != currentBoard[x - 1][y].subtiles[7].territory) {
+			if (currentTile.subtiles[0][2].territoryType != currentBoard[x - 1][y].subtiles[4][2].territoryType) {
 				return false;
 			}
+//			else{
+//				currentTile.subtiles[0][2].territory.openFaces--;
+//				currentBoard[x - 1][y].subtiles[4][2].territory.openFaces--;
+//			}
 		}
 		if (currentBoard[x + 1][y] != null) {
-			if (currentTile.subtiles[7].territory != currentBoard[x + 1][y].subtiles[1].territory) {
+			if (currentTile.subtiles[4][2].territoryType != currentBoard[x + 1][y].subtiles[0][2].territoryType) {
 				return false;
 			}
+//			else{
+//				currentTile.subtiles[4][2].territory.openFaces--;
+//				currentBoard[x + 1][y].subtiles[0][2].territory.openFaces--;
+//			}
 		}
 		if (currentBoard[x][y - 1] != null) {
-			if (currentTile.subtiles[4].territory != currentBoard[x][y - 1].subtiles[10].territory) {
+			if (currentTile.subtiles[2][4].territoryType != currentBoard[x][y - 1].subtiles[2][0].territoryType) {
 				return false;
 			}
+//			else{
+//				currentTile.subtiles[2][4].territory.openFaces--;
+//				currentBoard[x][y - 1].subtiles[2][0].territory.openFaces--;
+//			}
 		}
 		if (currentBoard[x][y + 1] != null) {
-			if (currentTile.subtiles[10].territory != currentBoard[x][y + 1].subtiles[4].territory) {
+			if (currentTile.subtiles[2][0].territoryType != currentBoard[x][y + 1].subtiles[2][4].territoryType) {
 				return false;
 			}
+//			else{
+//				currentTile.subtiles[2][0].territory.openFaces--;
+//				currentBoard[x][y + 1].subtiles[2][4].territory.openFaces--;
+//			}
 		}
 
 		return true;
@@ -255,11 +322,14 @@ public class Game {
 	static void printTile(Tile tile) {
 		// System.out.print(tile.id);
 		
-		System.out.println(" " + tile.subtiles[0].territory + tile.subtiles[1].territory + tile.subtiles[2].territory + " ");
-		System.out.println(tile.subtiles[11].territory + "   " + tile.subtiles[3].territory);
-		System.out.println(tile.subtiles[10].territory + " " + tile.subtiles[12].territory + " " + tile.subtiles[4].territory);
-		System.out.println(tile.subtiles[9].territory + "   " + tile.subtiles[5].territory);
-		System.out.println(" " + tile.subtiles[8].territory + tile.subtiles[7].territory + tile.subtiles[6].territory + " ");
+		for (int i=0; i<5; i++)
+		{
+			for(int j=0; j<5; j++)
+			{
+				System.out.print(tile.subtiles[j][i].territoryType);
+			}
+			System.out.println();
+		}
 		
 		
 		
@@ -276,38 +346,37 @@ public class Game {
 	static char[] printer(Tile tile)
 	{
 		char[] subtiles = new char[30];
-		subtiles[0] = '*';
-		subtiles[4] ='*';
-		subtiles[20] ='*';
-		subtiles[24] = '*';
-		
-		subtiles[6] = ' ';
-		subtiles[7] = ' ';
-		subtiles[8] = ' ';
-		subtiles[11] = ' ';		
-		subtiles[13] = ' ';
-		subtiles[16] = ' ';
-		subtiles[17] = ' ';
-		subtiles[18] = ' ';
-		subtiles[25] = '-';
-		subtiles[26] = '-';		
-		subtiles[27] = '-';
-		subtiles[28] = '-';
-		subtiles[29] = '-';
-		
-		subtiles[1] = tile.subtiles[0].territory;
-		subtiles[2] = tile.subtiles[1].territory;
-		subtiles[3] = tile.subtiles[2].territory;
-		subtiles[5] = tile.subtiles[11].territory;
-		subtiles[9] = tile.subtiles[3].territory;
-		subtiles[10] = tile.subtiles[10].territory;
-		subtiles[12] = tile.subtiles[12].territory;
-		subtiles[14] = tile.subtiles[4].territory;
-		subtiles[15] = tile.subtiles[9].territory;
-		subtiles[19] = tile.subtiles[5].territory;
-		subtiles[23] = tile.subtiles[6].territory;
-		subtiles[22] = tile.subtiles[7].territory;
-		subtiles[21] = tile.subtiles[8].territory;
+		for(int i=0; i<5; i++)
+		{
+			for (int j=0;j<5;j++)
+			{
+				subtiles[i+j*5]=tile.subtiles[i][j].territoryType;
+			}
+		}
+		for(int i=0; i<5;i++)
+		{
+			subtiles[i+25]='-';
+		}
+		return subtiles;
+	}
+	static char[] terPrinter(Tile tile){
+		char[] subtiles = new char[30];
+		for(int i=0; i<5; i++)
+		{
+			for (int j=0;j<5;j++)
+			{
+				if(tile.subtiles[i][j].territory!=null)
+				{
+					//subtiles[i+j*5] = (char) tile.subtiles[i][j].territory.id;
+					System.out.println(( tile.subtiles[i][j].territory.id));
+				}
+				else subtiles[i+j*5] = tile.subtiles[i][j].territoryType;
+			}
+		}
+		for(int i=0; i<5;i++)
+		{
+			subtiles[i+25]='-';
+		}
 		return subtiles;
 	}
 	
@@ -332,19 +401,43 @@ public class Game {
 		System.out.println("max x " + maxx);
 		System.out.println("max y " + maxy);
 		int x = 0;
-		for (int i = 0; i < maxy; i++) {// i is row or y
+		for (int i = miny; i < maxy+1; i++) {// i is row or y
 			for (int h = 0; h < 6; h++) {//makes sure you go through the row 6 times for each of the 6 rows of characters
-				for (int j = 0; j < maxx; j++) {// j is column or x
+				for (int j = minx; j < maxx+1; j++) {// j is column or x
 					for (int k = x; k < x + 5; k++)// k is subtile, x is
 													// iteration over tile
 					{
-						if (board[i][j] == null)
+						if (board[j][i] == null)
 						{
 							System.out.print(" ");
 						}
 						else
 						{
-							System.out.print(printer(board[i][j])[k]);
+							System.out.print(printer(board[j][i])[k]);
+						}
+						if (k == x + 4){
+							System.out.print("|");
+						}
+					}
+				}
+				x = x + 5;
+				System.out.println();
+			}
+			x = 0;
+		}
+		for (int i = miny; i < maxy+1; i++) {// i is row or y
+			for (int h = 0; h < 6; h++) {//makes sure you go through the row 6 times for each of the 6 rows of characters
+				for (int j = minx; j < maxx+1; j++) {// j is column or x
+					for (int k = x; k < x + 5; k++)// k is subtile, x is
+													// iteration over tile
+					{
+						if (board[j][i] == null)
+						{
+							System.out.print(" ");
+						}
+						else
+						{
+							System.out.print(terPrinter(board[j][i])[k]);
 						}
 						if (k == x + 4){
 							System.out.print("|");
@@ -357,4 +450,67 @@ public class Game {
 			x = 0;
 		}
 	}
+
 }
+/*The current tile is: 
+xlllx
+jjjjj
+ttttt
+jjjjj
+jjjjj
+
+Please choose a rotation degree for the tile (0, 1, 2, 3)
+0
+The placeable positions are: (35,36)  (37,36)  (36,35)  (36,37)  
+min x 35
+min y 35
+max x 37
+max y 37
+     |     |     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |xlllx|     |
+     |jjjjj|     |
+     |ttttt|     |
+     |jjjjj|     |
+     |jjjjj|     |
+     |-----|     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |     |     |
+     |1
+2
+3
+4
+4
+7
+6
+5
+4
+4
+7
+8
+9
+10
+10
+13
+12
+11
+10
+10
+12
+14
+15
+15

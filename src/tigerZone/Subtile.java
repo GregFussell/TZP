@@ -2,10 +2,13 @@ package tigerZone;
 
 public class Subtile {
 
-	char territory;
-
-	public Subtile(char ter) {
-		territory = ter;
+	Territory territory;
+	char territoryType;
+	ArrayCoord loc;
+	bool visited;
+	public Subtile(char ter, int x, int y) {
+		territoryType = ter;
+		this.loc = new ArrayCoord(x,y);
 	}
 
 }
