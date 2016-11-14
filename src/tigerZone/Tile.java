@@ -36,7 +36,7 @@ public class Tile {
 	  ArrayList<Subtile> adj= findadj(subtile);  
 	  for (int i = 0; i < adj.size(); i++) {  
 		  for(Subtile sub:adj){
-			  if
+			  
 		  }
 		  Subtile n=adj.get(i);
 		  if(n.territory!=null)
