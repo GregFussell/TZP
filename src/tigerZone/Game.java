@@ -186,9 +186,14 @@ public class Game {
 		placeablePos.add(new ArrayCoord(36, 36));
 		board[36][36] = B;
 		updatePlaceable(placedPos, placeablePos, 36, 36);
+		
+		AI Flynn = new AI();
+		int t[] = new int[3];
+		t = Flynn.decision(board, D, placeablePos);
 
 		
 //Loop of gameplay
+		int turn = 0;
 		
 	//	printTile(starter);
 
@@ -209,7 +214,15 @@ public class Game {
 			while (valid == false) {
 
 				System.out.println("Please choose a rotation degree for the tile (0, 1, 2, 3)");
-				int degree = sc.nextInt();
+				
+				int degree = 0;
+				//int degree = sc.nextInt();
+				if (turn == 0){
+					degree = t[0];
+				}
+				else{
+					degree = sc.nextInt();
+				}
 				myTile.Rotate(degree);
 				if (degree > 0) {
 					System.out.println("The current tile is now: ");
@@ -218,8 +231,16 @@ public class Game {
 
 				printPlaceable(placeablePos);
 				System.out.println("Please select an X and Y coordinate to place the tile");
-				x = sc.nextInt();
-				y = sc.nextInt();
+				//x = sc.nextInt();
+				if (turn == 0){
+					x = t[1];
+					y = t[2];
+				}
+				else{
+					x = sc.nextInt();
+				}
+				//y = sc.nextInt();
+				turn++;
 
 				valid = validPlacement(myTile, board, placeablePos, x, y);
 				if (valid == false) {
