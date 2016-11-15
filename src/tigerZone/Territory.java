@@ -14,7 +14,7 @@ public class Territory {
 	int numTiles;
 	int numShields;
 	ArrayList<ArrayCoord> containedTiles = new ArrayList<ArrayCoord>();
-	
+	//ArrayList<Integer> mergedTiles = new ArrayList<Integer>();
 
 	public Territory(int id, char type, int openFaces, boolean shield) {
 		this.id = id;
@@ -32,3 +32,4 @@ public class Territory {
 	}
 	
 }
+
