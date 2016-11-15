@@ -187,7 +187,7 @@ public class Game {
 		
 		AI Flynn = new AI();
 		int t[] = new int[3];
-		t = Flynn.decision(board, D, placeablePos);
+		//t = Flynn.decision(board, myDeck.deck.poll(), placeablePos);
 
 		
 //Loop of gameplay
@@ -209,13 +209,15 @@ public class Game {
 
 			boolean valid = false;
 			while (valid == false) {
-
+				if(turn%2 == 0){
+					t = Flynn.decision(board, myTile, placeablePos);
+				}
 				System.out.println("Please choose a rotation degree for the tile (0, 1, 2, 3)");
 				
 				int degree = 0;
 				//int degree = sc.nextInt();
-				if (turn == 0){
-					degree = t[0];
+				if (turn%2 == 0){
+					degree = t[0]; 
 				}
 				else{
 					degree = sc.nextInt();
@@ -229,12 +231,13 @@ public class Game {
 				printPlaceable(placeablePos);
 				System.out.println("Please select an X and Y coordinate to place the tile");
 				//x = sc.nextInt();
-				if (turn == 0){
-					x = t[1];
-					y = t[2];
+				if (turn%2 == 0){
+					x = t[1]; System.out.println(t[0]); System.out.println(t[1]);
+					y = t[2]; System.out.println(t[2]);
 				}
 				else{
 					x = sc.nextInt();
+					y = sc.nextInt();
 				}
 				//y = sc.nextInt();
 				turn++;
@@ -781,11 +784,11 @@ public class Game {
 					{
 						if (board[i][j] == null)
 						{
-							System.out.print(" ");
+							System.out.print("  ");
 						}
 						else
 						{
-							System.out.print(printerID(board[i][j])[k]);
+							System.out.printf("%2s", printerID(board[i][j])[k]);
 						}
 						if (k == x + 4){
 							System.out.print("|");

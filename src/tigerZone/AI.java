@@ -1,6 +1,7 @@
 package tigerZone;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class AI {
 	int RotationValue;
@@ -31,36 +32,54 @@ public class AI {
 		return YPlacement;
 	}
 	
-	public int[] decision(Tile[][] bored, Tile t, ArrayList<ArrayCoord> placeable){
-		
-		AI Flynn = new AI();
+	public int[] decision(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable){
 		
 		int[] PlacementArray = new int[placeable.size()*4];
-		
-		//Assigning values to certain moves, making invalid moves -1
-		
-		PlacementArray[10] = 50;
-		PlacementArray[2] = 5;
-		
-		int bestMove = -1;
-		
-		for(int y = 0; y < PlacementArray.length; y++){
-			if(bestMove < PlacementArray[y]){
-				bestMove = y;
+		boolean isvalid = true;
+		for(int i = 0; i < placeable.size(); i++){
+			for(int j = 0; j < 4; j++){
+				isvalid = Game.validPlacement(t, board, placeable, placeable.get(i).x, placeable.get(i).y);
+				t.Rotate(1);
+				if (!isvalid){
+					PlacementArray[(4*i)+j] = -1;
+				}
 			}
 		}
 		
-		Flynn.setRotationValue(bestMove%4);
+		//Assigning values to certain moves, making invalid moves -1
+		Random rn = new Random();
+		for(int i = 0; i < PlacementArray.length; i++){
+			if(PlacementArray[i] != -1){
+				PlacementArray[i] = rn.nextInt(50);
+			}
+		}
+		for(int i = 0; i < PlacementArray.length; i++){
+			System.out.print(PlacementArray[i] + " ");
+		}
+		Game.printPlaceable(placeable);
 		
-		bestMove = bestMove/4;
+		PlacementArray[10] = 1;
 		
-		Flynn.setXPlacement(placeable.get(bestMove).x);
-		Flynn.setYPlacement(placeable.get(bestMove).y);
+		int bestMove = -1;
+		int bestMoveindex = 0;
 		
+		for(int y = 0; y < PlacementArray.length; y++){
+			if(bestMove < PlacementArray[y]){
+				bestMoveindex = y;
+				bestMove = PlacementArray[y];
+			}
+		}
+		
+		setRotationValue(bestMoveindex%4);
+		
+		bestMoveindex = bestMoveindex/4;
+		
+		setXPlacement(placeable.get(bestMoveindex).x);
+		setYPlacement(placeable.get(bestMoveindex).y);
 		int d[] = new int[3];
-		d[0] = Flynn.getRotationValue();
-		d[1] = Flynn.getXPlacement();
-		d[2] = Flynn.getYPlacement();
+		d[0] = getRotationValue();
+		d[1] = getXPlacement();
+		d[2] = getYPlacement();
 		return d;
 		
 		
