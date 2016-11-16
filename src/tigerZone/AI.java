@@ -39,7 +39,7 @@ public class AI {
 		return YPlacement;
 	}
 	
-	public void analyze( int[] PlacementArray ){
+	public void rank( int[] PlacementArray ){
 		
 	}
 	
@@ -60,7 +60,8 @@ public class AI {
 			}
 		}
 		
-		analyze(PlacementArray);
+		//to replace random ranking with intelligent ranking
+		//rank(PlacementArray);
 		
 		//Rando
 		Random rn = new Random();
@@ -76,8 +77,6 @@ public class AI {
 		}
 		Printer.printPlaceable(placeable);
 		////////////////////////////
-		
-		PlacementArray[10] = 1;
 		
 		int bestMove = -1;
 		int bestMoveindex = 0;
