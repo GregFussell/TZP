@@ -26,18 +26,18 @@ public class Printer {
 		printArrayList(placedPos);
 	}
 
-	static void printTile(Tile tile) {
+	static void printTile(Tile tile, Territory[] myTerritories, TerritoryPtr terPtr) {
 		// System.out.print(tile.id);
 		
-		System.out.println(" " + tile.subtiles[0].territory + tile.subtiles[1].territory + tile.subtiles[2].territory + " ");
-		System.out.println(tile.subtiles[11].territory + "   " + tile.subtiles[3].territory);
-		System.out.println(tile.subtiles[10].territory + " " + tile.subtiles[12].territory + " " + tile.subtiles[4].territory);
-		System.out.println(tile.subtiles[9].territory + "   " + tile.subtiles[5].territory);
-		System.out.println(" " + tile.subtiles[8].territory + tile.subtiles[7].territory + tile.subtiles[6].territory + " ");
+		System.out.println(" " + myTerritories[terPtr.pointers[tile.subtiles[0]]].territory + myTerritories[terPtr.pointers[tile.subtiles[1]]].territory + myTerritories[terPtr.pointers[tile.subtiles[2]]].territory + " ");
+		System.out.println(myTerritories[terPtr.pointers[tile.subtiles[11]]].territory + "   " + myTerritories[terPtr.pointers[tile.subtiles[3]]].territory);
+		System.out.println(myTerritories[terPtr.pointers[tile.subtiles[10]]].territory + " " + myTerritories[terPtr.pointers[tile.subtiles[12]]].territory + " " + myTerritories[terPtr.pointers[tile.subtiles[4]]].territory);
+		System.out.println(myTerritories[terPtr.pointers[tile.subtiles[9]]].territory + "   " + myTerritories[terPtr.pointers[tile.subtiles[5]]].territory);
+		System.out.println(" " + myTerritories[terPtr.pointers[tile.subtiles[8]]].territory + myTerritories[terPtr.pointers[tile.subtiles[7]]].territory + myTerritories[terPtr.pointers[tile.subtiles[6]]].territory + " ");
 		System.out.println();
 	}
 	
-	static char[] subtilePrintFormatter(Tile tile)
+	static char[] subtilePrintFormatter(Tile tile, Territory[] myTerritories, TerritoryPtr terPtr)
 	{
 		char[] subtiles = new char[30];
 		subtiles[0] = ' ';
@@ -59,23 +59,24 @@ public class Printer {
 		subtiles[28] = '-';
 		subtiles[29] = '-';
 		
-		subtiles[1] = tile.subtiles[0].territory;
-		subtiles[2] = tile.subtiles[1].territory;
-		subtiles[3] = tile.subtiles[2].territory;
-		subtiles[5] = tile.subtiles[11].territory;
-		subtiles[9] = tile.subtiles[3].territory;
-		subtiles[10] = tile.subtiles[10].territory;
-		subtiles[12] = tile.subtiles[12].territory;
-		subtiles[14] = tile.subtiles[4].territory;
-		subtiles[15] = tile.subtiles[9].territory;
-		subtiles[19] = tile.subtiles[5].territory;
-		subtiles[23] = tile.subtiles[6].territory;
-		subtiles[22] = tile.subtiles[7].territory;
-		subtiles[21] = tile.subtiles[8].territory;
+		subtiles[1] = myTerritories[terPtr.pointers[tile.subtiles[0]]].territory;
+		subtiles[2] = myTerritories[terPtr.pointers[tile.subtiles[1]]].territory;
+		subtiles[3] = myTerritories[terPtr.pointers[tile.subtiles[2]]].territory;
+		subtiles[5] = myTerritories[terPtr.pointers[tile.subtiles[11]]].territory;
+		subtiles[9] = myTerritories[terPtr.pointers[tile.subtiles[3]]].territory;
+		subtiles[10] = myTerritories[terPtr.pointers[tile.subtiles[10]]].territory;
+		subtiles[12] = myTerritories[terPtr.pointers[tile.subtiles[12]]].territory;
+		subtiles[14] = myTerritories[terPtr.pointers[tile.subtiles[4]]].territory;
+		subtiles[15] = myTerritories[terPtr.pointers[tile.subtiles[9]]].territory;
+		subtiles[19] = myTerritories[terPtr.pointers[tile.subtiles[5]]].territory;
+		subtiles[23] = myTerritories[terPtr.pointers[tile.subtiles[6]]].territory;
+		subtiles[22] = myTerritories[terPtr.pointers[tile.subtiles[7]]].territory;
+		subtiles[21] = myTerritories[terPtr.pointers[tile.subtiles[8]]].territory;
 		return subtiles;
 	}
 	//Method for printing out the entire board
-	static void printBoard(Tile[][] board, ArrayList<ArrayCoord> placedPos) {
+	static void printBoard(Tile[][] board, ArrayList<ArrayCoord> placedPos, Territory[] myTerritories, TerritoryPtr terPtr) {
+
 		int minx = 77;
 		int miny = 77;
 		int maxx = 0;
@@ -104,7 +105,7 @@ public class Printer {
 						}
 						else
 						{
-							System.out.print(subtilePrintFormatter(board[i][j])[k]);
+							System.out.print(subtilePrintFormatter(board[i][j], myTerritories, terPtr)[k]);
 						}
 						if (k == x + 4){
 							System.out.print("|");
@@ -120,7 +121,7 @@ public class Printer {
 	
 	//TESTING PURPOSES ONLY DELETE LATER
 	
-	static String[] idPrintFormatter(Tile tile)
+	static String[] idPrintFormatter(Tile tile, Territory[] myTerritories, TerritoryPtr terPtr)
 	{
 		String[] subtiles = new String[30];
 		subtiles[0] = Character.toString ((char) ' ');
@@ -142,24 +143,24 @@ public class Printer {
 		subtiles[28] = Character.toString ((char) '-');
 		subtiles[29] = Character.toString ((char) '-');
 		
-		subtiles[1] = Integer.toString(tile.subtiles[0].id);
-		subtiles[2] = Integer.toString(tile.subtiles[1].id);
-		subtiles[3] = Integer.toString(tile.subtiles[2].id);
-		subtiles[5] = Integer.toString(tile.subtiles[11].id);
-		subtiles[9] = Integer.toString(tile.subtiles[3].id);
-		subtiles[10] = Integer.toString(tile.subtiles[10].id);
-		subtiles[12] = Integer.toString(tile.subtiles[12].id);
-		subtiles[14] = Integer.toString(tile.subtiles[4].id);
-		subtiles[15] = Integer.toString(tile.subtiles[9].id);
-		subtiles[19] = Integer.toString(tile.subtiles[5].id);
-		subtiles[23] = Integer.toString(tile.subtiles[6].id);
-		subtiles[22] = Integer.toString(tile.subtiles[7].id);
-		subtiles[21] = Integer.toString(tile.subtiles[8].id);
+		subtiles[1] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[0]]].id);
+		subtiles[2] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[1]]].id);
+		subtiles[3] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[2]]].id);
+		subtiles[5] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[11]]].id);
+		subtiles[9] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[3]]].id);
+		subtiles[10] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[10]]].id);
+		subtiles[12] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[12]]].id);
+		subtiles[14] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[4]]].id);
+		subtiles[15] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[9]]].id);
+		subtiles[19] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[5]]].id);
+		subtiles[23] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[6]]].id);
+		subtiles[22] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[7]]].id);
+		subtiles[21] = Integer.toString(myTerritories[terPtr.pointers[tile.subtiles[8]]].id);
 		return subtiles;
 	}
 	
 	//Method for printing out the entire board
-	static void printBoardID(Tile[][] board, ArrayList<ArrayCoord> placedPos) {
+	static void printBoardID(Tile[][] board, ArrayList<ArrayCoord> placedPos, Territory[] myTerritories, TerritoryPtr terPtr) {
 		int minx = 77;
 		int miny = 77;
 		int maxx = 0;
@@ -189,7 +190,7 @@ public class Printer {
 						}
 						else
 						{
-							System.out.printf("%2s", idPrintFormatter(board[i][j])[k]);
+							System.out.printf("%2s", idPrintFormatter(board[i][j], myTerritories, terPtr)[k]);
 						}
 						if (k == x + 4){
 							System.out.print("|");

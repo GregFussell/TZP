@@ -2,15 +2,15 @@ package tigerZone;
 
 public class Tile {
 
-	Territory subtiles[];
+	int subtiles[];
 
 	int position[] = new int[2];
 	int id;
 
 	boolean shield;
 
-	public Tile(Territory[] territories, int identifier) {
-		subtiles = new Territory[13];
+	public Tile(int[] territories, int identifier) {
+		subtiles = new int[13];
 		for (int i = 0; i < 13; i++) {
 			
 			subtiles[i] = territories[i];
@@ -33,9 +33,9 @@ public class Tile {
 		
 		for (int i = 0; i < rotationDegree; i++)
 		{
-			Territory t1 = subtiles[3];
-			Territory t2 = subtiles[4];
-			Territory t3 = subtiles[5];
+			int t1 = subtiles[3];
+			int t2 = subtiles[4];
+			int t3 = subtiles[5];
 			
 			subtiles[3] = subtiles[0];
 			subtiles[4] = subtiles[1];
