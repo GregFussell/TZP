@@ -253,7 +253,7 @@ public class Game {
 				x = sc.nextInt();
 				y = sc.nextInt();
 
-				valid = validPlacement(myTile, board, placeablePos, x, y, myTerritories);
+				valid = validPlacement(myTile, board, placeablePos, x, y, myTerritories, terPtr);
 				if (valid == false) {
 					System.out.println("Invalid placement, please place again");
 				} else {
@@ -493,7 +493,7 @@ public class Game {
 	// Method for evaluating whether continuity in territory types is preserved
 	// in adjacent tiles. Returns True if valid
 	public static boolean validPlacement(Tile currentTile, Tile[][] currentBoard, ArrayList<ArrayCoord> placeablePos,
-			int x, int y, Territory[] myTerritories) {
+			int x, int y, Territory[] myTerritories, TerritoryPtr terPtr) {
 
 		boolean flag = false;
 		for (int i = 0; i < placeablePos.size(); i++) {
@@ -506,22 +506,22 @@ public class Game {
 		}
 
 		if (currentBoard[x - 1][y] != null) {
-			if (myTerritories[currentTile.subtiles[1]].territory != myTerritories[currentBoard[x - 1][y].subtiles[7]].territory) {
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[1]]].territory != myTerritories[terPtr.pointers[currentBoard[x - 1][y].subtiles[7]]].territory) {
 				return false;
 			}
 		}
 		if (currentBoard[x + 1][y] != null) {
-			if (myTerritories[currentTile.subtiles[7]].territory != myTerritories[currentBoard[x + 1][y].subtiles[1]].territory) {
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[7]]].territory != myTerritories[terPtr.pointers[currentBoard[x + 1][y].subtiles[1]]].territory) {
 				return false;
 			}
 		}
 		if (currentBoard[x][y + 1] != null) {
-			if (myTerritories[currentTile.subtiles[4]].territory != myTerritories[currentBoard[x][y + 1].subtiles[10]].territory) {
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[4]]].territory != myTerritories[terPtr.pointers[currentBoard[x][y + 1].subtiles[10]]].territory) {
 				return false;
 			}
 		}
 		if (currentBoard[x][y - 1] != null) {
-			if (myTerritories[currentTile.subtiles[10]].territory != myTerritories[currentBoard[x][y - 1].subtiles[4]].territory) {
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[10]]].territory != myTerritories[terPtr.pointers[currentBoard[x][y - 1].subtiles[4]]].territory) {
 				return false;
 			}
 		}
