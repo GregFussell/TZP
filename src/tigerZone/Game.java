@@ -25,14 +25,14 @@ public class Game {
 		//Creates Territories for Starter Tile
 		Territory[] territories = new Territory[13];
 		
-		Territory ter = new Territory(0, ' ', 0, false);
+		Territory ter = new Territory(0, ' ', 0, false, false, false);
 		myTerritories[0] = ter;
 		
 		//Tile D : starter tile
-		Territory ter1 = new Territory(1, 'l', 1, false); myTerritories[1] = ter1;//North lake
-		Territory ter2 = new Territory(2, 'j', 2, false); myTerritories[2] = ter2;//North Jungle
-		Territory ter3 = new Territory(3, 't', 2, false); myTerritories[3] = ter3;//Road
-		Territory ter4 = new Territory(4, 'j', 3, false); myTerritories[0] = ter4;//South Jungle
+		Territory ter1 = new Territory(1, 'l', 1, false, false, false); myTerritories[1] = ter1;//North lake
+		Territory ter2 = new Territory(2, 'j', 2, false, false, false); myTerritories[2] = ter2;//North Jungle
+		Territory ter3 = new Territory(3, 't', 2, false, false, false); myTerritories[3] = ter3;//Road
+		Territory ter4 = new Territory(4, 'j', 3, false, false, false); myTerritories[4] = ter4;//South Jungle
 		ter1.containedTiles.add(new ArrayCoord (36,36));
 		ter2.containedTiles.add(new ArrayCoord (36,36));
 		ter3.containedTiles.add(new ArrayCoord (36,36));
@@ -57,9 +57,9 @@ public class Game {
 		
 		
 		//Tile U
-		Territory ter5 = new Territory(5, 'j', 3, false); myTerritories[5] = ter5;//North jungle
-		Territory ter6 = new Territory(6, 't', 2, false); myTerritories[6] = ter6;//Road
-		Territory ter7 = new Territory(7, 'j', 3, false); myTerritories[7] = ter7;//South Jungle
+		Territory ter5 = new Territory(5, 'j', 3, false, false, false); myTerritories[5] = ter5;//North jungle
+		Territory ter6 = new Territory(6, 't', 2, false, false, false); myTerritories[6] = ter6;//Road
+		Territory ter7 = new Territory(7, 'j', 3, false, false, false); myTerritories[7] = ter7;//South Jungle
 		
 		territories[0] = ter5;
 		territories[1] = ter5;
@@ -78,9 +78,9 @@ public class Game {
 		Tile A = new Tile(territories, 2);
 	
 		//Tile V.1 
-		Territory ter8 = new Territory(8, 'j', 3, false); myTerritories[8] = ter8;//North jungle
-		Territory ter9 = new Territory(9, 't', 2, false); myTerritories[9] = ter9;//Road
-		Territory ter10 = new Territory(10, 'j', 2, false); myTerritories[10] = ter10;//South Jungle
+		Territory ter8 = new Territory(8, 'j', 3, false, false, false); myTerritories[8] = ter8;//North jungle
+		Territory ter9 = new Territory(9, 't', 2, false, false, false); myTerritories[9] = ter9;//Road
+		Territory ter10 = new Territory(10, 'j', 2, false, false, false); myTerritories[10] = ter10;//South Jungle
 		
 		territories[0] = ter8;
 		territories[1] = ter8;
@@ -103,9 +103,9 @@ public class Game {
 
 		
 		//Tile V.2
-		Territory ter11 = new Territory(11, 'j', 3, false); myTerritories[11] = ter11;//North jungle
-		Territory ter12 = new Territory(12, 't', 2, false); myTerritories[12] = ter12;//Road
-		Territory ter13 = new Territory(13, 'j', 2, false); myTerritories[13] = ter13;//South Jungle
+		Territory ter11 = new Territory(11, 'j', 3, false, false, false); myTerritories[11] = ter11;//North jungle
+		Territory ter12 = new Territory(12, 't', 2, false, false, false); myTerritories[12] = ter12;//Road
+		Territory ter13 = new Territory(13, 'j', 2, false, false, false); myTerritories[13] = ter13;//South Jungle
 		
 		territories[0] = ter11;
 		territories[1] = ter11;
@@ -124,9 +124,9 @@ public class Game {
 		Tile C = new Tile(territories, 4);
 		
 		//Tile V.3
-		Territory ter14 = new Territory(14, 'j', 3, false); myTerritories[14] = ter14;
-		Territory ter15 = new Territory(15, 't', 2, false); myTerritories[15] = ter15;
-		Territory ter16 = new Territory(16, 'j', 2, false); myTerritories[16] = ter16;
+		Territory ter14 = new Territory(14, 'j', 3, false, false, false); myTerritories[14] = ter14;
+		Territory ter15 = new Territory(15, 't', 2, false, false, false); myTerritories[15] = ter15;
+		Territory ter16 = new Territory(16, 'j', 2, false, false, false); myTerritories[16] = ter16;
 		
 		territories[0] = ter14;
 		territories[1] = ter14;
@@ -145,9 +145,9 @@ public class Game {
 		Tile D = new Tile(territories, 5);
 		
 		//Tile V.4
-		Territory ter17 = new Territory(17, 'j', 3, false); myTerritories[17] = ter17;
-		Territory ter18 = new Territory(18, 't', 2, false); myTerritories[18] = ter18;
-		Territory ter19 = new Territory(19, 'j', 2, false); myTerritories[19] = ter19;
+		Territory ter17 = new Territory(17, 'j', 3, false, false, false); myTerritories[17] = ter17;
+		Territory ter18 = new Territory(18, 't', 2, false, false, false); myTerritories[18] = ter18;
+		Territory ter19 = new Territory(19, 'j', 2, false, false, false); myTerritories[19] = ter19;
 		
 		territories[0] = ter17;
 		territories[1] = ter17;
@@ -760,11 +760,11 @@ public class Game {
 					{
 						if (board[i][j] == null)
 						{
-							System.out.print(" ");
+							System.out.print("  ");
 						}
 						else
 						{
-							System.out.print(printerID(board[i][j])[k]);
+							System.out.printf("%2s" ,printerID(board[i][j])[k]);
 						}
 						if (k == x + 4){
 							System.out.print("|");
@@ -794,7 +794,9 @@ public class Game {
 	//Method to merge the contents of one territory with another.
 	public static Territory mergeTerritory(Territory toMerge, Territory currentTerritory, int x, int y)
 	{	
-		currentTerritory.numShields += toMerge.numShields;
+		currentTerritory.numDeer += toMerge.numDeer;
+		currentTerritory.numBoar += toMerge.numBoar;
+		currentTerritory.numBuffalo += toMerge.numBuffalo;
 		currentTerritory.numTiles += toMerge.numTiles;
 		currentTerritory.openFaces += toMerge.openFaces - 2;
 		currentTerritory.player1Meeples += toMerge.player1Meeples;
@@ -891,6 +893,12 @@ public class Game {
 				mergeRewrite(board, myID, rewriteID, merged, x, y-1);
 			}
 		}	
+	}
+	
+	////////////////////////////////////////// SCORING METHODS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	public void endGameScoring()
+	{
+		
 	}
 	
 	

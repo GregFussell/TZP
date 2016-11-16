@@ -12,11 +12,13 @@ public class Territory {
 	int player1Meeples;
 	int player2Meeples;
 	int numTiles;
-	int numShields;
+	int numDeer;
+	int numBoar;
+	int numBuffalo;
 	ArrayList<ArrayCoord> containedTiles = new ArrayList<ArrayCoord>();
 	
 
-	public Territory(int id, char type, int openFaces, boolean shield) {
+	public Territory(int id, char type, int openFaces, boolean deer, boolean boar, boolean buffalo) {
 		this.id = id;
 		this.territory = type;
 		this.openFaces = openFaces;
@@ -25,9 +27,17 @@ public class Territory {
 		numTiles = 1;
 		isComplete = false;
 		isDeleted = false;
-		if (shield == true)
+		if (deer == true)
 		{
-			numShields = 1;
+			numDeer = 1;
+		}
+		if (boar == true)
+		{
+			numBoar = 1;
+		}
+		if (buffalo == true)
+		{
+			numBuffalo = 1;
 		}
 	}
 	
