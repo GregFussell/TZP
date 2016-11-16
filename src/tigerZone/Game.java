@@ -185,7 +185,7 @@ public class Game {
 		board[36][36] = B;
 		updatePlaceable(placedPos, placeablePos, 36, 36);
 		
-		AI Flynn = new AI();
+		AI Flynn = new AI(myDeck);
 		int t[] = new int[3];
 		//t = Flynn.decision(board, myDeck.deck.poll(), placeablePos);
 

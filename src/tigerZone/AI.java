@@ -7,6 +7,13 @@ public class AI {
 	int RotationValue;
 	int XPlacement;
 	int YPlacement;
+	Tile[][] boardView;
+	Deck deck;
+	
+	// CONSTRUCTOR
+	public AI(Deck newDeck){
+		deck = newDeck;
+	}
 	
 	public void setRotationValue(int rot){
 		RotationValue = rot;
@@ -35,6 +42,9 @@ public class AI {
 	public int[] decision(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable){
 		
 		int[] PlacementArray = new int[placeable.size()*4];
+		this.boardView = board;
+		
+		//Assigning values to certain moves, making invalid moves -1
 		boolean isvalid = true;
 		for(int i = 0; i < placeable.size(); i++){
 			for(int j = 0; j < 4; j++){
@@ -46,17 +56,20 @@ public class AI {
 			}
 		}
 		
-		//Assigning values to certain moves, making invalid moves -1
+		//Rando
 		Random rn = new Random();
 		for(int i = 0; i < PlacementArray.length; i++){
 			if(PlacementArray[i] != -1){
 				PlacementArray[i] = rn.nextInt(50);
 			}
 		}
+		
+		//////TEST PRITING//////////
 		for(int i = 0; i < PlacementArray.length; i++){
 			System.out.print(PlacementArray[i] + " ");
 		}
 		Game.printPlaceable(placeable);
+		////////////////////////////
 		
 		PlacementArray[10] = 1;
 		
