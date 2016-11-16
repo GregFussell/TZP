@@ -37,7 +37,12 @@ public class Game {
 		ter2.containedTiles.add(new ArrayCoord (36,36));
 		ter3.containedTiles.add(new ArrayCoord (36,36));
 		ter4.containedTiles.add(new ArrayCoord (36,36));
-		
+		/*
+		 *  lll
+		 * j   j
+		 * t   t
+		 *  jjj
+		 */
 		
 		territories[0] = ter1;
 		territories[1] = ter1;
@@ -176,7 +181,6 @@ public class Game {
 //		Tile D = new Tile("lllllljtjlllR", 5);
 //		Tile E = new Tile("llljjjjjjjjjR", 6);
 		Deck myDeck = new Deck(C, D, E, A, A);
-
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
 		// Starter location is added as a placeablePos, starter tile is then
@@ -201,11 +205,11 @@ public class Game {
 			int y = 0;
 
 			System.out.println("The current board is: ");
-			printBoard(board, placedPos);
+			Printer.printBoard(board, placedPos);
 			
 			System.out.println("The current tile is: ");
 			Tile myTile = myDeck.deck.remove();
-			printTile(myTile);
+			Printer.printTile(myTile);
 
 			boolean valid = false;
 			while (valid == false) {
@@ -225,10 +229,10 @@ public class Game {
 				myTile.Rotate(degree);
 				if (degree > 0) {
 					System.out.println("The current tile is now: ");
-					printTile(myTile);
+					Printer.printTile(myTile);
 				}
 
-				printPlaceable(placeablePos);
+				Printer.printPlaceable(placeablePos);
 				System.out.println("Please select an X and Y coordinate to place the tile");
 				//x = sc.nextInt();
 				if (turn%2 == 0){
@@ -444,7 +448,7 @@ public class Game {
 
 		
 		System.out.println("\nThe final board is: ");
-		printBoardID(board, placedPos);
+		Printer.printBoardID(board, placedPos);
 		
 		System.out.println("Open faces on road is : " + board[36][36].subtiles[10].openFaces);
 		
@@ -497,33 +501,6 @@ public class Game {
 
 	// METHODS
 
-	// Method for printing out all of the placeable positions in (X,Y)
-	// coordinate form. Outputs to user for tile placement selection
-	public static void printPlaceable(ArrayList<ArrayCoord> placeablePos) {
-		int size = placeablePos.size();
-		if (size < 1) {
-			System.out.println("There are no placeable positions available");
-		} else {
-
-			System.out.print("The placeable positions are: ");
-			for (int i = 0; i < size; i++) {
-				System.out.print("(" + placeablePos.get(i).x + "," + placeablePos.get(i).y + ")  ");
-			}
-			System.out.println();
-		}
-
-	}
-
-	// Method for printing out all of the placed positions in (X,Y) coordinate
-	// form. Only used for testing
-	public static void printPlaced(ArrayList<ArrayCoord> placedPos) {
-
-		System.out.print("The placed positions are: ");
-		for (int i = 0; i < placedPos.size(); i++) {
-			System.out.print("(" + placedPos.get(i).x + "," + placedPos.get(i).y + ")  ");
-		}
-		System.out.println();
-	}
 
 	// Method for evaluating whether continuity in territory types is preserved
 	// in adjacent tiles. Returns True if valid
@@ -621,16 +598,6 @@ public class Game {
 	/////////////////////////////////////PRINTING METHODS/////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//Method for printing out a single tile, used for displaying the current tile to user
-	static void printTile(Tile tile) {
-		// System.out.print(tile.id);
-		
-		System.out.println(" " + tile.subtiles[0].territory + tile.subtiles[1].territory + tile.subtiles[2].territory + " ");
-		System.out.println(tile.subtiles[11].territory + "   " + tile.subtiles[3].territory);
-		System.out.println(tile.subtiles[10].territory + " " + tile.subtiles[12].territory + " " + tile.subtiles[4].territory);
-		System.out.println(tile.subtiles[9].territory + "   " + tile.subtiles[5].territory);
-		System.out.println(" " + tile.subtiles[8].territory + tile.subtiles[7].territory + tile.subtiles[6].territory + " ");
-		System.out.println();
-	}
 	
 	static char[] printer(Tile tile)
 	{
@@ -803,18 +770,6 @@ public class Game {
 	}
 	
 	
-	//END TESTING 
-
-	public static void printArrayList(ArrayList<ArrayCoord> toPrint)
-	{
-		for(int i = 0; i < toPrint.size(); i++)
-		{
-			System.out.print("(" + toPrint.get(i).x + "," + toPrint.get(i).y + ") ");
-		}
-		System.out.println();
-	}
-	
-	
 	//Method to merge the contents of one territory with another.
 	public static Territory mergeTerritory(Territory toMerge, Territory currentTerritory, int x, int y)
 	{	
@@ -918,27 +873,5 @@ public class Game {
 	}
 	
 	
-//OLD PRINT METHOD
-//	static void printBoard(Tile[][] board) {
-//		int x = 0;
-//		for (int i = 0; i < 77; i++) {// i is row
-//			for (int h = 0; h < 3; h++) {
-//				for (int j = 0; j < 77; j++) {// j is column
-//					for (int k = x; k < x + 3; k++)// k is subtile, x is
-//													// iteration over tile
-//					{
-//						if (board[i][j] == null)
-//							System.out.print(" ");
-//						else
-//							System.out.print(board[i][j].subtiles[k].territory);
-//						if (k == x + 2)
-//							System.out.print("|");
-//					}
-//				}
-//				x = x + 3;
-//				System.out.println();
-//			}
-//			x = 0;
-//		}
-//	}
+
 }

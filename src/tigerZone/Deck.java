@@ -19,5 +19,12 @@ public class Deck {
 		deck.add(E);
 	}
 
+	
+	public void Tile19()
+	{
+		
+	}
+	
+	
 }
 // Are we using 5 for testing or all 78?

@@ -68,7 +68,7 @@ public class AI {
 		for(int i = 0; i < PlacementArray.length; i++){
 			System.out.print(PlacementArray[i] + " ");
 		}
-		Game.printPlaceable(placeable);
+		Printer.printPlaceable(placeable);
 		////////////////////////////
 		
 		PlacementArray[10] = 1;
