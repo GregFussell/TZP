@@ -39,6 +39,10 @@ public class AI {
 		return YPlacement;
 	}
 	
+	public void analyze( int[] PlacementArray ){
+		
+	}
+	
 	public int[] decision(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable){
 		
 		int[] PlacementArray = new int[placeable.size()*4];
@@ -55,6 +59,8 @@ public class AI {
 				}
 			}
 		}
+		
+		analyze(PlacementArray);
 		
 		//Rando
 		Random rn = new Random();
