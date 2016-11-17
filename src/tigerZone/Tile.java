@@ -12,7 +12,7 @@ public class Tile {
 	boolean buffalo;
 	boolean deer;
 
-	public Tile(String territories) {
+	public Tile(String territories, boolean boar, boolean buffalo, boolean deer) {
 		id=counter;
 		counter++;
 		subtiles = new Subtile[5][5];

@@ -20,47 +20,51 @@ public class Deck {
 	}
 	
 	//In order from pdf representation of each unique tile
-	Tile A = new Tile("jjjjj"	//all field 
+	Tile A = new Tile("jjjjj"	//all field (no prey)
 					+ "jjjjj"
 					+ "jjjjj"
 					+ "jjjjj"
-					+ "jjjjj");
-	Tile B = new Tile("jjjjj"	//den surrounded by field
+					+ "jjjjj",false,false,false);
+	Tile B = new Tile("jjjjj"	//den surrounded by field (no prey)
 					+ "jjjjj"
 					+ "jjdjj"
 					+ "jjjjj"
-					+ "jjjjj"); 
-	Tile C = new Tile("jjjjj"	//den with trail
+					+ "jjjjj",false,false,false); 
+	Tile C = new Tile("jjjjj"	//den with trail (no prey)
 					+ "jjjjj"
 					+ "jjdjj"
 					+ "jjtjj"
-					+ "jjtjj");
+					+ "jjtjj",false,false,false);
 	Tile D = new Tile("jjtjj"	//4-way crossroad (s=junction)
 					+ "jjtjj"
 					+ "ttstt"
 					+ "jjtjj"
-					+ "jjtjj");
+					+ "jjtjj",false,false,false);
 	Tile E = new Tile("jjtjj"	//single road
 					+ "jjtjj"
 					+ "jjtjj"
 					+ "jjtjj"
-					+ "jjtjj");
+					+ "jjtjj",false,false,false);
 	Tile F = new Tile("jjtjj"	//90 degree angle road
 					+ "jjtjj"
 					+ "tttjj"
 					+ "jjjjj"
-					+ "jjjjj");
+					+ "jjjjj",false,false,false);
 	Tile G = new Tile("jjtjj"	//3-way crossroad (s=junction)
 					+ "jjtjj"
 					+ "ttsjj"
 					+ "jjtjj"
-					+ "jjtjj");
+					+ "jjtjj",false,false,false);
 	Tile H = new Tile("lllll"	//all lake
 					+ "lllll"
 					+ "lllll"
 					+ "lllll"
-					+ "lllll");
-	Tile I = new Tile("jtjjjjjtjjjjR");
+					+ "lllll",false,false,false);
+	Tile I = new Tile("xjjjx"	//all lake, one side jungle
+					+ "ljjjl"	//x=split territory
+					+ "ljjjl"
+					+ "lllll"
+					+ "lllll",false,false,false);
 	Tile J = new Tile("jjjjjjjtjjtjR");
 	Tile K = new Tile("jtjjjjjtjjjjR");
 	Tile L = new Tile("jjjjjjjtjjtjR");
