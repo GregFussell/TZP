@@ -7,7 +7,7 @@ public class Tile {
 	Subtile subtiles[][];
 	static int counter = 0;
 	int position[] = new int[2];
-	int id;
+	boolean Boar;
 	//TODO add a get method so we can get a subtile based on an ArrayCoord, then we should name ArrayCoords with names like rightsidemiddle for clarity
 	boolean shield;
 
@@ -23,59 +23,7 @@ public class Tile {
 
 		//dfs(new Territory(subtiles[1][0].territoryType),subtiles[0][0]);
 	}
-	public void findTerritories(ArrayCoord subtile){
-		
-		    
-		  
-	}
-	public void dfs(Territory territory, Subtile subtile,ArrayList<Subtile> adjacent, ArrayList<Subtile> sameTypeAdjacent)  
-	{  
-		//put all like subtiles in one arraylist
-		//put all other subtiles in another arraylist
-		
-		
-		
-		
-	  if (subtile.territory==null){
-		  return;
-	  }
-	  System.out.print(subtile.territoryType + "\t");  
-		subtile.territory=territory;
-	  ArrayList<Subtile> adj= findadj(subtile);  
-	  for (int i = 0; i < adj.size(); i++) {  
-		  for(Subtile sub:adj){
-			  if(subtile.territoryType==sub.territoryType)
-		  }
-		  Subtile n=adj.get(i);
-		  if(n.territory!=null)
-			  continue;
-		  if(n.territoryType=='x')
-			  continue;
-		  else if(n.territoryType==territory.type)
-		  {
-			  n.territory=territory;
-			  dfs(n.territory,n);
-		  }
-		  else if(subtile.territoryType=='j' && n.territoryType=='l'){
-			  territory.Lakes.add(n.territory);
-			  dfs(new Territory(n.territoryType),n);
-		  }
-		  else if(subtile.territoryType=='j' && n.territoryType=='d'){
-			  territory.Dens.add(n.territory);
-			  dfs(new Territory(n.territoryType),n);
-		  }
-		  else{
-			  dfs(new Territory(n.territoryType),n);
-		  }
-			  
-//		  if(n!=null && !n.visited)  
-//		  {  
-//			  dfs(adj,n);  
-//			  n.visited=true;  
-//		  }
-	  }
-	}
-	public ArrayList<Subtile> findadj(Subtile subtile)
+	public ArrayList<Subtile> findadj(Subtile subtile)//finds adjacent subtiles given a subtile for purposes of merging within a tile
 	{
 		   ArrayList<Subtile> adj = new ArrayList<Subtile>();
 		   if(subtile.loc.y>0 && subtiles[subtile.loc.x][subtile.loc.y-1]!=null  )
