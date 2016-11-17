@@ -215,13 +215,13 @@ public class Game {
 //		
 //		System.out.println(myTerritories[terPtr.pointers[B.subtiles[7]]].id);
 //		Printer.printArrayList(myTerritories[terPtr.pointers[B.subtiles[7]]].containedTiles);
-		
-		
-		
 
 
+Player player1 = new Player();
+Player player2 = new Player();
+		
 
-//Loop of gameplay
+///////////////////////////////////////////////////// GAMEPLAY LOOP \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 		
 	//	printTile(starter);
 
