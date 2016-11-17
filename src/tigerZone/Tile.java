@@ -9,7 +9,9 @@ public class Tile {
 	int position[] = new int[2];
 	int id;
 	//TODO add a get method so we can get a subtile based on an ArrayCoord, then we should name ArrayCoords with names like rightsidemiddle for clarity
-	boolean shield;
+	boolean boar;
+	boolean buffalo;
+	boolean deer;
 
 	public Tile(String territories) {
 		id=counter;
@@ -28,6 +30,7 @@ public class Tile {
 		    
 		  
 	}
+	
 	public void dfs(Territory territory, Subtile subtile,ArrayList<Subtile> adjacent, ArrayList<Subtile> sameTypeAdjacent)  
 	{  
 		//put all like subtiles in one arraylist
@@ -75,7 +78,7 @@ public class Tile {
 //		  }
 	  }
 	}
-	public ArrayList<Subtile> findadj(Subtile subtile)
+	public ArrayList<Subtile> findAdj(Subtile subtile)
 	{
 		   ArrayList<Subtile> adj = new ArrayList<Subtile>();
 		   if(subtile.loc.y>0 && subtiles[subtile.loc.x][subtile.loc.y-1]!=null  )
