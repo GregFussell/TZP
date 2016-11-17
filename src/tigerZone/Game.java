@@ -24,7 +24,7 @@ public class Game {
 	public void merge(Tile existing, Tile brandNew){
 		existing.subtiles[4][2]//rename for clarity, [4][2] is the middle of the right side
 	}
-	public void dfs(){
+	public void dfs(Subtile subtile, TerritoryPointer terP){
 		
 	}
 
