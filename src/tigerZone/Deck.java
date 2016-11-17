@@ -1,17 +1,20 @@
 package tigerZone;
 
-import java.util.ArrayList;
-
-import java.util.LinkedList;
-import java.util.Queue;
+import java.lang.Math;
 
 public class Deck {
 	
 	//ArrayList<Tile> deck = new ArrayList<Tile>();
-	Queue<Tile> deck = new LinkedList<Tile>();
+	Tile[] deck = new Tile[76];
 	
-	public Deck(Tile A, Tile B, Tile C, Tile D, Tile E) {	
+	public Deck(Tile A, Tile B, Tile C, Tile D, Tile E, Tile F,
+			Tile G, Tile H, Tile I, Tile J, Tile K, Tile L,
+			Tile M, Tile N, Tile C, Tile D, Tile E, Tile F,
+			Tile A, Tile B, Tile C, Tile D, Tile E, Tile F,
+			Tile A, Tile B, Tile C, Tile D, Tile E, Tile F,) {	
 
+		int random = (int)(Math.random()*50 +1);
+		//random insert cards into deck effectively shuffling them.
 		deck.add(A);
 		deck.add(B);
 		deck.add(C);
@@ -70,7 +73,7 @@ public class Deck {
 	
 	Tile I = new Tile("xjjjx"	//all lake, one side jungle
 					+ "ljjjl"	//x=split territory
-					+ "ljjjl"
+					+ "lljll"
 					+ "lllll"
 					+ "lllll",false,false,false);
 	
@@ -93,15 +96,15 @@ public class Deck {
 					+ "xlllx",false,false,false);
 	
 	Tile M = new Tile("xlllx"	//lake on one side, x because cannot connect to side
-					+ "jjljj"	//rest of tile is jungle
+					+ "jlllj"	//rest of tile is jungle
+					+ "jjljj"
 					+ "jjjjj"
-					+ "jjjjj"
-					+ "jjjjR",false,false,false);
+					+ "jjjjj",false,false,false);
 	
 	Tile N = new Tile("jjjjx"	//one lake on two adjacent sides
 					+ "jjjjl"	//lakes are not connected
-					+ "jjjll"	//rest of the tile is jungle
-					+ "jjljl"
+					+ "jjjjl"	//rest of the tile is jungle
+					+ "jjjjl"
 					+ "xlllx",false,false,false);
 	
 	Tile O = new Tile("jjtjx"	//lake on one side, trail going right connected two sides
@@ -177,12 +180,8 @@ public class Deck {
 					+ "jjtjj",false,false,false);
 	
 	Tile AA = new Tile("xlllx"	//lake on one side, trail connected to lake
-					+ "jjljj"	//two jungles split by the trail
-					+ "jjtjj"	//contains deer
-					+ "jjtjj"
-					+ "jjtjj",false,false,true);
-	
-	//Tile BB = new Tile("jjjjjjjtjjtjR");
-
-
-}
+			         + "jjljj"	//two jungles split by the trail
+				     + "jjtjj"	//contains deer
+				     + "jjtjj"
+				     + "jjtjj",false,false,true);
+	}
