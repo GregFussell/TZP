@@ -12,23 +12,13 @@ public class Tile {
 	public Tile(int[] territories, int identifier) {
 		subtiles = new int[13];
 		for (int i = 0; i < 13; i++) {
-			
 			subtiles[i] = territories[i];
-			//subtiles[i] = new Territory(territories.charAt(i));
 		}
 
-		// subtiles[0] = new Subtile(zero);
-		// subtiles[1] = new Subtile(one);
-		// subtiles[2] = new Subtile(two);
-		// subtiles[3] = new Subtile(three);
-		// subtiles[4] = new Subtile(four);
-		// subtiles[5] = new Subtile(five);
-		// subtiles[6] = new Subtile(six);
-		// subtiles[7] = new Subtile(seven);
-		// subtiles[8] = new Subtile(eight);
 		id = identifier;
 	}
 
+	//Method to rotate a tile 90 degrees clockwise, rotationDegree times
 	public void Rotate(int rotationDegree) {
 		
 		for (int i = 0; i < rotationDegree; i++)
@@ -52,18 +42,7 @@ public class Tile {
 			subtiles[6] = t1;
 			subtiles[7] = t2;
 			subtiles[8] = t3;
-//		Subtile temp;
-//		temp = subtiles[6];
-//		subtiles[6] = subtiles[8];
-//		subtiles[8] = subtiles[2];
-//		subtiles[2] = subtiles[0];
-//		subtiles[0] = temp;
-//
-//		temp = subtiles[3];
-//		subtiles[3] = subtiles[7];
-//		subtiles[7] = subtiles[5];
-//		subtiles[5] = subtiles[1];
-//		subtiles[1] = temp;
+
 		}
 
 	}

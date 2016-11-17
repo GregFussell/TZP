@@ -6,36 +6,46 @@ public class Territory {
 	
 	int id;
 	char territory;
-	boolean isComplete;
+	boolean isScored;
+	boolean isCompleted;
 	boolean isDeleted;
 	int openFaces;
-	int player1Meeples;
-	int player2Meeples;
-	int numTiles;
+	int player1Tigers;
+	int player2Tigers;
 	int numDeer;
 	int numBoar;
 	int numBuffalo;
+	ArrayList<Integer> borderingLakes = new ArrayList<Integer>();
+	ArrayList<Integer> borderingDens = new ArrayList<Integer>();
 	ArrayList<ArrayCoord> containedTiles = new ArrayList<ArrayCoord>();
 	//ArrayList<Integer> mergedTiles = new ArrayList<Integer>();
 
-	public Territory(int id, char type, int openFaces, boolean deer, boolean boar, boolean buffalo) {
+	public Territory(int id, char type, int openFaces, boolean[] preyAnimals, ArrayList<Integer> borderingLakes, ArrayList<Integer> borderingDens) {
 		this.id = id;
 		this.territory = type;
 		this.openFaces = openFaces;
-		int player1Meeples = 0;
-		int player2Meeples = 0;
-		numTiles = 1;
-		isComplete = false;
+		int player1Tigers = 0;
+		int player2Tigers = 0;
+
+		isScored = false;
+		isCompleted = false;
 		isDeleted = false;
-		if (deer == true)
+		
+		if (type == 'j')
+		{
+			this.borderingLakes = borderingLakes;
+			this.borderingDens = borderingDens;
+		}
+
+		if (preyAnimals[0] == true)
 		{
 			numDeer = 1;
 		}
-		if (boar == true)
+		if (preyAnimals[1] == true)
 		{
 			numBoar = 1;
 		}
-		if (buffalo == true)
+		if (preyAnimals[2] == true)
 		{
 			numBuffalo = 1;
 		}

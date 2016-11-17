@@ -23,17 +23,34 @@ public class Game {
 		Territory[] myTerritories = new Territory[246];
 		TerritoryPtr terPtr = new TerritoryPtr();
 		
+		//Defines the preyAnimal types for tiles
+		boolean[] noPreyAnim = new boolean[3];
+		noPreyAnim[0] = false; noPreyAnim[1] = false; noPreyAnim[2] = false;
+		boolean[] deer = new boolean[3];
+		deer[0] = true; deer[1] = false; deer[2] = false;
+		boolean[] boar = new boolean[3];
+		boar[0] = false; boar[1] = true; boar[2] = false;
+		boolean[] buffalo = new boolean[3];
+		buffalo[0] = false; buffalo[1] = false; buffalo[2] = true;
+		
+		//Defines an empty ArrayList for non jungle tiles
+		ArrayList<Integer> noBorderLakes = new ArrayList<Integer>();
+		ArrayList<Integer> noBorderDens = new ArrayList<Integer>();
+		
 		//Creates Territories for Starter Tile
 		int[] territories = new int[13];
 		
-		Territory ter = new Territory(0, ' ', 0, false, false, false);
+		Territory ter = new Territory(0, ' ', 0, noPreyAnim, noBorderLakes, noBorderDens);
 		myTerritories[0] = ter;
 		
 		//Tile D : starter tile
-		Territory ter1 = new Territory(1, 'l', 1, false, false, false); myTerritories[1] = ter1;//North lake
-		Territory ter2 = new Territory(2, 'j', 2, false, false, false); myTerritories[2] = ter2;//North Jungle
-		Territory ter3 = new Territory(3, 't', 2, false, false, false); myTerritories[3] = ter3;//Road
-		Territory ter4 = new Territory(4, 'j', 3, false, false, false); myTerritories[4] = ter4;//South Jungle
+		ArrayList<Integer> borderLake = new ArrayList<Integer>();
+		borderLake.add(1);
+		
+		Territory ter1 = new Territory(1, 'l', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[1] = ter1;//North lake
+		Territory ter2 = new Territory(2, 'j', 2, noPreyAnim, borderLake, noBorderDens); myTerritories[2] = ter2;//North Jungle
+		Territory ter3 = new Territory(3, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[3] = ter3;//Road
+		Territory ter4 = new Territory(4, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[4] = ter4;//South Jungle
 		ter1.containedTiles.add(new ArrayCoord (36,36));
 		ter2.containedTiles.add(new ArrayCoord (36,36));
 		ter3.containedTiles.add(new ArrayCoord (36,36));
@@ -63,9 +80,9 @@ public class Game {
 		
 		
 		//Tile U
-		Territory ter5 = new Territory(5, 'j', 3, false, false, false); myTerritories[5] = ter5;//North jungle
-		Territory ter6 = new Territory(6, 't', 2, false, false, false); myTerritories[6] = ter6;//Road
-		Territory ter7 = new Territory(7, 'j', 3, false, false, false); myTerritories[7] = ter7;//South Jungle
+		Territory ter5 = new Territory(5, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[5] = ter5;//North jungle
+		Territory ter6 = new Territory(6, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[6] = ter6;//Road
+		Territory ter7 = new Territory(7, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[7] = ter7;//South Jungle
 		
 		territories[0] = 5;
 		territories[1] = 5;
@@ -84,9 +101,9 @@ public class Game {
 		Tile A = new Tile(territories, 2);
 	
 		//Tile V.1 
-		Territory ter8 = new Territory(8, 'j', 3, false, false, false); myTerritories[8] = ter8;//North jungle
-		Territory ter9 = new Territory(9, 't', 2, false, false, false); myTerritories[9] = ter9;//Road
-		Territory ter10 = new Territory(10, 'j', 2, false, false, false); myTerritories[10] = ter10;//South Jungle
+		Territory ter8 = new Territory(8, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[8] = ter8;//North jungle
+		Territory ter9 = new Territory(9, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[9] = ter9;//Road
+		Territory ter10 = new Territory(10, 'j', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[10] = ter10;//South Jungle
 		
 		territories[0] = 8;
 		territories[1] = 8;
@@ -109,9 +126,9 @@ public class Game {
 
 		
 		//Tile V.2
-		Territory ter11 = new Territory(11, 'j', 3, false, false, false); myTerritories[11] = ter11;//North jungle
-		Territory ter12 = new Territory(12, 't', 2, false, false, false); myTerritories[12] = ter12;//Road
-		Territory ter13 = new Territory(13, 'j', 2, false, false, false); myTerritories[13] = ter13;//South Jungle
+		Territory ter11 = new Territory(11, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[11] = ter11;//North jungle
+		Territory ter12 = new Territory(12, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[12] = ter12;//Road
+		Territory ter13 = new Territory(13, 'j', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[13] = ter13;//South Jungle
 		
 		territories[0] = 11;
 		territories[1] = 11;
@@ -130,9 +147,9 @@ public class Game {
 		Tile C = new Tile(territories, 4);
 		
 		//Tile V.3
-		Territory ter14 = new Territory(14, 'j', 3, false, false, false); myTerritories[14] = ter14;
-		Territory ter15 = new Territory(15, 't', 2, false, false, false); myTerritories[15] = ter15;
-		Territory ter16 = new Territory(16, 'j', 2, false, false, false); myTerritories[16] = ter16;
+		Territory ter14 = new Territory(14, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[14] = ter14;
+		Territory ter15 = new Territory(15, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[15] = ter15;
+		Territory ter16 = new Territory(16, 'j', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[16] = ter16;
 		
 		territories[0] = 14;
 		territories[1] = 14;
@@ -151,9 +168,9 @@ public class Game {
 		Tile D = new Tile(territories, 5);
 		
 		//Tile V.4
-		Territory ter17 = new Territory(17, 'j', 3, false, false, false); myTerritories[17] = ter17;
-		Territory ter18 = new Territory(18, 't', 2, false, false, false); myTerritories[18] = ter18;
-		Territory ter19 = new Territory(19, 'j', 2, false, false, false); myTerritories[19] = ter19;
+		Territory ter17 = new Territory(17, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[17] = ter17;
+		Territory ter18 = new Territory(18, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[18] = ter18;
+		Territory ter19 = new Territory(19, 'j', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[19] = ter19;
 		
 		territories[0] = 17;
 		territories[1] = 17;
@@ -171,6 +188,40 @@ public class Game {
 		
 		Tile E = new Tile(territories, 6);
 		
+		
+		//New tile type D
+		ArrayList<Integer> borderLake21 = new ArrayList<Integer>();
+		borderLake21.add(20);
+		
+		Territory ter20 = new Territory(20, 'l', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[20] = ter20;//North lake
+		Territory ter21 = new Territory(21, 'j', 2, noPreyAnim, borderLake21, noBorderDens); myTerritories[21] = ter21;//North Jungle
+		Territory ter22 = new Territory(22, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[22] = ter22;//Road
+		Territory ter23 = new Territory(23, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[23] = ter23;//South Jungle
+
+		/*
+		 *  lll
+		 * j   j
+		 * t   t
+		 * j   j
+		 *  jjj
+		 */
+		
+		territories[0] = 20;
+		territories[1] = 20;
+		territories[2] = 20;
+		territories[3] = 21;
+		territories[4] = 22;
+		territories[5] = 23;
+		territories[6] = 23;
+		territories[7] = 23;
+		territories[8] = 23;
+		territories[9] = 23;
+		territories[10] = 22;
+		territories[11] = 21;
+		territories[12] = 0;
+		//
+		Tile F = new Tile(territories, 7);
+		
 		// Creates Starter Tile
 		//Tile starter = new Tile("llljtjjjjjtjR", 1);
 		//Tile starter = new Tile(territories, 1);
@@ -181,16 +232,20 @@ public class Game {
 //		Tile C = new Tile("jtjjtjjtjjtjR", 4);
 //		Tile D = new Tile("lllllljtjlllR", 5);
 //		Tile E = new Tile("llljjjjjjjjjR", 6);
-		Deck myDeck = new Deck(C, D, E, A, A);
+		Deck myDeck = new Deck(F, D, E, A, A);
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
 		// Starter location is added as a placeablePos, starter tile is then
 		// automatically placed and the placed/placeable array lists are updated
 		placeablePos.add(new ArrayCoord(36, 36));
-		board[36][36] = B;
+		board[36][36] = starter;
 		updatePlaceable(placedPos, placeablePos, 36, 36);
 		
-		
+		//Closed road test: Start = B; decklist = C D E A A
+		//Current Test: start = starter
+
+		//ter21.borderingLakes.add(0);
+		System.out.println("Bordering Lakes size is " + ter23.borderingLakes.size());
 		
 	//TESTING POINTER
 		
@@ -217,21 +272,24 @@ public class Game {
 //		Printer.printArrayList(myTerritories[terPtr.pointers[B.subtiles[7]]].containedTiles);
 
 
-Player player1 = new Player();
-Player player2 = new Player();
-		
+
+Player player1 = new Player(1);
+Player player2 = new Player(2);
+
+//ter15.player1Tigers = 2;
+//ter15.player2Tigers = 1;
 
 ///////////////////////////////////////////////////// GAMEPLAY LOOP \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 		
 	//	printTile(starter);
-
+		int turn = 1;
 		// Users plays game
 		while (myDeck.deck.size() > 2) {
 			int x = 0;
 			int y = 0;
 
 			System.out.println("The current board is: ");
-			Printer.printBoard(board, placedPos, myTerritories, terPtr);
+			Printer.printBoardID(board, placedPos, myTerritories, terPtr);
 			
 			System.out.println("The current tile is: ");
 			Tile myTile = myDeck.deck.remove();
@@ -273,7 +331,7 @@ Player player2 = new Player();
 				//Merge 0 index if its a jungle
 				if (myTerritories[terPtr.pointers[myTile.subtiles[0]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[0]]].id != myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]].id)
 				{
-					mergeTerritory(myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]], myTerritories[terPtr.pointers[myTile.subtiles[0]]], x, y);
+					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]], myTerritories[terPtr.pointers[myTile.subtiles[0]]], x, y);
 					rewriteIDs[0] = myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]].id;
 					currentIDs[0] = myTerritories[terPtr.pointers[myTile.subtiles[0]]].id;
 					
@@ -285,7 +343,7 @@ Player player2 = new Player();
 				//Merge 1 index
 				if (myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]] != myTerritories[terPtr.pointers[myTile.subtiles[1]]])
 				{
-					mergeTerritory(myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]], myTerritories[terPtr.pointers[myTile.subtiles[1]]], x, y);
+					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]], myTerritories[terPtr.pointers[myTile.subtiles[1]]], x, y);
 					rewriteIDs[1] = myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]].id;
 					currentIDs[1] = myTerritories[terPtr.pointers[myTile.subtiles[1]]].id;
 				
@@ -297,7 +355,7 @@ Player player2 = new Player();
 				//Merge 2 index if its a jungle
 				if (myTerritories[terPtr.pointers[myTile.subtiles[2]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[2]]].id != myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]].id)
 				{
-					mergeTerritory(myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]], myTerritories[terPtr.pointers[myTile.subtiles[2]]], x, y);
+					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]], myTerritories[terPtr.pointers[myTile.subtiles[2]]], x, y);
 					rewriteIDs[2] = myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]].id;
 					currentIDs[2] = myTerritories[terPtr.pointers[myTile.subtiles[2]]].id;
 		
@@ -312,7 +370,7 @@ Player player2 = new Player();
 				//Merge 3 index if its a jungle
 				if (myTerritories[terPtr.pointers[myTile.subtiles[3]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[3]]].id != myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]].id)
 				{
-					mergeTerritory(myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]], myTerritories[terPtr.pointers[myTile.subtiles[3]]], x, y);
+					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]], myTerritories[terPtr.pointers[myTile.subtiles[3]]], x, y);
 					rewriteIDs[3] = myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]].id;
 					currentIDs[3] = myTerritories[terPtr.pointers[myTile.subtiles[3]]].id;
 					
@@ -324,7 +382,7 @@ Player player2 = new Player();
 				//Merge 4 index
 				if (myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]] != myTerritories[terPtr.pointers[myTile.subtiles[4]]])
 				{
-					mergeTerritory(myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]], myTerritories[terPtr.pointers[myTile.subtiles[4]]], x, y);
+					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]], myTerritories[terPtr.pointers[myTile.subtiles[4]]], x, y);
 					rewriteIDs[4] = myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]].id;
 					currentIDs[4] = myTerritories[terPtr.pointers[myTile.subtiles[4]]].id;
 				
@@ -340,7 +398,7 @@ Player player2 = new Player();
 				//Merge 5 index if its a jungle
 				if (myTerritories[terPtr.pointers[myTile.subtiles[5]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[5]]].id != myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]].id)
 				{
-					mergeTerritory(myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]], myTerritories[terPtr.pointers[myTile.subtiles[5]]], x, y);
+					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]], myTerritories[terPtr.pointers[myTile.subtiles[5]]], x, y);
 					rewriteIDs[5] = myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]].id;
 					currentIDs[5] = myTerritories[terPtr.pointers[myTile.subtiles[5]]].id;
 					
@@ -355,7 +413,7 @@ Player player2 = new Player();
 				//Merge 6 index if its a jungle
 				if (myTerritories[terPtr.pointers[myTile.subtiles[6]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[6]]].id != myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]].id)
 				{
-					mergeTerritory(myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]], myTerritories[terPtr.pointers[myTile.subtiles[6]]], x, y);
+					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]], myTerritories[terPtr.pointers[myTile.subtiles[6]]], x, y);
 					rewriteIDs[6] = myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]].id;
 					currentIDs[6] = myTerritories[terPtr.pointers[myTile.subtiles[6]]].id;
 					
@@ -367,7 +425,7 @@ Player player2 = new Player();
 				//Merge 7 index
 				if (myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]] != myTerritories[terPtr.pointers[myTile.subtiles[7]]])
 				{
-					mergeTerritory(myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]], myTerritories[terPtr.pointers[myTile.subtiles[7]]], x, y);
+					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]], myTerritories[terPtr.pointers[myTile.subtiles[7]]], x, y);
 					rewriteIDs[7] = myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]].id;
 					currentIDs[7] = myTerritories[terPtr.pointers[myTile.subtiles[7]]].id;
 				
@@ -383,7 +441,7 @@ Player player2 = new Player();
 				//Merge 8 index if its a jungle
 				if (myTerritories[terPtr.pointers[myTile.subtiles[8]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[8]]].id != myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]].id)
 				{
-					mergeTerritory(myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]], myTerritories[terPtr.pointers[myTile.subtiles[8]]], x, y);
+					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]], myTerritories[terPtr.pointers[myTile.subtiles[8]]], x, y);
 					rewriteIDs[8] = myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]].id;
 					currentIDs[8] = myTerritories[terPtr.pointers[myTile.subtiles[8]]].id;
 					
@@ -398,7 +456,7 @@ Player player2 = new Player();
 				//Merge 9 index if its a jungle
 				if (myTerritories[terPtr.pointers[myTile.subtiles[9]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[9]]].id != myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]].id)
 				{
-					mergeTerritory(myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]], myTerritories[terPtr.pointers[myTile.subtiles[9]]], x, y);
+					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]], myTerritories[terPtr.pointers[myTile.subtiles[9]]], x, y);
 					rewriteIDs[9] = myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]].id;
 					currentIDs[9] = myTerritories[terPtr.pointers[myTile.subtiles[9]]].id;
 					
@@ -410,7 +468,7 @@ Player player2 = new Player();
 				//Merge 10 index
 				if (myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]] != myTerritories[terPtr.pointers[myTile.subtiles[10]]])
 				{
-					mergeTerritory(myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]], myTerritories[terPtr.pointers[myTile.subtiles[10]]], x, y);
+					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]], myTerritories[terPtr.pointers[myTile.subtiles[10]]], x, y);
 					rewriteIDs[10] = myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]].id;
 					currentIDs[10] = myTerritories[terPtr.pointers[myTile.subtiles[10]]].id;
 				
@@ -426,7 +484,7 @@ Player player2 = new Player();
 				//Merge 11 index if its a jungle
 				if (myTerritories[terPtr.pointers[myTile.subtiles[11]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[11]]].id != myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]].id)
 				{
-					mergeTerritory(myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]], myTerritories[terPtr.pointers[myTile.subtiles[11]]], x, y);
+					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]], myTerritories[terPtr.pointers[myTile.subtiles[11]]], x, y);
 					rewriteIDs[11] = myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]].id;
 					currentIDs[11] = myTerritories[terPtr.pointers[myTile.subtiles[11]]].id;
 					
@@ -434,8 +492,33 @@ Player player2 = new Player();
 					terPtr.rewritePtr(currentIDs[11], rewriteIDs[11]);
 				}
 			}
-			////////////////////////////////// END OF MERGING \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 			
+			//Tiger placing
+			
+			//player2's Turn
+			if (turn%2 == 0)
+			{
+				tigerPlacement(myTile, myTerritories, terPtr, player2, sc);
+			}
+			//player1's Turn
+			else
+			{
+				tigerPlacement(myTile, myTerritories, terPtr, player1, sc);
+			}
+			
+			//
+			
+			
+			//Scoring
+			
+			midGameScoring(myTile, myTerritories, terPtr, player1, player2);
+			
+			//
+			
+			
+			
+			////////////////////////////////// END OF MERGING \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+			turn++;
 			//Place tile, update positions
 			board[x][y] = myTile;
 			updatePlaceable(placedPos, placeablePos, x, y);
@@ -444,6 +527,9 @@ Player player2 = new Player();
 		
 		System.out.println("\nThe final board is: ");
 		Printer.printBoardID(board, placedPos, myTerritories, terPtr);
+		
+		endGameScoring(myTerritories, terPtr, player1, player2);
+		Printer.printScores(player1, player2);
 		
 		System.out.println("Open faces on road: ");
 		System.out.println(myTerritories[18].openFaces);
@@ -541,10 +627,10 @@ Player player2 = new Player();
 			if (x == placeablePos.get(i).x && y == placeablePos.get(i).y) {
 				placedPos.add(placeablePos.get(i));
 				if (placeablePos.remove(placeablePos.get(i)) == true) {
-					// System.out.println("Hello world");
+
 				}
 			} else {
-				// System.out.println("Goodbye world");
+
 			}
 		}
 
@@ -583,23 +669,22 @@ Player player2 = new Player();
 
 	}
 	
-	/////////////////////////////////////PRINTING METHODS/////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	//Method for printing out a single tile, used for displaying the current tile to user
+	////////////////////////////////////////// MERGING /////////////////////////////////////////////////////////////////////
 
-	
-	
+	//CHANGE to not pass in territories, rather locations
 	
 	//Method to merge the contents of one territory with another.
-	public static void mergeTerritory(Territory toMerge, Territory currentTerritory, int x, int y)
+	public static void mergeTerritory(Territory[] myTerritories, Territory toMerge, Territory currentTerritory, int x, int y)
 	{	
+		System.out.println("Merging Territories " + toMerge.id + " and " + currentTerritory.id);
+		System.out.println(toMerge.borderingLakes.size() + " and " + currentTerritory.borderingLakes.size());
+		
 		currentTerritory.numDeer += toMerge.numDeer;
 		currentTerritory.numBoar += toMerge.numBoar;
 		currentTerritory.numBuffalo += toMerge.numBuffalo;
-		currentTerritory.numTiles += toMerge.numTiles;
 		currentTerritory.openFaces += toMerge.openFaces - 2;
-		currentTerritory.player1Meeples += toMerge.player1Meeples;
-		currentTerritory.player2Meeples += toMerge.player2Meeples;
+		currentTerritory.player1Tigers += toMerge.player1Tigers;
+		currentTerritory.player2Tigers += toMerge.player2Tigers;
 		
 		//Checks if the tile is already in the territory to prevent double scoring a tile.
 		currentTerritory.containedTiles = toMerge.containedTiles;
@@ -616,9 +701,43 @@ Player player2 = new Player();
 			currentTerritory.containedTiles.add(new ArrayCoord(x,y));
 		}
 		
-		toMerge.numTiles = 0;
-				
-		//return currentTerritory;
+		
+		//Updates borderingLakes and borderingDens if type is jungle
+		if (currentTerritory.territory == 'j' && toMerge.territory == 'j')
+		{
+			currentTerritory.borderingLakes.add(10);
+			System.out.println("Bordering Lakes size is " + myTerritories[23].borderingLakes.size());
+			
+			
+			//SOMETHING IS WRONG HERE
+			
+			//Checks all borderLakes in toMerge
+			for (int i = 0; i < toMerge.borderingLakes.size(); i++)
+			{				
+				//Add the borderLake to current Territory if it is not in current Territory
+				if (currentTerritory.borderingLakes.contains(toMerge.borderingLakes.get(i)) == false)
+				{
+					
+					System.out.println(toMerge.borderingLakes.get(i));
+					//currentTerritory.borderingLakes.add(toMerge.borderingLakes.get(i));
+				}
+			}
+			
+			
+			System.out.println("Bordering Lakes size is " + myTerritories[23].borderingLakes.size());
+			
+			//Checks all borderDens in toMerge
+			for (int i = 0; i < toMerge.borderingDens.size(); i++)
+			{
+				//Add the borderDens to current Territory if it is not in current Territory
+				if (currentTerritory.borderingDens.contains(toMerge.borderingDens.get(i)) == false)
+				{
+					currentTerritory.borderingDens.add(toMerge.borderingDens.get(i));
+				}
+			}
+		}
+		
+		
 	}
 
 /*
@@ -695,12 +814,337 @@ Player player2 = new Player();
 		}	
 	}
 */
-	
+	//////////////////////////////// TIGER PLACEMENT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	public static void tigerPlacement(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, Player player, Scanner sc)
+	{
+		//Player can only place if they have a tiger available
+		if (player.numTigers > 0)
+		{
+			ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
+			ArrayList<Integer> tileIndex = new ArrayList<Integer>();
+
+			for (int i = 0; i < 12; i++)
+			{
+				//Can only place on territories with no tigers
+				if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers == 0)
+				{
+					//Add the ID of the available tiger location if it is not already present and print its position
+					if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id) == false)
+					{
+						System.out.println("A Tiger may be placed on index " + i + " which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory + " ");
+						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id);
+						tileIndex.add(i);
+					}
+				}
+			}
+			
+			//If a den is present, add it to available tiger locations
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 'd')
+			{
+				availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[13]]].id);
+				tileIndex.add(12);
+				System.out.println("A Tiger may be placed on index 13 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[13]]].territory);
+			}
+			
+			tileIndex.add(13);			
+			//Collects index of tiger placement from player
+			System.out.println("Please enter an available index for tiger placement, or 13 for none");
+			int tigerLoc = sc.nextInt();
+
+			//Ensures valid index has been selected
+			while (tileIndex.contains(tigerLoc) == false)
+			{
+				System.out.println("Invalid Index: Please enter an available index for tiger placement, or 13 for none");
+				tigerLoc = sc.nextInt();
+			}
+			
+			//Do nothing if 13 is entered
+			if (tigerLoc == 13)
+			{
+				System.out.println("No tiger has been placed");
+			}
+			else
+			{
+				System.out.println("A tiger has been placed on index " + tigerLoc + " for player" + player.playerID);
+					
+				int placedLoc = availableTigerLoc.get(tileIndex.indexOf(tigerLoc));
+				//Add a tiger to tile as player1 if player1
+				if (player.playerID == 1)
+				{
+					 myTerritories[placedLoc].player1Tigers++;
+				}
+				//Add a tiger to tile as player2 if player2
+				else
+				{
+					 myTerritories[placedLoc].player2Tigers++;
+				}
+				//Subtract one tiger from player
+				player.numTigers--;
+			}
+		}
+		else
+		{
+			System.out.println("The player has no tigers available to place");
+		}
+	}
+
 	
 	
 	////////////////////////////////////////// SCORING METHODS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	public void endGameScoring()
+	public static void midGameScoring(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, Player player1, Player player2)
 	{
+		for (int i = 0; i < 12; i++)
+		{
+			//Scores trails if they are completed mid game
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].isScored == false && myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 't' 
+					&& myTerritories[terPtr.pointers[currentTile.subtiles[i]]].openFaces == 0)
+			{
+				if ((myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers > 0 || myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers > 0))
+				{
+					int additionalPoints = myTerritories[terPtr.pointers[currentTile.subtiles[i]]].numBoar + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].numBuffalo + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].numDeer;
+					int trailScore = myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedTiles.size() + additionalPoints;
+					
+					//Player1 gets score if they have more tigers + return tigers
+					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers > myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
+					{
+						System.out.println("Player 1 has earned " + trailScore + " points for a completed game trail");
+						player1.score += trailScore;
+						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed game trail");
+						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed game trail");
+						player1.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers;
+						player2.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers;
+					}
+					//Player2 gets score if they have more tigers + return tigers
+					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers < myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
+					{
+						System.out.println("Player 2 has earned " + trailScore + " points for a completed game trail");
+						player2.score += trailScore;
+						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed game trail");
+						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed game trail");
+						player1.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers;
+						player2.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers;
+					}
+					//Player1 & Player2 get score if they have same amount of tigers + return tigers
+					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers == myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
+					{
+						System.out.println("Player 1 and Player 2 have both earned " + trailScore + " points for a completed game trail");
+						player1.score += trailScore;
+						player2.score += trailScore;
+						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed game trail");
+						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed game trail");
+						player1.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers;
+						player2.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers;
+					}
+				}
+				//Marks Territory as scored and completed
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].isScored = true;
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].isCompleted = true;
+			}
+			
+			//Scores lakes if they are completed mid game
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].isScored == false && myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 'l' 
+					&& myTerritories[terPtr.pointers[currentTile.subtiles[i]]].openFaces == 0)
+			{
+				if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers > 0 || myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers > 0)
+				{
+					int multiplier = 1;
+					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].numBoar > 0)
+					{
+						multiplier++;
+					}
+					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].numBuffalo > 0)
+					{
+						multiplier++;
+					}
+					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].numDeer > 0)
+					{
+						multiplier++;
+					}
+					int lakeScore = (2 * myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedTiles.size()) * multiplier;
+					//Player1 gets score if they have more tigers + return tigers
+					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers > myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
+					{
+						System.out.println("Player 1 has earned " + lakeScore + " points for a completed lake");
+						player1.score += lakeScore;
+						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed lake");
+						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed lake");
+						player1.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers;
+						player2.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers;
+					}
+					//Player2 gets score if they have more tigers + return tigers
+					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers < myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
+					{
+						System.out.println("Player 2 has earned " + lakeScore + " points for a completed lake");
+						player2.score += lakeScore;
+						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed lake");
+						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed lake");
+						player1.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers;
+						player2.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers;
+					}
+					//Player1 & Player2 get score if they have same amount of tigers + return tigers
+					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers == myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
+					{
+						System.out.println("Player 1 and Player 2 have both earned " + lakeScore + " points for a completed lake");
+						player1.score += lakeScore;
+						player2.score += lakeScore;
+						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed lake");
+						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed lake");
+						player1.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers;
+						player2.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers;
+					}
+				}
+				
+				//Marks Territory as scored and completed
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].isScored = true;
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].isCompleted = true;
+			}
+		}
+	}
+	
+	public static void endGameScoring(Territory[] myTerritories, TerritoryPtr terPtr, Player player1, Player player2)
+	{
+		/////////////////////////////////// ****CHANGE LATER For-loop set to 20 for testing CHANGE LATER**** \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+		for (int i = 0; i < 24; i++)
+		{
+			//Checks for existing trails that have a tiger placed and are not scored
+			if (myTerritories[i].isScored == false && myTerritories[i].territory == 't' && myTerritories[i].isDeleted == false && (myTerritories[i].player1Tigers > 0 || myTerritories[i].player2Tigers > 0))
+			{
+				int additionalPoints = myTerritories[i].numBoar + myTerritories[i].numBuffalo + myTerritories[i].numDeer;
+				int trailScore = myTerritories[i].containedTiles.size() + additionalPoints;
+				
+				//Player1 gets score if they have more tigers
+				if (myTerritories[i].player1Tigers > myTerritories[i].player2Tigers)
+				{
+					System.out.println("Player 1 has earned " + trailScore + " points for an incomplete game trail");
+					player1.score += trailScore;
+				}
+				//Player2 gets score if they have more tigers
+				if (myTerritories[i].player1Tigers < myTerritories[i].player2Tigers)
+				{
+					System.out.println("Player 2 has earned " + trailScore + " points for an incomplete game trail");
+					player2.score += trailScore;
+				}
+				//Player1 & Player2 get score if they have same amount of tigers
+				if (myTerritories[i].player1Tigers == myTerritories[i].player2Tigers)
+				{
+					System.out.println("Player 1 and Player 2 have both earned " + trailScore + " points for an incomplete game trail");
+					player1.score += trailScore;
+					player2.score += trailScore;
+				}
+				//Marks Territory as scored
+				myTerritories[i].isScored = true;
+			}
+			//Checks for existing lakes that have a tiger placed and are not scored
+			if (myTerritories[i].isScored == false && myTerritories[i].territory == 'l' && myTerritories[i].isDeleted == false && (myTerritories[i].player1Tigers > 0 || myTerritories[i].player2Tigers > 0))
+			{
+				int multiplier = 1;
+				
+				if (myTerritories[i].numBoar > 0)
+				{
+					multiplier++;
+				}
+				if (myTerritories[i].numBuffalo > 0)
+				{
+					multiplier++;
+				}
+				if (myTerritories[i].numDeer > 0)
+				{
+					multiplier++;
+				}
+				int lakeScore = myTerritories[i].containedTiles.size() * multiplier;
+				
+				//Player1 gets score if they have more tigers
+				if (myTerritories[i].player1Tigers > myTerritories[i].player2Tigers)
+				{
+					System.out.println("Player 1 has earned " + lakeScore + " points for an incomplete lake");
+					player1.score += lakeScore;
+				}
+				//Player2 gets score if they have more tigers
+				if (myTerritories[i].player1Tigers < myTerritories[i].player2Tigers)
+				{
+					System.out.println("Player 2 has earned " + lakeScore + " points for an incomplete lake");
+					player2.score += lakeScore;
+				}
+				//Player1 & Player2 get score if they have same amount of tigers
+				if (myTerritories[i].player1Tigers == myTerritories[i].player2Tigers)
+				{
+					System.out.println("Player 1 and Player 2 have both earned " + lakeScore + " points for an incomplete lake");
+					player1.score += lakeScore;
+					player2.score += lakeScore;
+				}
+				//Marks Territory as scored
+				myTerritories[i].isScored = true;
+			}
+			
+			//Checks for existing fields that have a tiger placed and are not scored
+			if (myTerritories[i].isScored == false && myTerritories[i].territory == 'j' && myTerritories[i].isDeleted == false && (myTerritories[i].player1Tigers > 0 || myTerritories[i].player2Tigers > 0))
+			{
+				int numAdjacentLake = 0;
+				int numAdjacentDen = 0;
+				
+				//test
+				System.out.println("The size of bordering lakes is " + myTerritories[i].borderingLakes.size());
+				for (int j = 0 ; j < myTerritories[i].borderingLakes.size(); j++)
+				{
+					System.out.println(myTerritories[i].borderingLakes.get(j));
+					System.out.println(terPtr.pointers[myTerritories[i].borderingLakes.get(j)]);
+				}
+
+				
+				//
+				
+				ArrayList<Integer> scoredBorderLakes = new ArrayList<Integer>();
+				
+				//Check borderingLakes if they are complete
+				for(int j = 0; j < myTerritories[i].borderingLakes.size(); j++)
+				{
+					if (myTerritories[terPtr.pointers[myTerritories[i].borderingLakes.get(j)]].isCompleted == true && 
+							scoredBorderLakes.contains(myTerritories[terPtr.pointers[myTerritories[i].borderingLakes.get(j)]].id) == false)
+					{
+						numAdjacentLake++;
+						scoredBorderLakes.add(myTerritories[terPtr.pointers[myTerritories[i].borderingLakes.get(j)]].id);
+					}
+				}
+				
+				//Check borderingDens if they are complete
+				for(int j = 0; j < myTerritories[i].borderingDens.size(); j++)
+				{
+					if (myTerritories[terPtr.pointers[myTerritories[i].borderingDens.get(j)]].isCompleted == true && 
+							scoredBorderLakes.contains(myTerritories[terPtr.pointers[myTerritories[i].borderingDens.get(j)]].id) == false)
+					{
+						numAdjacentDen++;
+						scoredBorderLakes.add(myTerritories[terPtr.pointers[myTerritories[i].borderingDens.get(j)]].id);
+					}
+				}
+				
+				System.out.println("Number of adjacent lakes is " + numAdjacentLake + " Number of adj dens is " + numAdjacentDen);
+				
+				//Jungle score is 3 points per adj Lake + 5 points per adj Den
+				int jungleScore = (3 * numAdjacentLake) + (5 * numAdjacentDen);
+				
+				//Player1 gets score if they have more tigers
+				if (myTerritories[i].player1Tigers > myTerritories[i].player2Tigers)
+				{
+					System.out.println("Player 1 has earned " + jungleScore + " points for a completed jungle");
+					player1.score += jungleScore;
+				}
+				//Player2 gets score if they have more tigers
+				if (myTerritories[i].player1Tigers < myTerritories[i].player2Tigers)
+				{
+					System.out.println("Player 2 has earned " + jungleScore + " points for a completed jungle");
+					player2.score += jungleScore;
+				}
+				//Player1 & Player2 get score if they have same amount of tigers
+				if (myTerritories[i].player1Tigers == myTerritories[i].player2Tigers)
+				{
+					System.out.println("Player 1 and Player 2 have both earned " + jungleScore + " points for a completed jungle");
+					player1.score += jungleScore;
+					player2.score += jungleScore;
+				}
+				//Marks Territory as scored
+				myTerritories[i].isScored = true;
+			}
+		}
 		
 	}
 	
