@@ -7,7 +7,6 @@ public class Tile {
 	Subtile subtiles[][];
 	static int counter = 0;
 	int position[] = new int[2];
-	int id;
 	//TODO add a get method so we can get a subtile based on an ArrayCoord, then we should name ArrayCoords with names like rightsidemiddle for clarity
 	boolean boar;
 	boolean buffalo;
@@ -25,6 +24,7 @@ public class Tile {
 
 		//dfs(new Territory(subtiles[1][0].territoryType),subtiles[0][0]);
 	}
+
 	public void findTerritories(ArrayCoord subtile){
 		
 		    
@@ -78,7 +78,7 @@ public class Tile {
 //		  }
 	  }
 	}
-	public ArrayList<Subtile> findAdj(Subtile subtile)
+	public ArrayList<Subtile> findAdj(Subtile subtile)//finds adjacent subtiles given a subtile for purposes of merging within a tile
 	{
 		   ArrayList<Subtile> adj = new ArrayList<Subtile>();
 		   if(subtile.loc.y>0 && subtiles[subtile.loc.x][subtile.loc.y-1]!=null  )
