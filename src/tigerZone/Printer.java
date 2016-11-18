@@ -93,19 +93,19 @@ public class Printer {
 				maxy=placedPos.get(i).y;
 		}
 		int x = 0;
-		for (int i = minx; i <= maxx; i++) {// i is row
+		for (int i = miny; i <= maxy; i++) {// i is row
 			for (int h = 0; h < 6; h++) {
-				for (int j = miny; j <= maxy; j++) {// j is column
+				for (int j = minx; j <= maxx; j++) {// j is column
 					for (int k = x; k < x + 5; k++)// k is subtile, x is
 													// iteration over tile
 					{
-						if (board[i][j] == null)
+						if (board[j][i] == null)
 						{
 							System.out.print(" ");
 						}
 						else
 						{
-							System.out.print(subtilePrintFormatter(board[i][j], myTerritories, terPtr)[k]);
+							System.out.print(subtilePrintFormatter(board[j][i], myTerritories, terPtr)[k]);
 						}
 						if (k == x + 4){
 							System.out.print("|");
@@ -178,19 +178,19 @@ public class Printer {
 		}
 
 		int x = 0;
-		for (int i = minx; i <= maxx; i++) {// i is row
+		for (int i = miny; i <= maxy; i++) {// i is row
 			for (int h = 0; h < 6; h++) {
-				for (int j = miny; j <= maxy; j++) {// j is column
+				for (int j = minx; j <= maxx; j++) {// j is column
 					for (int k = x; k < x + 5; k++)// k is subtile, x is
 													// iteration over tile
 					{
-						if (board[i][j] == null)
+						if (board[j][i] == null)
 						{
 							System.out.print("  ");
 						}
 						else
 						{
-							System.out.printf("%2s", idPrintFormatter(board[i][j], myTerritories, terPtr)[k]);
+							System.out.printf("%2s", idPrintFormatter(board[j][i], myTerritories, terPtr)[k]);
 						}
 						if (k == x + 4){
 							System.out.print("|");
