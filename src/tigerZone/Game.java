@@ -222,6 +222,30 @@ public class Game {
 		//
 		Tile F = new Tile(territories, 7);
 		
+		
+		//Tile with den
+		ArrayList<Integer> borderDen = new ArrayList<Integer>();
+		borderDen.add(25);
+		Territory ter24 = new Territory(24, 'j', 3, noPreyAnim, noBorderLakes, borderDen); myTerritories[24] = ter24;//South Jungle
+		Territory ter25 = new Territory(25, 'd', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[25] = ter25;//South Jungle
+		
+		territories[0] = 24;
+		territories[1] = 24;
+		territories[2] = 24;
+		territories[3] = 24;
+		territories[4] = 24;
+		territories[5] = 24;
+		territories[6] = 24;
+		territories[7] = 24;
+		territories[8] = 24;
+		territories[9] = 24;
+		territories[10] = 24;
+		territories[11] = 24;
+		territories[12] = 25;
+		//
+		Tile G = new Tile(territories, 8);
+		
+		
 		// Creates Starter Tile
 		//Tile starter = new Tile("llljtjjjjjtjR", 1);
 		//Tile starter = new Tile(territories, 1);
@@ -232,7 +256,7 @@ public class Game {
 //		Tile C = new Tile("jtjjtjjtjjtjR", 4);
 //		Tile D = new Tile("lllllljtjlllR", 5);
 //		Tile E = new Tile("llljjjjjjjjjR", 6);
-		Deck myDeck = new Deck(F, D, E, A, A);
+		Deck myDeck = new Deck(G, D, E, A, A);
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
 		// Starter location is added as a placeablePos, starter tile is then
@@ -274,9 +298,9 @@ public class Game {
 
 Player player1 = new Player(1);
 Player player2 = new Player(2);
-
 //ter15.player1Tigers = 2;
 //ter15.player2Tigers = 1;
+ArrayList<Integer> currentDens = new ArrayList<Integer>();
 
 ///////////////////////////////////////////////////// GAMEPLAY LOOP \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 		
@@ -284,6 +308,23 @@ Player player2 = new Player(2);
 		int turn = 1;
 		// Users plays game
 		while (myDeck.deck.size() > 2) {
+			
+			//player2's Turn
+			if (turn%2 == 0)
+			{
+				System.out.println();
+				System.out.println("Player2's Turn: " + player2.numTigers + " Tigers remaining");
+
+				System.out.println();
+			}
+			//player1's Turn
+			else
+			{
+				System.out.println();
+				System.out.println("Player1's Turn: " + player1.numTigers + " Tigers remaining");
+				System.out.println();
+			}
+			
 			int x = 0;
 			int y = 0;
 
@@ -493,6 +534,21 @@ Player player2 = new Player(2);
 				}
 			}
 			
+			//Create a Den if den exists on tile by populating Moore neighborhood
+			if (myTerritories[terPtr.pointers[myTile.subtiles[12]]].territory == 'd')
+			{
+				//myTerritories[terPtr.pointers[myTile.subtiles[12]]].containedTiles.add(new ArrayCoord(x,y));
+				populateDen(board, myTerritories[terPtr.pointers[myTile.subtiles[12]]], x, y);
+				currentDens.add(terPtr.pointers[myTile.subtiles[12]]);
+			}
+			
+			//Check if newly placed tiles finish moore neighboorhood of previously placed dens
+			for (int i = 0; i < currentDens.size(); i++)
+			{
+				checkMooreNeighborhood(myTerritories[terPtr.pointers[currentDens.get(i)]], player1, player2, x, y);
+			}
+			
+			
 			//Tiger placing
 			
 			//player2's Turn
@@ -665,6 +721,8 @@ Player player2 = new Player(2);
 
 	}
 	
+	//Adds the location of the placed tile to the territories, 
+	//may not need second forloop?
 	public static void addContainedTile(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, int x, int y)
 	{
 		for (int i = 0; i < 13; i++)
@@ -743,84 +801,95 @@ Player player2 = new Player(2);
 				}
 			}
 		}
-		
-		
+	}
+	
+	//Checks moore neighboorhood of den for placed tiles and adds the locations that aren't placed
+	public static void populateDen(Tile[][] board, Territory den, int x, int y)
+	{
+		//check topleft
+		if (board[x-1][y-1] == null)
+		{
+			ArrayCoord topLeft = new ArrayCoord(x-1,y-1);
+			den.containedTiles.add(topLeft);
+		}
+		//check top
+		if (board[x-1][y] == null)
+		{
+			ArrayCoord top = new ArrayCoord(x-1,y);
+			den.containedTiles.add(top);
+		}
+		//check topRight
+		if (board[x-1][y+1] == null)
+		{
+			ArrayCoord topRight = new ArrayCoord(x-1,y+1);
+			den.containedTiles.add(topRight);
+		}
+		//check left
+		if (board[x][y-1] == null)
+		{
+			ArrayCoord left = new ArrayCoord(x,y-1);
+			den.containedTiles.add(left);
+		}
+		//check right
+		if (board[x][y+1] == null)
+		{
+			ArrayCoord right = new ArrayCoord(x,y+1);
+			den.containedTiles.add(right);
+		}
+		//check bottomLeft
+		if (board[x+1][y-1] == null)
+		{
+			ArrayCoord bottomLeft = new ArrayCoord(x+1,y-1);
+			den.containedTiles.add(bottomLeft);
+		}
+		//check bottom
+		if (board[x+1][y] == null)
+		{
+			ArrayCoord bottom = new ArrayCoord(x+1,y);
+			den.containedTiles.add(bottom);
+		}
+		//check bottomRight
+		if (board[x+1][y+1] == null)
+		{
+			ArrayCoord bottomRight = new ArrayCoord(x+1,y+1);
+			den.containedTiles.add(bottomRight);
+		}
 	}
 
-/*
-	//Recursive call to rewrite previous territories into the newly placed territory
-	public static void mergeRewrite(Tile[][] board, int myID, int rewriteID, Territory merged, int x, int y)
+	//Checks mooreNeighborhood of dens as new tiles are placed, and scores den if it is completed
+	public static void checkMooreNeighborhood(Territory den, Player player1, Player player2, int x, int y)
 	{
-		//Check up tile
-		if (board[x-1][y] != null)
+		for (int i = 0; i < den.containedTiles.size(); i++)
 		{
-			boolean up = false;
-			for (int i=0; i < 12; i++)
+			if (den.containedTiles.get(i).x == x && den.containedTiles.get(i).y == y)
 			{
-				if (board[x-1][y].subtiles[i].id == rewriteID)
-				{
-					board[x-1][y].subtiles[i] = merged;
-					up = true;
-				}
-			}
-			if (up == true)
-			{
-				mergeRewrite(board, myID, rewriteID, merged, x-1, y);
+				den.containedTiles.remove(i);
 			}
 		}
-		//Check right tile
-		if (board[x][y+1] != null)
+		
+		if (den.containedTiles.size() == 0)
 		{
-			boolean right = false;
-			for (int i=0; i < 12; i++)
+			int denScore = 9;
+			//Player1 gets score if they have more tigers
+			if (den.player1Tigers > den.player2Tigers)
 			{
-				if (board[x][y+1].subtiles[i].id == rewriteID)
-				{
-					board[x][y+1].subtiles[i] = merged;
-					right = true;
-				}
+				System.out.println("Player 1 has earned " + denScore + " points for a completed den");
+				player1.score += denScore;
+				player1.numTigers++;
 			}
-			if (right == true)
+			//Player2 gets score if they have more tigers
+			if (den.player1Tigers < den.player2Tigers)
 			{
-				mergeRewrite(board, myID, rewriteID, merged, x, y+1);
+				System.out.println("Player 2 has earned " + denScore + " points for a completed den");
+				player2.score += denScore;
+				player2.numTigers++;
 			}
+			den.isCompleted = true;
+			den.isScored = true;
 		}
-		//Check down tile	
-		if (board[x+1][y] != null)
-		{
-			boolean down = false;
-			for (int i=0; i < 12; i++)
-			{
-				if (board[x+1][y].subtiles[i].id == rewriteID)
-				{
-					board[x+1][y].subtiles[i] = merged;
-					down = true;
-				}
-			}
-			if (down == true)
-			{
-				mergeRewrite(board, myID, rewriteID, merged, x+1, y);
-			}
-		}
-		//Check left tile
-		if (board[x][y-1] != null)
-		{
-			boolean left = false;
-			for (int i=0; i < 12; i++)
-			{
-				if (board[x][y-1].subtiles[i].id == rewriteID)
-				{
-					board[x][y-1].subtiles[i] = merged;
-					left = true;
-				}
-			}
-			if (left == true)
-			{
-				mergeRewrite(board, myID, rewriteID, merged, x, y-1);
-			}
-		}	
 	}
-*/
+
+
 	//////////////////////////////// TIGER PLACEMENT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	public static void tigerPlacement(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, Player player, Scanner sc)
 	{
@@ -848,9 +917,9 @@ Player player2 = new Player(2);
 			//If a den is present, add it to available tiger locations
 			if (myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 'd')
 			{
-				availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[13]]].id);
+				availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[12]]].id);
 				tileIndex.add(12);
-				System.out.println("A Tiger may be placed on index 13 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[13]]].territory);
+				System.out.println("A Tiger may be placed on index 12 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory);
 			}
 			
 			tileIndex.add(13);			
@@ -1001,6 +1070,8 @@ Player player2 = new Player(2);
 					}
 				}
 				
+				//Score if dens.isDeleted == false
+				
 				//Marks Territory as scored and completed
 				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].isScored = true;
 				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].isCompleted = true;
@@ -1011,7 +1082,7 @@ Player player2 = new Player(2);
 	public static void endGameScoring(Territory[] myTerritories, TerritoryPtr terPtr, Player player1, Player player2)
 	{
 		/////////////////////////////////// ****CHANGE LATER For-loop set to 20 for testing CHANGE LATER**** \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-		for (int i = 0; i < 24; i++)
+		for (int i = 0; i < 26; i++)
 		{
 			//Checks for existing trails that have a tiger placed and are not scored
 			if (myTerritories[i].isScored == false && myTerritories[i].territory == 't' && myTerritories[i].isDeleted == false && (myTerritories[i].player1Tigers > 0 || myTerritories[i].player2Tigers > 0))
@@ -1089,17 +1160,6 @@ Player player2 = new Player(2);
 				int numAdjacentLake = 0;
 				int numAdjacentDen = 0;
 				
-				//test
-				System.out.println("The size of bordering lakes is " + myTerritories[i].borderingLakes.size());
-				for (int j = 0 ; j < myTerritories[i].borderingLakes.size(); j++)
-				{
-					System.out.println(myTerritories[i].borderingLakes.get(j));
-					System.out.println(terPtr.pointers[myTerritories[i].borderingLakes.get(j)]);
-				}
-
-				
-				//
-				
 				ArrayList<Integer> scoredBorderLakes = new ArrayList<Integer>();
 				
 				//Check borderingLakes if they are complete
@@ -1123,8 +1183,6 @@ Player player2 = new Player(2);
 						scoredBorderLakes.add(myTerritories[terPtr.pointers[myTerritories[i].borderingDens.get(j)]].id);
 					}
 				}
-				
-				System.out.println("Number of adjacent lakes is " + numAdjacentLake + " Number of adj dens is " + numAdjacentDen);
 				
 				//Jungle score is 3 points per adj Lake + 5 points per adj Den
 				int jungleScore = (3 * numAdjacentLake) + (5 * numAdjacentDen);
@@ -1151,6 +1209,26 @@ Player player2 = new Player(2);
 				//Marks Territory as scored
 				myTerritories[i].isScored = true;
 			}
+			
+			//Checks for incompleted dens that have a tiger on it
+			if(myTerritories[i].isScored == false && myTerritories[i].territory == 'd' && myTerritories[i].isDeleted == false && (myTerritories[i].player1Tigers > 0 || myTerritories[i].player2Tigers > 0))
+			{
+				int denScore = 9 - myTerritories[i].containedTiles.size();
+				//Player1 gets score if they have more tigers
+				if (myTerritories[i].player1Tigers > myTerritories[i].player2Tigers)
+				{
+					System.out.println("Player 1 has earned " + denScore + " points for a completed den");
+					player1.score += denScore;
+				}
+				//Player2 gets score if they have more tigers
+				if (myTerritories[i].player1Tigers < myTerritories[i].player2Tigers)
+				{
+					System.out.println("Player 2 has earned " + denScore + " points for a completed den");
+					player2.score += denScore;
+				}
+				myTerritories[i].isScored = true;
+			}
+			
 		}
 		
 	}
