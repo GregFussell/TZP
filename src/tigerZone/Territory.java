@@ -31,9 +31,13 @@ public class Territory {
 		isCompleted = false;
 		isDeleted = false;
 		
-		if (type == 'j')
+		if (type == 'j' && borderingLakes.size() > 0)
 		{
 			this.borderingLakes = borderingLakes;
+		
+		}
+		if (type == 'j' && borderingDens.size() > 0)
+		{
 			this.borderingDens = borderingDens;
 		}
 

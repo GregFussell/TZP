@@ -244,8 +244,7 @@ public class Game {
 		//Closed road test: Start = B; decklist = C D E A A
 		//Current Test: start = starter
 
-		//ter21.borderingLakes.add(0);
-		System.out.println("Bordering Lakes size is " + ter23.borderingLakes.size());
+
 		
 	//TESTING POINTER
 		
@@ -318,7 +317,8 @@ Player player2 = new Player(2);
 					System.out.println("Tile successfully placed");
 				}
 			}
-			
+			//Adds the coordinate of the tile to the tile
+			addContainedTile(myTile, myTerritories, terPtr, x, y);
 			
 		////////////////////////////////////////// Merge Territories Here \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 			int[] rewriteIDs = new int[12];
@@ -531,10 +531,6 @@ Player player2 = new Player(2);
 		endGameScoring(myTerritories, terPtr, player1, player2);
 		Printer.printScores(player1, player2);
 		
-		System.out.println("Open faces on road: ");
-		System.out.println(myTerritories[18].openFaces);
-		
-		
 
 		
 		// printPlaceable(placeablePos);
@@ -669,16 +665,37 @@ Player player2 = new Player(2);
 
 	}
 	
+	public static void addContainedTile(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, int x, int y)
+	{
+		for (int i = 0; i < 13; i++)
+		{
+			
+			boolean duplicate = false;
+			for (int j = 0; j < myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedTiles.size(); j++)
+			{
+				if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedTiles.get(j).x == x && myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedTiles.get(j).y == y)
+				{
+					duplicate = true;
+				}
+			}
+			if (duplicate == false)
+			{
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedTiles.add(new ArrayCoord(x,y));
+			}
+		}
+
+	}
+	
 	////////////////////////////////////////// MERGING /////////////////////////////////////////////////////////////////////
 
 	//CHANGE to not pass in territories, rather locations
 	
 	//Method to merge the contents of one territory with another.
+	
+	//public static void mergeTerritory(Territory[] myTerritories, TerritoryPtr terPtr, int toMerge, int currentTerritory, int x, int y)
 	public static void mergeTerritory(Territory[] myTerritories, Territory toMerge, Territory currentTerritory, int x, int y)
 	{	
-		System.out.println("Merging Territories " + toMerge.id + " and " + currentTerritory.id);
-		System.out.println(toMerge.borderingLakes.size() + " and " + currentTerritory.borderingLakes.size());
-		
+	
 		currentTerritory.numDeer += toMerge.numDeer;
 		currentTerritory.numBoar += toMerge.numBoar;
 		currentTerritory.numBuffalo += toMerge.numBuffalo;
@@ -705,26 +722,16 @@ Player player2 = new Player(2);
 		//Updates borderingLakes and borderingDens if type is jungle
 		if (currentTerritory.territory == 'j' && toMerge.territory == 'j')
 		{
-			currentTerritory.borderingLakes.add(10);
-			System.out.println("Bordering Lakes size is " + myTerritories[23].borderingLakes.size());
-			
-			
-			//SOMETHING IS WRONG HERE
-			
+		
 			//Checks all borderLakes in toMerge
 			for (int i = 0; i < toMerge.borderingLakes.size(); i++)
 			{				
 				//Add the borderLake to current Territory if it is not in current Territory
 				if (currentTerritory.borderingLakes.contains(toMerge.borderingLakes.get(i)) == false)
 				{
-					
-					System.out.println(toMerge.borderingLakes.get(i));
-					//currentTerritory.borderingLakes.add(toMerge.borderingLakes.get(i));
+					currentTerritory.borderingLakes.add(toMerge.borderingLakes.get(i));
 				}
 			}
-			
-			
-			System.out.println("Bordering Lakes size is " + myTerritories[23].borderingLakes.size());
 			
 			//Checks all borderDens in toMerge
 			for (int i = 0; i < toMerge.borderingDens.size(); i++)
