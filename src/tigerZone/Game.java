@@ -358,199 +358,14 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 					System.out.println("Tile successfully placed");
 				}
 			}
+			
 			//Adds the coordinate of the tile to the tile
 			addContainedTile(myTile, myTerritories, terPtr, x, y);
 			
-		////////////////////////////////////////// Merge Territories Here \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-			int[] rewriteIDs = new int[12];
-			int[] currentIDs = new int[12];
-		//	Territory[] mergedTerritories = new Territory[12];
-			
-			//Merging with tile above it, if it exists
-			if (board[x-1][y] != null)
-			{
-				//Merge 0 index if its a jungle
-				if (myTerritories[terPtr.pointers[myTile.subtiles[0]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[0]]].id != myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]].id)
-				{
-					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]], myTerritories[terPtr.pointers[myTile.subtiles[0]]], x, y);
-					rewriteIDs[0] = myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]].id;
-					currentIDs[0] = myTerritories[terPtr.pointers[myTile.subtiles[0]]].id;
-					
-					myTerritories[terPtr.pointers[rewriteIDs[0]]].isDeleted = true;
-					terPtr.rewritePtr(currentIDs[0], rewriteIDs[0]);
-				}
-
-			
-				//Merge 1 index
-				if (myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]] != myTerritories[terPtr.pointers[myTile.subtiles[1]]])
-				{
-					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]], myTerritories[terPtr.pointers[myTile.subtiles[1]]], x, y);
-					rewriteIDs[1] = myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]].id;
-					currentIDs[1] = myTerritories[terPtr.pointers[myTile.subtiles[1]]].id;
-				
-					myTerritories[terPtr.pointers[rewriteIDs[1]]].isDeleted = true;
-					terPtr.rewritePtr(currentIDs[1], rewriteIDs[1]);	
-				}
-				
-				
-				//Merge 2 index if its a jungle
-				if (myTerritories[terPtr.pointers[myTile.subtiles[2]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[2]]].id != myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]].id)
-				{
-					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]], myTerritories[terPtr.pointers[myTile.subtiles[2]]], x, y);
-					rewriteIDs[2] = myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]].id;
-					currentIDs[2] = myTerritories[terPtr.pointers[myTile.subtiles[2]]].id;
-		
-					myTerritories[terPtr.pointers[rewriteIDs[2]]].isDeleted = true;
-					terPtr.rewritePtr(currentIDs[2], rewriteIDs[2]);
-				}
-			}
-			
-			//Merging with tile to right, if it exists
-			if (board[x][y+1] != null)
-			{
-				//Merge 3 index if its a jungle
-				if (myTerritories[terPtr.pointers[myTile.subtiles[3]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[3]]].id != myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]].id)
-				{
-					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]], myTerritories[terPtr.pointers[myTile.subtiles[3]]], x, y);
-					rewriteIDs[3] = myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]].id;
-					currentIDs[3] = myTerritories[terPtr.pointers[myTile.subtiles[3]]].id;
-					
-					myTerritories[terPtr.pointers[rewriteIDs[3]]].isDeleted = true;
-					terPtr.rewritePtr(currentIDs[3], rewriteIDs[3]);
-				}
-
-			
-				//Merge 4 index
-				if (myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]] != myTerritories[terPtr.pointers[myTile.subtiles[4]]])
-				{
-					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]], myTerritories[terPtr.pointers[myTile.subtiles[4]]], x, y);
-					rewriteIDs[4] = myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]].id;
-					currentIDs[4] = myTerritories[terPtr.pointers[myTile.subtiles[4]]].id;
-				
-					myTerritories[terPtr.pointers[rewriteIDs[4]]].isDeleted = true;
-					terPtr.rewritePtr(currentIDs[4], rewriteIDs[4]);
-				}
-				else if (myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]] == myTerritories[terPtr.pointers[myTile.subtiles[4]]])
-				{
-					myTerritories[terPtr.pointers[myTile.subtiles[4]]].openFaces -= 2;
-				}
-				
-				
-				//Merge 5 index if its a jungle
-				if (myTerritories[terPtr.pointers[myTile.subtiles[5]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[5]]].id != myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]].id)
-				{
-					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]], myTerritories[terPtr.pointers[myTile.subtiles[5]]], x, y);
-					rewriteIDs[5] = myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]].id;
-					currentIDs[5] = myTerritories[terPtr.pointers[myTile.subtiles[5]]].id;
-					
-					myTerritories[terPtr.pointers[rewriteIDs[5]]].isDeleted = true;
-					terPtr.rewritePtr(currentIDs[5], rewriteIDs[5]);
-				}
-			}
-			
-			//Merging with tile below it, if it exists
-			if (board[x+1][y] != null)
-			{
-				//Merge 6 index if its a jungle
-				if (myTerritories[terPtr.pointers[myTile.subtiles[6]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[6]]].id != myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]].id)
-				{
-					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]], myTerritories[terPtr.pointers[myTile.subtiles[6]]], x, y);
-					rewriteIDs[6] = myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]].id;
-					currentIDs[6] = myTerritories[terPtr.pointers[myTile.subtiles[6]]].id;
-					
-					myTerritories[terPtr.pointers[rewriteIDs[6]]].isDeleted = true;
-					terPtr.rewritePtr(currentIDs[6], rewriteIDs[6]);
-				}
-
-			
-				//Merge 7 index
-				if (myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]] != myTerritories[terPtr.pointers[myTile.subtiles[7]]])
-				{
-					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]], myTerritories[terPtr.pointers[myTile.subtiles[7]]], x, y);
-					rewriteIDs[7] = myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]].id;
-					currentIDs[7] = myTerritories[terPtr.pointers[myTile.subtiles[7]]].id;
-				
-					myTerritories[terPtr.pointers[rewriteIDs[7]]].isDeleted = true;
-					terPtr.rewritePtr(currentIDs[7], rewriteIDs[7]);
-				}
-				else if (myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]] == myTerritories[terPtr.pointers[myTile.subtiles[7]]])
-				{
-					myTerritories[terPtr.pointers[myTile.subtiles[7]]].openFaces -= 2;
-				}
-				
-				
-				//Merge 8 index if its a jungle
-				if (myTerritories[terPtr.pointers[myTile.subtiles[8]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[8]]].id != myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]].id)
-				{
-					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]], myTerritories[terPtr.pointers[myTile.subtiles[8]]], x, y);
-					rewriteIDs[8] = myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]].id;
-					currentIDs[8] = myTerritories[terPtr.pointers[myTile.subtiles[8]]].id;
-					
-					myTerritories[terPtr.pointers[rewriteIDs[8]]].isDeleted = true;
-					terPtr.rewritePtr(currentIDs[8], rewriteIDs[8]);
-				}
-			}
-			
-			//Merging with tile to left, if it exists
-			if (board[x][y-1] != null)
-			{
-				//Merge 9 index if its a jungle
-				if (myTerritories[terPtr.pointers[myTile.subtiles[9]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[9]]].id != myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]].id)
-				{
-					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]], myTerritories[terPtr.pointers[myTile.subtiles[9]]], x, y);
-					rewriteIDs[9] = myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]].id;
-					currentIDs[9] = myTerritories[terPtr.pointers[myTile.subtiles[9]]].id;
-					
-					myTerritories[terPtr.pointers[rewriteIDs[9]]].isDeleted = true;
-					terPtr.rewritePtr(currentIDs[9], rewriteIDs[9]);
-				}
-
-			
-				//Merge 10 index
-				if (myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]] != myTerritories[terPtr.pointers[myTile.subtiles[10]]])
-				{
-					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]], myTerritories[terPtr.pointers[myTile.subtiles[10]]], x, y);
-					rewriteIDs[10] = myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]].id;
-					currentIDs[10] = myTerritories[terPtr.pointers[myTile.subtiles[10]]].id;
-				
-					myTerritories[terPtr.pointers[rewriteIDs[10]]].isDeleted = true;
-					terPtr.rewritePtr(currentIDs[10], rewriteIDs[10]);
-				}
-				else if (myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]] == myTerritories[terPtr.pointers[myTile.subtiles[10]]])
-				{
-					myTerritories[terPtr.pointers[myTile.subtiles[10]]].openFaces -= 2;
-				}
-				
-				
-				//Merge 11 index if its a jungle
-				if (myTerritories[terPtr.pointers[myTile.subtiles[11]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[11]]].id != myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]].id)
-				{
-					mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]], myTerritories[terPtr.pointers[myTile.subtiles[11]]], x, y);
-					rewriteIDs[11] = myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]].id;
-					currentIDs[11] = myTerritories[terPtr.pointers[myTile.subtiles[11]]].id;
-					
-					myTerritories[terPtr.pointers[rewriteIDs[11]]].isDeleted = true;
-					terPtr.rewritePtr(currentIDs[11], rewriteIDs[11]);
-				}
-			}
-			
-			//Create a Den if den exists on tile by populating Moore neighborhood
-			if (myTerritories[terPtr.pointers[myTile.subtiles[12]]].territory == 'd')
-			{
-				//myTerritories[terPtr.pointers[myTile.subtiles[12]]].containedTiles.add(new ArrayCoord(x,y));
-				populateDen(board, myTerritories[terPtr.pointers[myTile.subtiles[12]]], x, y);
-				currentDens.add(terPtr.pointers[myTile.subtiles[12]]);
-			}
-			
-			//Check if newly placed tiles finish moore neighboorhood of previously placed dens
-			for (int i = 0; i < currentDens.size(); i++)
-			{
-				checkMooreNeighborhood(myTerritories[terPtr.pointers[currentDens.get(i)]], player1, player2, x, y);
-			}
-			
+			//Merges Tile contents
+			mergeTile(board, myTile, myTerritories, terPtr, currentDens, x, y);
 			
 			//Tiger placing
-			
 			//player2's Turn
 			if (turn%2 == 0)
 			{
@@ -561,21 +376,12 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			{
 				tigerPlacement(myTile, myTerritories, terPtr, player1, sc);
 			}
-			
-			//
-			
-			
+		
 			//Scoring
+			midGameScoring(myTile, myTerritories, terPtr, currentDens, player1, player2, x, y);
 			
-			midGameScoring(myTile, myTerritories, terPtr, player1, player2);
-			
-			//
-			
-			
-			
-			////////////////////////////////// END OF MERGING \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+			//Place tile, update positions and turn
 			turn++;
-			//Place tile, update positions
 			board[x][y] = myTile;
 			updatePlaceable(placedPos, placeablePos, x, y);
 		}
@@ -586,43 +392,6 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		
 		endGameScoring(myTerritories, terPtr, player1, player2);
 		Printer.printScores(player1, player2);
-		
-
-		
-		// printPlaceable(placeablePos);
-		// printPlaceable(placeablePos);
-		// printPlaced(placedPos);
-
-		// TESTING
-
-		// System.out.println(placedPos.get(0).x);
-		//
-		// System.out.print(board[36][36].id);
-		// System.out.println();
-		// for (int i = 0; i < 9; i++) {
-		// System.out.print(board[36][36].subtiles[i].territory + " ");
-		// if ((i + 1) % 3 == 0) {
-		// System.out.println();
-		// }
-		// }
-		//
-		// System.out.println();
-		// board[36][36].Rotate();
-		//
-		// System.out.print(board[36][36].id);
-		// System.out.println();
-		// for (int i = 0; i < 9; i++) {
-		// System.out.print(board[36][36].subtiles[i].territory + " ");
-		// if ((i + 1) % 3 == 0) {
-		// System.out.println();
-		// }
-		// }
-		//
-		// printPlaceable(placeablePos);
-		// printPlaced(placedPos);
-
-		
-	//	printBoard(board, placedPos);
 	}
 
 	// METHODS
@@ -746,11 +515,182 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	
 	////////////////////////////////////////// MERGING /////////////////////////////////////////////////////////////////////
 
-	//CHANGE to not pass in territories, rather locations
+	
+	public static void mergeTile(Tile[][] board, Tile myTile, Territory[] myTerritories, TerritoryPtr terPtr, ArrayList<Integer> currentDens, int x, int y)
+	{
+		int[] rewriteIDs = new int[12];
+		int[] currentIDs = new int[12];
+		
+		//Merging with tile above it, if it exists
+		if (board[x-1][y] != null)
+		{
+			//Merge 0 index if its a jungle
+			if (myTerritories[terPtr.pointers[myTile.subtiles[0]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[0]]].id != myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]].id)
+			{
+				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]], myTerritories[terPtr.pointers[myTile.subtiles[0]]], x, y);
+				rewriteIDs[0] = myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]].id;
+				currentIDs[0] = myTerritories[terPtr.pointers[myTile.subtiles[0]]].id;
+				
+				myTerritories[terPtr.pointers[rewriteIDs[0]]].isDeleted = true;
+				terPtr.rewritePtr(currentIDs[0], rewriteIDs[0]);
+			}
+
+			//Merge 1 index
+			if (myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]] != myTerritories[terPtr.pointers[myTile.subtiles[1]]])
+			{
+				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]], myTerritories[terPtr.pointers[myTile.subtiles[1]]], x, y);
+				rewriteIDs[1] = myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]].id;
+				currentIDs[1] = myTerritories[terPtr.pointers[myTile.subtiles[1]]].id;
+			
+				myTerritories[terPtr.pointers[rewriteIDs[1]]].isDeleted = true;
+				terPtr.rewritePtr(currentIDs[1], rewriteIDs[1]);	
+			}
+				
+			//Merge 2 index if its a jungle
+			if (myTerritories[terPtr.pointers[myTile.subtiles[2]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[2]]].id != myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]].id)
+			{
+				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]], myTerritories[terPtr.pointers[myTile.subtiles[2]]], x, y);
+				rewriteIDs[2] = myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]].id;
+				currentIDs[2] = myTerritories[terPtr.pointers[myTile.subtiles[2]]].id;
+	
+				myTerritories[terPtr.pointers[rewriteIDs[2]]].isDeleted = true;
+				terPtr.rewritePtr(currentIDs[2], rewriteIDs[2]);
+			}
+		}
+		
+		//Merging with tile to right, if it exists
+		if (board[x][y+1] != null)
+		{
+			//Merge 3 index if its a jungle
+			if (myTerritories[terPtr.pointers[myTile.subtiles[3]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[3]]].id != myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]].id)
+			{
+				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]], myTerritories[terPtr.pointers[myTile.subtiles[3]]], x, y);
+				rewriteIDs[3] = myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]].id;
+				currentIDs[3] = myTerritories[terPtr.pointers[myTile.subtiles[3]]].id;
+				
+				myTerritories[terPtr.pointers[rewriteIDs[3]]].isDeleted = true;
+				terPtr.rewritePtr(currentIDs[3], rewriteIDs[3]);
+			}
+
+			//Merge 4 index
+			if (myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]] != myTerritories[terPtr.pointers[myTile.subtiles[4]]])
+			{
+				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]], myTerritories[terPtr.pointers[myTile.subtiles[4]]], x, y);
+				rewriteIDs[4] = myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]].id;
+				currentIDs[4] = myTerritories[terPtr.pointers[myTile.subtiles[4]]].id;
+			
+				myTerritories[terPtr.pointers[rewriteIDs[4]]].isDeleted = true;
+				terPtr.rewritePtr(currentIDs[4], rewriteIDs[4]);
+			}
+			else if (myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]] == myTerritories[terPtr.pointers[myTile.subtiles[4]]])
+			{
+				myTerritories[terPtr.pointers[myTile.subtiles[4]]].openFaces -= 2;
+			}
+			
+			//Merge 5 index if its a jungle
+			if (myTerritories[terPtr.pointers[myTile.subtiles[5]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[5]]].id != myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]].id)
+			{
+				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]], myTerritories[terPtr.pointers[myTile.subtiles[5]]], x, y);
+				rewriteIDs[5] = myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]].id;
+				currentIDs[5] = myTerritories[terPtr.pointers[myTile.subtiles[5]]].id;
+				
+				myTerritories[terPtr.pointers[rewriteIDs[5]]].isDeleted = true;
+				terPtr.rewritePtr(currentIDs[5], rewriteIDs[5]);
+			}
+		}
+		
+		//Merging with tile below it, if it exists
+		if (board[x+1][y] != null)
+		{
+			//Merge 6 index if its a jungle
+			if (myTerritories[terPtr.pointers[myTile.subtiles[6]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[6]]].id != myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]].id)
+			{
+				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]], myTerritories[terPtr.pointers[myTile.subtiles[6]]], x, y);
+				rewriteIDs[6] = myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]].id;
+				currentIDs[6] = myTerritories[terPtr.pointers[myTile.subtiles[6]]].id;
+				
+				myTerritories[terPtr.pointers[rewriteIDs[6]]].isDeleted = true;
+				terPtr.rewritePtr(currentIDs[6], rewriteIDs[6]);
+			}
+
+			//Merge 7 index
+			if (myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]] != myTerritories[terPtr.pointers[myTile.subtiles[7]]])
+			{
+				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]], myTerritories[terPtr.pointers[myTile.subtiles[7]]], x, y);
+				rewriteIDs[7] = myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]].id;
+				currentIDs[7] = myTerritories[terPtr.pointers[myTile.subtiles[7]]].id;
+			
+				myTerritories[terPtr.pointers[rewriteIDs[7]]].isDeleted = true;
+				terPtr.rewritePtr(currentIDs[7], rewriteIDs[7]);
+			}
+			else if (myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]] == myTerritories[terPtr.pointers[myTile.subtiles[7]]])
+			{
+				myTerritories[terPtr.pointers[myTile.subtiles[7]]].openFaces -= 2;
+			}
+			
+			//Merge 8 index if its a jungle
+			if (myTerritories[terPtr.pointers[myTile.subtiles[8]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[8]]].id != myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]].id)
+			{
+				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]], myTerritories[terPtr.pointers[myTile.subtiles[8]]], x, y);
+				rewriteIDs[8] = myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]].id;
+				currentIDs[8] = myTerritories[terPtr.pointers[myTile.subtiles[8]]].id;
+				
+				myTerritories[terPtr.pointers[rewriteIDs[8]]].isDeleted = true;
+				terPtr.rewritePtr(currentIDs[8], rewriteIDs[8]);
+			}
+		}
+		
+		//Merging with tile to left, if it exists
+		if (board[x][y-1] != null)
+		{
+			//Merge 9 index if its a jungle
+			if (myTerritories[terPtr.pointers[myTile.subtiles[9]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[9]]].id != myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]].id)
+			{
+				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]], myTerritories[terPtr.pointers[myTile.subtiles[9]]], x, y);
+				rewriteIDs[9] = myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]].id;
+				currentIDs[9] = myTerritories[terPtr.pointers[myTile.subtiles[9]]].id;
+				
+				myTerritories[terPtr.pointers[rewriteIDs[9]]].isDeleted = true;
+				terPtr.rewritePtr(currentIDs[9], rewriteIDs[9]);
+			}
+
+			//Merge 10 index
+			if (myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]] != myTerritories[terPtr.pointers[myTile.subtiles[10]]])
+			{
+				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]], myTerritories[terPtr.pointers[myTile.subtiles[10]]], x, y);
+				rewriteIDs[10] = myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]].id;
+				currentIDs[10] = myTerritories[terPtr.pointers[myTile.subtiles[10]]].id;
+			
+				myTerritories[terPtr.pointers[rewriteIDs[10]]].isDeleted = true;
+				terPtr.rewritePtr(currentIDs[10], rewriteIDs[10]);
+			}
+			else if (myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]] == myTerritories[terPtr.pointers[myTile.subtiles[10]]])
+			{
+				myTerritories[terPtr.pointers[myTile.subtiles[10]]].openFaces -= 2;
+			}
+			
+			//Merge 11 index if its a jungle
+			if (myTerritories[terPtr.pointers[myTile.subtiles[11]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[11]]].id != myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]].id)
+			{
+				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]], myTerritories[terPtr.pointers[myTile.subtiles[11]]], x, y);
+				rewriteIDs[11] = myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]].id;
+				currentIDs[11] = myTerritories[terPtr.pointers[myTile.subtiles[11]]].id;
+				
+				myTerritories[terPtr.pointers[rewriteIDs[11]]].isDeleted = true;
+				terPtr.rewritePtr(currentIDs[11], rewriteIDs[11]);
+			}
+		}
+		
+		//Create a Den if den exists on tile by populating Moore neighborhood
+		if (myTerritories[terPtr.pointers[myTile.subtiles[12]]].territory == 'd')
+		{
+			//myTerritories[terPtr.pointers[myTile.subtiles[12]]].containedTiles.add(new ArrayCoord(x,y));
+			populateDen(board, myTerritories[terPtr.pointers[myTile.subtiles[12]]], x, y);
+			currentDens.add(terPtr.pointers[myTile.subtiles[12]]);
+		}
+	}
 	
 	//Method to merge the contents of one territory with another.
-	
-	//public static void mergeTerritory(Territory[] myTerritories, TerritoryPtr terPtr, int toMerge, int currentTerritory, int x, int y)
 	public static void mergeTerritory(Territory[] myTerritories, Territory toMerge, Territory currentTerritory, int x, int y)
 	{	
 	
@@ -967,7 +907,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	
 	
 	////////////////////////////////////////// SCORING METHODS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	public static void midGameScoring(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, Player player1, Player player2)
+	public static void midGameScoring(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, ArrayList<Integer> currentDens, Player player1, Player player2, int x, int y)
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -1070,12 +1010,17 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 					}
 				}
 				
-				//Score if dens.isDeleted == false
-				
 				//Marks Territory as scored and completed
 				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].isScored = true;
 				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].isCompleted = true;
 			}
+			
+		}
+		
+		//Check if newly placed tiles finish moore neighboorhood of previously placed dens
+		for (int i = 0; i < currentDens.size(); i++)
+		{
+			checkMooreNeighborhood(myTerritories[terPtr.pointers[currentDens.get(i)]], player1, player2, x, y);
 		}
 	}
 	
@@ -1190,19 +1135,19 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				//Player1 gets score if they have more tigers
 				if (myTerritories[i].player1Tigers > myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 1 has earned " + jungleScore + " points for a completed jungle");
+					System.out.println("Player 1 has earned " + jungleScore + " points for a jungle");
 					player1.score += jungleScore;
 				}
 				//Player2 gets score if they have more tigers
 				if (myTerritories[i].player1Tigers < myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 2 has earned " + jungleScore + " points for a completed jungle");
+					System.out.println("Player 2 has earned " + jungleScore + " points for a jungle");
 					player2.score += jungleScore;
 				}
 				//Player1 & Player2 get score if they have same amount of tigers
 				if (myTerritories[i].player1Tigers == myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 1 and Player 2 have both earned " + jungleScore + " points for a completed jungle");
+					System.out.println("Player 1 and Player 2 have both earned " + jungleScore + " points for a jungle");
 					player1.score += jungleScore;
 					player2.score += jungleScore;
 				}
@@ -1217,13 +1162,13 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				//Player1 gets score if they have more tigers
 				if (myTerritories[i].player1Tigers > myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 1 has earned " + denScore + " points for a completed den");
+					System.out.println("Player 1 has earned " + denScore + " points for an incompleted den");
 					player1.score += denScore;
 				}
 				//Player2 gets score if they have more tigers
 				if (myTerritories[i].player1Tigers < myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 2 has earned " + denScore + " points for a completed den");
+					System.out.println("Player 2 has earned " + denScore + " points for an incompleted den");
 					player2.score += denScore;
 				}
 				myTerritories[i].isScored = true;
