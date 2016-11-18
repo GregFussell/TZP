@@ -261,10 +261,10 @@ public class Game {
 		Tile[][] board = new Tile[77][77];
 		// Starter location is added as a placeablePos, starter tile is then
 		// automatically placed and the placed/placeable array lists are updated
-		ArrayCoord startPosition = new ArrayCoord(36, 36);
-		placeablePos.add(startPosition);
+		placeablePos.add(new ArrayCoord(36, 36));
 		board[36][36] = starter;
-		updatePlaceable(placedPos, placeablePos, startPosition);
+		updatePlaceable(placedPos, placeablePos, 36, 36);
+		addContainedTile(starter, myTerritories, terPtr, 36, 36);
 		
 		//Closed road test: Start = B; decklist = C D E A A
 		//Current Test: start = starter
@@ -331,12 +331,11 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 
 			System.out.println("The current board is: ");
 			Printer.printBoardID(board, placedPos, myTerritories, terPtr);
-			Printer.printBoard(board, placedPos, myTerritories, terPtr);
 			
 			System.out.println("The current tile is: ");
 			Tile myTile = myDeck.deck.remove();
 			Printer.printTile(myTile, myTerritories, terPtr);
-			ArrayCoord position = startPosition;
+
 			boolean valid = false;
 			while (valid == false) {
 
@@ -352,14 +351,14 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				System.out.println("Please select an X and Y coordinate to place the tile");
 				x = sc.nextInt();
 				y = sc.nextInt();
-				position = new ArrayCoord(x,y);
-				valid = validPlacement(myTile, board, placeablePos, position, myTerritories, terPtr);
+
+				valid = validPlacement(myTile, board, placeablePos, x, y, myTerritories, terPtr);
 				if (valid == false) {
 					System.out.println("Invalid placement, please place again");
 				} else {
 					System.out.println("Tile successfully placed");
 				}
-			} 
+			}
 			
 			//Adds the coordinate of the tile to the tile
 			addContainedTile(myTile, myTerritories, terPtr, x, y);
@@ -385,7 +384,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Place tile, update positions and turn
 			turn++;
 			board[x][y] = myTile;
-			updatePlaceable(placedPos, placeablePos, position);
+			updatePlaceable(placedPos, placeablePos, x, y);
 		}
 
 		
@@ -402,29 +401,35 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	// Method for evaluating whether continuity in territory types is preserved
 	// in adjacent tiles. Returns True if valid
 	public static boolean validPlacement(Tile currentTile, Tile[][] currentBoard, ArrayList<ArrayCoord> placeablePos,
-			ArrayCoord position, Territory[] myTerritories, TerritoryPtr terPtr) {
-		
-		if (!placeablePos.contains(position)) {
+			int x, int y, Territory[] myTerritories, TerritoryPtr terPtr) {
+
+		boolean flag = false;
+		for (int i = 0; i < placeablePos.size(); i++) {
+			if (x == placeablePos.get(i).x && y == placeablePos.get(i).y) {
+				flag = true;
+			}
+		}
+		if (flag == false) {
 			return false;
 		}
 
-		if (currentBoard[position.x - 1][position.y] != null) {
-			if (myTerritories[terPtr.pointers[currentTile.subtiles[1]]].territory != myTerritories[terPtr.pointers[currentBoard[position.x - 1][position.y].subtiles[7]]].territory) {
+		if (currentBoard[x - 1][y] != null) {
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[1]]].territory != myTerritories[terPtr.pointers[currentBoard[x - 1][y].subtiles[7]]].territory) {
 				return false;
 			}
 		}
-		if (currentBoard[position.x + 1][position.y] != null) {
-			if (myTerritories[terPtr.pointers[currentTile.subtiles[7]]].territory != myTerritories[terPtr.pointers[currentBoard[position.x + 1][position.y].subtiles[1]]].territory) {
+		if (currentBoard[x + 1][y] != null) {
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[7]]].territory != myTerritories[terPtr.pointers[currentBoard[x + 1][y].subtiles[1]]].territory) {
 				return false;
 			}
 		}
-		if (currentBoard[position.x][position.y + 1] != null) {
-			if (myTerritories[terPtr.pointers[currentTile.subtiles[4]]].territory != myTerritories[terPtr.pointers[currentBoard[position.x][position.y + 1].subtiles[10]]].territory) {
+		if (currentBoard[x][y + 1] != null) {
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[4]]].territory != myTerritories[terPtr.pointers[currentBoard[x][y + 1].subtiles[10]]].territory) {
 				return false;
 			}
 		}
-		if (currentBoard[position.x][position.y - 1] != null) {
-			if (myTerritories[terPtr.pointers[currentTile.subtiles[10]]].territory != myTerritories[terPtr.pointers[currentBoard[position.x][position.y - 1].subtiles[4]]].territory) {
+		if (currentBoard[x][y - 1] != null) {
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[10]]].territory != myTerritories[terPtr.pointers[currentBoard[x][y - 1].subtiles[4]]].territory) {
 				return false;
 			}
 		}
@@ -436,11 +441,20 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	// array and adds it to the placedPos array
 	// Also adds the four adjacent sides to the newly placed tile into the
 	// placeablePos array
-	public static void updatePlaceable(ArrayList<ArrayCoord> placedPos, ArrayList<ArrayCoord> placeablePos,ArrayCoord position) {
+	public static void updatePlaceable(ArrayList<ArrayCoord> placedPos, ArrayList<ArrayCoord> placeablePos, int x,
+			int y) {
 
-		placedPos.add(position);//newly placed position naturally belongs in placed positions 
-		placeablePos.remove(position);// now that a tile has been placed at "position", "position" is no longer placeable 
-		
+		for (int i = 0; i < placeablePos.size(); i++) {
+
+			if (x == placeablePos.get(i).x && y == placeablePos.get(i).y) {
+				placedPos.add(placeablePos.get(i));
+				if (placeablePos.remove(placeablePos.get(i)) == true) {
+
+				}
+			} else {
+
+			}
+		}
 
 		boolean north = false;
 		boolean south = false;
@@ -450,29 +464,29 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		// Check if adjacent tile space has already been placed
 		for (int i = 0; i < placedPos.size(); i++) {
 
-			if ((position.x - 1) == placedPos.get(i).x && position.y == placedPos.get(i).y) {
+			if ((x - 1) == placedPos.get(i).x && y == placedPos.get(i).y) {
 				north = true;
-			} else if ((position.x + 1) == placedPos.get(i).x && position.y == placedPos.get(i).y) {
+			} else if ((x + 1) == placedPos.get(i).x && y == placedPos.get(i).y) {
 				south = true;
-			} else if (position.x == placedPos.get(i).x && (position.y - 1) == placedPos.get(i).y) {
+			} else if (x == placedPos.get(i).x && (y - 1) == placedPos.get(i).y) {
 				west = true;
-			} else if (position.x == placedPos.get(i).x && (position.y + 1) == placedPos.get(i).y) {
+			} else if (x == placedPos.get(i).x && (y + 1) == placedPos.get(i).y) {
 				east = true;
 			}
 		}
 
 		// Adds a placeable tile location if no tile has been placed adjacent
 		if (north == false) {
-			placeablePos.add(new ArrayCoord((position.x - 1), position.y));
+			placeablePos.add(new ArrayCoord((x - 1), y));
 		}
 		if (south == false) {
-			placeablePos.add(new ArrayCoord((position.x + 1), position.y));
+			placeablePos.add(new ArrayCoord((x + 1), y));
 		}
 		if (west == false) {
-			placeablePos.add(new ArrayCoord(position.x, (position.y - 1)));
+			placeablePos.add(new ArrayCoord(x, (y - 1)));
 		}
 		if (east == false) {
-			placeablePos.add(new ArrayCoord(position.x, (position.y + 1)));
+			placeablePos.add(new ArrayCoord(x, (y + 1)));
 		}
 
 	}
