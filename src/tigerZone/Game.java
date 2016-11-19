@@ -256,7 +256,7 @@ public class Game {
 //		Tile C = new Tile("jtjjtjjtjjtjR", 4);
 //		Tile D = new Tile("lllllljtjlllR", 5);
 //		Tile E = new Tile("llljjjjjjjjjR", 6);
-		Deck myDeck = new Deck(G, D, E, A, A);
+		Deck myDeck = new Deck(F, D, E, A, A);
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
 		// Starter location is added as a placeablePos, starter tile is then
@@ -393,6 +393,9 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		
 		endGameScoring(myTerritories, terPtr, player1, player2);
 		Printer.printScores(player1, player2);
+		
+		
+		Printer.printArrayList(ter18.containedTiles);
 	}
 
 	// METHODS
@@ -702,20 +705,25 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		currentTerritory.player1Tigers += toMerge.player1Tigers;
 		currentTerritory.player2Tigers += toMerge.player2Tigers;
 		
+		//Merges contained tiles from the toMerge territory into the currentTerritory
 		//Checks if the tile is already in the territory to prevent double scoring a tile.
-		currentTerritory.containedTiles = toMerge.containedTiles;
 		boolean duplicate = false;
-		for (int i = 0; i < currentTerritory.containedTiles.size(); i++)
+		for (int i = 0; i < toMerge.containedTiles.size(); i++)
 		{
-			if (currentTerritory.containedTiles.get(i).x == x && currentTerritory.containedTiles.get(i).y == y)
+			for (int j = 0; j < currentTerritory.containedTiles.size(); j++)
 			{
-				duplicate = true;
+				if (currentTerritory.containedTiles.get(j).x == toMerge.containedTiles.get(i).x && currentTerritory.containedTiles.get(j).y == toMerge.containedTiles.get(i).y)
+				{
+					duplicate = true;
+				}			
+
+			}
+			if (duplicate == false)
+			{
+				currentTerritory.containedTiles.add(new ArrayCoord(toMerge.containedTiles.get(i).x,toMerge.containedTiles.get(i).y));
 			}
 		}
-		if (duplicate == false)
-		{
-			currentTerritory.containedTiles.add(new ArrayCoord(x,y));
-		}
+
 		
 		
 		//Updates borderingLakes and borderingDens if type is jungle
@@ -838,8 +846,207 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		if (player.numTigers > 0)
 		{
 			ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
-			ArrayList<Integer> tileIndex = new ArrayList<Integer>();
+			ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
 
+			//Map for Zone 1
+			
+			//If 0 and 11 are lakes. map 0 to zone 1
+			if ((myTerritories[terPtr.pointers[currentTile.subtiles[0]]].territory == 'l' && myTerritories[terPtr.pointers[currentTile.subtiles[11]]].territory == 'l') || myTerritories[terPtr.pointers[currentTile.subtiles[0]]].territory == 'j')
+			{
+				//Ensures no tigers present on the lake
+				if (myTerritories[terPtr.pointers[currentTile.subtiles[0]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[0]]].player2Tigers == 0)
+				{
+					//Add the ID of the available tiger location if it is not already present and print its position
+					if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[0]]].id) == false)
+					{
+
+							System.out.println("A Tiger may be placed on zone 1 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[0]]].territory);
+							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[0]]].id);
+							zoneIndex.add(1);
+					}
+				}
+			}
+			//If 11 is jungle but 0 isn't, map zone 1 as that jungle
+			else
+			{
+				//Ensures no tigers present on the jungle
+				if (myTerritories[terPtr.pointers[currentTile.subtiles[11]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[11]]].player2Tigers == 0)
+				{
+					//Add the ID of the available tiger location if it is not already present and print its position
+					if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[11]]].id) == false)
+					{
+
+							System.out.println("A Tiger may be placed on zone 1 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[11]]].territory);
+							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[11]]].id);
+							zoneIndex.add(1);
+					}
+				}
+			}
+
+			//Map for Zone 2
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[1]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[1]]].player2Tigers == 0)
+			{
+				//Add the ID of the available tiger location if it is not already present and print its position
+				if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[1]]].id) == false)
+				{
+
+						System.out.println("A Tiger may be placed on zone 2 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[1]]].territory);
+						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[1]]].id);
+						zoneIndex.add(2);
+				}
+			}
+			
+			//Map for Zone 3 depends on tile JLLJ-
+			//If 2 and 3 are lakes. map 2 to zone 3
+			if ((myTerritories[terPtr.pointers[currentTile.subtiles[2]]].territory == 'l' && myTerritories[terPtr.pointers[currentTile.subtiles[3]]].territory == 'l') || myTerritories[terPtr.pointers[currentTile.subtiles[2]]].territory == 'j')
+			{
+				//Ensures no tigers present on the lake
+				if (myTerritories[terPtr.pointers[currentTile.subtiles[2]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[2]]].player2Tigers == 0)
+				{
+					//Add the ID of the available tiger location if it is not already present and print its position
+					if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[2]]].id) == false)
+					{
+
+							System.out.println("A Tiger may be placed on zone 3 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[2]]].territory);
+							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[2]]].id);
+							zoneIndex.add(3);
+					}
+				}
+			}
+
+			//If 3 is jungle but 2 isn't, map zone 3 as that jungle
+			else
+			{
+				//Ensures no tigers present on the jungle
+				if (myTerritories[terPtr.pointers[currentTile.subtiles[3]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[3]]].player2Tigers == 0)
+				{
+					//Add the ID of the available tiger location if it is not already present and print its position
+					if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[3]]].id) == false)
+					{
+
+							System.out.println("A Tiger may be placed on zone 3 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[3]]].territory);
+							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[3]]].id);
+							zoneIndex.add(3);
+					}
+				}
+			}
+			
+			//Map for Zone 4
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[10]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[10]]].player2Tigers == 0)
+			{
+				//Add the ID of the available tiger location if it is not already present and print its position
+				if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[10]]].id) == false)
+				{
+
+						System.out.println("A Tiger may be placed on zone 4 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[10]]].territory);
+						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[10]]].id);
+						zoneIndex.add(4);
+				}
+			}
+			
+			//Map for Zone 5
+			//If a den is present, add it to available tiger locations
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 'd')
+			{
+				System.out.println("A Tiger may be placed on zone 5 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory);
+				availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[12]]].id);
+				zoneIndex.add(5);
+			}
+			
+			//Map for Zone 6
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[4]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[4]]].player2Tigers == 0)
+			{
+				//Add the ID of the available tiger location if it is not already present and print its position
+				if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[4]]].id) == false)
+				{
+						System.out.println("A Tiger may be placed on zone 6 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[4]]].territory);
+						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[4]]].id);
+						zoneIndex.add(6);
+				}
+			}
+			
+			//Map for Zone 7 depends on tile JLLJ-
+			//If 9 and 8 are lakes map 9 to zone 7
+			if ((myTerritories[terPtr.pointers[currentTile.subtiles[9]]].territory == 'l' && myTerritories[terPtr.pointers[currentTile.subtiles[8]]].territory == 'l') || myTerritories[terPtr.pointers[currentTile.subtiles[9]]].territory == 'j')
+			{
+				//Ensures no tigers present on the lake
+				if (myTerritories[terPtr.pointers[currentTile.subtiles[9]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[9]]].player2Tigers == 0)
+				{
+					//Add the ID of the available tiger location if it is not already present and print its position
+					if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[9]]].id) == false)
+					{
+
+							System.out.println("A Tiger may be placed on zone 7 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[9]]].territory);
+							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[9]]].id);
+							zoneIndex.add(7);
+					}
+				}
+			}
+			//If 8 is jungle but 9 isn't, map zone 7 as that jungle
+			else
+			{
+				//Ensures no tigers present on the jungle
+				if (myTerritories[terPtr.pointers[currentTile.subtiles[8]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[8]]].player2Tigers == 0)
+				{
+					//Add the ID of the available tiger location if it is not already present and print its position
+					if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[8]]].id) == false)
+					{
+
+							System.out.println("A Tiger may be placed on zone 7 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[8]]].territory);
+							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[8]]].id);
+							zoneIndex.add(7);
+					}
+				}
+			}
+			
+			//Map for Zone 8
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[7]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[7]]].player2Tigers == 0)
+			{
+				//Add the ID of the available tiger location if it is not already present and print its position
+				if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[7]]].id) == false)
+				{
+
+						System.out.println("A Tiger may be placed on zone 8 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[7]]].territory);
+						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[7]]].id);
+						zoneIndex.add(8);
+				}
+			}
+			
+			//Map for Zone 9 depends on tile JLLJ-
+			//If 5 and 6 are lakes. map 5 to zone 3
+			if ((myTerritories[terPtr.pointers[currentTile.subtiles[5]]].territory == 'l' && myTerritories[terPtr.pointers[currentTile.subtiles[6]]].territory == 'l') || myTerritories[terPtr.pointers[currentTile.subtiles[5]]].territory == 'j')
+			{
+				//Ensures no tigers present on the lake
+				if (myTerritories[terPtr.pointers[currentTile.subtiles[5]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[5]]].player2Tigers == 0)
+				{
+					//Add the ID of the available tiger location if it is not already present and print its position
+					if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[5]]].id) == false)
+					{
+
+							System.out.println("A Tiger may be placed on zone 9 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[5]]].territory);
+							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[5]]].id);
+							zoneIndex.add(9);
+					}
+				}
+			}
+			//If 3 is jungle but 2 isn't, map zone 3 as that jungle
+			else
+			{
+				//Ensures no tigers present on the jungle
+				if (myTerritories[terPtr.pointers[currentTile.subtiles[6]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[6]]].player2Tigers == 0)
+				{
+					//Add the ID of the available tiger location if it is not already present and print its position
+					if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[6]]].id) == false)
+					{
+							System.out.println("A Tiger may be placed on zone 3 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[6]]].territory);
+							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[6]]].id);
+							zoneIndex.add(9);
+					}
+				}
+			}
+			
+			
+			/*
 			for (int i = 0; i < 12; i++)
 			{
 				//Can only place on territories with no tigers
@@ -848,43 +1055,37 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 					//Add the ID of the available tiger location if it is not already present and print its position
 					if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id) == false)
 					{
-						System.out.println("A Tiger may be placed on index " + i + " which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory + " ");
-						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id);
-						tileIndex.add(i);
+
+							System.out.println("A Tiger may be placed on index " + i + " which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory + " ");
+							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id);
+							tileIndex.add(i);
 					}
 				}
-			}
+			}*/
 			
-			//If a den is present, add it to available tiger locations
-			if (myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 'd')
-			{
-				availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[12]]].id);
-				tileIndex.add(12);
-				System.out.println("A Tiger may be placed on index 12 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory);
-			}
 			
-			tileIndex.add(13);			
+			zoneIndex.add(0);			
 			//Collects index of tiger placement from player
-			System.out.println("Please enter an available index for tiger placement, or 13 for none");
+			System.out.println("Please enter an available zone for tiger placement, or 0 for none");
 			int tigerLoc = sc.nextInt();
 
 			//Ensures valid index has been selected
-			while (tileIndex.contains(tigerLoc) == false)
+			while (zoneIndex.contains(tigerLoc) == false)
 			{
-				System.out.println("Invalid Index: Please enter an available index for tiger placement, or 13 for none");
+				System.out.println("Invalid Zone: Please enter an available zone for tiger placement, or 0 for none");
 				tigerLoc = sc.nextInt();
 			}
 			
 			//Do nothing if 13 is entered
-			if (tigerLoc == 13)
+			if (tigerLoc == 0)
 			{
 				System.out.println("No tiger has been placed");
 			}
 			else
 			{
-				System.out.println("A tiger has been placed on index " + tigerLoc + " for player" + player.playerID);
+				System.out.println("A tiger has been placed on zone " + tigerLoc + " for player" + player.playerID);
 					
-				int placedLoc = availableTigerLoc.get(tileIndex.indexOf(tigerLoc));
+				int placedLoc = availableTigerLoc.get(zoneIndex.indexOf(tigerLoc));
 				//Add a tiger to tile as player1 if player1
 				if (player.playerID == 1)
 				{
@@ -897,14 +1098,14 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				}
 				//Subtract one tiger from player
 				player.numTigers--;
-			}
+				}
 		}
+		
 		else
 		{
 			System.out.println("The player has no tigers available to place");
 		}
 	}
-
 	
 	
 	////////////////////////////////////////// SCORING METHODS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
