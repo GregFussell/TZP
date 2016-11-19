@@ -55,7 +55,6 @@ public class Game {
 		ter2.containedTiles.add(new ArrayCoord (36,36));
 		ter3.containedTiles.add(new ArrayCoord (36,36));
 		ter4.containedTiles.add(new ArrayCoord (36,36));
-
 		/*
 		 *  lll
 		 * j   j
@@ -76,7 +75,6 @@ public class Game {
 		territories[10] = 3;
 		territories[11] = 2;
 		territories[12] = 0;
-
 		//
 		Tile starter = new Tile(territories, 1);
 		
@@ -259,7 +257,6 @@ public class Game {
 //		Tile D = new Tile("lllllljtjlllR", 5);
 //		Tile E = new Tile("llljjjjjjjjjR", 6);
 		Deck myDeck = new Deck(G, D, E, A, A);
-
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
 		// Starter location is added as a placeablePos, starter tile is then
@@ -267,12 +264,6 @@ public class Game {
 		placeablePos.add(new ArrayCoord(36, 36));
 		board[36][36] = starter;
 		updatePlaceable(placedPos, placeablePos, 36, 36);
-
-		
-		AI Flynn = new AI();
-		int t[] = new int[3];
-		t = Flynn.decision(board, D, placeablePos);
-
 		addContainedTile(starter, myTerritories, terPtr, 36, 36);
 		
 		//Closed road test: Start = B; decklist = C D E A A
@@ -280,9 +271,6 @@ public class Game {
 
 
 		
-
-//Loop of gameplay
-
 	//TESTING POINTER
 		
 		//System.out.println(myTerritories[board[36][36].subtiles[7]].id);
@@ -345,24 +333,14 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			Printer.printBoardID(board, placedPos, myTerritories, terPtr);
 			
 			System.out.println("The current tile is: ");
-
 			Tile myTile = myDeck.deck.remove();
 			Printer.printTile(myTile, myTerritories, terPtr);
-
 
 			boolean valid = false;
 			while (valid == false) {
 
 				System.out.println("Please choose a rotation degree for the tile (0, 1, 2, 3)");
-				
-				int degree = 0;
-				//int degree = sc.nextInt();
-				if (turn == 0){
-					degree = t[0];
-				}
-				else{
-					degree = sc.nextInt();
-				}
+				int degree = sc.nextInt();
 				myTile.Rotate(degree);
 				if (degree > 0) {
 					System.out.println("The current tile is now: ");
@@ -371,16 +349,8 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 
 				Printer.printPlaceable(placeablePos);
 				System.out.println("Please select an X and Y coordinate to place the tile");
-				//x = sc.nextInt();
-				if (turn == 0){
-					x = t[1];
-					y = t[2];
-				}
-				else{
-					x = sc.nextInt();
-				}
-				//y = sc.nextInt();
-				turn++;
+				x = sc.nextInt();
+				y = sc.nextInt();
 
 				valid = validPlacement(myTile, board, placeablePos, x, y, myTerritories, terPtr);
 				if (valid == false) {
