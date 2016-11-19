@@ -8,7 +8,7 @@ import java.util.Queue;
 public class Deck {
 	
 	//ArrayList<Tile> deck = new ArrayList<Tile>();
-	ArrayList<Tile> deck = new ArrayList<Tile>();
+	Queue<Tile> deck = new LinkedList<Tile>();
 	
 	public Deck(Tile A, Tile B, Tile C, Tile D, Tile E) {	
 
@@ -19,5 +19,12 @@ public class Deck {
 		deck.add(E);
 	}
 
+	
+	public void Tile19()
+	{
+		
+	}
+	
+	
 }
 // Are we using 5 for testing or all 78?
