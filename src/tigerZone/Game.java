@@ -1044,26 +1044,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 					}
 				}
 			}
-			
-			
-			/*
-			for (int i = 0; i < 12; i++)
-			{
-				//Can only place on territories with no tigers
-				if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers == 0)
-				{
-					//Add the ID of the available tiger location if it is not already present and print its position
-					if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id) == false)
-					{
 
-							System.out.println("A Tiger may be placed on index " + i + " which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory + " ");
-							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id);
-							tileIndex.add(i);
-					}
-				}
-			}*/
-			
-			
 			zoneIndex.add(0);			
 			//Collects index of tiger placement from player
 			System.out.println("Please enter an available zone for tiger placement, or 0 for none");
