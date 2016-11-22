@@ -24,14 +24,17 @@ public class Game {
 		TerritoryPtr terPtr = new TerritoryPtr();
 		
 		//Defines the preyAnimal types for tiles
-		boolean[] noPreyAnim = new boolean[3];
-		noPreyAnim[0] = false; noPreyAnim[1] = false; noPreyAnim[2] = false;
-		boolean[] deer = new boolean[3];
-		deer[0] = true; deer[1] = false; deer[2] = false;
-		boolean[] boar = new boolean[3];
-		boar[0] = false; boar[1] = true; boar[2] = false;
-		boolean[] buffalo = new boolean[3];
-		buffalo[0] = false; buffalo[1] = false; buffalo[2] = true;
+		boolean[] noPreyAnim = new boolean[4];
+		noPreyAnim[0] = false; noPreyAnim[1] = false; noPreyAnim[2] = false; noPreyAnim[3] = false;
+		boolean[] deer = new boolean[4];
+		deer[0] = true; deer[1] = false; deer[2] = false; deer[3] = false;
+		boolean[] boar = new boolean[4];
+		boar[0] = false; boar[1] = true; boar[2] = false; boar[3] = false;
+		boolean[] buffalo = new boolean[4];
+		buffalo[0] = false; buffalo[1] = false; buffalo[2] = true; buffalo[3] = false;
+		boolean[] crocodile = new boolean[4];
+		crocodile[0] = false; crocodile[1] = false; crocodile[2] = false; crocodile[3] = true;
+		
 		
 		//Defines an empty ArrayList for non jungle tiles
 		ArrayList<Integer> noBorderLakes = new ArrayList<Integer>();
@@ -279,7 +282,7 @@ public class Game {
 //		Tile C = new Tile("jtjjtjjtjjtjR", 4);
 //		Tile D = new Tile("lllllljtjlllR", 5);
 //		Tile E = new Tile("llljjjjjjjjjR", 6);
-		Deck myDeck = new Deck(H, D, E, A, A);
+		Deck myDeck = new Deck(G, D, E, A, A);
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
 		// Starter location is added as a placeablePos, starter tile is then
@@ -337,7 +340,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			if (turn%2 == 0)
 			{
 				System.out.println();
-				System.out.println("Player2's Turn: " + player2.numTigers + " Tigers remaining");
+				System.out.println("Player2's Turn: ");
 
 				System.out.println();
 			}
@@ -345,7 +348,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			else
 			{
 				System.out.println();
-				System.out.println("Player1's Turn: " + player1.numTigers + " Tigers remaining");
+				System.out.println("Player1's Turn: ");
 				System.out.println();
 			}
 			
@@ -353,7 +356,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			int y = 0;
 
 			System.out.println("The current board is: ");
-			Printer.printBoardID(board, placedPos, myTerritories, terPtr);
+			Printer.printBoard(board, placedPos, myTerritories, terPtr);
 			
 			System.out.println("The current tile is: ");
 			Tile myTile = myDeck.deck.remove();
@@ -389,16 +392,86 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merges Tile contents
 			mergeTile(board, myTile, myTerritories, terPtr, currentDens, x, y);
 			
-			//Tiger placing
+			
+			//Crocodile & Tiger placement
+			
 			//player2's Turn
 			if (turn%2 == 0)
 			{
-				tigerPlacement(myTile, myTerritories, terPtr, player2, sc);
+				System.out.println("The current player has " + player2.numTigers + " tigers and " + player2.numCrocodiles + " crocodiles");	
+				int choice;
+				System.out.println("Would you like to place a (1) tiger, (2) crocodile, or (3) none?");
+				choice = sc.nextInt();
+				while (choice != 1 && choice != 2 && choice != 3)
+				{
+					System.out.println("Invalid input, please enter 1 for tiger, 2 for crocodile, or 3 for none");
+					choice = sc.nextInt();
+				}	
+				
+				//Place tiger
+				if (choice == 1)
+				{
+					if (player2.numTigers > 0)
+					{
+						tigerPlacement(myTile, myTerritories, terPtr, player2, sc);
+					}
+					else
+					{
+						System.out.println("No tigers remaining");
+					}
+				}
+				//Place crocodile
+				else if (choice == 2)
+				{
+					if (crocodilePlaceable(myTile, myTerritories, terPtr) == true && player2.numCrocodiles > 0)
+					{
+						System.out.println("A crocodile has been placed on the tile");
+						crocodilePlacement(myTile, myTerritories, terPtr, player2, x, y);
+					}
+					else
+					{
+						System.out.println("Crocodile can not be placed or no crocodiles remaining");
+					}
+				}	
 			}
 			//player1's Turn
 			else
 			{
-				tigerPlacement(myTile, myTerritories, terPtr, player1, sc);
+				System.out.println("The current player has " + player1.numTigers + " tigers and " + player1.numCrocodiles + " crocodiles");	
+				int choice;
+				System.out.println("Would you like to place a (1) tiger, (2) crocodile, or (3) none?");
+				choice = sc.nextInt();
+				while (choice != 1 && choice != 2 && choice != 3)
+				{
+					System.out.println("Invalid input, please enter 1 for tiger, 2 for crocodile, or 3 for none");
+					choice = sc.nextInt();
+				}	
+				
+				//Place tiger
+				if (choice == 1)
+				{
+					if (player1.numTigers > 0)
+					{
+						tigerPlacement(myTile, myTerritories, terPtr, player1, sc);
+					}
+					else
+					{
+						System.out.println("No tigers remaining");
+					}
+				}
+				//Place crocodile
+				else if (choice == 2)
+				{
+					if (crocodilePlaceable(myTile, myTerritories, terPtr) == true && player1.numCrocodiles > 0)
+					{
+						System.out.println("A crocodile has been placed on the tile");
+						crocodilePlacement(myTile, myTerritories, terPtr, player1, x, y);
+					}
+					else
+					{
+						System.out.println("Crocodile can not be placed or no crocodiles remaining");
+					}
+				}		
 			}
 		
 			//Scoring
@@ -517,13 +590,11 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 
 	}
 	
-	//Adds the location of the placed tile to the territories, 
-	//may not need second forloop?
+	//Adds the location of the placed tile to the territories, also adds the location of any deer, buffalo, boar, or crocodile if any 
 	public static void addContainedTile(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, int x, int y)
 	{
 		for (int i = 0; i < 13; i++)
 		{
-			
 			boolean duplicate = false;
 			for (int j = 0; j < myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedTiles.size(); j++)
 			{
@@ -536,8 +607,28 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			{
 				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedTiles.add(new ArrayCoord(x,y));
 			}
+				
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].deer == true)
+			{
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedDeer.add(new ArrayCoord(x,y));
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].deer = false;
+			}
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].boar == true)
+			{
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedBoar.add(new ArrayCoord(x,y));
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].boar = false;
+			}
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].buffalo == true)
+			{
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedBuffalo.add(new ArrayCoord(x,y));
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].buffalo = false;
+			}
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].crocodile == true)
+			{
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedCrocodile.add(new ArrayCoord(x,y));
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].crocodile = false;
+			}
 		}
-
 	}
 	
 	////////////////////////////////////////// MERGING /////////////////////////////////////////////////////////////////////
@@ -721,9 +812,9 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	public static void mergeTerritory(Territory[] myTerritories, Territory toMerge, Territory currentTerritory, int x, int y)
 	{	
 	
-		currentTerritory.numDeer += toMerge.numDeer;
-		currentTerritory.numBoar += toMerge.numBoar;
-		currentTerritory.numBuffalo += toMerge.numBuffalo;
+//		currentTerritory.numDeer += toMerge.numDeer;
+//		currentTerritory.numBoar += toMerge.numBoar;
+//		currentTerritory.numBuffalo += toMerge.numBuffalo;
 		currentTerritory.openFaces += toMerge.openFaces - 2;
 		currentTerritory.player1Tigers += toMerge.player1Tigers;
 		currentTerritory.player2Tigers += toMerge.player2Tigers;
@@ -746,7 +837,9 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				currentTerritory.containedTiles.add(new ArrayCoord(toMerge.containedTiles.get(i).x,toMerge.containedTiles.get(i).y));
 			}
 		}
-
+		
+		//Merges arrayList of contained buffalo, deer, boar and crocodile
+		mergeAnimals(toMerge, currentTerritory);
 		
 		
 		//Updates borderingLakes and borderingDens if type is jungle
@@ -773,6 +866,81 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				}
 			}
 		}
+	}
+	
+	public static void mergeAnimals(Territory toMerge, Territory currentTerritory)
+	{
+		//Merge deer
+		boolean duplicate = false;
+		for (int i = 0; i < toMerge.containedDeer.size(); i++)
+		{
+			for (int j = 0; j < currentTerritory.containedDeer.size(); j++)
+			{
+				if (currentTerritory.containedDeer.get(j).x == toMerge.containedDeer.get(i).x && currentTerritory.containedDeer.get(j).y == toMerge.containedDeer.get(i).y)
+				{
+					duplicate = true;
+				}			
+
+			}
+			if (duplicate == false)
+			{
+				currentTerritory.containedDeer.add(new ArrayCoord(toMerge.containedDeer.get(i).x,toMerge.containedDeer.get(i).y));
+			}
+		}
+		
+		//Merge boar
+		duplicate = false;
+		for (int i = 0; i < toMerge.containedBoar.size(); i++)
+		{
+			for (int j = 0; j < currentTerritory.containedBoar.size(); j++)
+			{
+				if (currentTerritory.containedBoar.get(j).x == toMerge.containedBoar.get(i).x && currentTerritory.containedBoar.get(j).y == toMerge.containedBoar.get(i).y)
+				{
+					duplicate = true;
+				}			
+
+			}
+			if (duplicate == false)
+			{
+				currentTerritory.containedBoar.add(new ArrayCoord(toMerge.containedBoar.get(i).x,toMerge.containedBoar.get(i).y));
+			}
+		}
+		
+		//Merge buffalo
+		duplicate = false;
+		for (int i = 0; i < toMerge.containedBuffalo.size(); i++)
+		{
+			for (int j = 0; j < currentTerritory.containedBuffalo.size(); j++)
+			{
+				if (currentTerritory.containedBuffalo.get(j).x == toMerge.containedBuffalo.get(i).x && currentTerritory.containedBuffalo.get(j).y == toMerge.containedBuffalo.get(i).y)
+				{
+					duplicate = true;
+				}			
+
+			}
+			if (duplicate == false)
+			{
+				currentTerritory.containedBuffalo.add(new ArrayCoord(toMerge.containedBuffalo.get(i).x,toMerge.containedBuffalo.get(i).y));
+			}
+		}
+		
+		//Merge crocodile
+		duplicate = false;
+		for (int i = 0; i < toMerge.containedCrocodile.size(); i++)
+		{
+			for (int j = 0; j < currentTerritory.containedCrocodile.size(); j++)
+			{
+				if (currentTerritory.containedCrocodile.get(j).x == toMerge.containedCrocodile.get(i).x && currentTerritory.containedCrocodile.get(j).y == toMerge.containedCrocodile.get(i).y)
+				{
+					duplicate = true;
+				}			
+
+			}
+			if (duplicate == false)
+			{
+				currentTerritory.containedCrocodile.add(new ArrayCoord(toMerge.containedCrocodile.get(i).x,toMerge.containedCrocodile.get(i).y));
+			}
+		}	
 	}
 	
 	//Checks moore neighboorhood of den for placed tiles and adds the locations that aren't placed
@@ -860,7 +1028,6 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			den.isScored = true;
 		}
 	}
-
 
 	//////////////////////////////// TIGER PLACEMENT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	public static void tigerPlacement(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, Player player, Scanner sc)
@@ -1193,11 +1360,33 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				player.numTigers--;
 				}
 		}
-		
-		else
+	}
+	
+	
+	/////////////////////////////// CROCODILE PLACEMENT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	public static boolean crocodilePlaceable(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr)
+	{
+		for (int i = 0; i < 12; i++)
 		{
-			System.out.println("The player has no tigers available to place");
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedCrocodile.size() > 0)
+			{
+				return false;
+			}
 		}
+		
+		return true;
+	}
+	
+	public static void crocodilePlacement(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, Player player, int x, int y)
+	{
+		for (int i = 0; i < 12; i++)
+		{
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 't' || myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 'l')
+			{
+				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedCrocodile.add(new ArrayCoord(x,y));
+			}
+		}
+		player.numCrocodiles--;
 	}
 	
 	
@@ -1212,7 +1401,12 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			{
 				if ((myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers > 0 || myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers > 0))
 				{
-					int additionalPoints = myTerritories[terPtr.pointers[currentTile.subtiles[i]]].numBoar + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].numBuffalo + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].numDeer;
+					int additionalPoints = myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedBoar.size() + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedBuffalo.size() + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedDeer.size();
+					additionalPoints -= myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedCrocodile.size();
+					if (additionalPoints < 0)					
+					{
+						additionalPoints = 0;
+					}
 					int trailScore = myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedTiles.size() + additionalPoints;
 					
 					//Player1 gets score if they have more tigers + return tigers
@@ -1259,18 +1453,24 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers > 0 || myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers > 0)
 				{
 					int multiplier = 1;
-					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].numBoar > 0)
+					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedBoar.size() > 0)
 					{
 						multiplier++;
 					}
-					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].numBuffalo > 0)
+					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedBuffalo.size() > 0)
 					{
 						multiplier++;
 					}
-					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].numDeer > 0)
+					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedDeer.size() > 0)
 					{
 						multiplier++;
 					}
+					multiplier -= myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedCrocodile.size();
+					if (multiplier < 0)
+					{
+						multiplier = 1;
+					}
+					
 					int lakeScore = (2 * myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedTiles.size()) * multiplier;
 					//Player1 gets score if they have more tigers + return tigers
 					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers > myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
@@ -1327,7 +1527,12 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Checks for existing trails that have a tiger placed and are not scored
 			if (myTerritories[i].isScored == false && myTerritories[i].territory == 't' && myTerritories[i].isDeleted == false && (myTerritories[i].player1Tigers > 0 || myTerritories[i].player2Tigers > 0))
 			{
-				int additionalPoints = myTerritories[i].numBoar + myTerritories[i].numBuffalo + myTerritories[i].numDeer;
+				int additionalPoints = myTerritories[i].containedBoar.size() + myTerritories[i].containedBuffalo.size() + myTerritories[i].containedDeer.size();
+				additionalPoints -= myTerritories[i].containedCrocodile.size();
+				if (additionalPoints < 0)					
+				{
+					additionalPoints = 0;
+				}
 				int trailScore = myTerritories[i].containedTiles.size() + additionalPoints;
 				
 				//Player1 gets score if they have more tigers
@@ -1357,18 +1562,25 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			{
 				int multiplier = 1;
 				
-				if (myTerritories[i].numBoar > 0)
+				if (myTerritories[i].containedBoar.size() > 0)
 				{
 					multiplier++;
 				}
-				if (myTerritories[i].numBuffalo > 0)
+				if (myTerritories[i].containedBuffalo.size() > 0)
 				{
 					multiplier++;
 				}
-				if (myTerritories[i].numDeer > 0)
+				if (myTerritories[i].containedDeer.size() > 0)
 				{
 					multiplier++;
 				}
+				multiplier -= myTerritories[i].containedCrocodile.size();
+				
+				if (multiplier < 0)
+				{
+					multiplier = 1;
+				}
+				
 				int lakeScore = myTerritories[i].containedTiles.size() * multiplier;
 				
 				//Player1 gets score if they have more tigers
