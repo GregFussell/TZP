@@ -86,7 +86,33 @@ public class TileCreator {
 			
 			break;
 		case "TLTJD":
+			ArrayList<Integer> borderLake = new ArrayList<Integer>();
+			borderLake.add(1);
 			
+			Territory ter1 = new Territory(1, 'l', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[1] = ter1;//East lake
+			Territory ter2 = new Territory(2, 'j', 2, noPreyAnim, borderLake, noBorderDens); myTerritories[2] = ter2;//East Jungle
+			Territory ter3 = new Territory(3, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[3] = ter3;//Road
+			Territory ter4 = new Territory(4, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[4] = ter4;//West Jungle
+			ter1.containedTiles.add(new ArrayCoord (36,36));
+			ter2.containedTiles.add(new ArrayCoord (36,36));
+			ter3.containedTiles.add(new ArrayCoord (36,36));
+			ter4.containedTiles.add(new ArrayCoord (36,36));
+			
+			territories[0] = 4;
+			territories[1] = 3;
+			territories[2] = 2;
+			territories[3] = 1;
+			territories[4] = 1;
+			territories[5] = 1;
+			territories[6] = 2;
+			territories[7] = 3;
+			territories[8] = 4;
+			territories[9] = 4;
+			territories[10] = 4;
+			territories[11] = 4;
+			territories[12] = 0;
+			
+			created = new Tile(territories, 1);
 			break;
 		case "TLLL-":
 			
