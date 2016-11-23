@@ -15,7 +15,6 @@ public class TileCreator {
 	//Defines an empty ArrayList for non jungle tiles
 	ArrayList<Integer> noBorderLakes = new ArrayList<Integer>();
 	ArrayList<Integer> noBorderDens = new ArrayList<Integer>();
-	ArrayList<Integer> borderLake = new ArrayList<Integer>();
 	
 	public TileCreator()
 	{
@@ -29,7 +28,7 @@ public class TileCreator {
 		
 		switch(toCreate){
 		case "JJJJ-":
-			
+
 			break;
 		case "JJJJX":
 			
@@ -41,7 +40,25 @@ public class TileCreator {
 			
 			break;
 		case "TJTJ-":
+			Territory ter5 = new Territory(5, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[5] = ter5;//East jungle
+			Territory ter6 = new Territory(6, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[6] = ter6;//Road
+			Territory ter7 = new Territory(7, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[7] = ter7;//West Jungle
 			
+			territories[0] = 7;
+			territories[1] = 6;
+			territories[2] = 5;
+			territories[3] = 5;
+			territories[4] = 5;
+			territories[5] = 5;
+			territories[6] = 5;
+			territories[7] = 6;
+			territories[8] = 7;
+			territories[9] = 7;
+			territories[10] = 7;
+			territories[11] = 7;
+			territories[12] = 0;
+			
+			created = new Tile(territories, 2);
 			break;
 		case "TJJT-":
 			
