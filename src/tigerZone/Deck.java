@@ -7,7 +7,6 @@ import java.util.Queue;
 
 public class Deck {
 	
-	//ArrayList<Tile> deck = new ArrayList<Tile>();
 	Queue<Tile> deck = new LinkedList<Tile>();
 	
 	public Deck(Tile A, Tile B, Tile C, Tile D, Tile E) {	
