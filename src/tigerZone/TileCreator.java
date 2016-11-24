@@ -22,6 +22,10 @@ public class TileCreator {
 		myTerritories[0] = ter;
 	}
 	
+	public Territory[] getMyTerritories(){
+		return myTerritories;
+	}
+	
 	public Tile create(String toCreate){
 		Tile created = null;
 		int[] territories = new int[13];

@@ -20,277 +20,29 @@ public class Game {
 		ArrayList<ArrayCoord> placeablePos = new ArrayList<ArrayCoord>();
 		ArrayList<ArrayCoord> placedPos = new ArrayList<ArrayCoord>();
 		
-		Territory[] myTerritories = new Territory[246];
+		
 		TerritoryPtr terPtr = new TerritoryPtr();
 		
-		//Defines the preyAnimal types for tiles
-		boolean[] noPreyAnim = new boolean[4];
-		noPreyAnim[0] = false; noPreyAnim[1] = false; noPreyAnim[2] = false; noPreyAnim[3] = false;
-		boolean[] deer = new boolean[4];
-		deer[0] = true; deer[1] = false; deer[2] = false; deer[3] = false;
-		boolean[] boar = new boolean[4];
-		boar[0] = false; boar[1] = true; boar[2] = false; boar[3] = false;
-		boolean[] buffalo = new boolean[4];
-		buffalo[0] = false; buffalo[1] = false; buffalo[2] = true; buffalo[3] = false;
-		boolean[] crocodile = new boolean[4];
-		crocodile[0] = false; crocodile[1] = false; crocodile[2] = false; crocodile[3] = true;
-		
-		
-		//Defines an empty ArrayList for non jungle tiles
-		ArrayList<Integer> noBorderLakes = new ArrayList<Integer>();
-		ArrayList<Integer> noBorderDens = new ArrayList<Integer>();
-		
-		//Creates Territories for Starter Tile
-		int[] territories = new int[13];
-		
-		Territory ter = new Territory(0, ' ', 0, noPreyAnim, noBorderLakes, noBorderDens);
-		myTerritories[0] = ter;
-		
-		//Tile D : starter tile
-		ArrayList<Integer> borderLake = new ArrayList<Integer>();
-		borderLake.add(1);
-		
-		Territory ter1 = new Territory(1, 'l', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[1] = ter1;//North lake
-		Territory ter2 = new Territory(2, 'j', 2, noPreyAnim, borderLake, noBorderDens); myTerritories[2] = ter2;//North Jungle
-		Territory ter3 = new Territory(3, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[3] = ter3;//Road
-		Territory ter4 = new Territory(4, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[4] = ter4;//South Jungle
-		ter1.containedTiles.add(new ArrayCoord (36,36));
-		ter2.containedTiles.add(new ArrayCoord (36,36));
-		ter3.containedTiles.add(new ArrayCoord (36,36));
-		ter4.containedTiles.add(new ArrayCoord (36,36));
-		/*
-		 *  lll
-		 * j   j
-		 * t   t
-		 *  jjj
-		 */
-		
-		territories[0] = 1;
-		territories[1] = 1;
-		territories[2] = 1;
-		territories[3] = 2;
-		territories[4] = 3;
-		territories[5] = 4;
-		territories[6] = 4;
-		territories[7] = 4;
-		territories[8] = 4;
-		territories[9] = 4;
-		territories[10] = 3;
-		territories[11] = 2;
-		territories[12] = 0;
-		//
-		Tile starter = new Tile(territories, 1);
-		
-		
-		//Tile U
-		Territory ter5 = new Territory(5, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[5] = ter5;//North jungle
-		Territory ter6 = new Territory(6, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[6] = ter6;//Road
-		Territory ter7 = new Territory(7, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[7] = ter7;//South Jungle
-		
-		territories[0] = 5;
-		territories[1] = 5;
-		territories[2] = 5;
-		territories[3] = 5;
-		territories[4] = 6;
-		territories[5] = 7;
-		territories[6] = 7;
-		territories[7] = 7;
-		territories[8] = 7;
-		territories[9] = 7;
-		territories[10] = 6;
-		territories[11] = 5;
-		territories[12] = 0;
-		
-		Tile A = new Tile(territories, 2);
-	
-		//Tile V.1 
-		Territory ter8 = new Territory(8, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[8] = ter8;//North jungle
-		Territory ter9 = new Territory(9, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[9] = ter9;//Road
-		Territory ter10 = new Territory(10, 'j', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[10] = ter10;//South Jungle
-		
-		territories[0] = 8;
-		territories[1] = 8;
-		territories[2] = 8;
-		territories[3] = 8;
-		territories[4] = 8;
-		territories[5] = 8;
-		territories[6] = 8;
-		territories[7] = 9;
-		territories[8] = 10;
-		territories[9] = 10;
-		territories[10] = 9;
-		territories[11] = 8;
-		territories[12] = 0;
-		
-		Tile B = new Tile(territories, 3);
-		ter8.containedTiles.add(new ArrayCoord (36,36));
-		ter9.containedTiles.add(new ArrayCoord (36,36));
-		ter10.containedTiles.add(new ArrayCoord (36,36));
-
-		
-		//Tile V.2
-		Territory ter11 = new Territory(11, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[11] = ter11;//North jungle
-		Territory ter12 = new Territory(12, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[12] = ter12;//Road
-		Territory ter13 = new Territory(13, 'j', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[13] = ter13;//South Jungle
-		
-		territories[0] = 11;
-		territories[1] = 11;
-		territories[2] = 11;
-		territories[3] = 11;
-		territories[4] = 11;
-		territories[5] = 11;
-		territories[6] = 11;
-		territories[7] = 12;
-		territories[8] = 13;
-		territories[9] = 13;
-		territories[10] = 12;
-		territories[11] = 11;
-		territories[12] = 0;
-		
-		Tile C = new Tile(territories, 4);
-		
-		//Tile V.3
-		Territory ter14 = new Territory(14, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[14] = ter14;
-		Territory ter15 = new Territory(15, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[15] = ter15;
-		Territory ter16 = new Territory(16, 'j', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[16] = ter16;
-		
-		territories[0] = 14;
-		territories[1] = 14;
-		territories[2] = 14;
-		territories[3] = 14;
-		territories[4] = 14;
-		territories[5] = 14;
-		territories[6] = 14;
-		territories[7] = 15;
-		territories[8] = 16;
-		territories[9] = 16;
-		territories[10] = 15;
-		territories[11] = 14;
-		territories[12] = 0;
-		
-		Tile D = new Tile(territories, 5);
-		
-		//Tile V.4
-		Territory ter17 = new Territory(17, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[17] = ter17;
-		Territory ter18 = new Territory(18, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[18] = ter18;
-		Territory ter19 = new Territory(19, 'j', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[19] = ter19;
-		
-		territories[0] = 17;
-		territories[1] = 17;
-		territories[2] = 17;
-		territories[3] = 17;
-		territories[4] = 17;
-		territories[5] = 17;
-		territories[6] = 17;
-		territories[7] = 18;
-		territories[8] = 19;
-		territories[9] = 19;
-		territories[10] = 18;
-		territories[11] = 17;
-		territories[12] = 0;
-		
-		Tile E = new Tile(territories, 6);
-		
-		
-		//New tile type D
-		ArrayList<Integer> borderLake21 = new ArrayList<Integer>();
-		borderLake21.add(20);
-		
-		Territory ter20 = new Territory(20, 'l', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[20] = ter20;//North lake
-		Territory ter21 = new Territory(21, 'j', 2, noPreyAnim, borderLake21, noBorderDens); myTerritories[21] = ter21;//North Jungle
-		Territory ter22 = new Territory(22, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[22] = ter22;//Road
-		Territory ter23 = new Territory(23, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[23] = ter23;//South Jungle
-
-		/*
-		 *  lll
-		 * j   j
-		 * t   t
-		 * j   j
-		 *  jjj
-		 */
-		
-		territories[0] = 20;
-		territories[1] = 20;
-		territories[2] = 20;
-		territories[3] = 21;
-		territories[4] = 22;
-		territories[5] = 23;
-		territories[6] = 23;
-		territories[7] = 23;
-		territories[8] = 23;
-		territories[9] = 23;
-		territories[10] = 22;
-		territories[11] = 21;
-		territories[12] = 0;
-		//
-		Tile F = new Tile(territories, 7);
-		
-		
-		//Tile with den
-		ArrayList<Integer> borderDen = new ArrayList<Integer>();
-		borderDen.add(25);
-		Territory ter24 = new Territory(24, 'j', 3, noPreyAnim, noBorderLakes, borderDen); myTerritories[24] = ter24;//South Jungle
-		Territory ter25 = new Territory(25, 'd', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[25] = ter25;//South Jungle
-		
-		territories[0] = 24;
-		territories[1] = 24;
-		territories[2] = 24;
-		territories[3] = 24;
-		territories[4] = 24;
-		territories[5] = 24;
-		territories[6] = 24;
-		territories[7] = 24;
-		territories[8] = 24;
-		territories[9] = 24;
-		territories[10] = 24;
-		territories[11] = 24;
-		territories[12] = 25;
-		//
-		Tile G = new Tile(territories, 8);
-		
-		//TILE JLLJ-
-		ArrayList<Integer> borderLake28 = new ArrayList<Integer>();
-		borderLake21.add(26);
-		borderLake21.add(27);
-		Territory ter26 = new Territory(26, 'l', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[26] = ter26;
-		Territory ter27 = new Territory(27, 'l', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[27] = ter27;
-		Territory ter28 = new Territory(28, 'j', 2, noPreyAnim, borderLake28, noBorderDens); myTerritories[28] = ter28;
-		
-		territories[0] = 28;
-		territories[1] = 28;
-		territories[2] = 28;
-		territories[3] = 27;
-		territories[4] = 27;
-		territories[5] = 27;
-		territories[6] = 26;
-		territories[7] = 26;
-		territories[8] = 26;
-		territories[9] = 28;
-		territories[10] = 28;
-		territories[11] = 28;
-		territories[12] = 0;
-		//
-		Tile H = new Tile(territories, 9);
-		
-		// Creates Starter Tile
-		//Tile starter = new Tile("llljtjjjjjtjR", 1);
-		//Tile starter = new Tile(territories, 1);
-
-		// Initializes the deck with tiles
-//		Tile A = new Tile("jtjjjjjtjjjjR", 2);
-//		Tile B = new Tile("jjjjjjjtjjtjR", 3);
-//		Tile C = new Tile("jtjjtjjtjjtjR", 4);
-//		Tile D = new Tile("lllllljtjlllR", 5);
-//		Tile E = new Tile("llljjjjjjjjjR", 6);
-		Deck myDeck = new Deck(G, D, E, A, A);
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
+		placeablePos.add(new ArrayCoord(36, 36));
+		
+		Deck myDeck = new Deck();
+		
+		TileCreator tileEngine = new TileCreator();
+		
+		String start = null;			// taken from NetworkInterface
+		String tileSet[] = null;	//							
+		board[36][36] = tileEngine.create(start);
+		for(int i = 0; i < tileSet.length; i++){
+			myDeck.add(tileEngine.create(tileSet[i]));
+		}
+		Territory[] myTerritories = tileEngine.getMyTerritories();
+		
 		// Starter location is added as a placeablePos, starter tile is then
 		// automatically placed and the placed/placeable array lists are updated
-		placeablePos.add(new ArrayCoord(36, 36));
-		board[36][36] = starter;
 		updatePlaceable(placedPos, placeablePos, 36, 36);
-		addContainedTile(starter, myTerritories, terPtr, 36, 36);
+		addContainedTile(board[36][36], myTerritories, terPtr, 36, 36);
 		
 		//Closed road test: Start = B; decklist = C D E A A
 		//Current Test: start = starter
@@ -334,7 +86,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	//	printTile(starter);
 		int turn = 1;
 		// Users plays game
-		while (myDeck.deck.size() > 2) {
+		while (myDeck.size() > 2) {
 			
 			//player2's Turn
 			if (turn%2 == 0)
@@ -359,7 +111,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			Printer.printBoard(board, placedPos, myTerritories, terPtr);
 			
 			System.out.println("The current tile is: ");
-			Tile myTile = myDeck.deck.remove();
+			Tile myTile = myDeck.remove();
 			Printer.printTile(myTile, myTerritories, terPtr);
 
 			boolean valid = false;
@@ -491,7 +243,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		Printer.printScores(player1, player2);
 		
 		
-		Printer.printArrayList(ter18.containedTiles);
+		//Printer.printArrayList(ter18.containedTiles);
 	}
 
 	// METHODS
