@@ -5,11 +5,11 @@ public class Tile {
 	int subtiles[];
 
 	int position[] = new int[2];
-	int id;
+	String id;
 
 	boolean shield;
 
-	public Tile(int[] territories, int identifier) {
+	public Tile(int[] territories, String identifier) {
 		subtiles = new int[13];
 		for (int i = 0; i < 13; i++) {
 			subtiles[i] = territories[i];
