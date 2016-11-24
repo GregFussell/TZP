@@ -79,7 +79,7 @@ public class Game {
 		territories[11] = 2;
 		territories[12] = 0;
 		//
-		Tile starter = new Tile(territories, 1);
+		Tile starter = new Tile(territories, "1");
 		
 		
 		//Tile U
@@ -101,7 +101,7 @@ public class Game {
 		territories[11] = 5;
 		territories[12] = 0;
 		
-		Tile A = new Tile(territories, 2);
+		Tile A = new Tile(territories, "2");
 	
 		//Tile V.1 
 		Territory ter8 = new Territory(8, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[8] = ter8;//North jungle
@@ -122,7 +122,7 @@ public class Game {
 		territories[11] = 8;
 		territories[12] = 0;
 		
-		Tile B = new Tile(territories, 3);
+		Tile B = new Tile(territories, "3");
 		ter8.containedTiles.add(new ArrayCoord (36,36));
 		ter9.containedTiles.add(new ArrayCoord (36,36));
 		ter10.containedTiles.add(new ArrayCoord (36,36));
@@ -147,7 +147,7 @@ public class Game {
 		territories[11] = 11;
 		territories[12] = 0;
 		
-		Tile C = new Tile(territories, 4);
+		Tile C = new Tile(territories, "4");
 		
 		//Tile V.3
 		Territory ter14 = new Territory(14, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[14] = ter14;
@@ -168,7 +168,7 @@ public class Game {
 		territories[11] = 14;
 		territories[12] = 0;
 		
-		Tile D = new Tile(territories, 5);
+		Tile D = new Tile(territories, "5");
 		
 		//Tile V.4
 		Territory ter17 = new Territory(17, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[17] = ter17;
@@ -189,7 +189,7 @@ public class Game {
 		territories[11] = 17;
 		territories[12] = 0;
 		
-		Tile E = new Tile(territories, 6);
+		Tile E = new Tile(territories, "6");
 		
 		
 		//New tile type D
@@ -223,14 +223,14 @@ public class Game {
 		territories[11] = 21;
 		territories[12] = 0;
 		//
-		Tile F = new Tile(territories, 7);
+		Tile F = new Tile(territories, "7");
 		
 		
 		//Tile with den
 		ArrayList<Integer> borderDen = new ArrayList<Integer>();
 		borderDen.add(25);
 		Territory ter24 = new Territory(24, 'j', 3, noPreyAnim, noBorderLakes, borderDen); myTerritories[24] = ter24;//South Jungle
-		Territory ter25 = new Territory(25, 'd', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[25] = ter25;//South Jungle
+		Territory ter25 = new Territory(25, 'd', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[25] = ter25;
 		
 		territories[0] = 24;
 		territories[1] = 24;
@@ -246,7 +246,7 @@ public class Game {
 		territories[11] = 24;
 		territories[12] = 25;
 		//
-		Tile G = new Tile(territories, 8);
+		Tile G = new Tile(territories, "8");
 		
 		//TILE JLLJ-
 		ArrayList<Integer> borderLake28 = new ArrayList<Integer>();
@@ -270,7 +270,7 @@ public class Game {
 		territories[11] = 28;
 		territories[12] = 0;
 		//
-		Tile H = new Tile(territories, 9);
+		Tile H = new Tile(territories, "9");
 		
 		// Creates Starter Tile
 		//Tile starter = new Tile("llljtjjjjjtjR", 1);
@@ -325,8 +325,6 @@ public class Game {
 
 Player player1 = new Player(1);
 Player player2 = new Player(2);
-//ter15.player1Tigers = 2;
-//ter15.player2Tigers = 1;
 ArrayList<Integer> currentDens = new ArrayList<Integer>();
 
 ///////////////////////////////////////////////////// GAMEPLAY LOOP \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -1682,9 +1680,5 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			}
 			
 		}
-		
 	}
-	
-	
-
 }
