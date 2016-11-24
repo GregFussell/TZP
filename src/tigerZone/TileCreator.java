@@ -440,65 +440,354 @@ public class TileCreator {
 			
 			created = new Tile(territories, "TLJTP");
 			count++;
-			
 			break;
 		case "JLTT-":
+			Territory ter51 = new Territory(count, 'l', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter51;
+			ArrayList<Integer> borderLake8 = new ArrayList<Integer>();
+			borderLake8.add(count);
+			count++;
+			Territory ter52 = new Territory(count, 'j', 0, noPreyAnim, borderLake8, noBorderDens); myTerritories[count] = ter52;
+			count++;
+			Territory ter53 = new Territory(count, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter53;
+			count++;
+			Territory ter54 = new Territory(count, 'j', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter54;
 			
+			territories[0] = count-2;
+			territories[1] = count-2;
+			territories[2] = count-2;
+			territories[3] = count-3;
+			territories[4] = count-3;
+			territories[5] = count-3;
+			territories[6] = count-2;
+			territories[7] = count-1;
+			territories[8] = count;
+			territories[9] = count;
+			territories[10] = count-1;
+			territories[11] = count-2;
+			territories[12] = 0;
+			
+			created = new Tile(territories, "JLTT-");
+			count++;
 			break;
 		case "JLTTB":
+			Territory ter55 = new Territory(count, 'l', 1, buffalo, noBorderLakes, noBorderDens); myTerritories[count] = ter55;
+			ArrayList<Integer> borderLake9 = new ArrayList<Integer>();
+			borderLake9.add(count);
+			count++;
+			Territory ter56 = new Territory(count, 'j', 0, noPreyAnim, borderLake9, noBorderDens); myTerritories[count] = ter56;
+			count++;
+			Territory ter57 = new Territory(count, 't', 2, buffalo, noBorderLakes, noBorderDens); myTerritories[count] = ter57;
+			count++;
+			Territory ter58 = new Territory(count, 'j', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter58;
 			
+			territories[0] = count-2;
+			territories[1] = count-2;
+			territories[2] = count-2;
+			territories[3] = count-3;
+			territories[4] = count-3;
+			territories[5] = count-3;
+			territories[6] = count-2;
+			territories[7] = count-1;
+			territories[8] = count;
+			territories[9] = count;
+			territories[10] = count-1;
+			territories[11] = count-2;
+			territories[12] = 0;
+			
+			created = new Tile(territories, "JLTTB");
+			count++;
 			break;
 		case "TLTJ-":
+			Territory ter59 = new Territory(count, 'l', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter59;
+			ArrayList<Integer> borderLake10 = new ArrayList<Integer>();
+			borderLake10.add(count);
+			count++;
+			Territory ter60 = new Territory(count, 'j', 0, noPreyAnim, borderLake10, noBorderDens); myTerritories[count] = ter60;
+			count++;
+			Territory ter61 = new Territory(count, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter61;
+			count++;
+			Territory ter62 = new Territory(count, 'j', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter62;
 			
+			territories[0] = count;
+			territories[1] = count-1;
+			territories[2] = count-2;
+			territories[3] = count-3;
+			territories[4] = count-3;
+			territories[5] = count-3;
+			territories[6] = count-2;
+			territories[7] = count-1;
+			territories[8] = count;
+			territories[9] = count;
+			territories[10] = count;
+			territories[11] = count;
+			territories[12] = 0;
+			
+			created = new Tile(territories, "TLTJ-");
+			count++;
 			break;
 		case "TLTJD":
-//			ArrayList<Integer> borderLake = new ArrayList<Integer>();
-//			borderLake.add(1);
-//			
-//			Territory ter1 = new Territory(1, 'l', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[1] = ter1;//East lake
-//			Territory ter2 = new Territory(2, 'j', 2, noPreyAnim, borderLake, noBorderDens); myTerritories[2] = ter2;//East Jungle
-//			Territory ter3 = new Territory(3, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[3] = ter3;//Road
-//			Territory ter4 = new Territory(4, 'j', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[4] = ter4;//West Jungle
-//			
-//			territories[0] = 4;
-//			territories[1] = 3;
-//			territories[2] = 2;
-//			territories[3] = 1;
-//			territories[4] = 1;
-//			territories[5] = 1;
-//			territories[6] = 2;
-//			territories[7] = 3;
-//			territories[8] = 4;
-//			territories[9] = 4;
-//			territories[10] = 4;
-//			territories[11] = 4;
-//			territories[12] = 0;
-//			
-//			created = new Tile(territories, 1);
+			Territory ter63 = new Territory(count, 'l', 1, deer, noBorderLakes, noBorderDens); myTerritories[count] = ter63;
+			ArrayList<Integer> borderLake11 = new ArrayList<Integer>();
+			borderLake11.add(count);
+			count++;
+			Territory ter64 = new Territory(count, 'j', 0, noPreyAnim, borderLake11, noBorderDens); myTerritories[count] = ter64;
+			count++;
+			Territory ter65 = new Territory(count, 't', 2, deer, noBorderLakes, noBorderDens); myTerritories[count] = ter65;
+			count++;
+			Territory ter66 = new Territory(count, 'j', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter66;
+			
+			territories[0] = count;
+			territories[1] = count-1;
+			territories[2] = count-2;
+			territories[3] = count-3;
+			territories[4] = count-3;
+			territories[5] = count-3;
+			territories[6] = count-2;
+			territories[7] = count-1;
+			territories[8] = count;
+			territories[9] = count;
+			territories[10] = count;
+			territories[11] = count;
+			territories[12] = 0;
+			
+			created = new Tile(territories, "TLTJD");
+			count++;
 			break;
 		case "TLLL-":
+			Territory ter67 = new Territory(count, 'l', 3, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter67;
+			ArrayList<Integer> borderLake12 = new ArrayList<Integer>();
+			borderLake12.add(count);
+			count++;
+			Territory ter68 = new Territory(count, 'j', 0, noPreyAnim, borderLake12, noBorderDens); myTerritories[count] = ter68;
+			count++;
+			Territory ter69 = new Territory(count, 't', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter69;
+			count++;
+			Territory ter70 = new Territory(count, 'j', 0, noPreyAnim, borderLake12, noBorderDens); myTerritories[count] = ter70;
 			
+			territories[0] = count-2;
+			territories[1] = count-1;
+			territories[2] = count;
+			territories[3] = count-3;
+			territories[4] = count-3;
+			territories[5] = count-3;
+			territories[6] = count-3;
+			territories[7] = count-3;
+			territories[8] = count-3;
+			territories[9] = count-3;
+			territories[10] = count-3;
+			territories[11] = count-3;
+			territories[12] = 0;
+			
+			created = new Tile(territories, "TLLL-");
+			count++;
 			break;
 		case "TLTT-":
+			Territory ter71 = new Territory(count, 'l', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter71;
+			ArrayList<Integer> borderLake13 = new ArrayList<Integer>();
+			borderLake13.add(count);
+			count++;
+			Territory ter72 = new Territory(count, 'j', 0, noPreyAnim, borderLake13, noBorderDens); myTerritories[count] = ter72;
+			count++;
+			Territory ter73 = new Territory(count, 't', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter73;
+			count++;
+			Territory ter74 = new Territory(count, 'j', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter74;
+			count++;
+			Territory ter75 = new Territory(count, 't', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter75;
+			count++;
+			Territory ter76 = new Territory(count, 'j', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter76;
+			count++;
+			Territory ter77 = new Territory(count, 't', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter77;
 			
+			territories[0] = count-3;
+			territories[1] = count-4;
+			territories[2] = count-5;
+			territories[3] = count-6;
+			territories[4] = count-6;
+			territories[5] = count-6;
+			territories[6] = count-5;
+			territories[7] = count-2;
+			territories[8] = count-1;
+			territories[9] = count-1;
+			territories[10] = count;
+			territories[11] = count-3;
+			territories[12] = 0;
+			
+			created = new Tile(territories, "TLTT-");
+			count++;
 			break;
 		case "TLTTP":
+			Territory ter78 = new Territory(count, 'l', 1, boar, noBorderLakes, noBorderDens); myTerritories[count] = ter78;
+			ArrayList<Integer> borderLake14 = new ArrayList<Integer>();
+			borderLake14.add(count);
+			count++;
+			Territory ter79 = new Territory(count, 'j', 0, noPreyAnim, borderLake14, noBorderDens); myTerritories[count] = ter79;
+			count++;
+			Territory ter80 = new Territory(count, 't', 1, boar, noBorderLakes, noBorderDens); myTerritories[count] = ter80;
+			count++;
+			Territory ter81 = new Territory(count, 'j', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter81;
+			count++;
+			Territory ter82 = new Territory(count, 't', 1, boar, noBorderLakes, noBorderDens); myTerritories[count] = ter82;
+			count++;
+			Territory ter83 = new Territory(count, 'j', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter83;
+			count++;
+			Territory ter84 = new Territory(count, 't', 1, boar, noBorderLakes, noBorderDens); myTerritories[count] = ter84;
 			
+			territories[0] = count-3;
+			territories[1] = count-4;
+			territories[2] = count-5;
+			territories[3] = count-6;
+			territories[4] = count-6;
+			territories[5] = count-6;
+			territories[6] = count-5;
+			territories[7] = count-2;
+			territories[8] = count-1;
+			territories[9] = count-1;
+			territories[10] = count;
+			territories[11] = count-3;
+			territories[12] = 0;
+			
+			created = new Tile(territories, "TLTTP");
+			count++;
 			break;
 		case "TLLT-":
+			Territory ter85 = new Territory(count, 'l', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter85;
+			ArrayList<Integer> borderLake15 = new ArrayList<Integer>();
+			borderLake15.add(count);
+			count++;
+			Territory ter86 = new Territory(count, 'j', 0, noPreyAnim, borderLake15, noBorderDens); myTerritories[count] = ter86;
+			count++;
+			Territory ter87 = new Territory(count, 't', 2, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter87;
+			count++;
+			Territory ter88 = new Territory(count, 'j', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter88;
 			
+			territories[0] = count;
+			territories[1] = count-1;
+			territories[2] = count-2;
+			territories[3] = count-3;
+			territories[4] = count-3;
+			territories[5] = count-3;
+			territories[6] = count-3;
+			territories[7] = count-3;
+			territories[8] = count-3;
+			territories[9] = count-2;
+			territories[10] = count-1;
+			territories[11] = count;
+			territories[12] = 0;
+		
+			created = new Tile(territories, "TLLT-");
+			count++;
 			break;
 		case "TLLTB":
+			Territory ter89 = new Territory(count, 'l', 2, buffalo, noBorderLakes, noBorderDens); myTerritories[count] = ter89;
+			ArrayList<Integer> borderLake16 = new ArrayList<Integer>();
+			borderLake16.add(count);
+			count++;
+			Territory ter90 = new Territory(count, 'j', 0, noPreyAnim, borderLake16, noBorderDens); myTerritories[count] = ter90;
+			count++;
+			Territory ter91 = new Territory(count, 't', 2, buffalo, noBorderLakes, noBorderDens); myTerritories[count] = ter91;
+			count++;
+			Territory ter92 = new Territory(count, 'j', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter92;
 			
+			territories[0] = count;
+			territories[1] = count-1;
+			territories[2] = count-2;
+			territories[3] = count-3;
+			territories[4] = count-3;
+			territories[5] = count-3;
+			territories[6] = count-3;
+			territories[7] = count-3;
+			territories[8] = count-3;
+			territories[9] = count-2;
+			territories[10] = count-1;
+			territories[11] = count;
+			territories[12] = 0;
+		
+			created = new Tile(territories, "TLLTB");
+			count++;
 			break;
 		case "LJTJ-":
+			Territory ter93 = new Territory(count, 'l', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter93;
+			ArrayList<Integer> borderLake17 = new ArrayList<Integer>();
+			borderLake17.add(count);
+			count++;
+			Territory ter94 = new Territory(count, 'j', 0, noPreyAnim, borderLake17, noBorderDens); myTerritories[count] = ter94;
+			count++;
+			Territory ter95 = new Territory(count, 't', 1, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter95;
+			count++;
+			Territory ter96 = new Territory(count, 'j', 0, noPreyAnim, borderLake17, noBorderDens); myTerritories[count] = ter96;
 			
+			territories[0] = count-3;
+			territories[1] = count-3;
+			territories[2] = count-3;
+			territories[3] = count-2;
+			territories[4] = count-2;
+			territories[5] = count-2;
+			territories[6] = count-2;
+			territories[7] = count-1;
+			territories[8] = count;
+			territories[9] = count;
+			territories[10] = count;
+			territories[11] = count;
+			territories[12] = 0;
+		
+			created = new Tile(territories, "LJTJ-");
+			count++;
 			break;
 		case "LJTJD":
+			Territory ter97 = new Territory(count, 'l', 1, deer, noBorderLakes, noBorderDens); myTerritories[count] = ter97;
+			ArrayList<Integer> borderLake18 = new ArrayList<Integer>();
+			borderLake18.add(count);
+			count++;
+			Territory ter98 = new Territory(count, 'j', 0, noPreyAnim, borderLake18, noBorderDens); myTerritories[count] = ter98;
+			count++;
+			Territory ter99 = new Territory(count, 't', 1, deer, noBorderLakes, noBorderDens); myTerritories[count] = ter99;
+			count++;
+			Territory ter100 = new Territory(count, 'j', 0, noPreyAnim, borderLake18, noBorderDens); myTerritories[count] = ter100;
 			
+			territories[0] = count-3;
+			territories[1] = count-3;
+			territories[2] = count-3;
+			territories[3] = count-2;
+			territories[4] = count-2;
+			territories[5] = count-2;
+			territories[6] = count-2;
+			territories[7] = count-1;
+			territories[8] = count;
+			territories[9] = count;
+			territories[10] = count;
+			territories[11] = count;
+			territories[12] = 0;
+		
+			created = new Tile(territories, "LJTJD");
+			count++;
 			break;
 		case "TLLLC":
+			Territory ter101 = new Territory(count, 'l', 3, crocodile, noBorderLakes, noBorderDens); myTerritories[count] = ter101;
+			ArrayList<Integer> borderLake19 = new ArrayList<Integer>();
+			borderLake19.add(count);
+			count++;
+			Territory ter102 = new Territory(count, 'j', 0, noPreyAnim, borderLake19, noBorderDens); myTerritories[count] = ter102;
+			count++;
+			Territory ter103 = new Territory(count, 't', 1, crocodile, noBorderLakes, noBorderDens); myTerritories[count] = ter103;
+			count++;
+			Territory ter104 = new Territory(count, 'j', 0, noPreyAnim, borderLake19, noBorderDens); myTerritories[count] = ter104;
 			
+			territories[0] = count-2;
+			territories[1] = count-1;
+			territories[2] = count;
+			territories[3] = count-3;
+			territories[4] = count-3;
+			territories[5] = count-3;
+			territories[6] = count-3;
+			territories[7] = count-3;
+			territories[8] = count-3;
+			territories[9] = count-3;
+			territories[10] = count-3;
+			territories[11] = count-3;
+			territories[12] = 0;
+			
+			created = new Tile(territories, "TLLLC");
+			count++;
 			break;
 		}
 		
