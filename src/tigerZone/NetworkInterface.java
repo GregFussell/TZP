@@ -191,8 +191,9 @@ public class NetworkInterface {
 	                case MAKE_MOVE:
 	                	break;
 	                case OPPONENT_MOVE:
-	                	x = y + 76;
-	                	y = x + 76;
+	                	int tempX = x;
+	                	x = 76 - y;
+	                	y = 76 + tempX;
 	                	if(rotation != 0) { rotation = (360 - rotation) / 90; }
 	                	break;
 	                case START:
