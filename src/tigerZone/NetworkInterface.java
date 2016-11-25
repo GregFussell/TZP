@@ -45,19 +45,19 @@ public class NetworkInterface {
 	            String fromUser;
 	            
 	            //initializing variables to be configured for game communication
-	            int x, y, rotation, state = WAIT;
-	            String cid;
-	            String rid;
-	            String gid;
-	            String pid;
-	            String rounds;
+	            int x = 0, y = 0, rotation = 0, state = WAIT;
+	            String cid = "";
+	            String rid = "";
+	            String gid = "";
+	            String pid = "";
+	            String rounds = "";
 	            ArrayList<String> deck = new ArrayList<String>();
 	            String move = "";
-	            String tile;
-	            String tileCount;
-	            String time;
-	            String ourScore;
-	            String theirScore;
+	            String tile = "";
+	            String tileCount = "";
+	            String time = "";
+	            String ourScore = "";
+	            String theirScore = "";
 	            
 	            //while receiving from server
 	            while ((fromServer = in.readLine()) != null) {
@@ -189,6 +189,9 @@ public class NetworkInterface {
 	                case MAKE_MOVE:
 	                	break;
 	                case OPPONENT_MOVE:
+	                	x = y + 36;
+	                	y = x + 36;
+	                	if(rotation != 0) { rotation = (360 - rotation) / 90; }
 	                	break;
 	                case START:
 	                	break;
