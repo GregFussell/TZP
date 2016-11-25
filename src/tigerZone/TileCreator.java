@@ -25,7 +25,7 @@ public class TileCreator {
 		//Creates a blank territory for tiles with no defining center (12 index)
 		Territory ter = new Territory(count, ' ', 0, noPreyAnim, noBorderLakes, noBorderDens);
 		myTerritories[count] = ter;
-		territoriesSize = 0;
+		territoriesSize = 1;
 		count++;
 	}
 	

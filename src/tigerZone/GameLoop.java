@@ -14,7 +14,7 @@ public class GameLoop {
 		// placeable positions
 		Scanner sc = new Scanner(System.in);
 		
-		TerritoryPtr terPtr = new TerritoryPtr();
+		
 		
 		// Initializes the game
 		Game game1 = new Game(BOARD_WIDTH, BOARD_LENGTH);
@@ -42,6 +42,8 @@ public class GameLoop {
 			game1.addToDeck(tileEngine.create(tileSet[i]));
 		}
 		
+		TerritoryPtr terPtr = new TerritoryPtr(tileEngine.getTerritoriesSize());
+		
 		//sets myTerritories created by the tile engine
 		game1.setTerritories(tileEngine.getMyTerritories());
 		game1.setMyTerritoriesSize(tileEngine.getTerritoriesSize());
@@ -50,32 +52,6 @@ public class GameLoop {
 		// automatically placed and the placed/placeable array lists are updated
 		game1.updatePlaceable(BOARD_WIDTH / 2, BOARD_LENGTH / 2);
 		game1.addContainedTile(game1.getTile(BOARD_WIDTH / 2, BOARD_LENGTH / 2), terPtr, BOARD_WIDTH / 2, BOARD_LENGTH / 2);
-
-
-		
-	//TESTING POINTER
-		
-		//System.out.println(myTerritories[board[36][36].subtiles[7]].id);
-		
-	//	System.out.println(terPtr.pointers[2]);
-//		E.Rotate(3);
-//		
-//
-//		
-//		System.out.println(myTerritories[terPtr.pointers[B.subtiles[7]]].id);
-//		
-//		int currentID = terPtr.pointers[E.subtiles[4]];
-//		int rewriteID = terPtr.pointers[B.subtiles[7]];
-//
-//		
-//		mergeTerritory(myTerritories[rewriteID], myTerritories[currentID], 36, 35);
-//		terPtr.rewritePtr(currentID, rewriteID);
-//		
-//
-//		
-//		
-//		System.out.println(myTerritories[terPtr.pointers[B.subtiles[7]]].id);
-//		Printer.printArrayList(myTerritories[terPtr.pointers[B.subtiles[7]]].containedTiles);
 
 
 
