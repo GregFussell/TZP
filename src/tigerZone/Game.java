@@ -23,6 +23,7 @@ public class Game {
 		
 		TerritoryPtr terPtr = new TerritoryPtr();
 		
+
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
 		placeablePos.add(new ArrayCoord(36, 36));
@@ -32,7 +33,7 @@ public class Game {
 		TileCreator tileEngine = new TileCreator();
 		
 		String start = null;			// taken from NetworkInterface
-		String tileSet[] = null;	//							
+		String tileSet[] = null;		//							
 		board[36][36] = tileEngine.create(start);
 		for(int i = 0; i < tileSet.length; i++){
 			myDeck.add(tileEngine.create(tileSet[i]));
@@ -77,8 +78,6 @@ public class Game {
 
 Player player1 = new Player(1);
 Player player2 = new Player(2);
-//ter15.player1Tigers = 2;
-//ter15.player2Tigers = 1;
 ArrayList<Integer> currentDens = new ArrayList<Integer>();
 
 ///////////////////////////////////////////////////// GAMEPLAY LOOP \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -1434,9 +1433,5 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			}
 			
 		}
-		
 	}
-	
-	
-
 }
