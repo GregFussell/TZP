@@ -7,7 +7,6 @@ import java.util.Queue;
 
 public class Deck {
 	
-	//ArrayList<Tile> deck = new ArrayList<Tile>();
 	private ArrayList<Tile> deck = new ArrayList<Tile>();
 	private int size;
 	
@@ -28,4 +27,3 @@ public class Deck {
 	}
 	
 }
-// Are we using 5 for testing or all 78?

@@ -3,16 +3,16 @@ package tigerZone;
 import java.util.ArrayList;
 
 public class TileCreator {
-	public Territory[] myTerritories = new Territory[246];
+	private Territory[] myTerritories = new Territory[246];
 	
 	//Defines the preyAnimal types for tiles
-	boolean[] noPreyAnim = {false, false, false, false };
-	boolean[] deer = { true, false, false, false };
-	boolean[] boar = { false, true, false, false };
-	boolean[] buffalo = { false, false, true, false };
-	boolean[] crocodile = { false, false, false, true };
+	private boolean[] noPreyAnim = {false, false, false, false };
+	private boolean[] deer = { true, false, false, false };
+	private boolean[] boar = { false, true, false, false };
+	private boolean[] buffalo = { false, false, true, false };
+	private boolean[] crocodile = { false, false, false, true };
 	
-	int count;
+	private int count;
 	
 	//Defines an empty ArrayList for non jungle tiles
 	ArrayList<Integer> noBorderLakes = new ArrayList<Integer>();
