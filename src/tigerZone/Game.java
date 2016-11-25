@@ -4,244 +4,81 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
+	
+	private ArrayList<ArrayCoord> placeablePos;
+	private ArrayList<ArrayCoord> placedPos;
+	private Tile[][] board;
+	private Deck myDeck;
+	private Territory[] myTerritories;
+	private int myTerritoriesSize;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public Game(){
+		placeablePos = new ArrayList<ArrayCoord>();
+		placedPos = new ArrayList<ArrayCoord>();
+		board = new Tile[77][77];
+		myDeck = new Deck();
+		myTerritories = new Territory[246];
+		setMyTerritoriesSize(0);
+	}
+	
+	public int getMyTerritoriesSize() {
+		return myTerritoriesSize;
+	}
 
-		// Tile starter = new Tile('j','l','j',
-		// 't','t','t',
-		// 'j','j','j',
-		// 1);
+	public void setMyTerritoriesSize(int myTerritoriesSize) {
+		this.myTerritoriesSize = myTerritoriesSize;
+	}
+	
+	public ArrayList<ArrayCoord> getPlaceable(){
+		return placeablePos;
+	}
+	
+	public void addPlaceable(int x, int y){
+		placeablePos.add(new ArrayCoord(x,y));
+	}
+	
+	public ArrayList<ArrayCoord> getPlaced(){
+		return placedPos;
+	}
+	
+	public void addPlaced(int x, int y){
+		placedPos.add(new ArrayCoord(x,y));
+	}
+	
+	public Tile[][] getBoard(){
+		return board;
+	}
 
-		// Initializes the array lists that contain placed positions and
-		// placeable positions
-		Scanner sc = new Scanner(System.in);
-
-		ArrayList<ArrayCoord> placeablePos = new ArrayList<ArrayCoord>();
-		ArrayList<ArrayCoord> placedPos = new ArrayList<ArrayCoord>();
-		
-		
-		TerritoryPtr terPtr = new TerritoryPtr();
-		
-		// Initializes the board
-		Tile[][] board = new Tile[77][77];
-		placeablePos.add(new ArrayCoord(36, 36));
-		
-		Deck myDeck = new Deck();
-		
-		TileCreator tileEngine = new TileCreator();
-		
-		String start = null;			// taken from NetworkInterface
-		String tileSet[] = null;		//							
-		board[36][36] = tileEngine.create(start);
-		for(int i = 0; i < tileSet.length; i++){
-			myDeck.add(tileEngine.create(tileSet[i]));
-		}
-		Territory[] myTerritories = tileEngine.getMyTerritories();
-		
-		// Starter location is added as a placeablePos, starter tile is then
-		// automatically placed and the placed/placeable array lists are updated
-		updatePlaceable(placedPos, placeablePos, 36, 36);
-		addContainedTile(board[36][36], myTerritories, terPtr, 36, 36);
-		
-		//Closed road test: Start = B; decklist = C D E A A
-		//Current Test: start = starter
-
-
-		
-	//TESTING POINTER
-		
-		//System.out.println(myTerritories[board[36][36].subtiles[7]].id);
-		
-	//	System.out.println(terPtr.pointers[2]);
-//		E.Rotate(3);
-//		
-//
-//		
-//		System.out.println(myTerritories[terPtr.pointers[B.subtiles[7]]].id);
-//		
-//		int currentID = terPtr.pointers[E.subtiles[4]];
-//		int rewriteID = terPtr.pointers[B.subtiles[7]];
-//
-//		
-//		mergeTerritory(myTerritories[rewriteID], myTerritories[currentID], 36, 35);
-//		terPtr.rewritePtr(currentID, rewriteID);
-//		
-//
-//		
-//		
-//		System.out.println(myTerritories[terPtr.pointers[B.subtiles[7]]].id);
-//		Printer.printArrayList(myTerritories[terPtr.pointers[B.subtiles[7]]].containedTiles);
-
-
-
-Player player1 = new Player(1);
-Player player2 = new Player(2);
-ArrayList<Integer> currentDens = new ArrayList<Integer>();
-
-///////////////////////////////////////////////////// GAMEPLAY LOOP \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-		
-	//	printTile(starter);
-		int turn = 1;
-		// Users plays game
-		while (myDeck.size() > 2) {
-			
-			//player2's Turn
-			if (turn%2 == 0)
-			{
-				System.out.println();
-				System.out.println("Player2's Turn: ");
-
-				System.out.println();
-			}
-			//player1's Turn
-			else
-			{
-				System.out.println();
-				System.out.println("Player1's Turn: ");
-				System.out.println();
-			}
-			
-			int x = 0;
-			int y = 0;
-
-			System.out.println("The current board is: ");
-			Printer.printBoard(board, placedPos, myTerritories, terPtr);
-			
-			System.out.println("The current tile is: ");
-			Tile myTile = myDeck.remove();
-			Printer.printTile(myTile, myTerritories, terPtr);
-
-			boolean valid = false;
-			while (valid == false) {
-
-				System.out.println("Please choose a rotation degree for the tile (0, 1, 2, 3)");
-				int degree = sc.nextInt();
-				myTile.Rotate(degree);
-				if (degree > 0) {
-					System.out.println("The current tile is now: ");
-					Printer.printTile(myTile, myTerritories, terPtr);
-				}
-
-				Printer.printPlaceable(placeablePos);
-				System.out.println("Please select an X and Y coordinate to place the tile");
-				x = sc.nextInt();
-				y = sc.nextInt();
-
-				valid = validPlacement(myTile, board, placeablePos, x, y, myTerritories, terPtr);
-				if (valid == false) {
-					System.out.println("Invalid placement, please place again");
-				} else {
-					System.out.println("Tile successfully placed");
-				}
-			}
-			
-			//Adds the coordinate of the tile to the tile
-			addContainedTile(myTile, myTerritories, terPtr, x, y);
-			
-			//Merges Tile contents
-			mergeTile(board, myTile, myTerritories, terPtr, currentDens, x, y);
-			
-			
-			//Crocodile & Tiger placement
-			
-			//player2's Turn
-			if (turn%2 == 0)
-			{
-				System.out.println("The current player has " + player2.numTigers + " tigers and " + player2.numCrocodiles + " crocodiles");	
-				int choice;
-				System.out.println("Would you like to place a (1) tiger, (2) crocodile, or (3) none?");
-				choice = sc.nextInt();
-				while (choice != 1 && choice != 2 && choice != 3)
-				{
-					System.out.println("Invalid input, please enter 1 for tiger, 2 for crocodile, or 3 for none");
-					choice = sc.nextInt();
-				}	
-				
-				//Place tiger
-				if (choice == 1)
-				{
-					if (player2.numTigers > 0)
-					{
-						tigerPlacement(myTile, myTerritories, terPtr, player2, sc);
-					}
-					else
-					{
-						System.out.println("No tigers remaining");
-					}
-				}
-				//Place crocodile
-				else if (choice == 2)
-				{
-					if (crocodilePlaceable(myTile, myTerritories, terPtr) == true && player2.numCrocodiles > 0)
-					{
-						System.out.println("A crocodile has been placed on the tile");
-						crocodilePlacement(myTile, myTerritories, terPtr, player2, x, y);
-					}
-					else
-					{
-						System.out.println("Crocodile can not be placed or no crocodiles remaining");
-					}
-				}	
-			}
-			//player1's Turn
-			else
-			{
-				System.out.println("The current player has " + player1.numTigers + " tigers and " + player1.numCrocodiles + " crocodiles");	
-				int choice;
-				System.out.println("Would you like to place a (1) tiger, (2) crocodile, or (3) none?");
-				choice = sc.nextInt();
-				while (choice != 1 && choice != 2 && choice != 3)
-				{
-					System.out.println("Invalid input, please enter 1 for tiger, 2 for crocodile, or 3 for none");
-					choice = sc.nextInt();
-				}	
-				
-				//Place tiger
-				if (choice == 1)
-				{
-					if (player1.numTigers > 0)
-					{
-						tigerPlacement(myTile, myTerritories, terPtr, player1, sc);
-					}
-					else
-					{
-						System.out.println("No tigers remaining");
-					}
-				}
-				//Place crocodile
-				else if (choice == 2)
-				{
-					if (crocodilePlaceable(myTile, myTerritories, terPtr) == true && player1.numCrocodiles > 0)
-					{
-						System.out.println("A crocodile has been placed on the tile");
-						crocodilePlacement(myTile, myTerritories, terPtr, player1, x, y);
-					}
-					else
-					{
-						System.out.println("Crocodile can not be placed or no crocodiles remaining");
-					}
-				}		
-			}
-		
-			//Scoring
-			midGameScoring(myTile, myTerritories, terPtr, currentDens, player1, player2, x, y);
-			
-			//Place tile, update positions and turn
-			turn++;
-			board[x][y] = myTile;
-			updatePlaceable(placedPos, placeablePos, x, y);
-		}
-
-		
-		System.out.println("\nThe final board is: ");
-		Printer.printBoardID(board, placedPos, myTerritories, terPtr);
-		
-		endGameScoring(myTerritories, terPtr, player1, player2);
-		Printer.printScores(player1, player2);
-		
-		
-		//Printer.printArrayList(ter18.containedTiles);
+	public Tile getTile(int x, int y){
+		return board[x][y];
+	}
+	
+	public void addToBoard(int x, int y, Tile tile){
+		board[x][y] = tile;
+	}
+	
+	public Deck getDeck(){
+		return myDeck;
+	}
+	
+	public void addToDeck(Tile tile){
+		myDeck.add(tile);
+	}
+	
+	public Tile nextTile(){
+		return myDeck.remove();
+	}
+	
+	public int deckSize(){
+		return myDeck.size();
+	}
+	
+	public Territory[] getTerritories(){
+		return myTerritories;
+	}
+	
+	public void setTerritories(Territory[] newter){
+		myTerritories = newter;
 	}
 
 	// METHODS
@@ -249,8 +86,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 
 	// Method for evaluating whether continuity in territory types is preserved
 	// in adjacent tiles. Returns True if valid
-	public static boolean validPlacement(Tile currentTile, Tile[][] currentBoard, ArrayList<ArrayCoord> placeablePos,
-			int x, int y, Territory[] myTerritories, TerritoryPtr terPtr) {
+	public boolean validPlacement(Tile currentTile, int x, int y, TerritoryPtr terPtr) {
 
 		boolean flag = false;
 		for (int i = 0; i < placeablePos.size(); i++) {
@@ -262,23 +98,23 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			return false;
 		}
 
-		if (currentBoard[x - 1][y] != null) {
-			if (myTerritories[terPtr.pointers[currentTile.subtiles[1]]].territory != myTerritories[terPtr.pointers[currentBoard[x - 1][y].subtiles[7]]].territory) {
+		if (board[x - 1][y] != null) {
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[1]]].territory != myTerritories[terPtr.pointers[board[x - 1][y].subtiles[7]]].territory) {
 				return false;
 			}
 		}
-		if (currentBoard[x + 1][y] != null) {
-			if (myTerritories[terPtr.pointers[currentTile.subtiles[7]]].territory != myTerritories[terPtr.pointers[currentBoard[x + 1][y].subtiles[1]]].territory) {
+		if (board[x + 1][y] != null) {
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[7]]].territory != myTerritories[terPtr.pointers[board[x + 1][y].subtiles[1]]].territory) {
 				return false;
 			}
 		}
-		if (currentBoard[x][y + 1] != null) {
-			if (myTerritories[terPtr.pointers[currentTile.subtiles[4]]].territory != myTerritories[terPtr.pointers[currentBoard[x][y + 1].subtiles[10]]].territory) {
+		if (board[x][y + 1] != null) {
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[4]]].territory != myTerritories[terPtr.pointers[board[x][y + 1].subtiles[10]]].territory) {
 				return false;
 			}
 		}
-		if (currentBoard[x][y - 1] != null) {
-			if (myTerritories[terPtr.pointers[currentTile.subtiles[10]]].territory != myTerritories[terPtr.pointers[currentBoard[x][y - 1].subtiles[4]]].territory) {
+		if (board[x][y - 1] != null) {
+			if (myTerritories[terPtr.pointers[currentTile.subtiles[10]]].territory != myTerritories[terPtr.pointers[board[x][y - 1].subtiles[4]]].territory) {
 				return false;
 			}
 		}
@@ -290,8 +126,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	// array and adds it to the placedPos array
 	// Also adds the four adjacent sides to the newly placed tile into the
 	// placeablePos array
-	public static void updatePlaceable(ArrayList<ArrayCoord> placedPos, ArrayList<ArrayCoord> placeablePos, int x,
-			int y) {
+	public void updatePlaceable( int x,	int y) {
 
 		for (int i = 0; i < placeablePos.size(); i++) {
 
@@ -341,7 +176,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	}
 	
 	//Adds the location of the placed tile to the territories, also adds the location of any deer, buffalo, boar, or crocodile if any 
-	public static void addContainedTile(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, int x, int y)
+	public void addContainedTile(Tile currentTile, TerritoryPtr terPtr, int x, int y)
 	{
 		for (int i = 0; i < 13; i++)
 		{
@@ -384,7 +219,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	////////////////////////////////////////// MERGING /////////////////////////////////////////////////////////////////////
 
 	
-	public static void mergeTile(Tile[][] board, Tile myTile, Territory[] myTerritories, TerritoryPtr terPtr, ArrayList<Integer> currentDens, int x, int y)
+	public void mergeTile( Tile myTile, TerritoryPtr terPtr, ArrayList<Integer> currentDens, int x, int y)
 	{
 		int[] rewriteIDs = new int[12];
 		int[] currentIDs = new int[12];
@@ -395,7 +230,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merge 0 index if its a jungle
 			if (myTerritories[terPtr.pointers[myTile.subtiles[0]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[0]]].id != myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]].id)
 			{
-				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]], myTerritories[terPtr.pointers[myTile.subtiles[0]]], x, y);
+				mergeTerritory(myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]], myTerritories[terPtr.pointers[myTile.subtiles[0]]], x, y);
 				rewriteIDs[0] = myTerritories[terPtr.pointers[board[x-1][y].subtiles[8]]].id;
 				currentIDs[0] = myTerritories[terPtr.pointers[myTile.subtiles[0]]].id;
 				
@@ -406,7 +241,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merge 1 index
 			if (myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]] != myTerritories[terPtr.pointers[myTile.subtiles[1]]])
 			{
-				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]], myTerritories[terPtr.pointers[myTile.subtiles[1]]], x, y);
+				mergeTerritory( myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]], myTerritories[terPtr.pointers[myTile.subtiles[1]]], x, y);
 				rewriteIDs[1] = myTerritories[terPtr.pointers[board[x-1][y].subtiles[7]]].id;
 				currentIDs[1] = myTerritories[terPtr.pointers[myTile.subtiles[1]]].id;
 			
@@ -417,7 +252,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merge 2 index if its a jungle
 			if (myTerritories[terPtr.pointers[myTile.subtiles[2]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[2]]].id != myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]].id)
 			{
-				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]], myTerritories[terPtr.pointers[myTile.subtiles[2]]], x, y);
+				mergeTerritory( myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]], myTerritories[terPtr.pointers[myTile.subtiles[2]]], x, y);
 				rewriteIDs[2] = myTerritories[terPtr.pointers[board[x-1][y].subtiles[6]]].id;
 				currentIDs[2] = myTerritories[terPtr.pointers[myTile.subtiles[2]]].id;
 	
@@ -432,7 +267,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merge 3 index if its a jungle
 			if (myTerritories[terPtr.pointers[myTile.subtiles[3]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[3]]].id != myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]].id)
 			{
-				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]], myTerritories[terPtr.pointers[myTile.subtiles[3]]], x, y);
+				mergeTerritory( myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]], myTerritories[terPtr.pointers[myTile.subtiles[3]]], x, y);
 				rewriteIDs[3] = myTerritories[terPtr.pointers[board[x][y+1].subtiles[11]]].id;
 				currentIDs[3] = myTerritories[terPtr.pointers[myTile.subtiles[3]]].id;
 				
@@ -443,7 +278,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merge 4 index
 			if (myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]] != myTerritories[terPtr.pointers[myTile.subtiles[4]]])
 			{
-				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]], myTerritories[terPtr.pointers[myTile.subtiles[4]]], x, y);
+				mergeTerritory( myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]], myTerritories[terPtr.pointers[myTile.subtiles[4]]], x, y);
 				rewriteIDs[4] = myTerritories[terPtr.pointers[board[x][y+1].subtiles[10]]].id;
 				currentIDs[4] = myTerritories[terPtr.pointers[myTile.subtiles[4]]].id;
 			
@@ -458,7 +293,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merge 5 index if its a jungle
 			if (myTerritories[terPtr.pointers[myTile.subtiles[5]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[5]]].id != myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]].id)
 			{
-				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]], myTerritories[terPtr.pointers[myTile.subtiles[5]]], x, y);
+				mergeTerritory( myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]], myTerritories[terPtr.pointers[myTile.subtiles[5]]], x, y);
 				rewriteIDs[5] = myTerritories[terPtr.pointers[board[x][y+1].subtiles[9]]].id;
 				currentIDs[5] = myTerritories[terPtr.pointers[myTile.subtiles[5]]].id;
 				
@@ -473,7 +308,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merge 6 index if its a jungle
 			if (myTerritories[terPtr.pointers[myTile.subtiles[6]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[6]]].id != myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]].id)
 			{
-				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]], myTerritories[terPtr.pointers[myTile.subtiles[6]]], x, y);
+				mergeTerritory( myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]], myTerritories[terPtr.pointers[myTile.subtiles[6]]], x, y);
 				rewriteIDs[6] = myTerritories[terPtr.pointers[board[x+1][y].subtiles[2]]].id;
 				currentIDs[6] = myTerritories[terPtr.pointers[myTile.subtiles[6]]].id;
 				
@@ -484,7 +319,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merge 7 index
 			if (myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]] != myTerritories[terPtr.pointers[myTile.subtiles[7]]])
 			{
-				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]], myTerritories[terPtr.pointers[myTile.subtiles[7]]], x, y);
+				mergeTerritory( myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]], myTerritories[terPtr.pointers[myTile.subtiles[7]]], x, y);
 				rewriteIDs[7] = myTerritories[terPtr.pointers[board[x+1][y].subtiles[1]]].id;
 				currentIDs[7] = myTerritories[terPtr.pointers[myTile.subtiles[7]]].id;
 			
@@ -499,7 +334,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merge 8 index if its a jungle
 			if (myTerritories[terPtr.pointers[myTile.subtiles[8]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[8]]].id != myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]].id)
 			{
-				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]], myTerritories[terPtr.pointers[myTile.subtiles[8]]], x, y);
+				mergeTerritory( myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]], myTerritories[terPtr.pointers[myTile.subtiles[8]]], x, y);
 				rewriteIDs[8] = myTerritories[terPtr.pointers[board[x+1][y].subtiles[0]]].id;
 				currentIDs[8] = myTerritories[terPtr.pointers[myTile.subtiles[8]]].id;
 				
@@ -514,7 +349,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merge 9 index if its a jungle
 			if (myTerritories[terPtr.pointers[myTile.subtiles[9]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[9]]].id != myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]].id)
 			{
-				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]], myTerritories[terPtr.pointers[myTile.subtiles[9]]], x, y);
+				mergeTerritory( myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]], myTerritories[terPtr.pointers[myTile.subtiles[9]]], x, y);
 				rewriteIDs[9] = myTerritories[terPtr.pointers[board[x][y-1].subtiles[5]]].id;
 				currentIDs[9] = myTerritories[terPtr.pointers[myTile.subtiles[9]]].id;
 				
@@ -525,7 +360,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merge 10 index
 			if (myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]] != myTerritories[terPtr.pointers[myTile.subtiles[10]]])
 			{
-				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]], myTerritories[terPtr.pointers[myTile.subtiles[10]]], x, y);
+				mergeTerritory( myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]], myTerritories[terPtr.pointers[myTile.subtiles[10]]], x, y);
 				rewriteIDs[10] = myTerritories[terPtr.pointers[board[x][y-1].subtiles[4]]].id;
 				currentIDs[10] = myTerritories[terPtr.pointers[myTile.subtiles[10]]].id;
 			
@@ -540,7 +375,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			//Merge 11 index if its a jungle
 			if (myTerritories[terPtr.pointers[myTile.subtiles[11]]].territory == 'j' && myTerritories[terPtr.pointers[myTile.subtiles[11]]].id != myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]].id)
 			{
-				mergeTerritory(myTerritories, myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]], myTerritories[terPtr.pointers[myTile.subtiles[11]]], x, y);
+				mergeTerritory( myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]], myTerritories[terPtr.pointers[myTile.subtiles[11]]], x, y);
 				rewriteIDs[11] = myTerritories[terPtr.pointers[board[x][y-1].subtiles[3]]].id;
 				currentIDs[11] = myTerritories[terPtr.pointers[myTile.subtiles[11]]].id;
 				
@@ -553,13 +388,13 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		if (myTerritories[terPtr.pointers[myTile.subtiles[12]]].territory == 'd')
 		{
 			//myTerritories[terPtr.pointers[myTile.subtiles[12]]].containedTiles.add(new ArrayCoord(x,y));
-			populateDen(board, myTerritories[terPtr.pointers[myTile.subtiles[12]]], x, y);
+			populateDen( myTerritories[terPtr.pointers[myTile.subtiles[12]]], x, y);
 			currentDens.add(terPtr.pointers[myTile.subtiles[12]]);
 		}
 	}
 	
 	//Method to merge the contents of one territory with another.
-	public static void mergeTerritory(Territory[] myTerritories, Territory toMerge, Territory currentTerritory, int x, int y)
+	public void mergeTerritory( Territory toMerge, Territory currentTerritory, int x, int y)
 	{	
 	
 //		currentTerritory.numDeer += toMerge.numDeer;
@@ -618,7 +453,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		}
 	}
 	
-	public static void mergeAnimals(Territory toMerge, Territory currentTerritory)
+	public void mergeAnimals(Territory toMerge, Territory currentTerritory)
 	{
 		//Merge deer
 		boolean duplicate = false;
@@ -694,7 +529,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	}
 	
 	//Checks moore neighboorhood of den for placed tiles and adds the locations that aren't placed
-	public static void populateDen(Tile[][] board, Territory den, int x, int y)
+	public void populateDen(Territory den, int x, int y)
 	{
 		//check topleft
 		if (board[x-1][y-1] == null)
@@ -747,7 +582,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	}
 
 	//Checks mooreNeighborhood of dens as new tiles are placed, and scores den if it is completed
-	public static void checkMooreNeighborhood(Territory den, Player player1, Player player2, int x, int y)
+	public void checkMooreNeighborhood(Territory den, Player player1, Player player2, int x, int y)
 	{
 		for (int i = 0; i < den.containedTiles.size(); i++)
 		{
@@ -780,7 +615,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	}
 
 	//////////////////////////////// TIGER PLACEMENT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	public static void tigerPlacement(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, Player player, Scanner sc)
+	public void tigerPlacement(Tile currentTile, TerritoryPtr terPtr, Player player, Scanner sc)
 	{
 		//Player can only place if they have a tiger available
 		if (player.numTigers > 0)
@@ -1114,7 +949,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	
 	
 	/////////////////////////////// CROCODILE PLACEMENT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	public static boolean crocodilePlaceable(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr)
+	public boolean crocodilePlaceable(Tile currentTile, TerritoryPtr terPtr)
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -1127,7 +962,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		return true;
 	}
 	
-	public static void crocodilePlacement(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, Player player, int x, int y)
+	public void crocodilePlacement(Tile currentTile,TerritoryPtr terPtr, Player player, int x, int y)
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -1141,7 +976,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	
 	
 	////////////////////////////////////////// SCORING METHODS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	public static void midGameScoring(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, ArrayList<Integer> currentDens, Player player1, Player player2, int x, int y)
+	public void midGameScoring(Tile currentTile,  TerritoryPtr terPtr, ArrayList<Integer> currentDens, Player player1, Player player2, int x, int y)
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -1269,10 +1104,10 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		}
 	}
 	
-	public static void endGameScoring(Territory[] myTerritories, TerritoryPtr terPtr, Player player1, Player player2)
+	public void endGameScoring( TerritoryPtr terPtr, Player player1, Player player2)
 	{
 		/////////////////////////////////// ****CHANGE LATER For-loop set to 20 for testing CHANGE LATER**** \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-		for (int i = 0; i < 29; i++)
+		for (int i = 0; i < myTerritoriesSize; i++)
 		{
 			//Checks for existing trails that have a tiger placed and are not scored
 			if (myTerritories[i].isScored == false && myTerritories[i].territory == 't' && myTerritories[i].isDeleted == false && (myTerritories[i].player1Tigers > 0 || myTerritories[i].player2Tigers > 0))
@@ -1433,4 +1268,6 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			
 		}
 	}
+
+
 }

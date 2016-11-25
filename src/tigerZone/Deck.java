@@ -7,11 +7,10 @@ import java.util.Queue;
 
 public class Deck {
 	
-	private ArrayList<Tile> deck = new ArrayList<Tile>();
-	private int size;
+	private ArrayList<Tile> deck;
 	
 	public Deck() {	
-		size = 0;
+		deck = new ArrayList<Tile>();
 	}
 
 	public void add(Tile tile){
@@ -19,7 +18,7 @@ public class Deck {
 	}
 	
 	public int size(){
-		return size;
+		return deck.size();
 	}
 	
 	public Tile remove(){
