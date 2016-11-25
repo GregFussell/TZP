@@ -48,7 +48,7 @@ public class GameLoop {
 		
 		// Starter location is added as a placeablePos, starter tile is then
 		// automatically placed and the placed/placeable array lists are updated
-		game1.updatePlaceable(36, 36);
+		game1.updatePlaceable(BOARD_WIDTH / 2, BOARD_LENGTH / 2);
 		game1.addContainedTile(game1.getTile(BOARD_WIDTH / 2, BOARD_LENGTH / 2), terPtr, BOARD_WIDTH / 2, BOARD_LENGTH / 2);
 
 
