@@ -13,24 +13,33 @@ public class GameLoop {
 		
 		TerritoryPtr terPtr = new TerritoryPtr();
 		
-		// Initializes the board
+		// Initializes the game
 		Game game1 = new Game();
 		
+		//initializes starting position
 		game1.addPlaceable(36, 36);
 		
+		//initializes tile creation engine
 		TileCreator tileEngine = new TileCreator();
 		
+		//initializes values which will be input from the server
 		String start = null;			// taken from NetworkInterface
 		String tileSet[] = null;		//	
-		///temporary start and tileset
+		
+		///temporary start and tileset/////////////////////////
 		start = "TLTJD";
 		String temp[] = { "JJJJ-", "JJJJX", "JJTJX", "TTTT-" };
 		tileSet = temp;
+		/////////////////////////////////////////////////////
+		
+		//places starting tile
 		game1.addToBoard(36, 36, tileEngine.create(start));
+		//fills up the game deck
 		for(int i = 0; i < tileSet.length; i++){
 			game1.addToDeck(tileEngine.create(tileSet[i]));
 		}
 		
+		//sets myTerritories created by the tile engine
 		game1.setTerritories(tileEngine.getMyTerritories());
 		game1.setMyTerritoriesSize(tileEngine.getTerritoriesSize());
 		

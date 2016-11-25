@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Game {
 	
+	////////fields to track gamestate
 	private ArrayList<ArrayCoord> placeablePos;
 	private ArrayList<ArrayCoord> placedPos;
 	private Tile[][] board;
@@ -12,6 +13,7 @@ public class Game {
 	private Territory[] myTerritories;
 	private int myTerritoriesSize;
 
+	/////constructor
 	public Game(){
 		placeablePos = new ArrayList<ArrayCoord>();
 		placedPos = new ArrayList<ArrayCoord>();
@@ -21,6 +23,9 @@ public class Game {
 		setMyTerritoriesSize(0);
 	}
 	
+	
+	/////getters and setters for private fields//////
+	////////////pretty self explanatory//////////////
 	public int getMyTerritoriesSize() {
 		return myTerritoriesSize;
 	}
