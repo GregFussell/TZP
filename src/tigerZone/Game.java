@@ -23,7 +23,6 @@ public class Game {
 		
 		TerritoryPtr terPtr = new TerritoryPtr();
 		
-
 		// Initializes the board
 		Tile[][] board = new Tile[77][77];
 		placeablePos.add(new ArrayCoord(36, 36));
