@@ -14,10 +14,10 @@ public class Game {
 	private int myTerritoriesSize;
 
 	/////constructor
-	public Game(){
+	public Game(int boardWidth, int boardLength){
 		placeablePos = new ArrayList<ArrayCoord>();
 		placedPos = new ArrayList<ArrayCoord>();
-		board = new Tile[77][77];
+		board = new Tile[boardWidth][boardLength];
 		myDeck = new Deck();
 		myTerritories = new Territory[246];
 		setMyTerritoriesSize(0);

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameLoop {
+	public static final int BOARD_WIDTH = 155;
+	public static final int BOARD_LENGTH = 155;
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -14,10 +17,10 @@ public class GameLoop {
 		TerritoryPtr terPtr = new TerritoryPtr();
 		
 		// Initializes the game
-		Game game1 = new Game();
+		Game game1 = new Game(BOARD_WIDTH, BOARD_LENGTH);
 		
 		//initializes starting position
-		game1.addPlaceable(36, 36);
+		game1.addPlaceable(BOARD_WIDTH / 2, BOARD_LENGTH / 2);
 		
 		//initializes tile creation engine
 		TileCreator tileEngine = new TileCreator();
@@ -33,7 +36,7 @@ public class GameLoop {
 		/////////////////////////////////////////////////////
 		
 		//places starting tile
-		game1.addToBoard(36, 36, tileEngine.create(start));
+		game1.addToBoard(BOARD_WIDTH / 2, BOARD_LENGTH / 2, tileEngine.create(start));
 		//fills up the game deck
 		for(int i = 0; i < tileSet.length; i++){
 			game1.addToDeck(tileEngine.create(tileSet[i]));
@@ -46,7 +49,7 @@ public class GameLoop {
 		// Starter location is added as a placeablePos, starter tile is then
 		// automatically placed and the placed/placeable array lists are updated
 		game1.updatePlaceable(36, 36);
-		game1.addContainedTile(game1.getTile(36, 36), terPtr, 36, 36);
+		game1.addContainedTile(game1.getTile(BOARD_WIDTH / 2, BOARD_LENGTH / 2), terPtr, BOARD_WIDTH / 2, BOARD_LENGTH / 2);
 
 
 		
