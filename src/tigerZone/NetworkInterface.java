@@ -183,6 +183,8 @@ public class NetworkInterface {
 	                }
 	                
 	                /////////send info to games
+	                //TODO configure I/O stream with gameloop and finalize conversions 
+	                // 		from server protocol into game format
 	                switch(state){
 	                case WAIT:
 	                	break;

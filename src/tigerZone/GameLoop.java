@@ -85,7 +85,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	//	printTile(starter);
 		int turn = 1;
 		// Users plays game
-		while (game1.deckSize() > 2) {
+		while (game1.deckSize() > 0) {
 			
 			//player2's Turn
 			if (turn%2 == 0)
