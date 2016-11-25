@@ -1464,7 +1464,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 						multiplier++;
 					}
 					multiplier -= myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedCrocodile.size();
-					if (multiplier < 0)
+					if (multiplier < 1)
 					{
 						multiplier = 1;
 					}
@@ -1574,7 +1574,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				}
 				multiplier -= myTerritories[i].containedCrocodile.size();
 				
-				if (multiplier < 0)
+				if (multiplier < 1)
 				{
 					multiplier = 1;
 				}
