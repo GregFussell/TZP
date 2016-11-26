@@ -16,10 +16,7 @@ public class NetworkInterface {
 	static final int GAME_OVER = 5;
 	static final int NEW_ROUND = 6;
 	
-	//passwords and usernames//to be changed based on server///
-	static String serverPassword = "password";
-	static String ourPassword = "password";
-	static String ourPID = "groupP";
+
 	//tracks the pid of our opponent for the current challenge
 	static String opponentPID;
 
@@ -34,6 +31,10 @@ public class NetworkInterface {
 	 
 	        String hostName = args[0];
 	        int portNumber = Integer.parseInt(args[1]);
+	    	//passwords and usernames//to be changed based on server///
+	    	String serverPassword = args[2];
+	    	String ourPID = args[3];
+	    	String ourPassword = args[4];
 	 
 	        try (
 	            Socket tzSocket = new Socket(hostName, portNumber);
