@@ -124,6 +124,8 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			
 			
 			//Crocodile & Tiger placement
+			ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
+			ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
 			
 			//player2's Turn
 			if (turn%2 == 0)
@@ -143,7 +145,10 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				{
 					if (player2.numTigers > 0)
 					{
-						game.tigerPlacement(myTile, terPtr, player2, sc);
+						game.tigerPlacementLoc(myTile, terPtr, player2, sc, availableTigerLoc, zoneIndex);
+						//Do AI stuff
+						
+						game.tigerPlacement(myTile, terPtr, player2, sc, availableTigerLoc, zoneIndex);
 					}
 					else
 					{
@@ -182,7 +187,12 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				{
 					if (player1.numTigers > 0)
 					{
-						game.tigerPlacement(myTile, terPtr, player1, sc);
+						game.tigerPlacementLoc(myTile, terPtr, player1, sc, availableTigerLoc, zoneIndex);
+						//Do AI stuff
+						
+						//
+						game.tigerPlacement(myTile, terPtr, player1, sc, availableTigerLoc, zoneIndex);
+						
 					}
 					else
 					{
