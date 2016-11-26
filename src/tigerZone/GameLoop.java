@@ -192,7 +192,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 						
 						//
 						game.tigerPlacement(myTile, terPtr, player1, sc, availableTigerLoc, zoneIndex);
-						
+			
 					}
 					else
 					{

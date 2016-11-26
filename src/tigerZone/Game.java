@@ -944,6 +944,34 @@ public class Game {
 			player.numTigers--;
 	}
 	
+	public void tigerPlacementAI(Tile currentTile, TerritoryPtr terPtr, Player player, int zoneChoice, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex)
+	{
+		int tigerLoc = zoneChoice;
+		
+		//Ensures valid index has been selected
+		if (zoneIndex.contains(tigerLoc) == false)
+		{
+			System.out.println("Invalid Zone");
+		}
+		else
+		{
+			System.out.println("A tiger has been placed on zone " + tigerLoc + " for player" + player.playerID);
+				
+			int placedLoc = availableTigerLoc.get(zoneIndex.indexOf(tigerLoc));
+			//Add a tiger to tile as player1 if player1
+			if (player.playerID == 1)
+			{
+				 myTerritories[placedLoc].player1Tigers++;
+			}
+			//Add a tiger to tile as player2 if player2
+			else
+			{
+				 myTerritories[placedLoc].player2Tigers++;
+			}
+			//Subtract one tiger from player
+			player.numTigers--;
+		}
+	}
 	
 	/////////////////////////////// CROCODILE PLACEMENT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	public boolean crocodilePlaceable(Tile currentTile, TerritoryPtr terPtr)
