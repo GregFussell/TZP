@@ -927,13 +927,6 @@ public class Game {
 			tigerLoc = sc.nextInt();
 		}
 		
-		//Do nothing if 13 is entered
-		if (tigerLoc == 0)
-		{
-			System.out.println("No tiger has been placed");
-		}
-		else
-		{
 			System.out.println("A tiger has been placed on zone " + tigerLoc + " for player" + player.playerID);
 				
 			int placedLoc = availableTigerLoc.get(zoneIndex.indexOf(tigerLoc));
@@ -949,7 +942,6 @@ public class Game {
 			}
 			//Subtract one tiger from player
 			player.numTigers--;
-			}
 	}
 	
 	
