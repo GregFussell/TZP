@@ -23,15 +23,14 @@ public class NetworkInterface {
 	 public static void main(String[] args) throws IOException {
 		 //TODO configure I/O stream between NetworkInterface and GameLoop
          
-	        if (args.length != 2) {
+	        if (args.length != 5) {
 	            System.err.println(
-	                "Usage: java EchoClient <host name> <port number>");
+	                "Usage: java EchoClient <host name> <port number> <server password> <username> <user password>");
 	            System.exit(1);
 	        }
 	 
 	        String hostName = args[0];
 	        int portNumber = Integer.parseInt(args[1]);
-	    	//passwords and usernames//to be changed based on server///
 	    	String serverPassword = args[2];
 	    	String ourPID = args[3];
 	    	String ourPassword = args[4];
@@ -58,7 +57,7 @@ public class NetworkInterface {
 	            String tileCount = "";
 	            String time = "";
 	            String ourScore = "";
-	            String theirScore = "";
+	            String opponentScore = "";
 	            
 	            //while receiving from server
 	            while ((fromServer = in.readLine()) != null) {
@@ -168,7 +167,7 @@ public class NetworkInterface {
 	                			if(tokens.nextToken() == ourPID)
 	                				ourScore = tokens.nextToken();
 	                			else if(tokens.nextToken() == opponentPID)
-	                				theirScore = tokens.nextToken();
+	                				opponentScore = tokens.nextToken();
 	                		}
 	                		state = GAME_OVER;
 	                		break;
@@ -193,8 +192,8 @@ public class NetworkInterface {
 	                	break;
 	                case OPPONENT_MOVE:
 	                	int tempX = x;
-	                	x = 76 - y;
-	                	y = 76 + tempX;
+	                	x = (GameLoop.BOARD_WIDTH / 2) - y;
+	                	y = (GameLoop.BOARD_LENGTH / 2) + tempX;
 	                	if(rotation != 0) { rotation = (360 - rotation) / 90; }
 	                	break;
 	                case START:
