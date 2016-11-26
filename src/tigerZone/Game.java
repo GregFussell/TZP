@@ -86,8 +86,7 @@ public class Game {
 		myTerritories = newter;
 	}
 
-	// METHODS
-
+	//////////////// METHODS ///////////////////
 
 	// Method for evaluating whether continuity in territory types is preserved
 	// in adjacent tiles. Returns True if valid
@@ -123,7 +122,6 @@ public class Game {
 				return false;
 			}
 		}
-
 		return true;
 	}
 
@@ -1111,7 +1109,6 @@ public class Game {
 	
 	public void endGameScoring( TerritoryPtr terPtr, Player player1, Player player2)
 	{
-		/////////////////////////////////// ****CHANGE LATER For-loop set to 20 for testing CHANGE LATER**** \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 		for (int i = 0; i < myTerritoriesSize; i++)
 		{
 			//Checks for existing trails that have a tiger placed and are not scored
