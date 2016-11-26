@@ -620,14 +620,12 @@ public class Game {
 	}
 
 	//////////////////////////////// TIGER PLACEMENT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	public void tigerPlacement(Tile currentTile, TerritoryPtr terPtr, Player player, Scanner sc)
+	public void tigerPlacementLoc(Tile currentTile, TerritoryPtr terPtr, Player player, Scanner sc, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex)
 	{
 		//Player can only place if they have a tiger available
 		if (player.numTigers > 0)
 		{
-			ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
-			ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
-
+			
 			//Map for Zone 1//
 			//If 0 and 11 are lakes, check if they have different ID, if so map the jungle to zone 1 (Tile JLLJ-). if not, zone is the lake in index 0
 			if (myTerritories[terPtr.pointers[currentTile.subtiles[0]]].territory == 'l' && myTerritories[terPtr.pointers[currentTile.subtiles[11]]].territory == 'l')
@@ -913,43 +911,45 @@ public class Game {
 					}
 				}
 			}
+		}
+	}
+	
+	public void tigerPlacement(Tile currentTile, TerritoryPtr terPtr, Player player, Scanner sc, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex)
+	{
+		//Collects index of tiger placement from player
+		System.out.println("Please enter an available zone for tiger placement");
+		int tigerLoc = sc.nextInt();
 
-			zoneIndex.add(0);			
-			//Collects index of tiger placement from player
-			System.out.println("Please enter an available zone for tiger placement, or 0 for none");
-			int tigerLoc = sc.nextInt();
-
-			//Ensures valid index has been selected
-			while (zoneIndex.contains(tigerLoc) == false)
+		//Ensures valid index has been selected
+		while (zoneIndex.contains(tigerLoc) == false)
+		{
+			System.out.println("Invalid Zone: Please enter an available zone for tiger placement");
+			tigerLoc = sc.nextInt();
+		}
+		
+		//Do nothing if 13 is entered
+		if (tigerLoc == 0)
+		{
+			System.out.println("No tiger has been placed");
+		}
+		else
+		{
+			System.out.println("A tiger has been placed on zone " + tigerLoc + " for player" + player.playerID);
+				
+			int placedLoc = availableTigerLoc.get(zoneIndex.indexOf(tigerLoc));
+			//Add a tiger to tile as player1 if player1
+			if (player.playerID == 1)
 			{
-				System.out.println("Invalid Zone: Please enter an available zone for tiger placement, or 0 for none");
-				tigerLoc = sc.nextInt();
+				 myTerritories[placedLoc].player1Tigers++;
 			}
-			
-			//Do nothing if 13 is entered
-			if (tigerLoc == 0)
-			{
-				System.out.println("No tiger has been placed");
-			}
+			//Add a tiger to tile as player2 if player2
 			else
 			{
-				System.out.println("A tiger has been placed on zone " + tigerLoc + " for player" + player.playerID);
-					
-				int placedLoc = availableTigerLoc.get(zoneIndex.indexOf(tigerLoc));
-				//Add a tiger to tile as player1 if player1
-				if (player.playerID == 1)
-				{
-					 myTerritories[placedLoc].player1Tigers++;
-				}
-				//Add a tiger to tile as player2 if player2
-				else
-				{
-					 myTerritories[placedLoc].player2Tigers++;
-				}
-				//Subtract one tiger from player
-				player.numTigers--;
-				}
-		}
+				 myTerritories[placedLoc].player2Tigers++;
+			}
+			//Subtract one tiger from player
+			player.numTigers--;
+			}
 	}
 	
 	
