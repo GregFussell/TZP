@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class NetworkInterface {
 	
+	//states of active games
 	static final int WAIT = 0;
 	static final int MAKE_MOVE = 1;
 	static final int OPPONENT_MOVE = 2;
@@ -15,12 +16,15 @@ public class NetworkInterface {
 	static final int GAME_OVER = 5;
 	static final int NEW_ROUND = 6;
 	
+	//passwords and usernames//to be changed based on server///
 	static String serverPassword = "password";
 	static String ourPassword = "password";
 	static String ourPID = "groupP";
+	//tracks the pid of our opponent for the current challenge
 	static String opponentPID;
 
 	 public static void main(String[] args) throws IOException {
+		 //TODO configure I/O stream between NetworkInterface and GameLoop
          
 	        if (args.length != 2) {
 	            System.err.println(
@@ -40,19 +44,20 @@ public class NetworkInterface {
 	            String fromServer;
 	            String fromUser;
 	            
-	            int x, y, rotation, state = WAIT;
-	            String cid;
-	            String rid;
-	            String gid;
-	            String pid;
-	            String rounds;
+	            //initializing variables to be configured for game communication
+	            int x = 0, y = 0, rotation = 0, state = WAIT;
+	            String cid = "";
+	            String rid = "";
+	            String gid = "";
+	            String pid = "";
+	            String rounds = "";
 	            ArrayList<String> deck = new ArrayList<String>();
 	            String move = "";
-	            String tile;
-	            String tileCount;
-	            String time;
-	            String ourScore;
-	            String theirScore;
+	            String tile = "";
+	            String tileCount = "";
+	            String time = "";
+	            String ourScore = "";
+	            String theirScore = "";
 	            
 	            //while receiving from server
 	            while ((fromServer = in.readLine()) != null) {
@@ -60,9 +65,11 @@ public class NetworkInterface {
 	                if (fromServer.equals("THANK YOU FOR PLAYING! GOODBYE"))
 	                    break;
 	                
-	                //interpret server message
+	                //////////interpret server message//////////
+	                //tokenize the current message
 	                StringTokenizer tokens = new StringTokenizer(fromServer, " ");
 	                String current = "";
+	                //piece together tokens to read message dynamically
 	                while(tokens.hasMoreTokens()){
 	                	current += tokens.nextToken();
 	                	switch(current){
@@ -176,12 +183,18 @@ public class NetworkInterface {
 	                }
 	                
 	                /////////send info to games
+	                //TODO configure I/O stream with gameloop and finalize conversions 
+	                // 		from server protocol into game format
 	                switch(state){
 	                case WAIT:
 	                	break;
 	                case MAKE_MOVE:
 	                	break;
 	                case OPPONENT_MOVE:
+	                	int tempX = x;
+	                	x = 76 - y;
+	                	y = 76 + tempX;
+	                	if(rotation != 0) { rotation = (360 - rotation) / 90; }
 	                	break;
 	                case START:
 	                	break;

@@ -2,11 +2,14 @@ package tigerZone;
 
 public class TerritoryPtr {
 
-	int[] pointers = new int[246];
+	int[] pointers;
+	int myTerritoriesSize;
 	
-	public TerritoryPtr() {
-	
-		for(int i=0; i<246; i++)
+	public TerritoryPtr(int myTerritoriesSize) {
+		this.myTerritoriesSize = myTerritoriesSize;
+		pointers = new int[myTerritoriesSize];
+		
+		for(int i=0; i<myTerritoriesSize; i++)
 		{
 			pointers[i] = i;
 		}
@@ -15,7 +18,7 @@ public class TerritoryPtr {
 	
 	public void rewritePtr(int currentID, int rewriteID)
 	{
-		for(int i=0; i<246; i++)
+		for(int i=0; i<myTerritoriesSize; i++)
 		{
 			if(pointers[i] == rewriteID)
 			{

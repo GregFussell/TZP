@@ -7,12 +7,10 @@ import java.util.Queue;
 
 public class Deck {
 	
-	//ArrayList<Tile> deck = new ArrayList<Tile>();
-	private ArrayList<Tile> deck = new ArrayList<Tile>();
-	private int size;
+	private ArrayList<Tile> deck;
 	
 	public Deck() {	
-		size = 0;
+		deck = new ArrayList<Tile>();
 	}
 
 	public void add(Tile tile){
@@ -20,7 +18,7 @@ public class Deck {
 	}
 	
 	public int size(){
-		return size;
+		return deck.size();
 	}
 	
 	public Tile remove(){
@@ -28,4 +26,3 @@ public class Deck {
 	}
 	
 }
-// Are we using 5 for testing or all 78?
