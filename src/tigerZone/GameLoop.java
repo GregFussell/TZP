@@ -54,6 +54,7 @@ public class GameLoop {
 		game.addContainedTile(game.getTile(BOARD_WIDTH / 2, BOARD_LENGTH / 2), terPtr, BOARD_WIDTH / 2, BOARD_LENGTH / 2);
 		
 
+		//test
 		
 		Game copy = new Game(BOARD_WIDTH, BOARD_LENGTH);
 		
