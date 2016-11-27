@@ -613,14 +613,14 @@ public class Game {
 			//Player1 gets score if they have more tigers
 			if (den.player1Tigers > den.player2Tigers)
 			{
-				System.out.println("Player 1 has earned " + denScore + " points for a completed den");
+//				System.out.println("Player 1 has earned " + denScore + " points for a completed den");
 				player1.score += denScore;
 				player1.numTigers++;
 			}
 			//Player2 gets score if they have more tigers
 			if (den.player1Tigers < den.player2Tigers)
 			{
-				System.out.println("Player 2 has earned " + denScore + " points for a completed den");
+//				System.out.println("Player 2 has earned " + denScore + " points for a completed den");
 				player2.score += denScore;
 				player2.numTigers++;
 			}
