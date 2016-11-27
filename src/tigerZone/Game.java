@@ -12,6 +12,7 @@ public class Game {
 	private Deck myDeck;
 	private Territory[] myTerritories;
 	private int myTerritoriesSize;
+	private TerritoryPtr terPtr;
 
 	/////constructor
 	public Game(int boardWidth, int boardLength){
@@ -19,8 +20,9 @@ public class Game {
 		placedPos = new ArrayList<ArrayCoord>();
 		board = new Tile[boardWidth][boardLength];
 		myDeck = new Deck();
-		myTerritories = new Territory[246];
+		myTerritories = new Territory[258];
 		setMyTerritoriesSize(0);
+		terPtr = new TerritoryPtr(258);
 	}
 	
 	
@@ -86,12 +88,15 @@ public class Game {
 		myTerritories = newter;
 	}
 
+	public TerritoryPtr getTerPtr(){
+		return terPtr;
+	}
 	// METHODS
 
 
 	// Method for evaluating whether continuity in territory types is preserved
 	// in adjacent tiles. Returns True if valid
-	public boolean validPlacement(Tile currentTile, int x, int y, TerritoryPtr terPtr) {
+	public boolean validPlacement(Tile currentTile, int x, int y) {
 
 		boolean flag = false;
 		for (int i = 0; i < placeablePos.size(); i++) {
@@ -181,7 +186,7 @@ public class Game {
 	}
 	
 	//Adds the location of the placed tile to the territories, also adds the location of any deer, buffalo, boar, or crocodile if any 
-	public void addContainedTile(Tile currentTile, TerritoryPtr terPtr, int x, int y)
+	public void addContainedTile(Tile currentTile, int x, int y)
 	{
 		for (int i = 0; i < 13; i++)
 		{
@@ -224,7 +229,7 @@ public class Game {
 	////////////////////////////////////////// MERGING /////////////////////////////////////////////////////////////////////
 
 	
-	public void mergeTile( Tile myTile, TerritoryPtr terPtr, ArrayList<Integer> currentDens, int x, int y)
+	public void mergeTile( Tile myTile, ArrayList<Integer> currentDens, int x, int y)
 	{
 		int[] rewriteIDs = new int[12];
 		int[] currentIDs = new int[12];
@@ -620,7 +625,7 @@ public class Game {
 	}
 
 	//////////////////////////////// TIGER PLACEMENT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	public void tigerPlacementLoc(Tile currentTile, TerritoryPtr terPtr, Player player, Scanner sc, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex)
+	public void tigerPlacementLoc(Tile currentTile, Player player, Scanner sc, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex)
 	{
 		//Player can only place if they have a tiger available
 		if (player.numTigers > 0)
@@ -914,7 +919,7 @@ public class Game {
 		}
 	}
 	
-	public void tigerPlacement(Tile currentTile, TerritoryPtr terPtr, Player player, Scanner sc, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex)
+	public void tigerPlacement(Tile currentTile, Player player, Scanner sc, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex)
 	{
 		//Collects index of tiger placement from player
 		System.out.println("Please enter an available zone for tiger placement");
@@ -974,7 +979,7 @@ public class Game {
 	}
 	
 	/////////////////////////////// CROCODILE PLACEMENT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	public boolean crocodilePlaceable(Tile currentTile, TerritoryPtr terPtr)
+	public boolean crocodilePlaceable(Tile currentTile)
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -987,7 +992,7 @@ public class Game {
 		return true;
 	}
 	
-	public void crocodilePlacement(Tile currentTile,TerritoryPtr terPtr, Player player, int x, int y)
+	public void crocodilePlacement(Tile currentTile, Player player, int x, int y)
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -1001,7 +1006,7 @@ public class Game {
 	
 	
 	////////////////////////////////////////// SCORING METHODS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	public void midGameScoring(Tile currentTile,  TerritoryPtr terPtr, ArrayList<Integer> currentDens, Player player1, Player player2, int x, int y)
+	public void midGameScoring(Tile currentTile, ArrayList<Integer> currentDens, Player player1, Player player2, int x, int y)
 	{
 		for (int i = 0; i < 12; i++)
 		{
@@ -1129,7 +1134,7 @@ public class Game {
 		}
 	}
 	
-	public void endGameScoring( TerritoryPtr terPtr, Player player1, Player player2)
+	public void endGameScoring( Player player1, Player player2)
 	{
 		/////////////////////////////////// ****CHANGE LATER For-loop set to 20 for testing CHANGE LATER**** \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 		for (int i = 0; i < myTerritoriesSize; i++)
