@@ -161,7 +161,6 @@ t = new int[3];
 					{
 						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex);
 						//Do AI stuff
-						System.out.println(availableTigerLoc.toString());
 						System.out.println(zoneIndex.toString());
 
 						
@@ -207,7 +206,6 @@ t = new int[3];
 					{
 						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex);
 						//Do AI stuff
-						System.out.println(availableTigerLoc.toString());
 						System.out.println(zoneIndex.toString());
 
 						//
