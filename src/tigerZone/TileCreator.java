@@ -3,7 +3,7 @@ package tigerZone;
 import java.util.ArrayList;
 
 public class TileCreator {
-	private Territory[] myTerritories = new Territory[246];
+	private Territory[] myTerritories = new Territory[300];
 	private int territoriesSize;
 	
 	//Defines the preyAnimal types for tiles

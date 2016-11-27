@@ -31,7 +31,82 @@ public class GameLoop {
 		
 		///temporary start and tileset/////////////////////////
 		start = "TLTJD";
-		String temp[] = { "JJJJ-", "JJJJX", "JJTJX", "TTTT-","JJJJ-" };
+		String temp[] = {"TJTJ-",
+				"LJJJ-",
+				"TJJT-",
+				"TLTTP",
+				"LJLJ-",
+				"TJTJ-",
+				"TJTT-",
+				"TLLTB",
+				"JLJL-",
+				"LJJJ-",
+				"JLTT-",
+				"TJTJ-",
+				"TJJT-",
+				"JLLL-",
+				"TJJT-",
+				"TJTJ-",
+				"TJJT-",
+				"LLJJ-",
+				"TLTJD",
+				"LLJJ-",
+				"JJJJX",
+				"TJJT-",
+				"TJJT-",
+				"TLTT-",
+				"TLJTP",
+				"JJJJX",
+				"TJTJ-",
+				"JJTJX",
+				"JLJL-",
+				"LJTJD",
+				"LJLJ-",
+				"TLLTB",
+				"TLTTP",
+				"JLTTB",
+				"TLTJ-",
+				"TLLT-",
+				"LJTJ-",
+				"LJTJD",
+				"JJJJX",
+				"TJTT-",
+				"TLLL-",
+				"TJJT-",
+				"TLLLC",
+				"JLLJ-",
+				"TLTJD",
+				"LLJJ-",
+				"JJTJX",
+				"TJTT-",
+				"TLJT-",
+				"TLLT-",
+				"TLLT-",
+				"JLLL-",
+				"LLLL-",
+				"TLJTP",
+				"JLLL-",
+				"JLLJ-",
+				"LJJJ-",
+				"TJJT-",
+				"TJTJ-",
+				"TLLLC",
+				"LJLJ-",
+				"LLJJ-",
+				"JLTTB",
+				"JJJJ-",
+				"TJTJ-",
+				"TJTT-",
+				"TLTJ-",
+				"JLJL-",
+				"LJJJ-",
+				"JLLL-",
+				"LJJJ-",
+				"TJJT-",
+				"TJTJ-",
+				"LLJJ-",
+				"TTTT-",
+				"JJJJX"};
 		tileSet = temp;
 		/////////////////////////////////////////////////////
 		
@@ -67,8 +142,13 @@ t = new int[3];
 		
 	//	printTile(starter);
 		int turn = 1;
+		long startTime = System.currentTimeMillis();
 		// Users plays game
 		while (game.deckSize() > 0) {
+			
+			if(game.deckSize() == 1){
+				startTime = System.currentTimeMillis();
+			}
 			
 			//player2's Turn
 			if (turn%2 == 0)
@@ -90,13 +170,18 @@ t = new int[3];
 			int y = 0;
 
 			System.out.println("The current board is: ");
-			Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
+//			Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
 			
 			System.out.println("The current tile is: ");
 			Tile myTile = game.nextTile();
-			Printer.printTile(myTile, game.getTerritories(), game.getTerPtr());
+//			Printer.printTile(myTile, game.getTerritories(), game.getTerPtr());
 			
-			t = Flynn.decision(game.getBoard(), myTile, game.getPlaceable(), game);
+			t = Flynn.decision(game.getBoard(), myTile, game.getPlaceable(), game, player2.numTigers);
+			//if there are no available moves, it passes
+			if(t[0] == -1){
+				game.nextTile();
+				continue;
+			}
 			for(int z = 0; z < 3; z++){
 				System.out.println(t[z]);
 			}
@@ -111,10 +196,10 @@ t = new int[3];
 				myTile.Rotate(degree);
 				if (degree > 0) {
 					System.out.println("The current tile is now: ");
-					Printer.printTile(myTile, game.getTerritories(), game.getTerPtr());
+//					Printer.printTile(myTile, game.getTerritories(), game.getTerPtr());
 				}
 
-				Printer.printPlaceable(game.getPlaceable());
+//				Printer.printPlaceable(game.getPlaceable());
 				System.out.println("Please select an X and Y coordinate to place the tile");
 				//x = sc.nextInt();
 				//y = sc.nextInt();
@@ -163,7 +248,9 @@ t = new int[3];
 					{
 						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
 						//Do AI stuff
-						System.out.println(zoneIndex.toString());
+						System.out.println("Poss Tgr Loc: " + zoneIndex.toString());
+						System.out.println("On Territory: " + tigerTerritory.toString());
+						System.out.println("Selected Location: " + t[4]);
 
 						
 						game.tigerPlacementAI(myTile, player2, t[4], availableTigerLoc, zoneIndex);
@@ -208,7 +295,9 @@ t = new int[3];
 					{
 						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
 						//Do AI stuff
-						System.out.println(zoneIndex.toString());
+						System.out.println("Poss Tgr Loc: " + zoneIndex.toString());
+						System.out.println("On Territory: " + tigerTerritory.toString());
+						System.out.println("Selected Location: " + t[4]);
 
 						//
 						game.tigerPlacementAI(myTile, player1, t[4], availableTigerLoc, zoneIndex);
@@ -229,7 +318,7 @@ t = new int[3];
 					}
 					else
 					{
-						System.out.println("Crocodile can not be placed or no crocodiles remaining");
+//						System.out.println("Crocodile can not be placed or no crocodiles remaining");
 					}
 				}		
 			}
@@ -245,11 +334,15 @@ t = new int[3];
 
 		
 		System.out.println("\nThe final board is: ");
-		Printer.printBoardID(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
+		//Printer.printBoardID(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
 		
 		game.endGameScoring(player1, player2);
-		Printer.printScores(player1, player2);
+//		Printer.printScores(player1, player2);
 		sc.close();
+		
+		final long endTime = System.currentTimeMillis();
+		
+		System.out.println("Total execution time: " + (endTime - startTime));
 		
 		
 		//Printer.printArrayList(ter18.containedTiles);

@@ -62,13 +62,13 @@ public class AI {
 		
 	}
 	
-	public int[] decision(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable, Game game){
+	public int[] decision(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable, Game game, Integer numTigers){
 		
 		ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		
-		int den = 5;
-		
 		Game copy = new Game(155,155);
+		
+		int priority = 0;
 		
 		int[] PlacementArray = new int[placeable.size()*4];
 		int[] animalPlacementArray = new int[placeable.size()*4];
@@ -78,8 +78,8 @@ public class AI {
 		for(int i = 0; i < placeable.size(); i++){
 			for(int j = 0; j < 4; j++){
 				PlacementArray[(4*i) + j] = 0;
+				animalPlacementArray[(4*i)+j] = 0;
 				isvalid = game.validPlacement(t, placeable.get(i).x, placeable.get(i).y);
-				t.Rotate(1);
 				if (!isvalid){
 					PlacementArray[(4*i)+j] = -1;
 					animalPlacementArray[(4*i)+j] = -1;
@@ -92,15 +92,40 @@ public class AI {
 					copy.addContainedTile(t, placeable.get(i).x, placeable.get(i).y);
 					copy.mergeTile(t, currentDens, placeable.get(i).x, placeable.get(i).y);
 					copy.tigerPlacementLoc(t, availableTigerLoc, zoneIndex, tigerTerritory);
+					priority = 0;
 					
 					//places a tiger if there is a den zone
-					for(int p = 0; p < zoneIndex.size(); p++){
-						if(zoneIndex.get(p) == 5){
+					for(int p = 0; p < zoneIndex.size(); p++){	
+						if(zoneIndex.get(p) == 5 && numTigers > 2){
 							animalPlacementArray[(4*i)+j] = 5;
+							priority = 5;
+							continue;
 						}
+						
+						// If no den, and lake place a tiger while numTigers is higher than 3
+						else if(tigerTerritory.get(p) == 'l' && numTigers > 3 && priority < 5){
+							animalPlacementArray[(4*i)+j] = zoneIndex.get(p);
+							priority = 4;
+							continue;
+						}
+						// If no lake, and trail place a tiger while numTigers is higher than 4
+						else if(tigerTerritory.get(p) == 't' && numTigers > 4 && priority < 4){
+							animalPlacementArray[(4*i)+j] = zoneIndex.get(p);
+							//System.out.println(zoneIndex.get(p));
+							priority = 3;
+							continue;
+						}
+						// If no trail, and jungle place a tiger while numTigers is higher than 5
+						else if(tigerTerritory.get(p) == 'j' && numTigers > 5 && priority < 3){
+							animalPlacementArray[(4*i)+j] = zoneIndex.get(p);
+							priority = 2;
+							continue;
+						}
+						
 					}
 					
 				}
+				t.Rotate(1);
 			}
 		}
 		
@@ -117,9 +142,9 @@ public class AI {
 		}
 		
 		//////TEST PRITING//////////
-//		for(int i = 0; i < PlacementArray.length; i++){
-//			System.out.println(PlacementArray[i] + " ");
-//		}
+		//for(int i = 0; i < PlacementArray.length; i++){
+			//System.out.print(PlacementArray[i] + " ");
+		//}
 //		Printer.printPlaceable(placeable);
 		////////////////////////////
 		
@@ -132,7 +157,15 @@ public class AI {
 				bestMove = PlacementArray[y];
 			}
 		}
+		
 		int d[] = new int[5];
+		
+		//-1 indicates a pass if there are no valid moves
+		if(bestMove == -1){
+			d[0] = -1;
+			return  d;
+		}
+
 		
 		d[3] = 3;
 		d[4] = 1;

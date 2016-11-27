@@ -20,9 +20,9 @@ public class Game {
 		placedPos = new ArrayList<ArrayCoord>();
 		board = new Tile[boardWidth][boardLength];
 		myDeck = new Deck();
-		myTerritories = new Territory[258];
+		myTerritories = new Territory[300];
 		setMyTerritoriesSize(0);
-		terPtr = new TerritoryPtr(258);
+		terPtr = new TerritoryPtr(300);
 	}
 	
 	
@@ -594,6 +594,11 @@ public class Game {
 	//Checks mooreNeighborhood of dens as new tiles are placed, and scores den if it is completed
 	public void checkMooreNeighborhood(Territory den, Player player1, Player player2, int x, int y)
 	{
+		
+		if(den.isCompleted == true){
+			return;
+		}
+		
 		for (int i = 0; i < den.containedTiles.size(); i++)
 		{
 			if (den.containedTiles.get(i).x == x && den.containedTiles.get(i).y == y)
