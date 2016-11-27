@@ -146,33 +146,33 @@ t = new int[3];
 		// Users plays game
 		while (game.deckSize() > 0) {
 			
-			if(game.deckSize() == 1){
-				startTime = System.currentTimeMillis();
-			}
+//			if(game.deckSize() == 1){
+//				startTime = System.currentTimeMillis();
+//			}
 			
 			//player2's Turn
 			if (turn%2 == 0)
 			{
-				System.out.println();
-				System.out.println("Player2's Turn: ");
+//				System.out.println();
+//				System.out.println("Player2's Turn: ");
 
-				System.out.println();
+//				System.out.println();
 			}
 			//player1's Turn
 			else
 			{
-				System.out.println();
-				System.out.println("Player1's Turn: ");
-				System.out.println();
+//				System.out.println();
+//				System.out.println("Player1's Turn: ");
+//				System.out.println();
 			}
 			
 			int x = 0;
 			int y = 0;
 
-			System.out.println("The current board is: ");
+//			System.out.println("The current board is: ");
 //			Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
 			
-			System.out.println("The current tile is: ");
+//			System.out.println("The current tile is: ");
 			Tile myTile = game.nextTile();
 //			Printer.printTile(myTile, game.getTerritories(), game.getTerPtr());
 			
@@ -182,25 +182,22 @@ t = new int[3];
 				game.nextTile();
 				continue;
 			}
-			for(int z = 0; z < 3; z++){
-				System.out.println(t[z]);
-			}
 
 			boolean valid = false;
 			while (valid == false) {
 
-				System.out.println("Please choose a rotation degree for the tile (0, 1, 2, 3)");
+//				System.out.println("Please choose a rotation degree for the tile (0, 1, 2, 3)");
 				int degree = 0;
 				degree = t[0];
 				//degree = sc.nextInt();
 				myTile.Rotate(degree);
 				if (degree > 0) {
-					System.out.println("The current tile is now: ");
+//					System.out.println("The current tile is now: ");
 //					Printer.printTile(myTile, game.getTerritories(), game.getTerPtr());
 				}
 
 //				Printer.printPlaceable(game.getPlaceable());
-				System.out.println("Please select an X and Y coordinate to place the tile");
+//				System.out.println("Please select an X and Y coordinate to place the tile");
 				//x = sc.nextInt();
 				//y = sc.nextInt();
 				x = t[1];
@@ -208,9 +205,9 @@ t = new int[3];
 
 				valid = game.validPlacement(myTile, x, y);
 				if (valid == false) {
-					System.out.println("Invalid placement, please place again");
+//					System.out.println("Invalid placement, please place again");
 				} else {
-					System.out.println("Tile successfully placed");
+//					System.out.println("Tile successfully placed");
 				}
 			}
 			
@@ -230,9 +227,9 @@ t = new int[3];
 			//player2's Turn
 			if (turn%2 == 0)
 			{
-				System.out.println("The current player has " + player2.numTigers + " tigers and " + player2.numCrocodiles + " crocodiles");	
+//				System.out.println("The current player has " + player2.numTigers + " tigers and " + player2.numCrocodiles + " crocodiles");	
 				int choice;
-				System.out.println("Would you like to place a (1) tiger, (2) crocodile, or (3) none?");
+//				System.out.println("Would you like to place a (1) tiger, (2) crocodile, or (3) none?");
 				choice = t[3];
 				//choice = sc.nextInt();
 				while (choice != 1 && choice != 2 && choice != 3)
@@ -248,16 +245,11 @@ t = new int[3];
 					{
 						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
 						//Do AI stuff
-						System.out.println("Poss Tgr Loc: " + zoneIndex.toString());
-						System.out.println("On Territory: " + tigerTerritory.toString());
-						System.out.println("Selected Location: " + t[4]);
-
-						
 						game.tigerPlacementAI(myTile, player2, t[4], availableTigerLoc, zoneIndex);
 					}
 					else
 					{
-						System.out.println("No tigers remaining");
+//						System.out.println("No tigers remaining");
 					}
 				}
 				//Place crocodile
@@ -265,26 +257,26 @@ t = new int[3];
 				{
 					if (game.crocodilePlaceable(myTile) == true && player2.numCrocodiles > 0)
 					{
-						System.out.println("A crocodile has been placed on the tile");
+//						System.out.println("A crocodile has been placed on the tile");
 						game.crocodilePlacement(myTile, player2, x, y);
 					}
 					else
 					{
-						System.out.println("Crocodile can not be placed or no crocodiles remaining");
+//						System.out.println("Crocodile can not be placed or no crocodiles remaining");
 					}
 				}	
 			}
 			//player1's Turn
 			else
 			{
-				System.out.println("The current player has " + player1.numTigers + " tigers and " + player1.numCrocodiles + " crocodiles");	
+//				System.out.println("The current player has " + player1.numTigers + " tigers and " + player1.numCrocodiles + " crocodiles");	
 				int choice;
-				System.out.println("Would you like to place a (1) tiger, (2) crocodile, or (3) none?");
+//				System.out.println("Would you like to place a (1) tiger, (2) crocodile, or (3) none?");
 				choice = t[3];
 				//choice = sc.nextInt();
 				while (choice != 1 && choice != 2 && choice != 3)
 				{
-					System.out.println("Invalid input, please enter 1 for tiger, 2 for crocodile, or 3 for none");
+//					System.out.println("Invalid input, please enter 1 for tiger, 2 for crocodile, or 3 for none");
 					choice = sc.nextInt();
 				}	
 				
@@ -295,17 +287,13 @@ t = new int[3];
 					{
 						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
 						//Do AI stuff
-						System.out.println("Poss Tgr Loc: " + zoneIndex.toString());
-						System.out.println("On Territory: " + tigerTerritory.toString());
-						System.out.println("Selected Location: " + t[4]);
-
 						//
 						game.tigerPlacementAI(myTile, player1, t[4], availableTigerLoc, zoneIndex);
 			
 					}
 					else
 					{
-						System.out.println("No tigers remaining");
+//						System.out.println("No tigers remaining");
 					}
 				}
 				//Place crocodile
@@ -313,7 +301,7 @@ t = new int[3];
 				{
 					if (game.crocodilePlaceable(myTile) == true && player1.numCrocodiles > 0)
 					{
-						System.out.println("A crocodile has been placed on the tile");
+//						System.out.println("A crocodile has been placed on the tile");
 						game.crocodilePlacement(myTile, player1, x, y);
 					}
 					else
@@ -333,11 +321,11 @@ t = new int[3];
 		}
 
 		
-		System.out.println("\nThe final board is: ");
+//		System.out.println("\nThe final board is: ");
 		//Printer.printBoardID(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
 		
 		game.endGameScoring(player1, player2);
-//		Printer.printScores(player1, player2);
+		Printer.printScores(player1, player2);
 		sc.close();
 		
 		final long endTime = System.currentTimeMillis();
