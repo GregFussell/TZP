@@ -67,7 +67,8 @@ public class AI {
 		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
 		ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
 		ArrayList<Integer> currentDens = new ArrayList<Integer>();
-				
+		
+		Game copy = new Game(155,155);
 		
 		int[] PlacementArray = new int[placeable.size()*4];
 		this.boardView = board;
@@ -82,11 +83,10 @@ public class AI {
 					PlacementArray[(4*i)+j] = -1;
 				}
 				else{
-					Game copy = new Game(155,155);
 					copy.cloneGame(game);
-//					copy.addContainedTile(t, placeable.get(i).x, placeable.get(i).y);
-//					copy.mergeTile(t, currentDens, placeable.get(i).x, placeable.get(i).y);
-//					copy.tigerPlacementLoc(t, availableTigerLoc, zoneIndex);
+					copy.addContainedTile(t, placeable.get(i).x, placeable.get(i).y);
+					copy.mergeTile(t, currentDens, placeable.get(i).x, placeable.get(i).y);
+					copy.tigerPlacementLoc(t, availableTigerLoc, zoneIndex);
 					
 				}
 			}
@@ -127,8 +127,8 @@ public class AI {
 		
 		setXPlacement(placeable.get(bestMoveindex).x);
 		setYPlacement(placeable.get(bestMoveindex).y);
-		setAnimal_Placement(3);
-		setTiger_ZoneNum(5);
+		setAnimal_Placement(1);
+		setTiger_ZoneNum(1);
 		int d[] = new int[5];
 		d[0] = getRotationValue();
 		d[1] = getXPlacement();

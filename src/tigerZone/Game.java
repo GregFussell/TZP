@@ -1306,12 +1306,74 @@ public class Game {
 				this.board[i][j] = toClone.board[i][j];
 			}
 		}
-		for (int i = 0; i < myTerritoriesSize; i++)
+		
+		this.myTerritoriesSize = toClone.myTerritoriesSize;
+		
+		boolean[] noPreyAnim = {false, false, false, false };
+		ArrayList<Integer> noBorderLakes = new ArrayList<Integer>();
+		ArrayList<Integer> noBorderDens = new ArrayList<Integer>();
+		
+		
+		for (int i = 0; i < this.myTerritoriesSize; i++)
 		{
-			this.myTerritories[i] = toClone.myTerritories[i];
+			//Copy territory info
+			this.myTerritories[i] = new Territory(toClone.myTerritories[i].id, toClone.myTerritories[i].territory, toClone.myTerritories[i].openFaces, noPreyAnim, 
+					noBorderLakes, noBorderDens);
+			
+			this.myTerritories[i].player1Tigers = toClone.myTerritories[i].player1Tigers;
+			this.myTerritories[i].player2Tigers = toClone.myTerritories[i].player2Tigers;
+			myTerritories[i].boar = toClone.myTerritories[i].boar;
+			this.myTerritories[i].id = toClone.myTerritories[i].id;
+			this.myTerritories[i].territory = toClone.myTerritories[i].territory;
+			this.myTerritories[i].isScored = toClone.myTerritories[i].isScored;
+			this.myTerritories[i].isCompleted = toClone.myTerritories[i].isCompleted;
+			this.myTerritories[i].isDeleted = toClone.myTerritories[i].isDeleted;
+			this.myTerritories[i].openFaces = toClone.myTerritories[i].openFaces;
+			
+			for (int j = 0; j < toClone.myTerritories[i].containedTiles.size(); j++)
+			{
+				this.myTerritories[i].containedTiles.add(new ArrayCoord(toClone.myTerritories[i].containedTiles.get(j).x,toClone.myTerritories[i].containedTiles.get(j).y));
+			}
+			
+			
+			//add another for loop similar to ^^^^ for other arrayLists<ArrayCoord> (containedBuffalo,deer,boar,crocodile) 
+			for (int j = 0; j < toClone.myTerritories[i].containedBoar.size(); j++){
+				
+				this.myTerritories[i].containedBoar.add(toClone.myTerritories[i].containedBoar.get(j));
+				
+			}
+			
+			for (int j = 0; j < toClone.myTerritories[i].containedDeer.size(); j++){
+				
+				this.myTerritories[i].containedDeer.add(toClone.myTerritories[i].containedDeer.get(j));
+				
+			}
+			
+			for (int j = 0; j < toClone.myTerritories[i].containedBuffalo.size(); j++){
+				
+				this.myTerritories[i].containedBuffalo.add(toClone.myTerritories[i].containedBuffalo.get(j));
+				
+			}
+			
+			for (int j = 0; j < toClone.myTerritories[i].containedCrocodile.size(); j++){
+				
+				this.myTerritories[i].containedCrocodile.add(toClone.myTerritories[i].containedCrocodile.get(j));
+				
+			}
+			
+			for (int j = 0; j < toClone.myTerritories[i].borderingDens.size(); j++)
+			{
+				this.myTerritories[i].borderingDens.add(toClone.myTerritories[i].borderingDens.get(j));
+			}
+			
+			for (int j = 0; j < toClone.myTerritories[i].borderingLakes.size(); j++)
+			{
+				this.myTerritories[i].borderingLakes.add(toClone.myTerritories[i].borderingLakes.get(j));
+			}
+			
+			//Copy terPtr
 			this.terPtr.pointers[i] = toClone.terPtr.pointers[i];
-		}		
+		}
+	
 	}
-	
-	
 }
