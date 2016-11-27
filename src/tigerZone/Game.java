@@ -625,7 +625,7 @@ public class Game {
 	}
 
 	//////////////////////////////// TIGER PLACEMENT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	public void tigerPlacementLoc(Tile currentTile, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex)
+	public void tigerPlacementLoc(Tile currentTile, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex, ArrayList<Character> tigerTerritory)
 	{
 		
 		//Map for Zone 1//
@@ -642,6 +642,7 @@ public class Game {
 					if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[3]]].id) == false)
 					{
 						//System.out.println("A Tiger may be placed on zone 1 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[3]]].territory);
+						tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[3]]].territory);
 						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[3]]].id);
 						zoneIndex.add(1);
 					}
@@ -658,6 +659,7 @@ public class Game {
 					{
 							//System.out.println("A Tiger may be placed on zone 1 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[0]]].territory);
 							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[0]]].id);
+							tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[0]]].territory);
 							zoneIndex.add(1);
 					}
 				}
@@ -674,6 +676,7 @@ public class Game {
 				{
 						//System.out.println("A Tiger may be placed on zone 1 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[0]]].territory);
 						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[0]]].id);
+						tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[0]]].territory);
 						zoneIndex.add(1);
 				}
 			}
@@ -690,6 +693,7 @@ public class Game {
 
 						//System.out.println("A Tiger may be placed on zone 1 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[11]]].territory);
 						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[11]]].id);
+						tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[11]]].territory);
 						zoneIndex.add(1);
 				}
 			}
@@ -705,6 +709,7 @@ public class Game {
 					//System.out.println("A Tiger may be placed on zone 2 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[1]]].territory);
 					availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[1]]].id);
 					zoneIndex.add(2);
+					tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[1]]].territory);
 			}
 		}
 		
@@ -724,6 +729,7 @@ public class Game {
 							//System.out.println("A Tiger may be placed on zone 3 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[2]]].territory);
 							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[2]]].id);
 							zoneIndex.add(3);
+							tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[2]]].territory);
 					}
 				}
 			}
@@ -741,6 +747,7 @@ public class Game {
 						//System.out.println("A Tiger may be placed on zone 3 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[2]]].territory);
 						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[2]]].id);
 						zoneIndex.add(3);
+						tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[2]]].territory);
 				}
 			}	
 		}
@@ -757,6 +764,7 @@ public class Game {
 						//System.out.println("A Tiger may be placed on zone 3 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[3]]].territory);
 						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[3]]].id);
 						zoneIndex.add(3);
+						tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[3]]].territory);
 				}
 			}
 		}
@@ -771,6 +779,7 @@ public class Game {
 					//System.out.println("A Tiger may be placed on zone 4 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[10]]].territory);
 					availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[10]]].id);
 					zoneIndex.add(4);
+					tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[10]]].territory);
 			}
 		}
 		
@@ -781,6 +790,7 @@ public class Game {
 			//System.out.println("A Tiger may be placed on zone 5 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory);
 			availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[12]]].id);
 			zoneIndex.add(5);
+			tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory);
 		}
 		
 		//Map for Zone 6//
@@ -792,6 +802,7 @@ public class Game {
 					//System.out.println("A Tiger may be placed on zone 6 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[4]]].territory);
 					availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[4]]].id);
 					zoneIndex.add(6);
+					tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[4]]].territory);
 			}
 		}
 		
@@ -812,6 +823,7 @@ public class Game {
 							//System.out.println("A Tiger may be placed on zone 7 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[9]]].territory);
 							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[9]]].id);
 							zoneIndex.add(7);
+							tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[9]]].territory);
 					}
 				}
 			}
@@ -829,6 +841,7 @@ public class Game {
 						//System.out.println("A Tiger may be placed on zone 7 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[9]]].territory);
 						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[9]]].id);
 						zoneIndex.add(7);
+						tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[9]]].territory);
 				}
 			}	
 		}
@@ -845,6 +858,7 @@ public class Game {
 						//System.out.println("A Tiger may be placed on zone 7 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[8]]].territory);
 						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[8]]].id);
 						zoneIndex.add(7);
+						tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[8]]].territory);
 				}
 			}
 		}
@@ -859,6 +873,7 @@ public class Game {
 					//System.out.println("A Tiger may be placed on zone 8 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[7]]].territory);
 					availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[7]]].id);
 					zoneIndex.add(8);
+					tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[7]]].territory);
 			}
 		}
 		
@@ -879,6 +894,7 @@ public class Game {
 							//System.out.println("A Tiger may be placed on zone 9 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[5]]].territory);
 							availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[5]]].id);
 							zoneIndex.add(9);
+							tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[5]]].territory);
 					}
 				}
 			}
@@ -895,6 +911,7 @@ public class Game {
 						//System.out.println("A Tiger may be placed on zone 9 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[5]]].territory);
 						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[5]]].id);
 						zoneIndex.add(9);
+						tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[5]]].territory);
 				}
 			}	
 		}
@@ -910,6 +927,7 @@ public class Game {
 						//System.out.println("A Tiger may be placed on zone 9 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[6]]].territory);
 						availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[6]]].id);
 						zoneIndex.add(9);
+						tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[6]]].territory);
 				}
 			}
 		}

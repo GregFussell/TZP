@@ -88,9 +88,10 @@ public class AI {
 					copy.cloneGame(game);
 					ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
 					ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
+					ArrayList<Character> tigerTerritory = new ArrayList<Character>();
 					copy.addContainedTile(t, placeable.get(i).x, placeable.get(i).y);
 					copy.mergeTile(t, currentDens, placeable.get(i).x, placeable.get(i).y);
-					copy.tigerPlacementLoc(t, availableTigerLoc, zoneIndex);
+					copy.tigerPlacementLoc(t, availableTigerLoc, zoneIndex, tigerTerritory);
 					
 					//places a tiger if there is a den zone
 					for(int p = 0; p < zoneIndex.size(); p++){
