@@ -1313,6 +1313,7 @@ public class Game {
 		for (int i = 0; i < myTerritoriesSize; i++)
 		{
 			this.myTerritories[i] = toClone.myTerritories[i];
+			this.terPtr.pointers[i] = toClone.terPtr.pointers[i];
 		}		
 	}
 	
