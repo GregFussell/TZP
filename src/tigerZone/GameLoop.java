@@ -2,6 +2,7 @@ package tigerZone;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
 
 public class GameLoop {
 	public static final int BOARD_WIDTH = 155;
@@ -12,18 +13,17 @@ public class GameLoop {
 
 		// Initializes the array lists that contain placed positions and
 		// placeable positions
-		Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);	
 		
-		
-		
-		// Initializes the game
-		Game game = new Game(BOARD_WIDTH, BOARD_LENGTH);
-		
-		//initializes starting position
-		game.addPlaceable(BOARD_WIDTH / 2, BOARD_LENGTH / 2);
 		
 		//initializes tile creation engine
 		TileCreator tileEngine = new TileCreator();
+		
+		// Initializes the game
+		Game game1 = new Game(BOARD_WIDTH, BOARD_LENGTH, tileEngine.getTerritoriesSize());
+				
+		//initializes starting position
+		game1.addPlaceable(BOARD_WIDTH / 2, BOARD_LENGTH / 2);
 		
 		//initializes values which will be input from the server
 		String start = null;			// taken from NetworkInterface
@@ -36,22 +36,20 @@ public class GameLoop {
 		/////////////////////////////////////////////////////
 		
 		//places starting tile
-		game.addToBoard(BOARD_WIDTH / 2, BOARD_LENGTH / 2, tileEngine.create(start));
+		game1.addToBoard(BOARD_WIDTH / 2, BOARD_LENGTH / 2, tileEngine.create(start));
 		//fills up the game deck
 		for(int i = 0; i < tileSet.length; i++){
-			game.addToDeck(tileEngine.create(tileSet[i]));
+			game1.addToDeck(tileEngine.create(tileSet[i]));
 		}
 		
-		TerritoryPtr terPtr = new TerritoryPtr(tileEngine.getTerritoriesSize());
-		
 		//sets myTerritories created by the tile engine
-		game.setTerritories(tileEngine.getMyTerritories());
-		game.setMyTerritoriesSize(tileEngine.getTerritoriesSize());
+		game1.setTerritories(tileEngine.getMyTerritories());
+		game1.setMyTerritoriesSize(tileEngine.getTerritoriesSize());
 		
 		// Starter location is added as a placeablePos, starter tile is then
 		// automatically placed and the placed/placeable array lists are updated
-		game.updatePlaceable(BOARD_WIDTH / 2, BOARD_LENGTH / 2);
-		game.addContainedTile(game.getTile(BOARD_WIDTH / 2, BOARD_LENGTH / 2), terPtr, BOARD_WIDTH / 2, BOARD_LENGTH / 2);
+		game1.updatePlaceable(BOARD_WIDTH / 2, BOARD_LENGTH / 2);
+		game1.addContainedTile(game1.getTile(BOARD_WIDTH / 2, BOARD_LENGTH / 2), BOARD_WIDTH / 2, BOARD_LENGTH / 2);
 
 
 
@@ -64,7 +62,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 	//	printTile(starter);
 		int turn = 1;
 		// Users plays game
-		while (game.deckSize() > 0) {
+		while (game1.deckSize() > 0) {
 			
 			//player2's Turn
 			if (turn%2 == 0)
@@ -86,11 +84,11 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			int y = 0;
 
 			System.out.println("The current board is: ");
-			Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), terPtr);
+			Printer.printBoard(game1.getBoard(), game1.getPlaced(), game1.getTerritories(), game1.getTerPtr());
 			
 			System.out.println("The current tile is: ");
-			Tile myTile = game.nextTile();
-			Printer.printTile(myTile, game.getTerritories(), terPtr);
+			Tile myTile = game1.nextTile();
+			Printer.printTile(myTile, game1.getTerritories(), game1.getTerPtr());
 
 			boolean valid = false;
 			while (valid == false) {
@@ -100,15 +98,15 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				myTile.Rotate(degree);
 				if (degree > 0) {
 					System.out.println("The current tile is now: ");
-					Printer.printTile(myTile, game.getTerritories(), terPtr);
+					Printer.printTile(myTile, game1.getTerritories(), game1.getTerPtr());
 				}
 
-				Printer.printPlaceable(game.getPlaceable());
+				Printer.printPlaceable(game1.getPlaceable());
 				System.out.println("Please select an X and Y coordinate to place the tile");
 				x = sc.nextInt();
 				y = sc.nextInt();
 
-				valid = game.validPlacement(myTile, x, y, terPtr);
+				valid = game1.validPlacement(myTile, x, y);
 				if (valid == false) {
 					System.out.println("Invalid placement, please place again");
 				} else {
@@ -117,10 +115,10 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			}
 			
 			//Adds the coordinate of the tile to the tile
-			game.addContainedTile(myTile, terPtr, x, y);
+			game1.addContainedTile(myTile, x, y);
 			
 			//Merges Tile contents
-			game.mergeTile( myTile, terPtr, currentDens, x, y);
+			game1.mergeTile( myTile, currentDens, x, y);
 			
 			
 			//Crocodile & Tiger placement
@@ -143,7 +141,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				{
 					if (player2.numTigers > 0)
 					{
-						game.tigerPlacement(myTile, terPtr, player2, sc);
+						game1.tigerPlacement(myTile, player2, sc);
 					}
 					else
 					{
@@ -153,10 +151,10 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				//Place crocodile
 				else if (choice == 2)
 				{
-					if (game.crocodilePlaceable(myTile, terPtr) == true && player2.numCrocodiles > 0)
+					if (game1.crocodilePlaceable(myTile) == true && player2.numCrocodiles > 0)
 					{
 						System.out.println("A crocodile has been placed on the tile");
-						game.crocodilePlacement(myTile, terPtr, player2, x, y);
+						game1.crocodilePlacement(myTile, player2, x, y);
 					}
 					else
 					{
@@ -182,7 +180,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				{
 					if (player1.numTigers > 0)
 					{
-						game.tigerPlacement(myTile, terPtr, player1, sc);
+						game1.tigerPlacement(myTile, player1, sc);
 					}
 					else
 					{
@@ -192,10 +190,10 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				//Place crocodile
 				else if (choice == 2)
 				{
-					if (game.crocodilePlaceable(myTile, terPtr) == true && player1.numCrocodiles > 0)
+					if (game1.crocodilePlaceable(myTile) == true && player1.numCrocodiles > 0)
 					{
 						System.out.println("A crocodile has been placed on the tile");
-						game.crocodilePlacement(myTile, terPtr, player1, x, y);
+						game1.crocodilePlacement(myTile, player1, x, y);
 					}
 					else
 					{
@@ -205,19 +203,19 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			}
 		
 			//Scoring
-			game.midGameScoring(myTile, terPtr, currentDens, player1, player2, x, y);
+			game1.midGameScoring(myTile, currentDens, player1, player2, x, y);
 			
 			//Place tile, update positions and turn
 			turn++;
-			game.addToBoard(x, y, myTile);
-			game.updatePlaceable( x, y);
+			game1.addToBoard(x, y, myTile);
+			game1.updatePlaceable( x, y);
 		}
 
 		
 		System.out.println("\nThe final board is: ");
-		Printer.printBoardID(game.getBoard(), game.getPlaced(), game.getTerritories(), terPtr);
+		Printer.printBoardID(game1.getBoard(), game1.getPlaced(), game1.getTerritories(), game1.getTerPtr());
 		
-		game.endGameScoring( terPtr, player1, player2);
+		game1.endGameScoring( player1, player2);
 		Printer.printScores(player1, player2);
 		
 		
