@@ -139,6 +139,8 @@ t = new int[3];
 			//Crocodile & Tiger placement
 			ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
 			ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
+			ArrayList<Character> tigerTerritory = new ArrayList<Character>();
+
 			
 			//player2's Turn
 			if (turn%2 == 0)
@@ -159,9 +161,8 @@ t = new int[3];
 				{
 					if (player2.numTigers > 0)
 					{
-						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex);
+						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
 						//Do AI stuff
-						System.out.println(availableTigerLoc.toString());
 						System.out.println(zoneIndex.toString());
 
 						
@@ -205,9 +206,8 @@ t = new int[3];
 				{
 					if (player1.numTigers > 0)
 					{
-						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex);
+						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
 						//Do AI stuff
-						System.out.println(availableTigerLoc.toString());
 						System.out.println(zoneIndex.toString());
 
 						//
