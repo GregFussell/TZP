@@ -159,7 +159,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				{
 					if (player2.numTigers > 0)
 					{
-						game.tigerPlacementLoc(myTile, player2, sc, availableTigerLoc, zoneIndex);
+						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex);
 						//Do AI stuff
 						
 						game.tigerPlacement(myTile, player2, sc, availableTigerLoc, zoneIndex);
@@ -201,7 +201,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				{
 					if (player1.numTigers > 0)
 					{
-						game.tigerPlacementLoc(myTile, player1, sc, availableTigerLoc, zoneIndex);
+						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex);
 						//Do AI stuff
 						
 						//
