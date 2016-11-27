@@ -14,8 +14,6 @@ public class GameLoop {
 		// placeable positions
 		Scanner sc = new Scanner(System.in);
 		
-		
-		
 		// Initializes the game
 		Game game = new Game(BOARD_WIDTH, BOARD_LENGTH);
 		
