@@ -206,4 +206,108 @@ public class AI {
 		
 	}
 	
+	public int[] randomGreed(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable, Game game, Integer numTigers){
+		
+		ArrayList<Integer> currentDens = new ArrayList<Integer>();
+		
+		Game copy = new Game(155,155);
+		
+		int priority = 0;
+		
+		int[] PlacementArray = new int[placeable.size()*4];
+		int[] animalPlacementArray = new int[placeable.size()*4];
+		this.boardView = board;
+		//Assigning values to certain moves, making invalid moves -1
+		boolean isvalid = true;
+		for(int i = 0; i < placeable.size(); i++){
+			for(int j = 0; j < 4; j++){
+				PlacementArray[(4*i) + j] = 0;
+				animalPlacementArray[(4*i)+j] = 0;
+				isvalid = game.validPlacement(t, placeable.get(i).x, placeable.get(i).y);
+				if (!isvalid){
+					PlacementArray[(4*i)+j] = -1;
+					animalPlacementArray[(4*i)+j] = -1;
+				}
+				//Perhaps place greedy stuff here
+				t.Rotate(1);
+			}
+		}
+		
+	
+		//to replace random ranking with intelligent ranking
+		//rank(PlacementArray);
+		
+		//Rando
+		Random rn = new Random();
+		for(int i = 0; i < PlacementArray.length; i++){
+			if(PlacementArray[i] != -1){
+			PlacementArray[i] = rn.nextInt(50);
+			}
+		}
+		
+		//////TEST PRITING//////////
+		//for(int i = 0; i < PlacementArray.length; i++){
+			//System.out.print(PlacementArray[i] + " ");
+		//}
+//		Printer.printPlaceable(placeable);
+		////////////////////////////
+		
+		int bestMove = -1;
+		int bestMoveindex = 0;
+		
+		for(int y = 0; y < PlacementArray.length; y++){
+			if(bestMove < PlacementArray[y]){
+				bestMoveindex = y;
+				bestMove = PlacementArray[y];
+			}
+		}
+		
+		int d[] = new int[5];
+		
+		//-1 indicates a pass if there are no valid moves
+		if(bestMove == -1){
+			d[0] = -1;
+			return  d;
+		}
+
+		
+		d[3] = 3;
+		d[4] = 1;
+		
+		//if the bestMoveindex is 0, it makes no animal placement
+		if(animalPlacementArray[bestMoveindex] == 0){
+			d[3] = 3;
+		}
+		
+		//if the bestMoveindex is 10, it places a crocodile
+		else if(animalPlacementArray[bestMoveindex] == 10){
+			d[3] = 2;
+		}
+		
+		//if the bestMoveindex is between 1 and 10, it places a tiger at that zoneNum
+		else{
+			d[3] = 1;
+			d[4] = animalPlacementArray[bestMoveindex];
+		}
+		
+		setRotationValue(bestMoveindex%4);
+		
+		bestMoveindex = bestMoveindex/4;
+		
+		setXPlacement(placeable.get(bestMoveindex).x);
+		setYPlacement(placeable.get(bestMoveindex).y);
+		//1 is Tiger, 2 is Crocodile, 3 is None
+//		setAnimal_Placement(1);
+		//integer is the zoneNum for tigerPlacement
+//		setTiger_ZoneNum(5);
+		d[0] = getRotationValue();
+		d[1] = getXPlacement();
+		d[2] = getYPlacement();
+//		d[3] = getAnimal_Placement();
+//		d[4] = getTiger_ZoneNum();
+		return d;
+		
+		
+	}
+	
 }
