@@ -1293,6 +1293,23 @@ public class Game {
 			
 		}
 	}
-
-
+	
+	//TEST
+	
+	public void cloneGame(Game toClone)
+	{
+		for (int i = 0; i < 155; i++)
+		{
+			for (int j = 0; j < 155; j++)
+			{
+				this.board[i][j] = toClone.board[i][j];
+			}
+		}
+		for (int i = 0; i < myTerritoriesSize; i++)
+		{
+			this.myTerritories[i] = toClone.myTerritories[i];
+		}		
+	}
+	
+	
 }

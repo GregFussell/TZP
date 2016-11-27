@@ -52,6 +52,21 @@ public class GameLoop {
 		// automatically placed and the placed/placeable array lists are updated
 		game.updatePlaceable(BOARD_WIDTH / 2, BOARD_LENGTH / 2);
 		game.addContainedTile(game.getTile(BOARD_WIDTH / 2, BOARD_LENGTH / 2), terPtr, BOARD_WIDTH / 2, BOARD_LENGTH / 2);
+		
+
+		
+		Game copy = new Game(BOARD_WIDTH, BOARD_LENGTH);
+		
+		copy.cloneGame(game);
+
+		
+		copy.getBoard()[36][36] = tileEngine.create(start);
+		
+		System.out.println(game.getMyTerritoriesSize());
+		
+		System.out.println(copy.getBoard()[36][36].subtiles[0]);
+		
+		System.out.println(game.getBoard()[36][36].subtiles[0]);
 
 
 
@@ -222,7 +237,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			game.addToBoard(x, y, myTile);
 			game.updatePlaceable( x, y);
 		}
-
+		
 		
 		System.out.println("\nThe final board is: ");
 		Printer.printBoardID(game.getBoard(), game.getPlaced(), game.getTerritories(), terPtr);
