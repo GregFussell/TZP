@@ -2,10 +2,21 @@ package tigerZone;
 
 import java.util.ArrayList;
 
+import java.util.Random;
+
 public class AI {
 	int RotationValue;
 	int XPlacement;
 	int YPlacement;
+	int Animal_Placement;
+	int Tiger_ZoneNum;
+	Tile[][] boardView;
+	Deck deck;
+	
+	// CONSTRUCTOR
+	public AI(Deck newDeck){
+		deck = newDeck;
+	}
 	
 	public void setRotationValue(int rot){
 		RotationValue = rot;
@@ -17,6 +28,14 @@ public class AI {
 	
 	public void setYPlacement(int yval){
 		YPlacement = yval;
+	}
+	
+	public void setAnimal_Placement(int zoneNum){
+		Animal_Placement = zoneNum;
+	}
+	
+	public void setTiger_ZoneNum(int crocNum){
+		Tiger_ZoneNum = crocNum;
 	}
 	
 	public int getRotationValue(){
@@ -31,36 +50,91 @@ public class AI {
 		return YPlacement;
 	}
 	
-	public int[] decision(Tile[][] bored, Tile t, ArrayList<ArrayCoord> placeable){
+	public int getAnimal_Placement(){
+		return Animal_Placement;
+	}
+	
+	public int getTiger_ZoneNum(){
+		return Tiger_ZoneNum;
+	}
+	
+	public void rank( int[] PlacementArray ){
 		
-		AI Flynn = new AI();
+	}
+	
+	public int[] decision(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable, Game game){
+		
+		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
+		ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
+		ArrayList<Integer> currentDens = new ArrayList<Integer>();
+				
 		
 		int[] PlacementArray = new int[placeable.size()*4];
-		
+		this.boardView = board;
 		//Assigning values to certain moves, making invalid moves -1
-		
-		PlacementArray[10] = 50;
-		PlacementArray[2] = 5;
-		
-		int bestMove = -1;
-		
-		for(int y = 0; y < PlacementArray.length; y++){
-			if(bestMove < PlacementArray[y]){
-				bestMove = y;
+		boolean isvalid = true;
+		for(int i = 0; i < placeable.size(); i++){
+			for(int j = 0; j < 4; j++){
+				PlacementArray[(4*i) + j] = 0;
+				isvalid = game.validPlacement(t, placeable.get(i).x, placeable.get(i).y);
+				t.Rotate(1);
+				if (!isvalid){
+					PlacementArray[(4*i)+j] = -1;
+				}
+				else{
+					Game copy = new Game(155,155);
+					copy.cloneGame(game);
+//					copy.addContainedTile(t, placeable.get(i).x, placeable.get(i).y);
+//					copy.mergeTile(t, currentDens, placeable.get(i).x, placeable.get(i).y);
+//					copy.tigerPlacementLoc(t, availableTigerLoc, zoneIndex);
+					
+				}
 			}
 		}
 		
-		Flynn.setRotationValue(bestMove%4);
+	
+		//to replace random ranking with intelligent ranking
+		//rank(PlacementArray);
 		
-		bestMove = bestMove/4;
+		//Rando
+		Random rn = new Random();
+		for(int i = 0; i < PlacementArray.length; i++){
+			if(PlacementArray[i] != -1){
+			PlacementArray[i] = rn.nextInt(50);
+			}
+		}
 		
-		Flynn.setXPlacement(placeable.get(bestMove).x);
-		Flynn.setYPlacement(placeable.get(bestMove).y);
+		//////TEST PRITING//////////
+		for(int i = 0; i < PlacementArray.length; i++){
+			System.out.println(PlacementArray[i] + " ");
+		}
+		Printer.printPlaceable(placeable);
+		////////////////////////////
 		
-		int d[] = new int[3];
-		d[0] = Flynn.getRotationValue();
-		d[1] = Flynn.getXPlacement();
-		d[2] = Flynn.getYPlacement();
+		int bestMove = -1;
+		int bestMoveindex = 0;
+		
+		for(int y = 0; y < PlacementArray.length; y++){
+			if(bestMove < PlacementArray[y]){
+				bestMoveindex = y;
+				bestMove = PlacementArray[y];
+			}
+		}
+		
+		setRotationValue(bestMoveindex%4);
+		
+		bestMoveindex = bestMoveindex/4;
+		
+		setXPlacement(placeable.get(bestMoveindex).x);
+		setYPlacement(placeable.get(bestMoveindex).y);
+		setAnimal_Placement(3);
+		setTiger_ZoneNum(5);
+		int d[] = new int[5];
+		d[0] = getRotationValue();
+		d[1] = getXPlacement();
+		d[2] = getYPlacement();
+		d[3] = getAnimal_Placement();
+		d[4] = getTiger_ZoneNum();
 		return d;
 		
 		

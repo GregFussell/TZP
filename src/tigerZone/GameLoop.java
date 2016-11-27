@@ -31,7 +31,7 @@ public class GameLoop {
 		
 		///temporary start and tileset/////////////////////////
 		start = "TLTJD";
-		String temp[] = { "JJJJ-", "JJJJX", "JJTJX", "TTTT-" };
+		String temp[] = { "JJJJ-", "JJJJX", "JJTJX", "TTTT-","JJJJ-" };
 		tileSet = temp;
 		/////////////////////////////////////////////////////
 		
@@ -42,7 +42,6 @@ public class GameLoop {
 			game.addToDeck(tileEngine.create(tileSet[i]));
 		}
 		
-		TerritoryPtr terPtr = new TerritoryPtr(tileEngine.getTerritoriesSize());
 		
 		//sets myTerritories created by the tile engine
 		game.setTerritories(tileEngine.getMyTerritories());
@@ -51,13 +50,18 @@ public class GameLoop {
 		// Starter location is added as a placeablePos, starter tile is then
 		// automatically placed and the placed/placeable array lists are updated
 		game.updatePlaceable(BOARD_WIDTH / 2, BOARD_LENGTH / 2);
-		game.addContainedTile(game.getTile(BOARD_WIDTH / 2, BOARD_LENGTH / 2), terPtr, BOARD_WIDTH / 2, BOARD_LENGTH / 2);
+		game.addContainedTile(game.getTile(BOARD_WIDTH / 2, BOARD_LENGTH / 2), BOARD_WIDTH / 2, BOARD_LENGTH / 2);
+		
+		AI Flynn = new AI(game.getDeck());
 
 
 
 Player player1 = new Player(1);
 Player player2 = new Player(2);
 ArrayList<Integer> currentDens = new ArrayList<Integer>();
+
+int[] t;
+t = new int[3];
 
 ///////////////////////////////////////////////////// GAMEPLAY LOOP \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 		
@@ -86,29 +90,38 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			int y = 0;
 
 			System.out.println("The current board is: ");
-			Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), terPtr);
+			Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
 			
 			System.out.println("The current tile is: ");
 			Tile myTile = game.nextTile();
-			Printer.printTile(myTile, game.getTerritories(), terPtr);
+			Printer.printTile(myTile, game.getTerritories(), game.getTerPtr());
+			
+			t = Flynn.decision(game.getBoard(), myTile, game.getPlaceable(), game);
+			for(int z = 0; z < 3; z++){
+				System.out.println(t[z]);
+			}
 
 			boolean valid = false;
 			while (valid == false) {
 
 				System.out.println("Please choose a rotation degree for the tile (0, 1, 2, 3)");
-				int degree = sc.nextInt();
+				int degree = 0;
+				degree = t[0];
+				//degree = sc.nextInt();
 				myTile.Rotate(degree);
 				if (degree > 0) {
 					System.out.println("The current tile is now: ");
-					Printer.printTile(myTile, game.getTerritories(), terPtr);
+					Printer.printTile(myTile, game.getTerritories(), game.getTerPtr());
 				}
 
 				Printer.printPlaceable(game.getPlaceable());
 				System.out.println("Please select an X and Y coordinate to place the tile");
-				x = sc.nextInt();
-				y = sc.nextInt();
+				//x = sc.nextInt();
+				//y = sc.nextInt();
+				x = t[1];
+				y = t[2];
 
-				valid = game.validPlacement(myTile, x, y, terPtr);
+				valid = game.validPlacement(myTile, x, y);
 				if (valid == false) {
 					System.out.println("Invalid placement, please place again");
 				} else {
@@ -117,10 +130,10 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			}
 			
 			//Adds the coordinate of the tile to the tile
-			game.addContainedTile(myTile, terPtr, x, y);
+			game.addContainedTile(myTile, x, y);
 			
 			//Merges Tile contents
-			game.mergeTile( myTile, terPtr, currentDens, x, y);
+			game.mergeTile( myTile, currentDens, x, y);
 			
 			
 			//Crocodile & Tiger placement
@@ -133,7 +146,8 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				System.out.println("The current player has " + player2.numTigers + " tigers and " + player2.numCrocodiles + " crocodiles");	
 				int choice;
 				System.out.println("Would you like to place a (1) tiger, (2) crocodile, or (3) none?");
-				choice = sc.nextInt();
+				choice = t[3];
+				//choice = sc.nextInt();
 				while (choice != 1 && choice != 2 && choice != 3)
 				{
 					System.out.println("Invalid input, please enter 1 for tiger, 2 for crocodile, or 3 for none");
@@ -145,10 +159,13 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				{
 					if (player2.numTigers > 0)
 					{
-						game.tigerPlacementLoc(myTile, terPtr, player2, sc, availableTigerLoc, zoneIndex);
+						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex);
 						//Do AI stuff
+						System.out.println(availableTigerLoc.toString());
+						System.out.println(zoneIndex.toString());
+
 						
-						game.tigerPlacement(myTile, terPtr, player2, sc, availableTigerLoc, zoneIndex);
+						game.tigerPlacementAI(myTile, player2, t[4], availableTigerLoc, zoneIndex);
 					}
 					else
 					{
@@ -158,10 +175,10 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				//Place crocodile
 				else if (choice == 2)
 				{
-					if (game.crocodilePlaceable(myTile, terPtr) == true && player2.numCrocodiles > 0)
+					if (game.crocodilePlaceable(myTile) == true && player2.numCrocodiles > 0)
 					{
 						System.out.println("A crocodile has been placed on the tile");
-						game.crocodilePlacement(myTile, terPtr, player2, x, y);
+						game.crocodilePlacement(myTile, player2, x, y);
 					}
 					else
 					{
@@ -175,7 +192,8 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				System.out.println("The current player has " + player1.numTigers + " tigers and " + player1.numCrocodiles + " crocodiles");	
 				int choice;
 				System.out.println("Would you like to place a (1) tiger, (2) crocodile, or (3) none?");
-				choice = sc.nextInt();
+				choice = t[3];
+				//choice = sc.nextInt();
 				while (choice != 1 && choice != 2 && choice != 3)
 				{
 					System.out.println("Invalid input, please enter 1 for tiger, 2 for crocodile, or 3 for none");
@@ -187,12 +205,14 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				{
 					if (player1.numTigers > 0)
 					{
-						game.tigerPlacementLoc(myTile, terPtr, player1, sc, availableTigerLoc, zoneIndex);
+						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex);
 						//Do AI stuff
-						
+						System.out.println(availableTigerLoc.toString());
+						System.out.println(zoneIndex.toString());
+
 						//
-						game.tigerPlacement(myTile, terPtr, player1, sc, availableTigerLoc, zoneIndex);
-						
+						game.tigerPlacementAI(myTile, player1, t[4], availableTigerLoc, zoneIndex);
+			
 					}
 					else
 					{
@@ -202,10 +222,10 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 				//Place crocodile
 				else if (choice == 2)
 				{
-					if (game.crocodilePlaceable(myTile, terPtr) == true && player1.numCrocodiles > 0)
+					if (game.crocodilePlaceable(myTile) == true && player1.numCrocodiles > 0)
 					{
 						System.out.println("A crocodile has been placed on the tile");
-						game.crocodilePlacement(myTile, terPtr, player1, x, y);
+						game.crocodilePlacement(myTile, player1, x, y);
 					}
 					else
 					{
@@ -215,7 +235,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 			}
 		
 			//Scoring
-			game.midGameScoring(myTile, terPtr, currentDens, player1, player2, x, y);
+			game.midGameScoring(myTile, currentDens, player1, player2, x, y);
 			
 			//Place tile, update positions and turn
 			turn++;
@@ -225,10 +245,11 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 
 		
 		System.out.println("\nThe final board is: ");
-		Printer.printBoardID(game.getBoard(), game.getPlaced(), game.getTerritories(), terPtr);
+		Printer.printBoardID(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
 		
-		game.endGameScoring( terPtr, player1, player2);
+		game.endGameScoring(player1, player2);
 		Printer.printScores(player1, player2);
+		sc.close();
 		
 		
 		//Printer.printArrayList(ter18.containedTiles);
