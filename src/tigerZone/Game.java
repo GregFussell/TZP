@@ -15,14 +15,14 @@ public class Game {
 	private TerritoryPtr terPtr;
 
 	/////constructor
-	public Game(int boardWidth, int boardLength, int terSize){
+	public Game(int boardWidth, int boardLength){
 		placeablePos = new ArrayList<ArrayCoord>();
 		placedPos = new ArrayList<ArrayCoord>();
 		board = new Tile[boardWidth][boardLength];
 		myDeck = new Deck();
-		myTerritories = new Territory[246];
+		myTerritories = new Territory[258];
 		setMyTerritoriesSize(0);
-		terPtr = new TerritoryPtr(terSize);
+		terPtr = new TerritoryPtr(258);
 	}
 	
 	

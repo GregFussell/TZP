@@ -2,7 +2,6 @@ package tigerZone;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.*;
 
 public class GameLoop {
 	public static final int BOARD_WIDTH = 155;
@@ -20,7 +19,7 @@ public class GameLoop {
 		TileCreator tileEngine = new TileCreator();
 		
 		// Initializes the game
-		Game game1 = new Game(BOARD_WIDTH, BOARD_LENGTH, tileEngine.getTerritoriesSize());
+		Game game1 = new Game(BOARD_WIDTH, BOARD_LENGTH);
 				
 		//initializes starting position
 		game1.addPlaceable(BOARD_WIDTH / 2, BOARD_LENGTH / 2);
