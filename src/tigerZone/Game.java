@@ -594,8 +594,12 @@ public class Game {
 	//Checks mooreNeighborhood of dens as new tiles are placed, and scores den if it is completed
 	public void checkMooreNeighborhood(Territory den, Player player1, Player player2, int x, int y)
 	{
+		if(den.isCompleted){
+			return;
+		}
 		for (int i = 0; i < den.containedTiles.size(); i++)
 		{
+			
 			if (den.containedTiles.get(i).x == x && den.containedTiles.get(i).y == y)
 			{
 				den.containedTiles.remove(i);
