@@ -64,8 +64,6 @@ public class AI {
 	
 	public int[] decision(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable, Game game){
 		
-		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
-		ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
 		ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		
 		Game copy = new Game(155,155);
@@ -84,6 +82,8 @@ public class AI {
 				}
 				else{
 					copy.cloneGame(game);
+					ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
+					ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
 					copy.addContainedTile(t, placeable.get(i).x, placeable.get(i).y);
 					copy.mergeTile(t, currentDens, placeable.get(i).x, placeable.get(i).y);
 					copy.tigerPlacementLoc(t, availableTigerLoc, zoneIndex);
