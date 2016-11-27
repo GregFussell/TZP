@@ -945,7 +945,7 @@ public class Game {
 			player.numTigers--;
 	}
 	
-	public void tigerPlacementAI(Tile currentTile, TerritoryPtr terPtr, Player player, int zoneChoice, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex)
+	public void tigerPlacementAI(Tile currentTile, Player player, int zoneChoice, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex)
 	{
 		int tigerLoc = zoneChoice;
 		
