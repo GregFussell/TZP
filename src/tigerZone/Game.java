@@ -222,7 +222,7 @@ public class Game {
 	////////////////////////////////////////// MERGING /////////////////////////////////////////////////////////////////////
 
 	
-	public void mergeTile( Tile myTile, TerritoryPtr terPtr, ArrayList<Integer> currentDens, int x, int y)
+	public void mergeTile(Tile myTile, TerritoryPtr terPtr, ArrayList<Integer> currentDens, int x, int y)
 	{
 		int[] rewriteIDs = new int[12];
 		int[] currentIDs = new int[12];
