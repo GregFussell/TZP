@@ -57,7 +57,15 @@ public class GameLoop {
 //		Game copy = new Game(BOARD_WIDTH, BOARD_LENGTH);
 //		
 //		copy.cloneGame(game);
+//		
+//		System.out.println(game.getMyTerritoriesSize());
+//		System.out.println(copy.getMyTerritoriesSize());
 //
+//		Tile myTile2 = game.nextTile();
+//		copy.addContainedTile(myTile2, 36, 36);
+//
+		
+
 //		
 //		copy.getBoard()[36][36] = tileEngine.create(start);
 //		

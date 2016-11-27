@@ -38,6 +38,11 @@ public class Territory {
 		int player1Tigers = 0;
 		int player2Tigers = 0;
 		
+		deer = false;
+		boar = false;
+		buffalo = false;
+		crocodile = false;
+		
 		containedDeer = new ArrayList<ArrayCoord>();
 		containedBoar = new ArrayList<ArrayCoord>();
 		containedBuffalo = new ArrayList<ArrayCoord>();
