@@ -67,11 +67,7 @@ public class AI {
 		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
 		ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
 		ArrayList<Integer> currentDens = new ArrayList<Integer>();
-		
-		
-		Game copy = new Game(155,155);
-		copy.cloneGame(game);
-		TerritoryPtr updated_terPtr = copy.getTerPtr();
+				
 		
 		int[] PlacementArray = new int[placeable.size()*4];
 		this.boardView = board;
@@ -86,9 +82,11 @@ public class AI {
 					PlacementArray[(4*i)+j] = -1;
 				}
 				else{
-//					g1.addContainedTile(t, local_terPtr, placeable.get(i).x, placeable.get(i).y);
-//					g1.mergeTile(t, local_terPtr, currentDens, placeable.get(i).x, placeable.get(i).y);
-//					g1.tigerPlacementLoc(t, local_terPtr, availableTigerLoc, zoneIndex);
+					Game copy = new Game(155,155);
+					copy.cloneGame(game);
+//					copy.addContainedTile(t, placeable.get(i).x, placeable.get(i).y);
+//					copy.mergeTile(t, currentDens, placeable.get(i).x, placeable.get(i).y);
+//					copy.tigerPlacementLoc(t, availableTigerLoc, zoneIndex);
 					
 				}
 			}
