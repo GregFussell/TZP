@@ -255,4 +255,7 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		
 		//Printer.printArrayList(ter18.containedTiles);
 	}
+	
+	
+
 }
