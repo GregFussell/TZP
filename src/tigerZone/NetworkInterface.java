@@ -46,6 +46,7 @@ public class NetworkInterface {
 	            
 	            //initializing variables to be configured for game communication
 	            int x = 0, y = 0, rotation = 0, state = WAIT;
+	            int[] newMove = new int[5];
 	            String cid = "";
 	            String rid = "";
 	            String gid = "";
@@ -145,15 +146,9 @@ public class NetworkInterface {
 	                		break;
 	                	case "GAME MOVE PLAYER":
 	                		pid = tokens.nextToken();
-	                		move += tokens.nextToken();
-	                		if(move == "FORFEITED:") { 
-	                			state = GAME_OVER;
-	                			while(tokens.hasMoreTokens()){
-	                				move += tokens.nextToken();
-	                			}
-	                			break;
-	                		}
-	                		tokens.nextToken();
+	                		state = WAIT;
+	                		break;
+	                	case "GAME MOVE PLAYER PLACED":
 	                		tile = tokens.nextToken();
 	                		tokens.nextElement();
 	                		x = Integer.valueOf(tokens.nextToken());
@@ -161,6 +156,38 @@ public class NetworkInterface {
 	                		rotation = Integer.valueOf(tokens.nextToken());
 	                		if(pid != ourPID) { state = OPPONENT_MOVE; }
 	                		else { state = WAIT; }
+	                		break;
+	                	case "GAME MOVE PLAYER PLACED NONE":
+	                		newMove[3] = 3;
+	                		newMove[4] = -1;
+	                		break;
+	                	case "GAME MOVE PLAYER PLACED CROCODILE":
+	                		newMove[3] = 2;
+	                		newMove[4] = -1;
+	                		break;
+	                	case "GAME MOVE PLAYER PLACED TIGER":
+	                		newMove[3] = 1;
+	                		newMove[4] = Integer.valueOf(tokens.nextToken());
+	                		break;
+	                	case "GAME MOVE PLAYER TILE":
+	                		tile = tokens.nextToken();
+	                		tokens.nextToken();
+	                		break;
+	                	case "GAME MOVE PLAYER TILE PASSED":		///TO BE COMPLETED
+	                		
+	                		break;
+	                	case "GAME MOVE PLAYER TILE RETRIEVED":
+	                		
+	                		break;
+	                	case "GAME MOVE PLAYER TILE ADDED":			///////////////////
+	                		
+	                		break;
+	                	case "GAME MOVE PLAYER FORFEITED":
+	                		state = GAME_OVER;
+	                		move += "FORFEITED";
+                			while(tokens.hasMoreTokens()){
+                				move += " " + tokens.nextToken();
+                			}
 	                		break;
 	                	case "GAME OVER PLAYER":
 	                		while(tokens.hasMoreTokens()){
@@ -195,6 +222,9 @@ public class NetworkInterface {
 	                	x = (GameLoop.BOARD_WIDTH / 2) - y;
 	                	y = (GameLoop.BOARD_LENGTH / 2) + tempX;
 	                	if(rotation != 0) { rotation = (360 - rotation) / 90; }
+	                	newMove[0] = rotation;
+	                	newMove[1] = x;
+	                	newMove[2] = y;
 	                	break;
 	                case START:
 	                	break;
