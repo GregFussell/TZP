@@ -254,10 +254,10 @@ public class NetworkInterface {
 	                		if(AI[3] == 3){ // none
 	                			fromUser += " NONE";
 	                		}
-	                		else if(AI[4] == 2){ //croc
+	                		else if(AI[3] == 2){ //croc
 	                			fromUser += " CROCODILE";
 	                		}
-	                		else if(AI[4] == 1){ // tiger
+	                		else if(AI[3] == 1){ // tiger
 	                			fromUser += " TIGER " + AI[4];
 	                		}
 	                	}
