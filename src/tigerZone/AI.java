@@ -206,13 +206,7 @@ public class AI {
 		
 	}
 	
-	public int[] randomGreed(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable, Game game, Integer numTigers){
-		
-		ArrayList<Integer> currentDens = new ArrayList<Integer>();
-		
-		Game copy = new Game(155,155);
-		
-		int priority = 0;
+	public int[] randomGreed(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable, Game game, Integer numTigers){	
 		
 		int[] PlacementArray = new int[placeable.size()*4];
 		int[] animalPlacementArray = new int[placeable.size()*4];
@@ -269,45 +263,17 @@ public class AI {
 			d[0] = -1;
 			return  d;
 		}
-
-		
-		d[3] = 3;
-		d[4] = 1;
-		
-		//if the bestMoveindex is 0, it makes no animal placement
-		if(animalPlacementArray[bestMoveindex] == 0){
-			d[3] = 3;
-		}
-		
-		//if the bestMoveindex is 10, it places a crocodile
-		else if(animalPlacementArray[bestMoveindex] == 10){
-			d[3] = 2;
-		}
-		
-		//if the bestMoveindex is between 1 and 10, it places a tiger at that zoneNum
-		else{
-			d[3] = 1;
-			d[4] = animalPlacementArray[bestMoveindex];
-		}
 		
 		setRotationValue(bestMoveindex%4);
-		
 		bestMoveindex = bestMoveindex/4;
 		
 		setXPlacement(placeable.get(bestMoveindex).x);
 		setYPlacement(placeable.get(bestMoveindex).y);
-		//1 is Tiger, 2 is Crocodile, 3 is None
-//		setAnimal_Placement(1);
-		//integer is the zoneNum for tigerPlacement
-//		setTiger_ZoneNum(5);
+		
 		d[0] = getRotationValue();
 		d[1] = getXPlacement();
 		d[2] = getYPlacement();
-//		d[3] = getAnimal_Placement();
-//		d[4] = getTiger_ZoneNum();
 		return d;
-		
-		
 	}
 	
 }

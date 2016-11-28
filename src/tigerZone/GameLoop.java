@@ -30,83 +30,83 @@ public class GameLoop {
 		String tileSet[] = null;		//	
 		
 		///temporary start and tileset/////////////////////////
-		start = "TLTJD";
-		String temp[] = {"TJTJ-",
-				"LJJJ-",
-				"TJJT-",
-				"TLTTP",
-				"LJLJ-",
-				"TJTJ-",
-				"TJTT-",
+		start = "TLTJ-";
+		String temp[] = {"TLLT-",
 				"TLLTB",
-				"JLJL-",
-				"LJJJ-",
-				"JLTT-",
-				"TJTJ-",
-				"TJJT-",
-				"JLLL-",
-				"TJJT-",
-				"TJTJ-",
-				"TJJT-",
-				"LLJJ-",
-				"TLTJD",
-				"LLJJ-",
-				"JJJJX",
-				"TJJT-",
-				"TJJT-",
-				"TLTT-",
-				"TLJTP",
-				"JJJJX",
-				"TJTJ-",
-				"JJTJX",
-				"JLJL-",
-				"LJTJD",
-				"LJLJ-",
-				"TLLTB",
-				"TLTTP",
-				"JLTTB",
-				"TLTJ-",
-				"TLLT-",
-				"LJTJ-",
-				"LJTJD",
-				"JJJJX",
-				"TJTT-",
-				"TLLL-",
-				"TJJT-",
-				"TLLLC",
-				"JLLJ-",
-				"TLTJD",
-				"LLJJ-",
-				"JJTJX",
-				"TJTT-",
-				"TLJT-",
-				"TLLT-",
-				"TLLT-",
-				"JLLL-",
 				"LLLL-",
-				"TLJTP",
-				"JLLL-",
-				"JLLJ-",
-				"LJJJ-",
-				"TJJT-",
-				"TJTJ-",
-				"TLLLC",
-				"LJLJ-",
-				"LLJJ-",
-				"JLTTB",
-				"JJJJ-",
-				"TJTJ-",
 				"TJTT-",
-				"TLTJ-",
+				"JJTJX",
+				"TJTT-",
+				"JLTT-",
 				"JLJL-",
-				"LJJJ-",
-				"JLLL-",
-				"LJJJ-",
+				"LJTJ-",
+				"TLTJD",
+				"TJTT-",
+				"TLJTP",
 				"TJJT-",
+				"LJLJ-",
+				"TLLT-",
+				"LJJJ-",
+				"TJTT-",
+				"JLLL-",
+				"TJJT-",
+				"TJJT-",
+				"TLLLC",
 				"TJTJ-",
+				"TJJT-",
+				"JLTTB",
+				"TJTJ-",
+				"LJTJD",
+				"LJJJ-",
+				"TLTTP",
+				"LJJJ-",
+				"LJJJ-",
+				"TJTJ-",
+				"JLLL-",
+				"TJJT-",
+				"TLTTP",
+				"LLJJ-",
+				"TLTT-",
+				"JLLJ-",
+				"JLJL-",
+				"TJJT-",
+				"LJLJ-",
+				"JJJJX",
+				"LLJJ-",
+				"JJJJX",
+				"JJJJX",
+				"LLJJ-",
+				"TLTJ-",
+				"TJTJ-",
+				"TJTJ-",
+				"LJTJD",
+				"JLTTB",
+				"JLJL-",
+				"TJTJ-",
+				"JLLL-",
+				"TLTJD",
+				"TLTJ-",
+				"TLJTP",
+				"TJJT-",
+				"LJJJ-",
+				"LLJJ-",
+				"JJJJX",
+				"TJJT-",
+				"TLLL-",
+				"JLLJ-",
+				"TLLLC",
+				"TLJT-",
+				"TJTJ-",
+				"JJJJ-",
+				"JLLL-",
 				"LLJJ-",
 				"TTTT-",
-				"JJJJX"};
+				"JJTJX",
+				"TLLTB",
+				"LJLJ-",
+				"TJJT-",
+				"TJTJ-",
+				"TLLT-"};
 		tileSet = temp;
 		/////////////////////////////////////////////////////
 		
@@ -128,6 +128,8 @@ public class GameLoop {
 		game.addContainedTile(game.getTile(BOARD_WIDTH / 2, BOARD_LENGTH / 2), BOARD_WIDTH / 2, BOARD_LENGTH / 2);
 		
 		AI Flynn = new AI(game.getDeck());
+		
+		AI Clu = new AI(game.getDeck());
 
 
 
@@ -138,6 +140,9 @@ ArrayList<Integer> currentDens = new ArrayList<Integer>();
 int[] t;
 t = new int[3];
 
+int[] c;
+c = new int[5];
+
 ///////////////////////////////////////////////////// GAMEPLAY LOOP \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 		
 	//	printTile(starter);
@@ -146,96 +151,119 @@ t = new int[3];
 		// Users plays game
 		while (game.deckSize() > 0) {
 			
-//			if(game.deckSize() == 1){
-//				startTime = System.currentTimeMillis();
-//			}
-			
-			//player2's Turn
-			if (turn%2 == 0)
-			{
-//				System.out.println();
-//				System.out.println("Player2's Turn: ");
-
-//				System.out.println();
-			}
-			//player1's Turn
-			else
-			{
-//				System.out.println();
-//				System.out.println("Player1's Turn: ");
-//				System.out.println();
-			}
 			
 			int x = 0;
 			int y = 0;
+			Tile myTile = game.nextTile();	
+			//player2's Turn
+			if (turn%2 == 0)
+			{	
+				c = Clu.randomGreed(game.getBoard(), myTile, game.getPlaceable(), game, player2.numTigers);
+				
+				if(c[0] == -1){
+					game.nextTile();
+					continue;
+				}
 
-//			System.out.println("The current board is: ");
-//			Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
+				boolean valid = false;
+				while (valid == false) {
+
+//					System.out.println("Please choose a rotation degree for the tile (0, 1, 2, 3)");
+					int degree = 0;
+					
+					degree = c[0];
+
+					myTile.Rotate(degree);
+
+					x = c[1];
+					y = c[2];
+
+					valid = game.validPlacement(myTile, x, y);
+					if (valid == false) {
+//						System.out.println("Invalid placement, please place again");
+					} else {
+//						System.out.println("Tile successfully placed");
+					}
+				}
+				
+				//Adds the coordinate of the tile to the tile
+				game.addContainedTile(myTile, x, y);
+				
+				//Merges Tile contents
+				game.mergeTile(myTile, currentDens, x, y);
+			}
 			
-//			System.out.println("The current tile is: ");
-			Tile myTile = game.nextTile();
-//			Printer.printTile(myTile, game.getTerritories(), game.getTerPtr());
 			
-			t = Flynn.decision(game.getBoard(), myTile, game.getPlaceable(), game, player2.numTigers);
+			//player1's Turn
+			else
+			{
+				t = Flynn.decision(game.getBoard(), myTile, game.getPlaceable(), game, player1.numTigers);
+				
+				if(t[0] == -1){
+					game.nextTile();
+					continue;
+				}
+
+				boolean valid = false;
+				while (valid == false) {
+
+//					System.out.println("Please choose a rotation degree for the tile (0, 1, 2, 3)");
+					int degree = 0;
+					
+					degree = t[0];
+
+					myTile.Rotate(degree);
+
+					x = t[1];
+					y = t[2];
+
+					valid = game.validPlacement(myTile, x, y);
+					if (valid == false) {
+//						System.out.println("Invalid placement, please place again");
+					} else {
+//						System.out.println("Tile successfully placed");
+					}
+				}
+				
+				//Adds the coordinate of the tile to the tile
+				game.addContainedTile(myTile, x, y);
+				
+				//Merges Tile contents
+				game.mergeTile( myTile, currentDens, x, y);
+				
+			}	
+			
 			//if there are no available moves, it passes
-			if(t[0] == -1){
-				game.nextTile();
-				continue;
-			}
-
-			boolean valid = false;
-			while (valid == false) {
-
-//				System.out.println("Please choose a rotation degree for the tile (0, 1, 2, 3)");
-				int degree = 0;
-				degree = t[0];
-				//degree = sc.nextInt();
-				myTile.Rotate(degree);
-				if (degree > 0) {
-//					System.out.println("The current tile is now: ");
-//					Printer.printTile(myTile, game.getTerritories(), game.getTerPtr());
-				}
-
-//				Printer.printPlaceable(game.getPlaceable());
-//				System.out.println("Please select an X and Y coordinate to place the tile");
-				//x = sc.nextInt();
-				//y = sc.nextInt();
-				x = t[1];
-				y = t[2];
-
-				valid = game.validPlacement(myTile, x, y);
-				if (valid == false) {
-//					System.out.println("Invalid placement, please place again");
-				} else {
-//					System.out.println("Tile successfully placed");
-				}
-			}
 			
-			//Adds the coordinate of the tile to the tile
-			game.addContainedTile(myTile, x, y);
-			
-			//Merges Tile contents
-			game.mergeTile( myTile, currentDens, x, y);
-			
-			
+
+						
 			//Crocodile & Tiger placement
 			ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
 			ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
 			ArrayList<Character> tigerTerritory = new ArrayList<Character>();
 
 			
-			//player2's Turn
+			//player2's Turn Clu
 			if (turn%2 == 0)
 			{
-//				System.out.println("The current player has " + player2.numTigers + " tigers and " + player2.numCrocodiles + " crocodiles");	
+				//RUN GREEED
+				//public int[] animalPlacementAI(Game game, Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex, Player player)
+				
+				game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
+				
+				int[] animalPlacement = new int[2];
+				
+				animalPlacement = animalPlacementAI(game, myTile, game.getTerritories(), game.getTerPtr(), availableTigerLoc, zoneIndex, player2);
+				
+				
 				int choice;
-//				System.out.println("Would you like to place a (1) tiger, (2) crocodile, or (3) none?");
-				choice = t[3];
-				//choice = sc.nextInt();
+				choice = animalPlacement[0];
+			//	System.out.println("Choice is " + choice);
+				
 				while (choice != 1 && choice != 2 && choice != 3)
 				{
 					System.out.println("Invalid input, please enter 1 for tiger, 2 for crocodile, or 3 for none");
-					choice = sc.nextInt();
+//					choice = sc.nextInt();
 				}	
 				
 				//Place tiger
@@ -245,7 +273,7 @@ t = new int[3];
 					{
 						game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
 						//Do AI stuff
-						game.tigerPlacementAI(myTile, player2, t[4], availableTigerLoc, zoneIndex);
+						game.tigerPlacementAI(myTile, player2, animalPlacement[1], availableTigerLoc, zoneIndex);
 					}
 					else
 					{
@@ -266,6 +294,8 @@ t = new int[3];
 					}
 				}	
 			}
+			
+			
 			//player1's Turn
 			else
 			{
@@ -320,13 +350,10 @@ t = new int[3];
 			game.updatePlaceable( x, y);
 		}
 
-		
-//		System.out.println("\nThe final board is: ");
-		//Printer.printBoardID(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
-		
 		game.endGameScoring(player1, player2);
 		Printer.printScores(player1, player2);
 		sc.close();
+		
 		
 		final long endTime = System.currentTimeMillis();
 		
@@ -335,4 +362,167 @@ t = new int[3];
 		
 		//Printer.printArrayList(ter18.containedTiles);
 	}
+	
+	public static int[] animalPlacementAI(Game game, Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex, Player player)
+	{
+		int[] animalChoice = new int[2];
+
+		
+		//First check if crocodile is worth placing
+		if (player.numCrocodiles > 0 && game.crocodilePlaceable(currentTile) == true && oppCrocodile(currentTile, myTerritories, terPtr) == true)
+		{
+			animalChoice[0] = 2;
+			return animalChoice;
+		}	
+		
+		//Only place last tiger if it will be returned
+		if(player.numTigers > 0)
+		{
+			//Check if any tiger will instantly score, if so place it there
+			for (int i = 0; i < zoneIndex.size(); i++)
+			{
+				
+				//myTerritories[availableTigerLoc.get(zoneIndex.indexOf(i))].territory;
+				
+				if((myTerritories[availableTigerLoc.get(i)].territory == 't' || myTerritories[availableTigerLoc.get(i)].territory == 'l')
+						&& myTerritories[availableTigerLoc.get(i)].openFaces == 0)
+				{
+					animalChoice[0] = 1;
+					animalChoice[1] = zoneIndex.get(i);
+					return animalChoice;
+				}
+			}
+			
+			//Reserve at least 3 tigers for jungles that will score, or dens
+			if (player.numTigers > 1)
+			{
+				//Check if jungle already has completed dens/lakes bordering it, if so place it there
+				for (int i = 0; i < zoneIndex.size(); i++)
+				{
+					if(myTerritories[availableTigerLoc.get(i)].territory == 'j' && completedTerritories(myTerritories[availableTigerLoc.get(i)], myTerritories, terPtr) == true)
+					{
+						
+						animalChoice[0] = 1;
+						animalChoice[1] = zoneIndex.get(i);
+						return animalChoice;
+					}
+				}
+				
+				//Check if there is a den, if so place it there
+				for (int i = 0; i < zoneIndex.size(); i++)
+				{
+					if(myTerritories[availableTigerLoc.get(i)].territory == 'd')
+					{
+						animalChoice[0] = 1;
+						animalChoice[1] = zoneIndex.get(i);
+						return animalChoice;
+					}
+				}
+				
+				//Reserve 2 tigers for lakes or trails that already have at least 2 tiles. 
+				if(player.numTigers > 4)
+				{
+					for (int i = 0; i < zoneIndex.size(); i++)
+					{
+						if(myTerritories[availableTigerLoc.get(i)].territory == 'l' && myTerritories[availableTigerLoc.get(i)].containedTiles.size() > 2)
+						{
+							animalChoice[0] = 1;
+							animalChoice[1] = zoneIndex.get(i);
+							return animalChoice;
+						}
+					}
+					for (int i = 0; i < zoneIndex.size(); i++)
+					{
+						if(myTerritories[availableTigerLoc.get(i)].territory == 't' && myTerritories[availableTigerLoc.get(i)].containedTiles.size() > 2)
+						{
+							animalChoice[0] = 1;
+							animalChoice[1] = zoneIndex.get(i);
+							return animalChoice;
+						}
+					}
+					
+					//Place first tiger on the first trail or lake it finds
+					if (player.numTigers > 6)
+					{
+						for (int i = 0; i < zoneIndex.size(); i++)
+						{
+							if(myTerritories[availableTigerLoc.get(i)].territory == 'l' || myTerritories[availableTigerLoc.get(i)].territory == 't')
+							{
+								animalChoice[0] = 1;
+								animalChoice[1] = zoneIndex.get(i);
+								return animalChoice;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		
+		//Return do nothing if no options are selected or no tigers/croc available
+		animalChoice[0] = 3;
+		return animalChoice;
+	}
+	
+	//Checks if 
+	public static boolean oppCrocodile(Tile currentTile, Territory[] myTerritories, TerritoryPtr terPtr)
+	{
+		int opponentTigers = 0;
+		ArrayList<Integer> uniqueID = new ArrayList<Integer>();
+		for (int i = 0; i < 12; i++)
+		{
+			if(uniqueID.contains(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id) == false 
+					&& (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 't' || myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 'l')
+					&& myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers > myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers)
+			{
+				opponentTigers++;
+				uniqueID.add(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id);
+			}
+		}
+		
+		if (opponentTigers > 2)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public static boolean completedTerritories(Territory currentJungle, Territory[] myTerritories, TerritoryPtr terPtr)
+	{
+		int completedTerritory = 0;
+		
+		ArrayList<Integer> scoredBorderLakes = new ArrayList<Integer>();
+		
+		//Check borderingLakes if they are complete
+		for(int i = 0; i < currentJungle.borderingLakes.size(); i++)
+		{
+			if (myTerritories[terPtr.pointers[currentJungle.borderingLakes.get(i)]].isCompleted == true && 
+					scoredBorderLakes.contains(myTerritories[terPtr.pointers[currentJungle.borderingLakes.get(i)]].id) == false)
+			{
+				completedTerritory++;
+				scoredBorderLakes.add(myTerritories[terPtr.pointers[currentJungle.borderingLakes.get(i)]].id);
+			}
+		}
+		
+		//Check borderingDens if they are complete
+		for(int i = 0; i < currentJungle.borderingDens.size(); i++)
+		{
+			if (myTerritories[terPtr.pointers[currentJungle.borderingDens.get(i)]].isCompleted == true && 
+					scoredBorderLakes.contains(myTerritories[terPtr.pointers[currentJungle.borderingDens.get(i)]].id) == false)
+			{
+				completedTerritory++;
+				scoredBorderLakes.add(myTerritories[terPtr.pointers[currentJungle.borderingDens.get(i)]].id);
+			}
+		}
+		
+		if (completedTerritory > 2)
+		{
+			return true;
+		}
+		
+		
+		return false;
+	}
+	
 }
