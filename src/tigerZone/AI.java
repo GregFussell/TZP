@@ -141,13 +141,6 @@ public class AI {
 			}
 		}
 		
-		//////TEST PRITING//////////
-		//for(int i = 0; i < PlacementArray.length; i++){
-			//System.out.print(PlacementArray[i] + " ");
-		//}
-//		Printer.printPlaceable(placeable);
-		////////////////////////////
-		
 		int bestMove = -1;
 		int bestMoveindex = 0;
 		
@@ -245,13 +238,6 @@ public class AI {
 			}
 		}
 		
-		//////TEST PRITING//////////
-		//for(int i = 0; i < PlacementArray.length; i++){
-			//System.out.print(PlacementArray[i] + " ");
-		//}
-//		Printer.printPlaceable(placeable);
-		////////////////////////////
-		
 		int bestMove = -1;
 		int bestMoveindex = 0;
 		
@@ -296,15 +282,9 @@ public class AI {
 		
 		setXPlacement(placeable.get(bestMoveindex).x);
 		setYPlacement(placeable.get(bestMoveindex).y);
-		//1 is Tiger, 2 is Crocodile, 3 is None
-//		setAnimal_Placement(1);
-		//integer is the zoneNum for tigerPlacement
-//		setTiger_ZoneNum(5);
 		d[0] = getRotationValue();
 		d[1] = getXPlacement();
 		d[2] = getYPlacement();
-//		d[3] = getAnimal_Placement();
-//		d[4] = getTiger_ZoneNum();
 		return d;
 		
 		

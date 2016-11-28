@@ -30,83 +30,83 @@ public class GameLoop {
 		String tileSet[] = null;		//	
 		
 		///temporary start and tileset/////////////////////////
-		start = "TLTJD";
-		String temp[] = {"TJTJ-",
-				"LJJJ-",
-				"TJJT-",
-				"TLTTP",
-				"LJLJ-",
-				"TJTJ-",
-				"TJTT-",
-				"TLLTB",
-				"JLJL-",
-				"LJJJ-",
-				"JLTT-",
-				"TJTJ-",
-				"TJJT-",
-				"JLLL-",
-				"TJJT-",
-				"TJTJ-",
-				"TJJT-",
-				"LLJJ-",
-				"TLTJD",
-				"LLJJ-",
+		start = "TLTJ-";
+		String temp[] = {"TLTTP",
 				"JJJJX",
-				"TJJT-",
-				"TJJT-",
-				"TLTT-",
-				"TLJTP",
-				"JJJJX",
-				"TJTJ-",
-				"JJTJX",
-				"JLJL-",
-				"LJTJD",
-				"LJLJ-",
-				"TLLTB",
-				"TLTTP",
-				"JLTTB",
-				"TLTJ-",
-				"TLLT-",
-				"LJTJ-",
-				"LJTJD",
-				"JJJJX",
-				"TJTT-",
-				"TLLL-",
-				"TJJT-",
-				"TLLLC",
-				"JLLJ-",
-				"TLTJD",
-				"LLJJ-",
-				"JJTJX",
-				"TJTT-",
-				"TLJT-",
-				"TLLT-",
-				"TLLT-",
-				"JLLL-",
-				"LLLL-",
-				"TLJTP",
-				"JLLL-",
-				"JLLJ-",
-				"LJJJ-",
-				"TJJT-",
-				"TJTJ-",
-				"TLLLC",
-				"LJLJ-",
-				"LLJJ-",
-				"JLTTB",
-				"JJJJ-",
-				"TJTJ-",
-				"TJTT-",
-				"TLTJ-",
-				"JLJL-",
-				"LJJJ-",
-				"JLLL-",
-				"LJJJ-",
-				"TJJT-",
-				"TJTJ-",
 				"LLJJ-",
 				"TTTT-",
-				"JJJJX"};
+				"TLLT-",
+				"TLLLC",
+				"TJTJ-",
+				"LLJJ-",
+				"TJJT-",
+				"JLLJ-",
+				"TJJT-",
+				"JJJJX",
+				"JJTJX",
+				"LLLL-",
+				"TLTJ-",
+				"LJJJ-",
+				"TJTJ-",
+				"TJTT-",
+				"TJJT-",
+				"TJTJ-",
+				"JLTTB",
+				"TLTJ-",
+				"TLTJD",
+				"TLTTP",
+				"JLLL-",
+				"JLTTB",
+				"JJTJX",
+				"TJTJ-",
+				"LJLJ-",
+				"TJTJ-",
+				"LJLJ-",
+				"TJTT-",
+				"TJJT-",
+				"LJTJD",
+				"TJTT-",
+				"LJTJ-",
+				"TLTT-",
+				"JLJL-",
+				"TJTJ-",
+				"JJJJ-",
+				"TLLT-",
+				"TLLL-",
+				"LJJJ-",
+				"TLJTP",
+				"LJLJ-",
+				"TLTJD",
+				"JJJJX",
+				"TJJT-",
+				"LJJJ-",
+				"JLTT-",
+				"TJJT-",
+				"JLJL-",
+				"TJTT-",
+				"JLLL-",
+				"TLLTB",
+				"TJTJ-",
+				"TLLT-",
+				"JJJJX",
+				"TJJT-",
+				"LJJJ-",
+				"TLJT-",
+				"LLJJ-",
+				"TJJT-",
+				"TLJTP",
+				"JLLL-",
+				"JLLJ-",
+				"LJTJD",
+				"JLLL-",
+				"LLJJ-",
+				"JLJL-",
+				"TJJT-",
+				"LJJJ-",
+				"TLLTB",
+				"TLLLC",
+				"LLJJ-",
+				"TJTJ-"};
 		tileSet = temp;
 		/////////////////////////////////////////////////////
 		
@@ -136,7 +136,7 @@ Player player2 = new Player(2);
 ArrayList<Integer> currentDens = new ArrayList<Integer>();
 
 int[] t;
-t = new int[3];
+t = new int[5];
 
 ///////////////////////////////////////////////////// GAMEPLAY LOOP \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 		
@@ -149,10 +149,11 @@ t = new int[3];
 //			if(game.deckSize() == 1){
 //				startTime = System.currentTimeMillis();
 //			}
-			
+			Tile myTile = game.nextTile();
 			//player2's Turn
 			if (turn%2 == 0)
 			{
+				t = Flynn.decision(game.getBoard(), myTile, game.getPlaceable(), game, player2.numTigers);
 //				System.out.println();
 //				System.out.println("Player2's Turn: ");
 
@@ -161,6 +162,7 @@ t = new int[3];
 			//player1's Turn
 			else
 			{
+				t = Flynn.decision(game.getBoard(), myTile, game.getPlaceable(), game, player1.numTigers);
 //				System.out.println();
 //				System.out.println("Player1's Turn: ");
 //				System.out.println();
@@ -173,10 +175,9 @@ t = new int[3];
 //			Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
 			
 //			System.out.println("The current tile is: ");
-			Tile myTile = game.nextTile();
+
 //			Printer.printTile(myTile, game.getTerritories(), game.getTerPtr());
 			
-			t = Flynn.decision(game.getBoard(), myTile, game.getPlaceable(), game, player2.numTigers);
 			//if there are no available moves, it passes
 			if(t[0] == -1){
 				game.nextTile();
