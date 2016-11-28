@@ -68,7 +68,7 @@ public class NetworkInterface {
 	            //while receiving from server
 	            while ((fromServer = in.readLine()) != null) {
 	            	x = 0; y = 0; rotation = 0; state = WAIT;
-	            	
+	            	System.out.println(fromServer);
 	                if (fromServer.equals("THANK YOU FOR PLAYING! GOODBYE"))
 	                    break;
 	                
@@ -239,10 +239,10 @@ public class NetworkInterface {
 	                	//add conversions
 	                	int AI[] = new int[5];
 	                	if(gid == first){
-	                		AI = gameA.makeMoveClu(tile);
+	                		AI = gameA.makeMoveFlynn(tile);
 	                	}
 	                	else{
-	                		AI = gameB.makeMoveClu(tile);
+	                		AI = gameB.makeMoveFlynn(tile);
 	                	}
 	                	if(AI[0] == -1){
 	                		fromUser = "GAME " + gid + " MOVE " + movenum + " TILE " + tile + " UNPLACEABLE PASS";
