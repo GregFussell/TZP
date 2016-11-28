@@ -78,7 +78,6 @@ public class GameLoop {
 		if(choice == 1){
 			if(player1.numTigers > 0){		
 				move[4] = animalPlacement[1];
-				game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
 				game.tigerPlacementAI(myTile, player1, move[4], availableTigerLoc, zoneIndex);
 			}
 		} 
@@ -110,10 +109,8 @@ public class GameLoop {
 		ArrayList<Character> tigerTerritory = new ArrayList<Character>();
 		int choice = move[3];
 		if(choice == 1){
-			if(player2.numTigers > 0){
-				game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
-				game.tigerPlacementAI(myTile, player2, move[4], availableTigerLoc, zoneIndex);
-			}
+			game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
+			game.tigerPlacementAI(myTile, player2, move[4], availableTigerLoc, zoneIndex);	
 		} 
 		else if(choice == 2){
 			if(game.crocodilePlaceable(myTile) == true && player2.numCrocodiles > 0){
