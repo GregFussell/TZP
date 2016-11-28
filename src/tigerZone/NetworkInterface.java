@@ -264,12 +264,20 @@ public class NetworkInterface {
 	            System.exit(1);
 	        }
 	    }
-	 public ArrayCoord adjustToMatrix(int x, int y){
-		 int newx;
-		 int newy;
-		 newx = y - 77 - startx;
-		 newy = x - 77 - starty;
-		 ArrayCoord location = new ArrayCoord(newx,newy);
+	 public ArrayCoord adjustToMatrix(int CartX, int CartY){
+		 int MatrixX;//(5,5)
+		 int MatrixY;
+		 MatrixX = CartY - (77);
+		 MatrixY = CartX - (77);//cartx=MatrixY+(77-starty)
+		 ArrayCoord location = new ArrayCoord(MatrixX,MatrixY);
+		 return location;
+	 }
+	 public ArrayCoord adjustToCartesian(int MatrixX, int MatrixY){
+		 int CartX;
+		 int CartY;
+		 CartX = MatrixY + 77;
+		 CartY = MatrixX + 77;
+		 ArrayCoord location = new ArrayCoord(CartX,CartY);
 		 return location;
 	 }
 	 
