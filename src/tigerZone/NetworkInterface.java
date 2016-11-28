@@ -25,7 +25,7 @@ public class NetworkInterface {
          
 	        if (args.length != 5) {
 	            System.err.println(
-	                "Usage: java EchoClient <host name> <port number> <server password> <username> <user password>");
+	                "Usage: java groupPClient <host name> <port number> <server password> <username> <user password>");
 	            System.exit(1);
 	        }
 	 
@@ -43,25 +43,26 @@ public class NetworkInterface {
 	            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 	            String fromServer;
 	            String fromUser;
-	            
+
 	            //initializing variables to be configured for game communication
-	            int x = 0, y = 0, rotation = 0, state = WAIT;
+	            int x = 0, y = 0, rotation = 0, state = WAIT, movenum = 0;
 	            int[] newMove = new int[5];
 	            String cid = "";
 	            String rid = "";
 	            String gid = "";
 	            String pid = "";
 	            String rounds = "";
-	            ArrayList<String> deck = new ArrayList<String>();
+	            String deck[];
 	            String move = "";
 	            String tile = "";
-	            String tileCount = "";
+	            int tileCount = 0;
 	            String time = "";
 	            String ourScore = "";
 	            String opponentScore = "";
-	            
+
 	            //while receiving from server
 	            while ((fromServer = in.readLine()) != null) {
+	            	x = 0; y = 0; rotation = 0; state = WAIT;
 	            	
 	                if (fromServer.equals("THANK YOU FOR PLAYING! GOODBYE"))
 	                    break;
@@ -75,11 +76,11 @@ public class NetworkInterface {
 	                	current += tokens.nextToken();
 	                	switch(current){
 	                	case "THIS IS SPARTA!":
-	                		fromUser = "JOIN " + serverPassword;
+	                		//fromUser = "JOIN " + serverPassword;
 	                		state = WAIT;
 	                		break;
 	                	case "HELLO!":
-	                		fromUser = "I AM " + ourPID + " " + ourPassword;
+	                		//fromUser = "I AM " + ourPID + " " + ourPassword;
 	                		state = WAIT;
 	                		break;
 	                	case "NEW CHALLENGE":
@@ -99,8 +100,7 @@ public class NetworkInterface {
 	                		state = WAIT;
 	                		break;
 	                	case "STARTING TILE IS":
-	                		deck.add(tokens.nextToken());
-	                		tile = deck.get(0);
+	                		tile = tokens.nextToken();
 	                		state = WAIT;
 	                		break;
 	                	case "STARTING TILE IS AT":
@@ -110,18 +110,19 @@ public class NetworkInterface {
 	                		state = START;
 	                		break;
 	                	case "THE REMAINING":
-	                		tileCount = tokens.nextToken();
+	                		tileCount = Integer.valueOf(tokens.nextToken());
 	                		state = WAIT;
 	                		break;
 	                	case "THE REMAINING TILES ARE":
-	                		while(tokens.hasMoreTokens()){
-	                			deck.add(tokens.nextToken());
+	                		deck = new String[tileCount];
+	                		for(int i = 0; i < tileCount && tokens.hasMoreTokens(); i++){
+	                			deck[i] = tokens.nextToken();
 	                		}
 	                		state = DECK;
 	                		break;
 	                	case "MATCH BEGINS IN":
 	                		time = tokens.nextToken();
-	                		deck.clear();
+	                		deck = null;
 	                		state = WAIT;
 	                		break;
 	                	case "MAKE YOUR MOVE IN GAME":
@@ -130,19 +131,21 @@ public class NetworkInterface {
 	                		break;
 	                	case "MAKE YOUR MOVE IN GAME WITHIN":
 	                		time = tokens.nextToken();
+	                		tokens.nextToken();
+	                		tokens.nextToken();
+	                		movenum = Integer.valueOf(tokens.nextToken());
 	                		state = MAKE_MOVE;
 	                		break;
-	                	case "MAKE YOUR MOVE IN GAME WITHIN SECOND: MOVE PLACE":
-	                		tile = tokens.nextToken();
-	                		state = MAKE_MOVE;
-	                		break;
-	                	case "MAKE YOUR MOVE IN GAME WITHIN SECONDS: MOVE PLACE":
+	                	case "MAKE YOUR MOVE IN GAME WITHIN PLACE":
 	                		tile = tokens.nextToken();
 	                		state = MAKE_MOVE;
 	                		break;
 	                	case "GAME":
 	                		gid = tokens.nextToken();
 	                		state = WAIT;
+	                		break;
+	                	case "GAME MOVE":
+	                		movenum = Integer.valueOf(tokens.nextToken());
 	                		break;
 	                	case "GAME MOVE PLAYER":
 	                		pid = tokens.nextToken();
@@ -191,9 +194,10 @@ public class NetworkInterface {
 	                		break;
 	                	case "GAME OVER PLAYER":
 	                		while(tokens.hasMoreTokens()){
-	                			if(tokens.nextToken() == ourPID)
+	                			String temp = tokens.nextToken();
+	                			if(temp == ourPID)
 	                				ourScore = tokens.nextToken();
-	                			else if(tokens.nextToken() == opponentPID)
+	                			else if(temp == opponentPID)
 	                				opponentScore = tokens.nextToken();
 	                		}
 	                		state = GAME_OVER;
@@ -205,8 +209,8 @@ public class NetworkInterface {
 	                	default:
 	                		state = WAIT;
 	                		break;
-	                	}
-	                	current += " ";
+	                	} 
+	                	current += " "; 
 	                }
 	                
 	                /////////send info to games
@@ -255,5 +259,6 @@ public class NetworkInterface {
 	            System.exit(1);
 	        }
 	    }
+	
 
 }
