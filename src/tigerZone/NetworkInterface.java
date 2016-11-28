@@ -297,10 +297,15 @@ public class NetworkInterface {
 	                	gameB = new GameLoop(deck, startRotation);
 	                	break;
 	                case GAME_OVER:
+	                	if(gid == first){
+	                		gameA.scoreEndGame();
+	                		gameA = null;
+	                	}else{
+	                		gameB.scoreEndGame();
+	                		gameB = null;
+	                	}
 	                	first = "";
 	                	second = "";
-	                	gameA = null;
-	                	gameB = null;
 	                	ourScore = "";
 	                	opponentScore = "";
 	                	break;
