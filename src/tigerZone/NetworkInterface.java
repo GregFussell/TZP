@@ -50,15 +50,20 @@ public class NetworkInterface {
 	            String cid = "";
 	            String rid = "";
 	            String gid = "";
+	            String first = "";
+	            String second = "";
 	            String pid = "";
 	            String rounds = "";
-	            String deck[];
+	            String deck[] = null;
 	            String move = "";
 	            String tile = "";
 	            int tileCount = 0;
 	            String time = "";
 	            String ourScore = "";
 	            String opponentScore = "";
+	            
+	            GameLoop gameA = null;
+	            GameLoop gameB = null;
 
 	            //while receiving from server
 	            while ((fromServer = in.readLine()) != null) {
@@ -76,11 +81,11 @@ public class NetworkInterface {
 	                	current += tokens.nextToken();
 	                	switch(current){
 	                	case "THIS IS SPARTA!":
-	                		//fromUser = "JOIN " + serverPassword;
+	                		fromUser = "JOIN " + serverPassword;
 	                		state = WAIT;
 	                		break;
 	                	case "HELLO!":
-	                		//fromUser = "I AM " + ourPID + " " + ourPassword;
+	                		fromUser = "I AM " + ourPID + " " + ourPassword;
 	                		state = WAIT;
 	                		break;
 	                	case "NEW CHALLENGE":
@@ -114,7 +119,7 @@ public class NetworkInterface {
 	                		state = WAIT;
 	                		break;
 	                	case "THE REMAINING TILES ARE":
-	                		deck = new String[tileCount];
+	                		deck = new String[tileCount]; tokens.nextToken();
 	                		for(int i = 0; i < tileCount && tokens.hasMoreTokens(); i++){
 	                			deck[i] = tokens.nextToken();
 	                		}
@@ -127,6 +132,12 @@ public class NetworkInterface {
 	                		break;
 	                	case "MAKE YOUR MOVE IN GAME":
 	                		gid = tokens.nextToken();
+	                		if(first == ""){
+	                			first = gid;
+	                		}
+	                		else if(second == ""){
+	                			second = gid;
+	                		}
 	                		state = MAKE_MOVE;
 	                		break;
 	                	case "MAKE YOUR MOVE IN GAME WITHIN":
@@ -177,13 +188,13 @@ public class NetworkInterface {
 	                		tokens.nextToken();
 	                		break;
 	                	case "GAME MOVE PLAYER TILE PASSED":		///TO BE COMPLETED
-	                		
+	                		rotation = -1;
 	                		break;
 	                	case "GAME MOVE PLAYER TILE RETRIEVED":
-	                		
+	                		rotation = -1;
 	                		break;
 	                	case "GAME MOVE PLAYER TILE ADDED":			///////////////////
-	                		
+	                		rotation = -1;
 	                		break;
 	                	case "GAME MOVE PLAYER FORFEITED":
 	                		state = GAME_OVER;
@@ -205,7 +216,10 @@ public class NetworkInterface {
 	                	case "END OF ROUND":
 	                		//end current games
 	                		state = WAIT;
-	                		break;	                	
+	                		break;
+	                	case "END OF CHALLENGES":
+	                		
+	                		break;
 	                	default:
 	                		state = WAIT;
 	                		break;
@@ -220,19 +234,56 @@ public class NetworkInterface {
 	                case WAIT:
 	                	break;
 	                case MAKE_MOVE:
+	                	//add conversions
+	                	int AI[] = new int[5];
+	                	if(gid == first){
+	                		AI = gameA.makeMove(tile);
+	                	}
+	                	else{
+	                		AI = gameB.makeMove(tile);
+	                	}
+	                	if(AI[0] == -1){
+	                		fromUser = "GAME " + gid + " MOVE " + movenum + " TILE " + tile + " UNPLACEABLE PASS";
+	                	}
+	                	else{
+	                		x = AI[2] - (GameLoop.BOARD_WIDTH / 2);
+	                		y = (GameLoop.BOARD_LENGTH / 2) - AI[1];
+	                		if(AI[0] != 0) { rotation = 360 - (rotation * 90); }
+	                		else { rotation = AI[0]; }
+	                		fromUser = "GAME " + gid + " MOVE " + movenum + " PLACE " + tile + " AT " + x + " " + y + " " + rotation;
+	                		if(AI[3] == 3){ // none
+	                			fromUser += " NONE";
+	                		}
+	                		else if(AI[4] == 2){ //croc
+	                			fromUser += " CROCODILE";
+	                		}
+	                		else if(AI[4] == 1){ // tiger
+	                			fromUser += " TIGER " + AI[4];
+	                		}
+	                	}
+	                	out.println(fromUser);
 	                	break;
 	                case OPPONENT_MOVE:
-	                	int tempX = x;
-	                	x = (GameLoop.BOARD_WIDTH / 2) - y;
-	                	y = (GameLoop.BOARD_LENGTH / 2) + tempX;
-	                	if(rotation != 0) { rotation = (360 - rotation) / 90; }
-	                	newMove[0] = rotation;
-	                	newMove[1] = x;
-	                	newMove[2] = y;
+	                	if(rotation != -1){
+		                	int tempX = x;
+		                	x = (GameLoop.BOARD_WIDTH / 2) - y;
+		                	y = (GameLoop.BOARD_LENGTH / 2) + tempX;
+		                	if(rotation != 0) { rotation = (360 - rotation) / 90; }
+		                	newMove[0] = rotation;
+		                	newMove[1] = x;
+		                	newMove[2] = y;
+		                	if(gid == first){
+		                		gameA.opponentMove(tile, newMove);
+		                	}else{
+		                		gameB.opponentMove(tile, newMove);
+		                	}
+	                	}
 	                	break;
 	                case START:
 	                	break;
 	                case DECK:
+	                	gameA = new GameLoop(deck);
+	                	gameB = new GameLoop(deck);
 	                	break;
 	                case GAME_OVER:
 	                	break;
@@ -241,13 +292,6 @@ public class NetworkInterface {
 	                }
 	                
 	                
-	                /////////receive info from games
-	                fromUser = stdIn.readLine();
-	                
-	                ////////send info to server
-	                if (fromUser != null) {
-	                    out.println(fromUser);
-	                }
 	            }
 	            
 	        } catch (UnknownHostException e) {

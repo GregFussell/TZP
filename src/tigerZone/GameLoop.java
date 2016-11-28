@@ -13,6 +13,7 @@ public class GameLoop {
 	private Player player2;
 	private ArrayList<Integer> currentDens;
 	AI Flynn;
+	AI Clu;
 	
 	public GameLoop(String[] tileSet){
 		//initializes tile creation engine
@@ -43,18 +44,22 @@ public class GameLoop {
 		player2 = new Player(2);
 		currentDens = new ArrayList<Integer>();
 		
-		Flynn = new AI();
+		Flynn = new AI(game.getDeck());
+		Clu = new AI(game.getDeck());
 	}
 	
 	public int[] makeMove(String tile){
-		int t[] = new int[5];
+		int move[] = new int[5];
 		Tile myTile = game.nextTile();
-		t = Flynn.decision(game.getBoard(), myTile, game.getPlaceable());
+		move = Clu.randomGreed(game.getBoard(), myTile, game.getPlaceable(), game, player1.numTigers);
 		int degree = 0, x = 0, y = 0;
-		degree = t[0];
+		if(move[0] == -1){
+			return move;
+		}
+		degree = move[0];
 		myTile.Rotate(degree);
-		x = t[1];
-		y = t[2];
+		x = move[1];
+		y = move[2];
 		boolean valid = false;
 		valid = game.validPlacement(myTile, x, y);
 		game.addContainedTile(myTile, x, y);
@@ -62,11 +67,19 @@ public class GameLoop {
 		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
 		ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
 		ArrayList<Character> tigerTerritory = new ArrayList<Character>();
-		int choice = t[3];
+		
+		game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
+		int[] animalPlacement = new int[2];
+		animalPlacement = Clu.animalPlacementAI(game, myTile, game.getTerritories(), game.getTerPtr(), availableTigerLoc, zoneIndex, player1);
+		int choice = animalPlacement[0];
+		move[3] = animalPlacement[0];
+		move[4] = 0;
+
 		if(choice == 1){
-			if(player1.numTigers > 0){
+			if(player1.numTigers > 0){		
+				move[4] = animalPlacement[1];
 				game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
-				game.tigerPlacementAI(myTile, player1, t[4], availableTigerLoc, zoneIndex);
+				game.tigerPlacementAI(myTile, player1, move[4], availableTigerLoc, zoneIndex);
 			}
 		} 
 		else if(choice == 2){
@@ -78,7 +91,7 @@ public class GameLoop {
 		game.addToBoard(x, y, myTile);
 		game.updatePlaceable(x, y);
 		
-		return t;
+		return move;
 	}
 	
 	public void opponentMove(String tile, int[] move){
@@ -97,14 +110,14 @@ public class GameLoop {
 		ArrayList<Character> tigerTerritory = new ArrayList<Character>();
 		int choice = move[3];
 		if(choice == 1){
-			if(player1.numTigers > 0){
+			if(player2.numTigers > 0){
 				game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
-				game.tigerPlacementAI(myTile, player1, move[4], availableTigerLoc, zoneIndex);
+				game.tigerPlacementAI(myTile, player2, move[4], availableTigerLoc, zoneIndex);
 			}
 		} 
 		else if(choice == 2){
-			if(game.crocodilePlaceable(myTile) == true && player1.numCrocodiles > 0){
-				game.crocodilePlacement(myTile, player1, x, y);
+			if(game.crocodilePlaceable(myTile) == true && player2.numCrocodiles > 0){
+				game.crocodilePlacement(myTile, player2, x, y);
 			}
 		}
 		game.midGameScoring(myTile, currentDens, player1, player2, x, y);
