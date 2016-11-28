@@ -1013,10 +1013,14 @@ public class Game {
 	
 	public void crocodilePlacement(Tile currentTile, Player player, int x, int y)
 	{
+		
+		ArrayList<Integer> uniqueID = new ArrayList<Integer>();
 		for (int i = 0; i < 12; i++)
 		{
-			if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 't' || myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 'l')
+			if ((myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 't' || myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 'l') 
+					&& uniqueID.contains(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id) == false)
 			{
+				uniqueID.add(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id);
 				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedCrocodile.add(new ArrayCoord(x,y));
 			}
 		}
