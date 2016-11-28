@@ -121,7 +121,7 @@ public class NetworkInterface {
 	                		state = WAIT;
 	                		break;
 	                	case "THE REMAINING TILES ARE":
-	                		deck = new String[tileCount]; tokens.nextToken();
+	                		deck = new String[tileCount+1]; tokens.nextToken();
 	                		deck[0] = tile;
 	                		for(int i = 1; i < tileCount + 1; i++){
 	                			deck[i] = tokens.nextToken();
