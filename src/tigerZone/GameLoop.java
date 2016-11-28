@@ -420,7 +420,7 @@ c = new int[5];
 				}
 				
 				//Reserve 2 tigers for lakes or trails that already have at least 2 tiles. 
-				if(player.numTigers > 4)
+				if(player.numTigers > 3)
 				{
 					for (int i = 0; i < zoneIndex.size(); i++)
 					{
