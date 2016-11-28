@@ -40,12 +40,12 @@ public class NetworkInterface {
 	            PrintWriter out = new PrintWriter(tzSocket.getOutputStream(), true);
 	            BufferedReader in = new BufferedReader(new InputStreamReader(tzSocket.getInputStream()));
 	        ) {
-	            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+	            //BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 	            String fromServer;
 	            String fromUser;
 
 	            //initializing variables to be configured for game communication
-	            int x = 0, y = 0, rotation = 0, state = WAIT, movenum = 0;
+	            int x = 0, y = 0, rotation = 0, startRotation = 0, state = WAIT, movenum = 0;
 	            int[] newMove = new int[5];
 	            String cid = "";
 	            String rid = "";
@@ -113,7 +113,7 @@ public class NetworkInterface {
 	                	case "STARTING TILE IS AT":
 	                		x = Integer.valueOf(tokens.nextToken());
 	                		y = Integer.valueOf(tokens.nextToken());
-	                		rotation = Integer.valueOf(tokens.nextToken());
+	                		startRotation = Integer.valueOf(tokens.nextToken());
 	                		state = START;
 	                		break;
 	                	case "THE REMAINING":
@@ -190,13 +190,13 @@ public class NetworkInterface {
 	                		tile = tokens.nextToken();
 	                		tokens.nextToken();
 	                		break;
-	                	case "GAME MOVE PLAYER TILE PASSED":		///TO BE COMPLETED
+	                	case "GAME MOVE PLAYER TILE PASSED":		
 	                		rotation = -1;
 	                		break;
 	                	case "GAME MOVE PLAYER TILE RETRIEVED":
 	                		rotation = -1;
 	                		break;
-	                	case "GAME MOVE PLAYER TILE ADDED":			///////////////////
+	                	case "GAME MOVE PLAYER TILE ADDED":			
 	                		rotation = -1;
 	                		break;
 	                	case "GAME MOVE PLAYER FORFEITED":
@@ -217,8 +217,6 @@ public class NetworkInterface {
 	                		state = GAME_OVER;
 	                		break;
 	                	case "END OF ROUND":
-	                		first = "";
-	                		second = "";
 	                		state = WAIT;
 	                		break;
 	                	case "END OF CHALLENGES":
@@ -241,10 +239,10 @@ public class NetworkInterface {
 	                	//add conversions
 	                	int AI[] = new int[5];
 	                	if(gid == first){
-	                		AI = gameA.makeMove(tile);
+	                		AI = gameA.makeMoveClu(tile);
 	                	}
 	                	else{
-	                		AI = gameB.makeMove(tile);
+	                		AI = gameB.makeMoveClu(tile);
 	                	}
 	                	if(AI[0] == -1){
 	                		fromUser = "GAME " + gid + " MOVE " + movenum + " TILE " + tile + " UNPLACEABLE PASS";
@@ -294,10 +292,17 @@ public class NetworkInterface {
 	                case START:
 	                	break;
 	                case DECK:
-	                	gameA = new GameLoop(deck);
-	                	gameB = new GameLoop(deck);
+	                	if(startRotation != 0) { startRotation = (360 - startRotation) / 90; }
+	                	gameA = new GameLoop(deck, startRotation);
+	                	gameB = new GameLoop(deck, startRotation);
 	                	break;
 	                case GAME_OVER:
+	                	first = "";
+	                	second = "";
+	                	gameA = null;
+	                	gameB = null;
+	                	ourScore = "";
+	                	opponentScore = "";
 	                	break;
 	                case NEW_ROUND:
 	                	break;

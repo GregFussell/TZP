@@ -15,7 +15,7 @@ public class GameLoop {
 	AI Flynn;
 	AI Clu;
 	
-	public GameLoop(String[] tileSet){
+	public GameLoop(String[] tileSet, int startRotation){
 		//initializes tile creation engine
 		tileEngine = new TileCreator();
 		// Initializes the game
@@ -25,7 +25,9 @@ public class GameLoop {
 		game.addPlaceable(BOARD_WIDTH / 2, BOARD_LENGTH / 2);
 		
 		//places starting tile
-		game.addToBoard(BOARD_WIDTH / 2, BOARD_LENGTH / 2, tileEngine.create(tileSet[0]));
+		Tile temp = tileEngine.create(tileSet[0]);
+		temp.Rotate(startRotation);
+		game.addToBoard(BOARD_WIDTH / 2, BOARD_LENGTH / 2, temp);
 		//fills up the game deck
 		for(int i = 1; i < tileSet.length; i++){
 			game.addToDeck(tileEngine.create(tileSet[i]));
@@ -48,7 +50,7 @@ public class GameLoop {
 		Clu = new AI(game.getDeck());
 	}
 	
-	public int[] makeMove(String tile){
+	public int[] makeMoveClu(String tile){
 		int move[] = new int[5];
 		Tile myTile = game.nextTile();
 		move = Clu.randomGreed(game.getBoard(), myTile, game.getPlaceable(), game, player1.numTigers);
@@ -78,6 +80,47 @@ public class GameLoop {
 		if(choice == 1){
 			if(player1.numTigers > 0){		
 				move[4] = animalPlacement[1];
+				game.tigerPlacementAI(myTile, player1, move[4], availableTigerLoc, zoneIndex);
+			}
+		} 
+		else if(choice == 2){
+			if(game.crocodilePlaceable(myTile) == true && player1.numCrocodiles > 0){
+				game.crocodilePlacement(myTile, player1, x, y);
+			}
+		}
+		game.midGameScoring(myTile, currentDens, player1, player2, x, y);
+		game.addToBoard(x, y, myTile);
+		game.updatePlaceable(x, y);
+		
+		return move;
+	}
+	
+	public int[] makeMoveFlynn(String tile){
+		int move[] = new int[5];
+		Tile myTile = game.nextTile();
+		//change decision parameters if using Flynn
+		move = Flynn.decision(game.getBoard(), myTile, game.getPlaceable(), game, player1.numTigers);
+		int degree = 0, x = 0, y = 0;
+		if(move[0] == -1){
+			return move;
+		}
+		degree = move[0];
+		myTile.Rotate(degree);
+		x = move[1];
+		y = move[2];
+		boolean valid = false;
+		valid = game.validPlacement(myTile, x, y);
+		game.addContainedTile(myTile, x, y);
+		game.mergeTile(myTile, currentDens, x, y);
+		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
+		ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
+		ArrayList<Character> tigerTerritory = new ArrayList<Character>();
+		
+		int choice = move[3];
+
+		if(choice == 1){
+			if(player1.numTigers > 0){		
+				game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
 				game.tigerPlacementAI(myTile, player1, move[4], availableTigerLoc, zoneIndex);
 			}
 		} 
