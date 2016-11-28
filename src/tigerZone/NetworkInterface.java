@@ -15,7 +15,8 @@ public class NetworkInterface {
 	static final int DECK = 4;
 	static final int GAME_OVER = 5;
 	static final int NEW_ROUND = 6;
-	
+	static int startx;
+	static int starty;
 
 	//tracks the pid of our opponent for the current challenge
 	static String opponentPID;
@@ -28,13 +29,13 @@ public class NetworkInterface {
 	                "Usage: java EchoClient <host name> <port number> <server password> <username> <user password>");
 	            System.exit(1);
 	        }
-	 
+	        AI Flynn;	//AI1
 	        String hostName = args[0];
 	        int portNumber = Integer.parseInt(args[1]);
 	    	String serverPassword = args[2];
 	    	String ourPID = args[3];
 	    	String ourPassword = args[4];
-	 
+
 	        try (
 	            Socket tzSocket = new Socket(hostName, portNumber);
 	            PrintWriter out = new PrintWriter(tzSocket.getOutputStream(), true);
@@ -42,7 +43,7 @@ public class NetworkInterface {
 	        ) {
 	            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 	            String fromServer;
-	            String fromUser;
+	            String fromUser ="didn't work";
 	            
 	            //initializing variables to be configured for game communication
 	            int x = 0, y = 0, rotation = 0, state = WAIT;
@@ -61,10 +62,10 @@ public class NetworkInterface {
 	            
 	            //while receiving from server
 	            while ((fromServer = in.readLine()) != null) {
-	            	
+	            	fromUser = "";
 	                if (fromServer.equals("THANK YOU FOR PLAYING! GOODBYE"))
 	                    break;
-	                
+	                System.out.println("from server: " + fromServer);
 	                //////////interpret server message//////////
 	                //tokenize the current message
 	                StringTokenizer tokens = new StringTokenizer(fromServer, " ");
@@ -74,6 +75,7 @@ public class NetworkInterface {
 	                	current += tokens.nextToken();
 	                	switch(current){
 	                	case "THIS IS SPARTA!":
+	                		System.out.println("");
 	                		fromUser = "JOIN " + serverPassword;
 	                		state = WAIT;
 	                		break;
@@ -83,12 +85,17 @@ public class NetworkInterface {
 	                		break;
 	                	case "NEW CHALLENGE":
 	                		cid = tokens.nextToken();
-	                		state = WAIT;
-	                		break;
-	                	case "NEW CHALLENGE YOU WILL PLAY":
+	                		tokens.nextToken();
+	                		tokens.nextToken();
+	                		tokens.nextToken();
 	                		rounds = tokens.nextToken();
+	                		tokens.nextToken();
 	                		state = WAIT;
 	                		break;
+//	                	case "NEW CHALLENGE YOU WILL PLAY":
+//	                		rounds = tokens.nextToken();
+//	                		state = WAIT;
+//	                		break;
 	                	case "BEGIN ROUND":
 	                		rid = tokens.nextToken();
 	                		state = NEW_ROUND;
@@ -98,26 +105,41 @@ public class NetworkInterface {
 	                		state = WAIT;
 	                		break;
 	                	case "STARTING TILE IS":
-	                		deck.add(tokens.nextToken());
-	                		tile = deck.get(0);
-	                		state = WAIT;
-	                		break;
-	                	case "STARTING TILE IS AT":
-	                		x = Integer.valueOf(tokens.nextToken());
-	                		y = Integer.valueOf(tokens.nextToken());
-	                		rotation = Integer.valueOf(tokens.nextToken());
+	                		
+	                		//deck.add(tokens.nextToken());
+	                		//tile = deck.get(0);
+	                		tokens.nextToken();//consumes tile
+	                		tokens.nextToken();//consumes at
+	                		startx = Integer.parseInt(tokens.nextToken());
+	                		starty = Integer.parseInt(tokens.nextToken());
+	                		rotation = Integer.parseInt(tokens.nextToken());
 	                		state = START;
 	                		break;
+//	                	case "STARTING TILE IS AT":
+//	                		startx = Integer.parseInt(tokens.nextToken());
+//	                		starty = Integer.parseInt(tokens.nextToken());
+//	                		rotation = Integer.parseInt(tokens.nextToken());
+//	                		state = START;
+//	                		break;
 	                	case "THE REMAINING":
 	                		tileCount = tokens.nextToken();
-	                		state = WAIT;
-	                		break;
-	                	case "THE REMAINING TILES ARE":
+	                		tokens.nextToken();
+	                		tokens.nextToken();
+	                		tokens.nextToken();
 	                		while(tokens.hasMoreTokens()){
-	                			deck.add(tokens.nextToken());
+	                			String token = tokens.nextToken();
+	                			if(token.equals("]"))
+	                				continue;
+	                			deck.add(token);
+	                			
 	                		}
+	                		System.out.println("should be printing deck");
+	                		System.out.println(deck.toString());
 	                		state = DECK;
 	                		break;
+//	                	case "THE REMAINING " + tileCount + " TILES ARE":
+//
+//	                		break;
 	                	case "MATCH BEGINS IN":
 	                		time = tokens.nextToken();
 	                		deck.clear();
@@ -125,26 +147,30 @@ public class NetworkInterface {
 	                		break;
 	                	case "MAKE YOUR MOVE IN GAME":
 	                		gid = tokens.nextToken();
-	                		state = MAKE_MOVE;
-	                		break;
-	                	case "MAKE YOUR MOVE IN GAME WITHIN":
+	                		tokens.nextToken();
 	                		time = tokens.nextToken();
-	                		state = MAKE_MOVE;
-	                		break;
-	                	case "MAKE YOUR MOVE IN GAME WITHIN SECOND: MOVE PLACE":
+	                		tokens.nextToken();
+	                		tokens.nextToken();
+	                		tokens.nextToken();
+	                		tokens.nextToken();
 	                		tile = tokens.nextToken();
 	                		state = MAKE_MOVE;
 	                		break;
-	                	case "MAKE YOUR MOVE IN GAME WITHIN SECONDS: MOVE PLACE":
-	                		tile = tokens.nextToken();
-	                		state = MAKE_MOVE;
-	                		break;
+//	                	case "MAKE YOUR MOVE IN GAME WITHIN":
+//	                		
+//	                		state = MAKE_MOVE;
+//	                		break;
+//	                	case "MAKE YOUR MOVE IN GAME WITHIN":
+//	                		
+//	                		state = MAKE_MOVE;
+//	                		break;
+//	                	case "MAKE YOUR MOVE IN GAME WITHIN":
+//	                		
+//	                		state = MAKE_MOVE;
+//	                		break;
 	                	case "GAME":
 	                		gid = tokens.nextToken();
-	                		state = WAIT;
-	                		break;
-	                	case "GAME MOVE PLAYER":
-	                		pid = tokens.nextToken();
+	                		tokens.nextToken();
 	                		move += tokens.nextToken();
 	                		if(move == "FORFEITED:") { 
 	                			state = GAME_OVER;
@@ -154,14 +180,19 @@ public class NetworkInterface {
 	                			break;
 	                		}
 	                		tokens.nextToken();
+	                		pid = tokens.nextToken();
+	                		tokens.nextToken();//consumes placed
 	                		tile = tokens.nextToken();
-	                		tokens.nextElement();
-	                		x = Integer.valueOf(tokens.nextToken());
-	                		y = Integer.valueOf(tokens.nextToken());
+	                		tokens.nextToken();//consumes at
+	                		x = Integer.parseInt(tokens.nextToken());
+	                		y = Integer.parseInt(tokens.nextToken());
 	                		rotation = Integer.valueOf(tokens.nextToken());
 	                		if(pid != ourPID) { state = OPPONENT_MOVE; }
 	                		else { state = WAIT; }
 	                		break;
+//	                	case "GAME MOVE PLAYER":
+//
+//	                		break;
 	                	case "GAME OVER PLAYER":
 	                		while(tokens.hasMoreTokens()){
 	                			if(tokens.nextToken() == ourPID)
@@ -189,6 +220,8 @@ public class NetworkInterface {
 	                case WAIT:
 	                	break;
 	                case MAKE_MOVE:
+	                	
+	                	fromUser = "GAME " + gid + " MOVE " + 1 + " PLACE " + tile + " AT " + "0 " + "-1 " + "0" + " NONE" ;
 	                	break;
 	                case OPPONENT_MOVE:
 	                	int tempX = x;
@@ -208,15 +241,21 @@ public class NetworkInterface {
 	                
 	                
 	                /////////receive info from games
-	                fromUser = stdIn.readLine();
 	                
+//	                if(fromUser==null)
+//	                {
+//	                	 fromUser = stdIn.readLine();
+//	                }
 	                ////////send info to server
-	                if (fromUser != null) {
+	                if(fromUser.length() >0){
+	                	//System.out.println("made it to send info");
+	                	System.out.println("from user: " + fromUser);
 	                    out.println(fromUser);
 	                }
 	            }
 	            
-	        } catch (UnknownHostException e) {
+	        }
+	        catch (UnknownHostException e) {
 	            System.err.println("Don't know about host " + hostName);
 	            System.exit(1);
 	        } catch (IOException e) {
@@ -225,5 +264,14 @@ public class NetworkInterface {
 	            System.exit(1);
 	        }
 	    }
+	 public ArrayCoord adjustToMatrix(int x, int y){
+		 int newx;
+		 int newy;
+		 newx = y - 77 - startx;
+		 newy = x - 77 - starty;
+		 ArrayCoord location = new ArrayCoord(newx,newy);
+		 return location;
+	 }
+	 
 
 }
