@@ -424,7 +424,7 @@ public class AI {
 			}
 		}
 		
-		if (opponentTigers > 2)
+		if (opponentTigers > 0)
 		{
 			return true;
 		}
