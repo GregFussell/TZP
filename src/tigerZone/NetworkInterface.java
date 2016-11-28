@@ -68,7 +68,7 @@ public class NetworkInterface {
 	            //while receiving from server
 	            while ((fromServer = in.readLine()) != null) {
 	            	x = 0; y = 0; rotation = 0; state = WAIT;
-	            	System.out.println(fromServer);
+	            	System.out.println("Server: " + fromServer);
 	                if (fromServer.equals("THANK YOU FOR PLAYING! GOODBYE"))
 	                    break;
 	                
@@ -199,9 +199,9 @@ public class NetworkInterface {
 	                	case "GAME MOVE PLAYER TILE ADDED":			
 	                		rotation = -1;
 	                		break;
-	                	case "GAME MOVE PLAYER FORFEITED":
+	                	case "GAME MOVE PLAYER FORFEITED:":
 	                		state = GAME_OVER;
-	                		move += "FORFEITED";
+	                		move += "FORFEITED:";
                 			while(tokens.hasMoreTokens()){
                 				move += " " + tokens.nextToken();
                 			}
@@ -230,8 +230,6 @@ public class NetworkInterface {
 	                }
 	                
 	                /////////send info to games
-	                //TODO configure I/O stream with gameloop and finalize conversions 
-	                // 		from server protocol into game format
 	                switch(state){
 	                case WAIT:
 	                	break;
@@ -263,6 +261,7 @@ public class NetworkInterface {
 	                			fromUser += " TIGER " + AI[4];
 	                		}
 	                	}
+	                	System.out.println("Client: "  + fromUser);
 	                	out.println(fromUser);
 	                	break;
 	                case OPPONENT_MOVE:
@@ -308,6 +307,7 @@ public class NetworkInterface {
 	                	second = "";
 	                	ourScore = "";
 	                	opponentScore = "";
+	                	startRotation = 0;
 	                	break;
 	                case NEW_ROUND:
 	                	break;
