@@ -1349,7 +1349,10 @@ public class Game {
 			
 			this.myTerritories[i].player1Tigers = toClone.myTerritories[i].player1Tigers;
 			this.myTerritories[i].player2Tigers = toClone.myTerritories[i].player2Tigers;
-			myTerritories[i].boar = toClone.myTerritories[i].boar;
+			this.myTerritories[i].boar = toClone.myTerritories[i].boar;
+			this.myTerritories[i].deer = toClone.myTerritories[i].deer;
+			this.myTerritories[i].buffalo = toClone.myTerritories[i].buffalo;
+			this.myTerritories[i].crocodile = toClone.myTerritories[i].crocodile;
 			this.myTerritories[i].id = toClone.myTerritories[i].id;
 			this.myTerritories[i].territory = toClone.myTerritories[i].territory;
 			this.myTerritories[i].isScored = toClone.myTerritories[i].isScored;
@@ -1366,25 +1369,25 @@ public class Game {
 			//add another for loop similar to ^^^^ for other arrayLists<ArrayCoord> (containedBuffalo,deer,boar,crocodile) 
 			for (int j = 0; j < toClone.myTerritories[i].containedBoar.size(); j++){
 				
-				this.myTerritories[i].containedBoar.add(toClone.myTerritories[i].containedBoar.get(j));
+				this.myTerritories[i].containedBoar.add(new ArrayCoord(toClone.myTerritories[i].containedBoar.get(j).x,toClone.myTerritories[i].containedBoar.get(j).y));
 				
 			}
 			
 			for (int j = 0; j < toClone.myTerritories[i].containedDeer.size(); j++){
 				
-				this.myTerritories[i].containedDeer.add(toClone.myTerritories[i].containedDeer.get(j));
+				this.myTerritories[i].containedDeer.add(new ArrayCoord(toClone.myTerritories[i].containedDeer.get(j).x,toClone.myTerritories[i].containedDeer.get(j).y));
 				
 			}
 			
 			for (int j = 0; j < toClone.myTerritories[i].containedBuffalo.size(); j++){
 				
-				this.myTerritories[i].containedBuffalo.add(toClone.myTerritories[i].containedBuffalo.get(j));
+				this.myTerritories[i].containedBuffalo.add(new ArrayCoord(toClone.myTerritories[i].containedBuffalo.get(j).x,toClone.myTerritories[i].containedBuffalo.get(j).y));
 				
 			}
 			
 			for (int j = 0; j < toClone.myTerritories[i].containedCrocodile.size(); j++){
 				
-				this.myTerritories[i].containedCrocodile.add(toClone.myTerritories[i].containedCrocodile.get(j));
+				this.myTerritories[i].containedCrocodile.add(new ArrayCoord(toClone.myTerritories[i].containedCrocodile.get(j).x,toClone.myTerritories[i].containedCrocodile.get(j).y));
 				
 			}
 			
