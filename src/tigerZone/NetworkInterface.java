@@ -82,10 +82,12 @@ public class NetworkInterface {
 	                	switch(current){
 	                	case "THIS IS SPARTA!":
 	                		fromUser = "JOIN " + serverPassword;
+	                		out.println(fromUser);
 	                		state = WAIT;
 	                		break;
 	                	case "HELLO!":
 	                		fromUser = "I AM " + ourPID + " " + ourPassword;
+	                		out.println(fromUser);
 	                		state = WAIT;
 	                		break;
 	                	case "NEW CHALLENGE":
