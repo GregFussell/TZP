@@ -166,7 +166,7 @@ public class NetworkInterface {
 	                		break;
 	                	case "GAME MOVE PLAYER PLACED":
 	                		tile = tokens.nextToken();
-	                		tokens.nextElement();
+	                		tokens.nextToken();
 	                		x = Integer.valueOf(tokens.nextToken());
 	                		y = Integer.valueOf(tokens.nextToken());
 	                		rotation = Integer.valueOf(tokens.nextToken());
