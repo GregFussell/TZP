@@ -166,6 +166,11 @@ public class GameLoop {
 		
 	}
 	
+	public void scoreEndGame(){
+		game.endGameScoring(player1, player2);
+		Printer.printScores(player1, player2);
+	}
+	
 	public void removeUnplaceable(){
 		game.nextTile();
 	}
