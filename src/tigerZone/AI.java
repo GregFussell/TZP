@@ -294,11 +294,8 @@ public class AI {
 			//Check if any tiger will instantly score, if so place it there
 			for (int i = 0; i < zoneIndex.size(); i++)
 			{
-				
-				//myTerritories[availableTigerLoc.get(zoneIndex.indexOf(i))].territory;
-				
-				if((myTerritories[availableTigerLoc.get(i)].territory == 't' || myTerritories[availableTigerLoc.get(i)].territory == 'l')
-						&& myTerritories[availableTigerLoc.get(i)].openFaces == 0)
+				if(((myTerritories[availableTigerLoc.get(i)].territory == 't' || myTerritories[availableTigerLoc.get(i)].territory == 'l')
+						&& myTerritories[availableTigerLoc.get(i)].openFaces == 0)  || (myTerritories[availableTigerLoc.get(i)].territory == 'd' && myTerritories[availableTigerLoc.get(i)].containedTiles.size() == 0))
 				{
 					animalChoice[0] = 1;
 					animalChoice[1] = zoneIndex.get(i);
@@ -367,10 +364,44 @@ public class AI {
 							}
 						}
 					}
-				}
+				}	
 			}
 		}
 		
+		//If game is almost over, start placing tigers
+		if (player.numTigers > (game.deckSize() / 2)-1)
+		{
+			for (int i = 0; i < zoneIndex.size(); i++)
+			{
+				if(myTerritories[availableTigerLoc.get(i)].territory == 'd')
+				{
+					animalChoice[0] = 1;
+					animalChoice[1] = zoneIndex.get(i);
+					return animalChoice;
+				}
+			}
+			
+			for (int i = 0; i < zoneIndex.size(); i++)
+			{
+				if(myTerritories[availableTigerLoc.get(i)].territory == 'l' || myTerritories[availableTigerLoc.get(i)].territory == 't')
+				{
+					animalChoice[0] = 1;
+					animalChoice[1] = zoneIndex.get(i);
+					return animalChoice;
+				}
+			}
+			
+			for (int i = 0; i < zoneIndex.size(); i++)
+			{
+				if(myTerritories[availableTigerLoc.get(i)].territory == 'j')
+				{
+					animalChoice[0] = 1;
+					animalChoice[1] = zoneIndex.get(i);
+					return animalChoice;
+				}
+			}
+			
+		}
 		
 		//Return do nothing if no options are selected or no tigers/croc available
 		animalChoice[0] = 3;

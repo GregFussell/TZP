@@ -358,8 +358,7 @@ c = new int[5];
 		final long endTime = System.currentTimeMillis();
 		
 		System.out.println("Total execution time: " + (endTime - startTime));
-		
-		
+
 		//Printer.printArrayList(ter18.containedTiles);
 	}
 	
