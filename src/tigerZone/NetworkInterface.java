@@ -278,6 +278,14 @@ public class NetworkInterface {
 		                		gameB.opponentMove(tile, newMove);
 		                	}
 	                	}
+	                	else {
+	                		if(gid == first){
+	                			gameA.removeUnplaceable();
+	                		}
+	                		else {
+	                			gameB.removeUnplaceable();
+	                		}
+	                	}
 	                	break;
 	                case START:
 	                	break;
