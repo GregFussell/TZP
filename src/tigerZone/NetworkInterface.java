@@ -122,9 +122,10 @@ public class NetworkInterface {
 	                		break;
 	                	case "THE REMAINING TILES ARE":
 	                		deck = new String[tileCount]; tokens.nextToken();
-	                		for(int i = 0; i < tileCount && tokens.hasMoreTokens(); i++){
+	                		deck[0] = tile;
+	                		for(int i = 1; i < tileCount + 1; i++){
 	                			deck[i] = tokens.nextToken();
-	                		}
+	                		} tokens.nextToken();
 	                		state = DECK;
 	                		break;
 	                	case "MATCH BEGINS IN":
@@ -216,7 +217,8 @@ public class NetworkInterface {
 	                		state = GAME_OVER;
 	                		break;
 	                	case "END OF ROUND":
-	                		//end current games
+	                		first = "";
+	                		second = "";
 	                		state = WAIT;
 	                		break;
 	                	case "END OF CHALLENGES":
