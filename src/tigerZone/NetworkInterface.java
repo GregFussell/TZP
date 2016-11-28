@@ -200,7 +200,7 @@ public class NetworkInterface {
 	                		rotation = -1;
 	                		break;
 	                	case "GAME MOVE PLAYER FORFEITED:":
-	                		state = GAME_OVER;
+	                		state = WAIT;
 	                		move += "FORFEITED:";
                 			while(tokens.hasMoreTokens()){
                 				move += " " + tokens.nextToken();
@@ -234,7 +234,6 @@ public class NetworkInterface {
 	                case WAIT:
 	                	break;
 	                case MAKE_MOVE:
-	                	//add conversions
 	                	int AI[] = new int[5];
 	                	if(gid == first){
 	                		AI = gameA.makeMoveFlynn(tile);
@@ -296,11 +295,11 @@ public class NetworkInterface {
 	                	gameB = new GameLoop(deck, startRotation);
 	                	break;
 	                case GAME_OVER:
-	                	if(gid == first){
-	                		//gameA.scoreEndGame();
+	                	if(gid == first && gameA != null){
+	                		gameA.scoreEndGame();
 	                		gameA = null;
-	                	}else{
-	                		//gameB.scoreEndGame();
+	                	}else if(gid == second && gameB != null){
+	                		gameB.scoreEndGame();
 	                		gameB = null;
 	                	}
 	                	first = "";
