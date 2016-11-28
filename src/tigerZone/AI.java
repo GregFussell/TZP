@@ -369,7 +369,7 @@ public class AI {
 		}
 		
 		//If game is almost over, start placing tigers
-		if (player.numTigers > (game.deckSize() / 2)-1)
+		if (player.numTigers > (game.deckSize() / 2)-1 && player.numTigers > 0)
 		{
 			for (int i = 0; i < zoneIndex.size(); i++)
 			{

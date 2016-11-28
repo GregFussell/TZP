@@ -277,7 +277,7 @@ c = new int[5];
 					}
 					else
 					{
-//						System.out.println("No tigers remaining");
+						System.out.println("No tigers remaining");
 					}
 				}
 				//Place crocodile
@@ -358,10 +358,5 @@ c = new int[5];
 		final long endTime = System.currentTimeMillis();
 		
 		System.out.println("Total execution time: " + (endTime - startTime));
-
-		//Printer.printArrayList(ter18.containedTiles);
-	}
-	
-
-	
+	}	
 }
