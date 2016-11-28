@@ -248,7 +248,7 @@ public class NetworkInterface {
 	                	else{
 	                		x = AI[2] - (GameLoop.BOARD_WIDTH / 2);
 	                		y = (GameLoop.BOARD_LENGTH / 2) - AI[1];
-	                		if(AI[0] != 0) { rotation = 360 - (rotation * 90); }
+	                		if(AI[0] != 0) { rotation = 360 - (AI[0] * 90); }
 	                		else { rotation = AI[0]; }
 	                		fromUser = "GAME " + gid + " MOVE " + movenum + " PLACE " + tile + " AT " + x + " " + y + " " + rotation;
 	                		if(AI[3] == 3){ // none
@@ -297,10 +297,10 @@ public class NetworkInterface {
 	                	break;
 	                case GAME_OVER:
 	                	if(gid == first){
-	                		gameA.scoreEndGame();
+	                		//gameA.scoreEndGame();
 	                		gameA = null;
 	                	}else{
-	                		gameB.scoreEndGame();
+	                		//gameB.scoreEndGame();
 	                		gameB = null;
 	                	}
 	                	first = "";
