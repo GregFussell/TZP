@@ -201,9 +201,9 @@ public class NetworkInterface {
 	                	case "GAME MOVE PLAYER TILE ADDED":			
 	                		rotation = -1;
 	                		break;
-	                	case "GAME MOVE PLAYER FORFEITED:":
+	                	case "GAME MOVE PLAYER FORFEITED":
 	                		state = WAIT;
-	                		move += "FORFEITED:";
+	                		move += "FORFEITED";
                 			while(tokens.hasMoreTokens()){
                 				move += " " + tokens.nextToken();
                 			}
