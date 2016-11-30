@@ -137,10 +137,10 @@ public class NetworkInterface {
 	                		break;
 	                	case "MAKE YOUR MOVE IN GAME":
 	                		gid = tokens.nextToken();
-	                		if(first == ""){
+	                		if(first.equals("")){
 	                			first = gid;
 	                		}
-	                		else if(second == ""){
+	                		else if(second.equals("") && !gid.equals(first)){
 	                			second = gid;
 	                		}
 	                		state = MAKE_MOVE;
@@ -158,6 +158,12 @@ public class NetworkInterface {
 	                		break;
 	                	case "GAME":
 	                		gid = tokens.nextToken();
+	                		if(first.equals("")){
+	                			first = gid;
+	                		}
+	                		else if(second.equals("") && !gid.equals(first)){
+	                			second = gid;
+	                		}
 	                		state = WAIT;
 	                		break;
 	                	case "GAME MOVE":
@@ -170,10 +176,11 @@ public class NetworkInterface {
 	                	case "GAME MOVE PLAYER PLACED":
 	                		tile = tokens.nextToken();
 	                		tokens.nextToken();
-	                		x = Integer.valueOf(tokens.nextToken());
-	                		y = Integer.valueOf(tokens.nextToken());
-	                		rotation = Integer.valueOf(tokens.nextToken());
-	                		if(pid != ourPID) { state = OPPONENT_MOVE; }
+	                		if(!pid.equals(ourPID)) { 
+		                		x = Integer.valueOf(tokens.nextToken());
+		                		y = Integer.valueOf(tokens.nextToken());
+		                		rotation = Integer.valueOf(tokens.nextToken());
+	                			state = OPPONENT_MOVE; }
 	                		else { state = WAIT; }
 	                		break;
 	                	case "GAME MOVE PLAYER PLACED NONE":
@@ -194,12 +201,18 @@ public class NetworkInterface {
 	                		break;
 	                	case "GAME MOVE PLAYER TILE PASSED":		
 	                		rotation = -1;
+	                		if(!pid.equals(ourPID)) { state = OPPONENT_MOVE; }
+	                		else { state = WAIT; }
 	                		break;
 	                	case "GAME MOVE PLAYER TILE RETRIEVED":
 	                		rotation = -1;
+	                		if(!pid.equals(ourPID)) { state = OPPONENT_MOVE; }
+	                		else { state = WAIT; }
 	                		break;
 	                	case "GAME MOVE PLAYER TILE ADDED":			
 	                		rotation = -1;
+	                		if(!pid.equals(ourPID)) { state = OPPONENT_MOVE; }
+	                		else { state = WAIT; }
 	                		break;
 	                	case "GAME MOVE PLAYER FORFEITED":
 	                		state = WAIT;
@@ -211,14 +224,19 @@ public class NetworkInterface {
 	                	case "GAME OVER PLAYER":
 	                		while(tokens.hasMoreTokens()){
 	                			String temp = tokens.nextToken();
-	                			if(temp == ourPID)
+	                			if(temp.equals(ourPID))
 	                				ourScore = tokens.nextToken();
-	                			else if(temp == opponentPID)
+	                			else if(temp.equals(opponentPID))
 	                				opponentScore = tokens.nextToken();
 	                		}
 	                		state = GAME_OVER;
 	                		break;
 	                	case "END OF ROUND":
+		                	first = "";
+		                	second = "";
+		                	ourScore = "";
+		                	opponentScore = "";
+		                	startRotation = 0;
 	                		state = WAIT;
 	                		break;
 	                	case "END OF CHALLENGES":
@@ -237,10 +255,10 @@ public class NetworkInterface {
 	                	break;
 	                case MAKE_MOVE:
 	                	int AI[] = new int[5];
-	                	if(gid == first){
+	                	if(gid.equals(first)){
 	                		AI = gameA.makeMoveFlynn(tile);
 	                	}
-	                	else{
+	                	else if (gid.equals(second)){
 	                		AI = gameB.makeMoveFlynn(tile);
 	                	}
 	                	if(AI[0] == -1){
@@ -249,8 +267,9 @@ public class NetworkInterface {
 	                	else{
 	                		x = AI[2] - (GameLoop.BOARD_WIDTH / 2);
 	                		y = (GameLoop.BOARD_LENGTH / 2) - AI[1];
-	                		if(AI[0] != 0) { rotation = 360 - (AI[0] * 90); }
-	                		else { rotation = AI[0]; }
+	                		rotation = AI[0];
+	                		if(rotation != 0) { rotation = (360 - (rotation * 90)); }
+	                		//else { rotation = AI[0]; }
 	                		fromUser = "GAME " + gid + " MOVE " + movenum + " PLACE " + tile + " AT " + x + " " + y + " " + rotation;
 	                		if(AI[3] == 3){ // none
 	                			fromUser += " NONE";
@@ -270,21 +289,21 @@ public class NetworkInterface {
 		                	int tempX = x;
 		                	x = (GameLoop.BOARD_WIDTH / 2) - y;
 		                	y = (GameLoop.BOARD_LENGTH / 2) + tempX;
-		                	if(rotation != 0) { rotation = (360 - rotation) / 90; }
+		                	if(rotation != 0) { rotation = ((360 - rotation) / 90); }
 		                	newMove[0] = rotation;
 		                	newMove[1] = x;
 		                	newMove[2] = y;
-		                	if(gid == first){
+		                	if(gid.equals(first)){
 		                		gameA.opponentMove(tile, newMove);
-		                	}else{
+		                	}else if (gid.equals(second)){
 		                		gameB.opponentMove(tile, newMove);
 		                	}
 	                	}
 	                	else {
-	                		if(gid == first){
+	                		if(gid.equals(first)){
 	                			gameA.removeUnplaceable();
 	                		}
-	                		else {
+	                		else if (gid.equals(second)){
 	                			gameB.removeUnplaceable();
 	                		}
 	                	}
@@ -297,18 +316,16 @@ public class NetworkInterface {
 	                	gameB = new GameLoop(deck, startRotation);
 	                	break;
 	                case GAME_OVER:
-	                	if(gid == first && gameA != null){
+	                	if(gid.equals(first) && gameA != null){
+	                		System.out.println("Game" + gid + ":");
 	                		gameA.scoreEndGame();
 	                		gameA = null;
-	                	}else if(gid == second && gameB != null){
+	                	}
+	                	if(gid.equals(second) && gameB != null){
+	                		System.out.println("Game" + gid + ":");
 	                		gameB.scoreEndGame();
 	                		gameB = null;
 	                	}
-	                	first = "";
-	                	second = "";
-	                	ourScore = "";
-	                	opponentScore = "";
-	                	startRotation = 0;
 	                	break;
 	                case NEW_ROUND:
 	                	break;

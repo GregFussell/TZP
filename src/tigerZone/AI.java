@@ -185,6 +185,7 @@ public class AI {
 					}
 					copy.tigerPlacementAI(t, player1_copy, bestP, availableTigerLoc, zoneIndex);
 					copy.midGameScoring(t, currentDens, player1_copy, player2_copy, placeable.get(i).x, placeable.get(i).y);
+					copy.endGameScoring(player1_copy, player2_copy);
 					//gets a min-max weighted value for possible moves
 					PlacementArray[(4*i)+j] = player1_copy.score - player2_copy.score;
 				}

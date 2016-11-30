@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameLoop {
-	public static final int BOARD_WIDTH = 155;
-	public static final int BOARD_LENGTH = 155;
+	public static final int BOARD_WIDTH = 156;
+	public static final int BOARD_LENGTH = 156;
 	
 	private TileCreator tileEngine;
 	private Game game;
@@ -169,12 +169,12 @@ public class GameLoop {
 	public void scoreEndGame(){
 		game.endGameScoring(player1, player2);
 		Printer.printScores(player1, player2);
+		Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
 	}
 	
 	public void removeUnplaceable(){
 		game.nextTile();
 	}
-	
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	

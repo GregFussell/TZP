@@ -168,6 +168,20 @@ public class Game {
 				east = true;
 			}
 		}
+		
+		// Check if adjacent tile space has already been placed
+		for (int i = 0; i < placeablePos.size(); i++) {
+
+			if ((x - 1) == placeablePos.get(i).x && y == placeablePos.get(i).y) {
+				north = true;
+			} else if ((x + 1) == placeablePos.get(i).x && y == placeablePos.get(i).y) {
+				south = true;
+			} else if (x == placeablePos.get(i).x && (y - 1) == placeablePos.get(i).y) {
+				west = true;
+			} else if (x == placeablePos.get(i).x && (y + 1) == placeablePos.get(i).y) {
+				east = true;
+			}
+		}
 
 		// Adds a placeable tile location if no tile has been placed adjacent
 		if (north == false) {
