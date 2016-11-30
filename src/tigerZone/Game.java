@@ -804,12 +804,16 @@ public class Game {
 		
 		//Map for Zone 5//
 		//If a den is present, add it to available tiger locations
-		if (myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 'd')
+		if ((myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 'd' || myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 't')
+				&& myTerritories[terPtr.pointers[currentTile.subtiles[12]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[12]]].player2Tigers == 0)
 		{
+			if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[12]]].id) == false)
+			{
 			//System.out.println("A Tiger may be placed on zone 5 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory);
 			availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[12]]].id);
 			zoneIndex.add(5);
 			tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory);
+			}
 		}
 		
 		//Map for Zone 6//

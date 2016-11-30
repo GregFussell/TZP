@@ -139,7 +139,7 @@ public class AI {
 							}
 						}
 						//if there is a den, place in den
-						if(zoneIndex.get(p) == 5 && player1.numTigers > 2){
+						if(tigerTerritory.get(p) == 'd' && player1.numTigers > 2){
 							animalPlacementArray[(4*i)+j] = 5;
 							priority = 5;
 							bestP = 5;
