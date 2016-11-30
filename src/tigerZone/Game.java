@@ -168,6 +168,18 @@ public class Game {
 				east = true;
 			}
 		}
+		//new check
+		for (int i = 0; i < placeablePos.size(); i++) {
+			if ((x - 1) == placeablePos.get(i).x && y == placeablePos.get(i).y) {
+				north = true;
+			} else if ((x + 1) == placeablePos.get(i).x && y == placeablePos.get(i).y) {
+				south = true;
+			} else if (x == placeablePos.get(i).x && (y - 1) == placeablePos.get(i).y) {
+				west = true;
+			} else if (x == placeablePos.get(i).x && (y + 1) == placeablePos.get(i).y) {
+				east = true;
+			}
+		}
 
 		// Adds a placeable tile location if no tile has been placed adjacent
 		if (north == false) {
@@ -1013,10 +1025,14 @@ public class Game {
 	
 	public void crocodilePlacement(Tile currentTile, Player player, int x, int y)
 	{
+		
+		ArrayList<Integer> uniqueID = new ArrayList<Integer>();
 		for (int i = 0; i < 12; i++)
 		{
-			if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 't' || myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 'l')
+			if ((myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 't' || myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 'l') 
+					&& uniqueID.contains(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id) == false)
 			{
+				uniqueID.add(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id);
 				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedCrocodile.add(new ArrayCoord(x,y));
 			}
 		}
@@ -1156,7 +1172,7 @@ public class Game {
 	public void endGameScoring( Player player1, Player player2)
 	{
 		/////////////////////////////////// ****CHANGE LATER For-loop set to 20 for testing CHANGE LATER**** \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-		for (int i = 0; i < myTerritoriesSize; i++)
+		for (int i = 0; i < 261; i++)
 		{
 			//Checks for existing trails that have a tiger placed and are not scored
 			if (myTerritories[i].isScored == false && myTerritories[i].territory == 't' && myTerritories[i].isDeleted == false && (myTerritories[i].player1Tigers > 0 || myTerritories[i].player2Tigers > 0))
@@ -1345,7 +1361,10 @@ public class Game {
 			
 			this.myTerritories[i].player1Tigers = toClone.myTerritories[i].player1Tigers;
 			this.myTerritories[i].player2Tigers = toClone.myTerritories[i].player2Tigers;
-			myTerritories[i].boar = toClone.myTerritories[i].boar;
+			this.myTerritories[i].boar = toClone.myTerritories[i].boar;
+			this.myTerritories[i].deer = toClone.myTerritories[i].deer;
+			this.myTerritories[i].buffalo = toClone.myTerritories[i].buffalo;
+			this.myTerritories[i].crocodile = toClone.myTerritories[i].crocodile;
 			this.myTerritories[i].id = toClone.myTerritories[i].id;
 			this.myTerritories[i].territory = toClone.myTerritories[i].territory;
 			this.myTerritories[i].isScored = toClone.myTerritories[i].isScored;
@@ -1362,25 +1381,25 @@ public class Game {
 			//add another for loop similar to ^^^^ for other arrayLists<ArrayCoord> (containedBuffalo,deer,boar,crocodile) 
 			for (int j = 0; j < toClone.myTerritories[i].containedBoar.size(); j++){
 				
-				this.myTerritories[i].containedBoar.add(toClone.myTerritories[i].containedBoar.get(j));
+				this.myTerritories[i].containedBoar.add(new ArrayCoord(toClone.myTerritories[i].containedBoar.get(j).x,toClone.myTerritories[i].containedBoar.get(j).y));
 				
 			}
 			
 			for (int j = 0; j < toClone.myTerritories[i].containedDeer.size(); j++){
 				
-				this.myTerritories[i].containedDeer.add(toClone.myTerritories[i].containedDeer.get(j));
+				this.myTerritories[i].containedDeer.add(new ArrayCoord(toClone.myTerritories[i].containedDeer.get(j).x,toClone.myTerritories[i].containedDeer.get(j).y));
 				
 			}
 			
 			for (int j = 0; j < toClone.myTerritories[i].containedBuffalo.size(); j++){
 				
-				this.myTerritories[i].containedBuffalo.add(toClone.myTerritories[i].containedBuffalo.get(j));
+				this.myTerritories[i].containedBuffalo.add(new ArrayCoord(toClone.myTerritories[i].containedBuffalo.get(j).x,toClone.myTerritories[i].containedBuffalo.get(j).y));
 				
 			}
 			
 			for (int j = 0; j < toClone.myTerritories[i].containedCrocodile.size(); j++){
 				
-				this.myTerritories[i].containedCrocodile.add(toClone.myTerritories[i].containedCrocodile.get(j));
+				this.myTerritories[i].containedCrocodile.add(new ArrayCoord(toClone.myTerritories[i].containedCrocodile.get(j).x,toClone.myTerritories[i].containedCrocodile.get(j).y));
 				
 			}
 			

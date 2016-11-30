@@ -15,4 +15,11 @@ public class Player {
 		numCrocodiles = 2;
 	}
 	
+	public void clonePlayer(Player toClone){
+		this.playerID = toClone.playerID;
+		this.score = toClone.score;
+		this.numTigers = toClone.numTigers;
+		this.numCrocodiles = toClone.numCrocodiles;
+	}
+	
 }

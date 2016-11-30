@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameLoop {
-	public static final int BOARD_WIDTH = 155;
-	public static final int BOARD_LENGTH = 155;
+	public static final int BOARD_WIDTH = 156;
+	public static final int BOARD_LENGTH = 156;
 	
-	public static void main(String[] args) {
+	public static int gl() {
 		// TODO Auto-generated method stub
 
 		// Initializes the array lists that contain placed positions and
@@ -31,82 +31,82 @@ public class GameLoop {
 		
 		///temporary start and tileset/////////////////////////
 		start = "TLTJ-";
-		String temp[] = {"TLLT-",
-				"TLLTB",
-				"LLLL-",
-				"TJTT-",
-				"JJTJX",
-				"TJTT-",
-				"JLTT-",
-				"JLJL-",
-				"LJTJ-",
-				"TLTJD",
-				"TJTT-",
-				"TLJTP",
-				"TJJT-",
-				"LJLJ-",
-				"TLLT-",
-				"LJJJ-",
-				"TJTT-",
-				"JLLL-",
-				"TJJT-",
-				"TJJT-",
-				"TLLLC",
-				"TJTJ-",
-				"TJJT-",
-				"JLTTB",
-				"TJTJ-",
-				"LJTJD",
-				"LJJJ-",
-				"TLTTP",
-				"LJJJ-",
-				"LJJJ-",
-				"TJTJ-",
-				"JLLL-",
-				"TJJT-",
-				"TLTTP",
-				"LLJJ-",
-				"TLTT-",
-				"JLLJ-",
-				"JLJL-",
-				"TJJT-",
-				"LJLJ-",
-				"JJJJX",
-				"LLJJ-",
-				"JJJJX",
-				"JJJJX",
-				"LLJJ-",
+		String temp[] = {"LLJJ-",
 				"TLTJ-",
-				"TJTJ-",
-				"TJTJ-",
-				"LJTJD",
-				"JLTTB",
-				"JLJL-",
-				"TJTJ-",
-				"JLLL-",
-				"TLTJD",
-				"TLTJ-",
-				"TLJTP",
-				"TJJT-",
-				"LJJJ-",
-				"LLJJ-",
-				"JJJJX",
-				"TJJT-",
 				"TLLL-",
-				"JLLJ-",
-				"TLLLC",
-				"TLJT-",
-				"TJTJ-",
-				"JJJJ-",
 				"JLLL-",
+				"TJTJ-",
 				"LLJJ-",
-				"TTTT-",
+				"JLLJ-",
+				"JLTTB",
 				"JJTJX",
+				"TJTT-",
+				"TLJT-",
+				"JLLJ-",
+				"JLJL-",
+				"TJTT-",
+				"LLLL-",
+				"TJJT-",
+				"TLJTP",
 				"TLLTB",
-				"LJLJ-",
+				"TLTT-",
+				"TLLTB",
+				"LJJJ-",
+				"JJTJX",
+				"JJJJX",
+				"TLLT-",
+				"TJTJ-",
+				"TLTTP",
+				"TJTJ-",
+				"JLJL-",
+				"TJJT-",
+				"TLTJD",
+				"TJJT-",
+				"TJTT-",
+				"TJTJ-",
+				"LJTJD",
+				"TJJT-",
+				"TJJT-",
 				"TJJT-",
 				"TJTJ-",
-				"TLLT-"};
+				"LJJJ-",
+				"LJJJ-",
+				"TJTJ-",
+				"TLTJ-",
+				"LLJJ-",
+				"TLLT-",
+				"TLLLC",
+				"JLLL-",
+				"TJJT-",
+				"TLLLC",
+				"TLTJD",
+				"LJTJD",
+				"JLTT-",
+				"TJTT-",
+				"LJTJ-",
+				"LJLJ-",
+				"LJJJ-",
+				"TLJTP",
+				"JJJJX",
+				"JJJJX",
+				"JJJJ-",
+				"JLJL-",
+				"JLLL-",
+				"TJJT-",
+				"TTTT-",
+				"TJTJ-",
+				"JLTTB",
+				"LLJJ-",
+				"JLLL-",
+				"JJJJX",
+				"TLLT-",
+				"LJLJ-",
+				"TLTTP",
+				"LJJJ-",
+				"LLJJ-",
+				"TJJT-",
+				"LJLJ-",
+				"TJTJ-"};
 		tileSet = temp;
 		/////////////////////////////////////////////////////
 		
@@ -162,6 +162,7 @@ c = new int[5];
 				
 				if(c[0] == -1){
 					game.nextTile();
+					System.out.println("Unplaceable Tile");
 					continue;
 				}
 
@@ -197,10 +198,12 @@ c = new int[5];
 			//player1's Turn
 			else
 			{
-				t = Flynn.decision(game.getBoard(), myTile, game.getPlaceable(), game, player1.numTigers);
+				t = Flynn.decision(game.getBoard(), myTile, game.getPlaceable(), game, player1, player2);
+//				System.out.println(t[1] + " " + t[2] + " " + t[3] + " " + t[4]);
 				
 				if(t[0] == -1){
 					game.nextTile();
+					System.out.println("Unplaceable Tile");
 					continue;
 				}
 
@@ -211,6 +214,12 @@ c = new int[5];
 					int degree = 0;
 					
 					degree = t[0];
+					if(degree > 3){
+						System.out.println(degree);
+					}
+					if(degree < 0){
+						System.out.println(degree);
+					}
 
 					myTile.Rotate(degree);
 
@@ -343,23 +352,32 @@ c = new int[5];
 		
 			//Scoring
 			game.midGameScoring(myTile, currentDens, player1, player2, x, y);
-			
+//			if(game.deckSize() == 1 ){
+//				System.out.println(player1.score);
+//			}
+//			
 			//Place tile, update positions and turn
 			turn++;
 			game.addToBoard(x, y, myTile);
 			game.updatePlaceable( x, y);
+//			System.out.println("P1: " + player1.numTigers + " P2: " + player2.numTigers);
+//			System.out.println("P1: " + player1.score + " P2: " + player2.score);
 		}
 
-		game.endGameScoring(player1, player2);
-		Printer.printScores(player1, player2);
-		sc.close();
-		
-		
+//		Printer.printScores(player1, player2);
+		sc.close();		
 		final long endTime = System.currentTimeMillis();
+//		Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
+//		Printer.printBoardID(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
+//		System.out.println("P1: " + player1.numTigers + " P2: " + player2.numTigers);
+//		System.out.println("P1: " + player1.numCrocodiles + " P2: " + player2.numCrocodiles);
 		
-		System.out.println("Total execution time: " + (endTime - startTime));
+//		System.out.println("Total execution time: " + (endTime - startTime));
+		game.endGameScoring(player1, player2);
+//		Printer.printScores(player1, player2);
+//		System.out.println(player1.score);
 		
-		
+		return player1.score - player2.score;
 		//Printer.printArrayList(ter18.containedTiles);
 	}
 	
