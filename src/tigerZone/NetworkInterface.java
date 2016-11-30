@@ -255,10 +255,10 @@ public class NetworkInterface {
 	                	break;
 	                case MAKE_MOVE:
 	                	int AI[] = new int[5];
-	                	if(gid.equals(first)){
+	                	if(gid.equals(first) && gameA != null){
 	                		AI = gameA.makeMoveFlynn(tile);
 	                	}
-	                	else if (gid.equals(second)){
+	                	else if (gid.equals(second) && gameB != null){
 	                		AI = gameB.makeMoveFlynn(tile);
 	                	}
 	                	if(AI[0] == -1){
@@ -293,9 +293,9 @@ public class NetworkInterface {
 		                	newMove[0] = rotation;
 		                	newMove[1] = x;
 		                	newMove[2] = y;
-		                	if(gid.equals(first)){
+		                	if(gid.equals(first) && gameA != null){
 		                		gameA.opponentMove(tile, newMove);
-		                	}else if (gid.equals(second)){
+		                	}else if (gid.equals(second) && gameB != null){
 		                		gameB.opponentMove(tile, newMove);
 		                	}
 	                	}

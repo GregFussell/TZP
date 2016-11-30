@@ -77,7 +77,7 @@ public class AI {
 		int[] PlacementArray = new int[placeable.size()*4];
 		int[] animalPlacementArray = new int[placeable.size()*4];
 		this.boardView = board;
-		//Assigning values to certain moves, making invalid moves -1
+		//Assigning values to certain moves, making invalid moves -1000
 		boolean isvalid = true;
 		for(int i = 0; i < placeable.size(); i++){
 			for(int j = 0; j < 4; j++){
@@ -181,7 +181,19 @@ public class AI {
 //							priority = 2;
 //							bestP = zoneIndex.get(p);
 //							continue;
-						}						
+						}
+						if(player1.numTigers > 0){
+							for (int e = 0; e < zoneIndex.size(); e++)
+							{
+								if(((copy.getTerritories()[availableTigerLoc.get(e)].territory == 't' || copy.getTerritories()[availableTigerLoc.get(e)].territory == 'l')
+										&& copy.getTerritories()[availableTigerLoc.get(e)].openFaces == 0)  || (copy.getTerritories()[availableTigerLoc.get(e)].territory == 'd' && copy.getTerritories()[availableTigerLoc.get(e)].containedTiles.size() == 0))
+								{
+									animalPlacementArray[(4*i+j)] = zoneIndex.get(e);
+									bestP = zoneIndex.get(e);
+									continue;
+								}
+							}
+						}
 					}
 					copy.tigerPlacementAI(t, player1_copy, bestP, availableTigerLoc, zoneIndex);
 					copy.midGameScoring(t, currentDens, player1_copy, player2_copy, placeable.get(i).x, placeable.get(i).y);
