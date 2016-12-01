@@ -3,7 +3,7 @@ package tigerZone;
 import java.util.ArrayList;
 
 public class TileCreator {
-	private Territory[] myTerritories = new Territory[246];
+	private Territory[] myTerritories = new Territory[300];
 	private int territoriesSize;
 	
 	//Defines the preyAnimal types for tiles
@@ -188,7 +188,7 @@ public class TileCreator {
 			territories[9] = count;
 			territories[10] = count-1;
 			territories[11] = count-2;
-			territories[12] = 0;
+			territories[12] = count-1;
 			
 			created = new Tile(territories, "TJJT-");
 			count++;
@@ -418,7 +418,7 @@ public class TileCreator {
 			territories[9] = count-2;
 			territories[10] = count-1;
 			territories[11] = count;
-			territories[12] = 0;
+			territories[12] = count-1;
 			
 			created = new Tile(territories, "TLJT-");
 			count++;
@@ -446,7 +446,7 @@ public class TileCreator {
 			territories[9] = count-2;
 			territories[10] = count-1;
 			territories[11] = count;
-			territories[12] = 0;
+			territories[12] = count-1;
 			
 			created = new Tile(territories, "TLJTP");
 			count++;
@@ -474,7 +474,7 @@ public class TileCreator {
 			territories[9] = count;
 			territories[10] = count-1;
 			territories[11] = count-2;
-			territories[12] = 0;
+			territories[12] = count-1;
 			
 			created = new Tile(territories, "JLTT-");
 			count++;
@@ -502,7 +502,7 @@ public class TileCreator {
 			territories[9] = count;
 			territories[10] = count-1;
 			territories[11] = count-2;
-			territories[12] = 0;
+			territories[12] = count-1;
 			
 			created = new Tile(territories, "JLTTB");
 			count++;
@@ -682,7 +682,7 @@ public class TileCreator {
 			territories[9] = count-2;
 			territories[10] = count-1;
 			territories[11] = count;
-			territories[12] = 0;
+			territories[12] = count-1;
 		
 			created = new Tile(territories, "TLLT-");
 			count++;
@@ -710,7 +710,7 @@ public class TileCreator {
 			territories[9] = count-2;
 			territories[10] = count-1;
 			territories[11] = count;
-			territories[12] = 0;
+			territories[12] = count-1;
 		
 			created = new Tile(territories, "TLLTB");
 			count++;
@@ -738,7 +738,7 @@ public class TileCreator {
 			territories[9] = count;
 			territories[10] = count;
 			territories[11] = count;
-			territories[12] = 0;
+			territories[12] = count-1;
 		
 			created = new Tile(territories, "LJTJ-");
 			count++;
@@ -766,7 +766,7 @@ public class TileCreator {
 			territories[9] = count;
 			territories[10] = count;
 			territories[11] = count;
-			territories[12] = 0;
+			territories[12] = count-1;
 		
 			created = new Tile(territories, "LJTJD");
 			count++;

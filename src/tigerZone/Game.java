@@ -20,9 +20,9 @@ public class Game {
 		placedPos = new ArrayList<ArrayCoord>();
 		board = new Tile[boardWidth][boardLength];
 		myDeck = new Deck();
-		myTerritories = new Territory[258];
+		myTerritories = new Territory[300];
 		setMyTerritoriesSize(0);
-		terPtr = new TerritoryPtr(258);
+		terPtr = new TerritoryPtr(300);
 	}
 	
 	
@@ -87,12 +87,12 @@ public class Game {
 	public void setTerritories(Territory[] newter){
 		myTerritories = newter;
 	}
-	
+
 	public TerritoryPtr getTerPtr(){
 		return terPtr;
 	}
+	// METHODS
 
-	//////////////// METHODS ///////////////////
 
 	// Method for evaluating whether continuity in territory types is preserved
 	// in adjacent tiles. Returns True if valid
@@ -128,6 +128,7 @@ public class Game {
 				return false;
 			}
 		}
+
 		return true;
 	}
 
@@ -164,6 +165,20 @@ public class Game {
 			} else if (x == placedPos.get(i).x && (y - 1) == placedPos.get(i).y) {
 				west = true;
 			} else if (x == placedPos.get(i).x && (y + 1) == placedPos.get(i).y) {
+				east = true;
+			}
+		}
+		
+		// Check if adjacent tile space has already been placed
+		for (int i = 0; i < placeablePos.size(); i++) {
+
+			if ((x - 1) == placeablePos.get(i).x && y == placeablePos.get(i).y) {
+				north = true;
+			} else if ((x + 1) == placeablePos.get(i).x && y == placeablePos.get(i).y) {
+				south = true;
+			} else if (x == placeablePos.get(i).x && (y - 1) == placeablePos.get(i).y) {
+				west = true;
+			} else if (x == placeablePos.get(i).x && (y + 1) == placeablePos.get(i).y) {
 				east = true;
 			}
 		}
@@ -227,8 +242,8 @@ public class Game {
 	
 	////////////////////////////////////////// MERGING /////////////////////////////////////////////////////////////////////
 
+	
 	public void mergeTile( Tile myTile, ArrayList<Integer> currentDens, int x, int y)
-
 	{
 		int[] rewriteIDs = new int[12];
 		int[] currentIDs = new int[12];
@@ -593,6 +608,11 @@ public class Game {
 	//Checks mooreNeighborhood of dens as new tiles are placed, and scores den if it is completed
 	public void checkMooreNeighborhood(Territory den, Player player1, Player player2, int x, int y)
 	{
+		
+		if(den.isCompleted == true){
+			return;
+		}
+		
 		for (int i = 0; i < den.containedTiles.size(); i++)
 		{
 			if (den.containedTiles.get(i).x == x && den.containedTiles.get(i).y == y)
@@ -607,14 +627,14 @@ public class Game {
 			//Player1 gets score if they have more tigers
 			if (den.player1Tigers > den.player2Tigers)
 			{
-				System.out.println("Player 1 has earned " + denScore + " points for a completed den");
+//				System.out.println("Player 1 has earned " + denScore + " points for a completed den");
 				player1.score += denScore;
 				player1.numTigers++;
 			}
 			//Player2 gets score if they have more tigers
 			if (den.player1Tigers < den.player2Tigers)
 			{
-				System.out.println("Player 2 has earned " + denScore + " points for a completed den");
+//				System.out.println("Player 2 has earned " + denScore + " points for a completed den");
 				player2.score += denScore;
 				player2.numTigers++;
 			}
@@ -784,12 +804,16 @@ public class Game {
 		
 		//Map for Zone 5//
 		//If a den is present, add it to available tiger locations
-		if (myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 'd')
+		if ((myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 'd' || myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 't')
+				&& myTerritories[terPtr.pointers[currentTile.subtiles[12]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[12]]].player2Tigers == 0)
 		{
+			if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[12]]].id) == false)
+			{
 			//System.out.println("A Tiger may be placed on zone 5 which is type " + myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory);
 			availableTigerLoc.add(myTerritories[terPtr.pointers[currentTile.subtiles[12]]].id);
 			zoneIndex.add(5);
 			tigerTerritory.add(myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory);
+			}
 		}
 		
 		//Map for Zone 6//
@@ -935,17 +959,17 @@ public class Game {
 	public void tigerPlacement(Tile currentTile, Player player, Scanner sc, ArrayList<Integer> availableTigerLoc, ArrayList<Integer> zoneIndex)
 	{
 		//Collects index of tiger placement from player
-		System.out.println("Please enter an available zone for tiger placement");
+//		System.out.println("Please enter an available zone for tiger placement");
 		int tigerLoc = sc.nextInt();
 
 		//Ensures valid index has been selected
 		while (zoneIndex.contains(tigerLoc) == false)
 		{
-			System.out.println("Invalid Zone: Please enter an available zone for tiger placement");
+//			System.out.println("Invalid Zone: Please enter an available zone for tiger placement");
 			tigerLoc = sc.nextInt();
 		}
 		
-			System.out.println("A tiger has been placed on zone " + tigerLoc + " for player" + player.playerID);
+//			System.out.println("A tiger has been placed on zone " + tigerLoc + " for player" + player.playerID);
 				
 			int placedLoc = availableTigerLoc.get(zoneIndex.indexOf(tigerLoc));
 			//Add a tiger to tile as player1 if player1
@@ -969,11 +993,11 @@ public class Game {
 		//Ensures valid index has been selected
 		if (zoneIndex.contains(tigerLoc) == false)
 		{
-			System.out.println("Invalid Zone");
+//			System.out.println("Invalid Zone");
 		}
 		else
 		{
-			System.out.println("A tiger has been placed on zone " + tigerLoc + " for player" + player.playerID);
+//			System.out.println("A tiger has been placed on zone " + tigerLoc + " for player" + player.playerID);
 				
 			int placedLoc = availableTigerLoc.get(zoneIndex.indexOf(tigerLoc));
 			//Add a tiger to tile as player1 if player1
@@ -1007,10 +1031,14 @@ public class Game {
 	
 	public void crocodilePlacement(Tile currentTile, Player player, int x, int y)
 	{
+		
+		ArrayList<Integer> uniqueID = new ArrayList<Integer>();
 		for (int i = 0; i < 12; i++)
 		{
-			if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 't' || myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 'l')
+			if ((myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 't' || myTerritories[terPtr.pointers[currentTile.subtiles[i]]].territory == 'l') 
+					&& uniqueID.contains(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id) == false)
 			{
+				uniqueID.add(myTerritories[terPtr.pointers[currentTile.subtiles[i]]].id);
 				myTerritories[terPtr.pointers[currentTile.subtiles[i]]].containedCrocodile.add(new ArrayCoord(x,y));
 			}
 		}
@@ -1040,31 +1068,31 @@ public class Game {
 					//Player1 gets score if they have more tigers + return tigers
 					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers > myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
 					{
-						System.out.println("Player 1 has earned " + trailScore + " points for a completed game trail");
+//						System.out.println("Player 1 has earned " + trailScore + " points for a completed game trail");
 						player1.score += trailScore;
-						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed game trail");
-						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed game trail");
+//						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed game trail");
+//						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed game trail");
 						player1.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers;
 						player2.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers;
 					}
 					//Player2 gets score if they have more tigers + return tigers
 					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers < myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
 					{
-						System.out.println("Player 2 has earned " + trailScore + " points for a completed game trail");
+//						System.out.println("Player 2 has earned " + trailScore + " points for a completed game trail");
 						player2.score += trailScore;
-						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed game trail");
-						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed game trail");
+//						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed game trail");
+//						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed game trail");
 						player1.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers;
 						player2.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers;
 					}
 					//Player1 & Player2 get score if they have same amount of tigers + return tigers
 					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers == myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
 					{
-						System.out.println("Player 1 and Player 2 have both earned " + trailScore + " points for a completed game trail");
+//						System.out.println("Player 1 and Player 2 have both earned " + trailScore + " points for a completed game trail");
 						player1.score += trailScore;
 						player2.score += trailScore;
-						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed game trail");
-						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed game trail");
+//						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed game trail");
+//						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed game trail");
 						player1.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers;
 						player2.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers;
 					}
@@ -1103,31 +1131,31 @@ public class Game {
 					//Player1 gets score if they have more tigers + return tigers
 					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers > myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
 					{
-						System.out.println("Player 1 has earned " + lakeScore + " points for a completed lake");
+//						System.out.println("Player 1 has earned " + lakeScore + " points for a completed lake");
 						player1.score += lakeScore;
-						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed lake");
-						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed lake");
+//						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed lake");
+//						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed lake");
 						player1.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers;
 						player2.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers;
 					}
 					//Player2 gets score if they have more tigers + return tigers
 					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers < myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
 					{
-						System.out.println("Player 2 has earned " + lakeScore + " points for a completed lake");
+//						System.out.println("Player 2 has earned " + lakeScore + " points for a completed lake");
 						player2.score += lakeScore;
-						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed lake");
-						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed lake");
+//						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed lake");
+//						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed lake");
 						player1.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers;
 						player2.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers;
 					}
 					//Player1 & Player2 get score if they have same amount of tigers + return tigers
 					if (myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers == myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers)
 					{
-						System.out.println("Player 1 and Player 2 have both earned " + lakeScore + " points for a completed lake");
+//						System.out.println("Player 1 and Player 2 have both earned " + lakeScore + " points for a completed lake");
 						player1.score += lakeScore;
 						player2.score += lakeScore;
-						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed lake");
-						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed lake");
+//						System.out.println("Player 1 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers + " tiger(s) back from the completed lake");
+//						System.out.println("Player 2 has received " + myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers + " tiger(s) back from the completed lake");
 						player1.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player1Tigers;
 						player2.numTigers += myTerritories[terPtr.pointers[currentTile.subtiles[i]]].player2Tigers;
 					}
@@ -1149,6 +1177,7 @@ public class Game {
 	
 	public void endGameScoring( Player player1, Player player2)
 	{
+		/////////////////////////////////// ****CHANGE LATER For-loop set to 20 for testing CHANGE LATER**** \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 		for (int i = 0; i < myTerritoriesSize; i++)
 		{
 			//Checks for existing trails that have a tiger placed and are not scored
@@ -1165,19 +1194,19 @@ public class Game {
 				//Player1 gets score if they have more tigers
 				if (myTerritories[i].player1Tigers > myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 1 has earned " + trailScore + " points for an incomplete game trail");
+//					System.out.println("Player 1 has earned " + trailScore + " points for an incomplete game trail");
 					player1.score += trailScore;
 				}
 				//Player2 gets score if they have more tigers
 				if (myTerritories[i].player1Tigers < myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 2 has earned " + trailScore + " points for an incomplete game trail");
+//					System.out.println("Player 2 has earned " + trailScore + " points for an incomplete game trail");
 					player2.score += trailScore;
 				}
 				//Player1 & Player2 get score if they have same amount of tigers
 				if (myTerritories[i].player1Tigers == myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 1 and Player 2 have both earned " + trailScore + " points for an incomplete game trail");
+//					System.out.println("Player 1 and Player 2 have both earned " + trailScore + " points for an incomplete game trail");
 					player1.score += trailScore;
 					player2.score += trailScore;
 				}
@@ -1213,19 +1242,19 @@ public class Game {
 				//Player1 gets score if they have more tigers
 				if (myTerritories[i].player1Tigers > myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 1 has earned " + lakeScore + " points for an incomplete lake");
+//					System.out.println("Player 1 has earned " + lakeScore + " points for an incomplete lake");
 					player1.score += lakeScore;
 				}
 				//Player2 gets score if they have more tigers
 				if (myTerritories[i].player1Tigers < myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 2 has earned " + lakeScore + " points for an incomplete lake");
+//					System.out.println("Player 2 has earned " + lakeScore + " points for an incomplete lake");
 					player2.score += lakeScore;
 				}
 				//Player1 & Player2 get score if they have same amount of tigers
 				if (myTerritories[i].player1Tigers == myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 1 and Player 2 have both earned " + lakeScore + " points for an incomplete lake");
+//					System.out.println("Player 1 and Player 2 have both earned " + lakeScore + " points for an incomplete lake");
 					player1.score += lakeScore;
 					player2.score += lakeScore;
 				}
@@ -1269,19 +1298,19 @@ public class Game {
 				//Player1 gets score if they have more tigers
 				if (myTerritories[i].player1Tigers > myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 1 has earned " + jungleScore + " points for a jungle");
+//					System.out.println("Player 1 has earned " + jungleScore + " points for a jungle");
 					player1.score += jungleScore;
 				}
 				//Player2 gets score if they have more tigers
 				if (myTerritories[i].player1Tigers < myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 2 has earned " + jungleScore + " points for a jungle");
+//					System.out.println("Player 2 has earned " + jungleScore + " points for a jungle");
 					player2.score += jungleScore;
 				}
 				//Player1 & Player2 get score if they have same amount of tigers
 				if (myTerritories[i].player1Tigers == myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 1 and Player 2 have both earned " + jungleScore + " points for a jungle");
+//					System.out.println("Player 1 and Player 2 have both earned " + jungleScore + " points for a jungle");
 					player1.score += jungleScore;
 					player2.score += jungleScore;
 				}
@@ -1296,13 +1325,13 @@ public class Game {
 				//Player1 gets score if they have more tigers
 				if (myTerritories[i].player1Tigers > myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 1 has earned " + denScore + " points for an incompleted den");
+//					System.out.println("Player 1 has earned " + denScore + " points for an incompleted den");
 					player1.score += denScore;
 				}
 				//Player2 gets score if they have more tigers
 				if (myTerritories[i].player1Tigers < myTerritories[i].player2Tigers)
 				{
-					System.out.println("Player 2 has earned " + denScore + " points for an incompleted den");
+//					System.out.println("Player 2 has earned " + denScore + " points for an incompleted den");
 					player2.score += denScore;
 				}
 				myTerritories[i].isScored = true;
@@ -1338,7 +1367,10 @@ public class Game {
 			
 			this.myTerritories[i].player1Tigers = toClone.myTerritories[i].player1Tigers;
 			this.myTerritories[i].player2Tigers = toClone.myTerritories[i].player2Tigers;
-			myTerritories[i].boar = toClone.myTerritories[i].boar;
+			this.myTerritories[i].boar = toClone.myTerritories[i].boar;
+			this.myTerritories[i].deer = toClone.myTerritories[i].deer;
+			this.myTerritories[i].buffalo = toClone.myTerritories[i].buffalo;
+			this.myTerritories[i].crocodile = toClone.myTerritories[i].crocodile;
 			this.myTerritories[i].id = toClone.myTerritories[i].id;
 			this.myTerritories[i].territory = toClone.myTerritories[i].territory;
 			this.myTerritories[i].isScored = toClone.myTerritories[i].isScored;
@@ -1355,25 +1387,25 @@ public class Game {
 			//add another for loop similar to ^^^^ for other arrayLists<ArrayCoord> (containedBuffalo,deer,boar,crocodile) 
 			for (int j = 0; j < toClone.myTerritories[i].containedBoar.size(); j++){
 				
-				this.myTerritories[i].containedBoar.add(toClone.myTerritories[i].containedBoar.get(j));
+				this.myTerritories[i].containedBoar.add(new ArrayCoord(toClone.myTerritories[i].containedBoar.get(j).x,toClone.myTerritories[i].containedBoar.get(j).y));
 				
 			}
 			
 			for (int j = 0; j < toClone.myTerritories[i].containedDeer.size(); j++){
 				
-				this.myTerritories[i].containedDeer.add(toClone.myTerritories[i].containedDeer.get(j));
+				this.myTerritories[i].containedDeer.add(new ArrayCoord(toClone.myTerritories[i].containedDeer.get(j).x,toClone.myTerritories[i].containedDeer.get(j).y));
 				
 			}
 			
 			for (int j = 0; j < toClone.myTerritories[i].containedBuffalo.size(); j++){
 				
-				this.myTerritories[i].containedBuffalo.add(toClone.myTerritories[i].containedBuffalo.get(j));
+				this.myTerritories[i].containedBuffalo.add(new ArrayCoord(toClone.myTerritories[i].containedBuffalo.get(j).x,toClone.myTerritories[i].containedBuffalo.get(j).y));
 				
 			}
 			
 			for (int j = 0; j < toClone.myTerritories[i].containedCrocodile.size(); j++){
 				
-				this.myTerritories[i].containedCrocodile.add(toClone.myTerritories[i].containedCrocodile.get(j));
+				this.myTerritories[i].containedCrocodile.add(new ArrayCoord(toClone.myTerritories[i].containedCrocodile.get(j).x,toClone.myTerritories[i].containedCrocodile.get(j).y));
 				
 			}
 			
