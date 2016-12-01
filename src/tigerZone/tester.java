@@ -9,7 +9,7 @@ public class tester {
 			int losses = 0;
 			long startTime = System.currentTimeMillis();
 			
-			for(int i = 0; i < 100; i++){
+			for(int i = 0; i < 1; i++){
 				pd = GameLoop.gl();
 				if(pd > 0){
 					wins++;

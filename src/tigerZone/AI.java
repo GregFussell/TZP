@@ -62,7 +62,7 @@ public class AI {
 		
 	}
 	
-	public int[] decision(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable, Game game, Player player1, Player player2){
+	public int[] decision(Tile[][] board, Tile myTile, ArrayList<ArrayCoord> placeable, Game game, Player player1, Player player2){
 		
 		ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		
@@ -73,6 +73,18 @@ public class AI {
 		Player player2_copy = new Player(4);
 		
 		int priority = 0;
+		
+		
+		int[] territories = new int[13];
+		for (int i=0; i < 13; i++)
+		{
+			territories[i] = 0;
+		}
+		Tile t = new Tile(territories, myTile.id);
+		t.cloneTile(myTile);
+		
+		
+		
 		
 		int[] PlacementArray = new int[placeable.size()*4];
 		int[] animalPlacementArray = new int[placeable.size()*4];
@@ -170,7 +182,7 @@ public class AI {
 							}
 							//if not placing a tiger, see if placing a crocodile would have an effect
 							else{
-								if (player1.numCrocodiles > 0 && game.crocodilePlaceable(t) == true && oppCrocodile(t, copy.getTerritories(), copy.getTerPtr()) == true)
+								if (player1.numCrocodiles > 0 && copy.crocodilePlaceable(t) == true && oppCrocodile(t, copy.getTerritories(), copy.getTerPtr()) == true)
 								{
 									animalPlacementArray[(4*i)+j] = 10;
 									continue;

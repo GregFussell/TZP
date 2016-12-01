@@ -198,6 +198,7 @@ c = new int[5];
 			//player1's Turn
 			else
 			{
+				System.out.println("FLYNNS TURN: " + turn + " Current Score IS: " + player1.score);
 				t = Flynn.decision(game.getBoard(), myTile, game.getPlaceable(), game, player1, player2);
 //				System.out.println(t[1] + " " + t[2] + " " + t[3] + " " + t[4]);
 				
@@ -373,8 +374,9 @@ c = new int[5];
 //		System.out.println("P1: " + player1.numCrocodiles + " P2: " + player2.numCrocodiles);
 		
 //		System.out.println("Total execution time: " + (endTime - startTime));
+		System.out.println("BEGIN END GAME SCORING: ");
 		game.endGameScoring(player1, player2);
-//		Printer.printScores(player1, player2);
+		Printer.printScores(player1, player2);
 //		System.out.println(player1.score);
 		
 		return player1.score - player2.score;

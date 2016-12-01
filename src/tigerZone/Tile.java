@@ -46,4 +46,14 @@ public class Tile {
 		}
 
 	}
+	
+	public void cloneTile(Tile toClone)
+	{
+		subtiles = new int[13];
+		for (int i = 0; i < 13; i++) {
+			this.subtiles[i] = toClone.subtiles[i];
+		}
+
+		this.id = toClone.id;
+	}
 }

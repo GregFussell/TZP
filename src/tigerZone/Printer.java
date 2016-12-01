@@ -206,7 +206,7 @@ public class Printer {
 	
 	public static void printScores(Player player1, Player player2)
 	{
-		System.out.println("Player 1's score is: " + player1.score);
+		System.out.print("Player 1's score is: " + player1.score + " ");
 		System.out.println("Player 2's score is: " + player2.score);
 	}
 	
