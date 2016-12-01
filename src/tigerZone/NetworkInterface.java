@@ -21,11 +21,10 @@ public class NetworkInterface {
 	static String opponentPID;
 
 	 public static void main(String[] args) throws IOException {
-		 //TODO configure I/O stream between NetworkInterface and GameLoop
-         
+         	
 	        if (args.length != 5) {
 	            System.err.println(
-	                "Usage: java EchoClient <host name> <port number> <server password> <username> <user password>");
+	                "Usage: java groupPClient <host name> <port number> <server password> <username> <user password>");
 	            System.exit(1);
 	        }
 	 
@@ -34,35 +33,44 @@ public class NetworkInterface {
 	    	String serverPassword = args[2];
 	    	String ourPID = args[3];
 	    	String ourPassword = args[4];
-	 
+
+	    	Printer.createNewLog();
+
 	        try (
 	            Socket tzSocket = new Socket(hostName, portNumber);
 	            PrintWriter out = new PrintWriter(tzSocket.getOutputStream(), true);
 	            BufferedReader in = new BufferedReader(new InputStreamReader(tzSocket.getInputStream()));
 	        ) {
-	            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+	            //BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 	            String fromServer;
 	            String fromUser;
-	            
+
 	            //initializing variables to be configured for game communication
-	            int x = 0, y = 0, rotation = 0, state = WAIT;
+	            int x = 0, y = 0, rotation = 0, startRotation = 0, state = WAIT, movenum = 0;
 	            int[] newMove = new int[5];
 	            String cid = "";
 	            String rid = "";
 	            String gid = "";
+	            String first = "";
+	            String second = "";
 	            String pid = "";
 	            String rounds = "";
-	            ArrayList<String> deck = new ArrayList<String>();
+	            String deck[] = null;
 	            String move = "";
 	            String tile = "";
-	            String tileCount = "";
+	            int tileCount = 0;
 	            String time = "";
 	            String ourScore = "";
 	            String opponentScore = "";
 	            
+	            GameLoop gameA = null;
+	            GameLoop gameB = null;
+
 	            //while receiving from server
 	            while ((fromServer = in.readLine()) != null) {
-	            	
+	            	x = 0; y = 0; rotation = 0; state = WAIT;
+	            	System.out.println("Server: " + fromServer);
+	            	Printer.printLog("Server: " + fromServer);
 	                if (fromServer.equals("THANK YOU FOR PLAYING! GOODBYE"))
 	                    break;
 	                
@@ -76,10 +84,16 @@ public class NetworkInterface {
 	                	switch(current){
 	                	case "THIS IS SPARTA!":
 	                		fromUser = "JOIN " + serverPassword;
+	                		System.out.println("Client: "  + fromUser);
+	                		Printer.printLog("Client: "  + fromUser);
+	                		out.println(fromUser);
 	                		state = WAIT;
 	                		break;
 	                	case "HELLO!":
 	                		fromUser = "I AM " + ourPID + " " + ourPassword;
+	                		System.out.println("Client: "  + fromUser);
+	                		Printer.printLog("Client: "  + fromUser);
+	                		out.println(fromUser);
 	                		state = WAIT;
 	                		break;
 	                	case "NEW CHALLENGE":
@@ -99,50 +113,65 @@ public class NetworkInterface {
 	                		state = WAIT;
 	                		break;
 	                	case "STARTING TILE IS":
-	                		deck.add(tokens.nextToken());
-	                		tile = deck.get(0);
+	                		tile = tokens.nextToken();
 	                		state = WAIT;
 	                		break;
 	                	case "STARTING TILE IS AT":
 	                		x = Integer.valueOf(tokens.nextToken());
 	                		y = Integer.valueOf(tokens.nextToken());
-	                		rotation = Integer.valueOf(tokens.nextToken());
+	                		startRotation = Integer.valueOf(tokens.nextToken());
 	                		state = START;
 	                		break;
 	                	case "THE REMAINING":
-	                		tileCount = tokens.nextToken();
+	                		tileCount = Integer.valueOf(tokens.nextToken());
 	                		state = WAIT;
 	                		break;
 	                	case "THE REMAINING TILES ARE":
-	                		while(tokens.hasMoreTokens()){
-	                			deck.add(tokens.nextToken());
-	                		}
+	                		deck = new String[tileCount+1]; tokens.nextToken();
+	                		deck[0] = tile;
+	                		for(int i = 1; i < tileCount + 1; i++){
+	                			deck[i] = tokens.nextToken();
+	                		} tokens.nextToken();
 	                		state = DECK;
 	                		break;
 	                	case "MATCH BEGINS IN":
 	                		time = tokens.nextToken();
-	                		deck.clear();
+	                		deck = null;
 	                		state = WAIT;
 	                		break;
 	                	case "MAKE YOUR MOVE IN GAME":
 	                		gid = tokens.nextToken();
+	                		if(first.equals("")){
+	                			first = gid;
+	                		}
+	                		else if(second.equals("") && !gid.equals(first)){
+	                			second = gid;
+	                		}
 	                		state = MAKE_MOVE;
 	                		break;
 	                	case "MAKE YOUR MOVE IN GAME WITHIN":
 	                		time = tokens.nextToken();
+	                		tokens.nextToken();
+	                		tokens.nextToken();
+	                		movenum = Integer.valueOf(tokens.nextToken());
 	                		state = MAKE_MOVE;
 	                		break;
-	                	case "MAKE YOUR MOVE IN GAME WITHIN SECOND: MOVE PLACE":
-	                		tile = tokens.nextToken();
-	                		state = MAKE_MOVE;
-	                		break;
-	                	case "MAKE YOUR MOVE IN GAME WITHIN SECONDS: MOVE PLACE":
+	                	case "MAKE YOUR MOVE IN GAME WITHIN PLACE":
 	                		tile = tokens.nextToken();
 	                		state = MAKE_MOVE;
 	                		break;
 	                	case "GAME":
 	                		gid = tokens.nextToken();
+	                		if(first.equals("")){
+	                			first = gid;
+	                		}
+	                		else if(second.equals("") && !gid.equals(first)){
+	                			second = gid;
+	                		}
 	                		state = WAIT;
+	                		break;
+	                	case "GAME MOVE":
+	                		movenum = Integer.valueOf(tokens.nextToken());
 	                		break;
 	                	case "GAME MOVE PLAYER":
 	                		pid = tokens.nextToken();
@@ -150,11 +179,12 @@ public class NetworkInterface {
 	                		break;
 	                	case "GAME MOVE PLAYER PLACED":
 	                		tile = tokens.nextToken();
-	                		tokens.nextElement();
-	                		x = Integer.valueOf(tokens.nextToken());
-	                		y = Integer.valueOf(tokens.nextToken());
-	                		rotation = Integer.valueOf(tokens.nextToken());
-	                		if(pid != ourPID) { state = OPPONENT_MOVE; }
+	                		tokens.nextToken();
+	                		if(!pid.equals(ourPID)) { 
+		                		x = Integer.valueOf(tokens.nextToken());
+		                		y = Integer.valueOf(tokens.nextToken());
+		                		rotation = Integer.valueOf(tokens.nextToken());
+	                			state = OPPONENT_MOVE; }
 	                		else { state = WAIT; }
 	                		break;
 	                	case "GAME MOVE PLAYER PLACED NONE":
@@ -173,17 +203,23 @@ public class NetworkInterface {
 	                		tile = tokens.nextToken();
 	                		tokens.nextToken();
 	                		break;
-	                	case "GAME MOVE PLAYER TILE PASSED":		///TO BE COMPLETED
-	                		
+	                	case "GAME MOVE PLAYER TILE PASSED":		
+	                		rotation = -1;
+	                		if(!pid.equals(ourPID)) { state = OPPONENT_MOVE; }
+	                		else { state = WAIT; }
 	                		break;
 	                	case "GAME MOVE PLAYER TILE RETRIEVED":
-	                		
+	                		rotation = -1;
+	                		if(!pid.equals(ourPID)) { state = OPPONENT_MOVE; }
+	                		else { state = WAIT; }
 	                		break;
-	                	case "GAME MOVE PLAYER TILE ADDED":			///////////////////
-	                		
+	                	case "GAME MOVE PLAYER TILE ADDED":			
+	                		rotation = -1;
+	                		if(!pid.equals(ourPID)) { state = OPPONENT_MOVE; }
+	                		else { state = WAIT; }
 	                		break;
 	                	case "GAME MOVE PLAYER FORFEITED":
-	                		state = GAME_OVER;
+	                		state = WAIT;
 	                		move += "FORFEITED";
                 			while(tokens.hasMoreTokens()){
                 				move += " " + tokens.nextToken();
@@ -191,60 +227,118 @@ public class NetworkInterface {
 	                		break;
 	                	case "GAME OVER PLAYER":
 	                		while(tokens.hasMoreTokens()){
-	                			if(tokens.nextToken() == ourPID)
+	                			String temp = tokens.nextToken();
+	                			if(temp.equals(ourPID))
 	                				ourScore = tokens.nextToken();
-	                			else if(tokens.nextToken() == opponentPID)
+	                			else if(temp.equals(opponentPID))
 	                				opponentScore = tokens.nextToken();
 	                		}
 	                		state = GAME_OVER;
 	                		break;
 	                	case "END OF ROUND":
-	                		//end current games
+		                	first = "";
+		                	second = "";
+		                	ourScore = "";
+		                	opponentScore = "";
+		                	startRotation = 0;
 	                		state = WAIT;
-	                		break;	                	
+	                		break;
+	                	case "END OF CHALLENGES":
+	                		
+	                		break;
 	                	default:
 	                		state = WAIT;
 	                		break;
-	                	}
-	                	current += " ";
+	                	} 
+	                	current += " "; 
 	                }
 	                
 	                /////////send info to games
-	                //TODO configure I/O stream with gameloop and finalize conversions 
-	                // 		from server protocol into game format
 	                switch(state){
 	                case WAIT:
 	                	break;
 	                case MAKE_MOVE:
+	                	int AI[] = new int[5];
+	                	if(gid.equals(first) && gameA != null){
+	                		AI = gameA.makeMoveFlynn(tile);
+	                	}
+	                	else if (gid.equals(second) && gameB != null){
+	                		AI = gameB.makeMoveFlynn(tile);
+	                	}
+	                	if(AI[0] == -1){
+	                		fromUser = "GAME " + gid + " MOVE " + movenum + " TILE " + tile + " UNPLACEABLE PASS";
+	                	}
+	                	else{
+	                		x = AI[2] - (GameLoop.BOARD_WIDTH / 2);
+	                		y = (GameLoop.BOARD_LENGTH / 2) - AI[1];
+	                		rotation = AI[0];
+	                		if(rotation != 0) { rotation = (360 - (rotation * 90)); }
+	                		//else { rotation = AI[0]; }
+	                		fromUser = "GAME " + gid + " MOVE " + movenum + " PLACE " + tile + " AT " + x + " " + y + " " + rotation;
+	                		if(AI[3] == 3){ // none
+	                			fromUser += " NONE";
+	                		}
+	                		else if(AI[3] == 2){ //croc
+	                			fromUser += " CROCODILE";
+	                		}
+	                		else if(AI[3] == 1){ // tiger
+	                			fromUser += " TIGER " + AI[4];
+	                		}
+	                	}
+	                	System.out.println("Client: "  + fromUser);
+	                	Printer.printLog("Client: "  + fromUser);
+	                	out.println(fromUser);
 	                	break;
 	                case OPPONENT_MOVE:
-	                	int tempX = x;
-	                	x = (GameLoop.BOARD_WIDTH / 2) - y;
-	                	y = (GameLoop.BOARD_LENGTH / 2) + tempX;
-	                	if(rotation != 0) { rotation = (360 - rotation) / 90; }
-	                	newMove[0] = rotation;
-	                	newMove[1] = x;
-	                	newMove[2] = y;
+	                	if(rotation != -1){
+		                	int tempX = x;
+		                	x = (GameLoop.BOARD_WIDTH / 2) - y;
+		                	y = (GameLoop.BOARD_LENGTH / 2) + tempX;
+		                	if(rotation != 0) { rotation = ((360 - rotation) / 90); }
+		                	newMove[0] = rotation;
+		                	newMove[1] = x;
+		                	newMove[2] = y;
+		                	if(gid.equals(first) && gameA != null){
+		                		gameA.opponentMove(tile, newMove);
+		                	}else if (gid.equals(second) && gameB != null){
+		                		gameB.opponentMove(tile, newMove);
+		                	}
+	                	}
+	                	else {
+	                		if(gid.equals(first)){
+	                			gameA.removeUnplaceable();
+	                		}
+	                		else if (gid.equals(second)){
+	                			gameB.removeUnplaceable();
+	                		}
+	                	}
 	                	break;
 	                case START:
 	                	break;
 	                case DECK:
+	                	if(startRotation != 0) { startRotation = (360 - startRotation) / 90; }
+	                	gameA = new GameLoop(deck, startRotation);
+	                	gameB = new GameLoop(deck, startRotation);
 	                	break;
 	                case GAME_OVER:
+	                	if(gid.equals(first) && gameA != null){
+	                		System.out.println("Game" + gid + ":");
+	                		gameA.scoreEndGame();
+	                		gameA = null;
+	                	}
+	                	if(gid.equals(second) && gameB != null){
+	                		System.out.println("Game" + gid + ":");
+	                		gameB.scoreEndGame();
+	                		gameB = null;
+	                	}
 	                	break;
 	                case NEW_ROUND:
 	                	break;
 	                }
 	                
 	                
-	                /////////receive info from games
-	                fromUser = stdIn.readLine();
-	                
-	                ////////send info to server
-	                if (fromUser != null) {
-	                    out.println(fromUser);
-	                }
 	            }
+	            Printer.closeLog();
 	            
 	        } catch (UnknownHostException e) {
 	            System.err.println("Don't know about host " + hostName);
@@ -254,6 +348,8 @@ public class NetworkInterface {
 	                hostName);
 	            System.exit(1);
 	        }
+	        
 	    }
+	
 
 }
