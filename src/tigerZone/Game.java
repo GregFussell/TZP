@@ -433,6 +433,7 @@ public class Game {
 		boolean duplicate = false;
 		for (int i = 0; i < toMerge.containedTiles.size(); i++)
 		{
+			duplicate = false;
 			for (int j = 0; j < currentTerritory.containedTiles.size(); j++)
 			{
 				if (currentTerritory.containedTiles.get(j).x == toMerge.containedTiles.get(i).x && currentTerritory.containedTiles.get(j).y == toMerge.containedTiles.get(i).y)
@@ -483,6 +484,7 @@ public class Game {
 		boolean duplicate = false;
 		for (int i = 0; i < toMerge.containedDeer.size(); i++)
 		{
+			duplicate = false;
 			for (int j = 0; j < currentTerritory.containedDeer.size(); j++)
 			{
 				if (currentTerritory.containedDeer.get(j).x == toMerge.containedDeer.get(i).x && currentTerritory.containedDeer.get(j).y == toMerge.containedDeer.get(i).y)
@@ -501,6 +503,7 @@ public class Game {
 		duplicate = false;
 		for (int i = 0; i < toMerge.containedBoar.size(); i++)
 		{
+			duplicate = false;
 			for (int j = 0; j < currentTerritory.containedBoar.size(); j++)
 			{
 				if (currentTerritory.containedBoar.get(j).x == toMerge.containedBoar.get(i).x && currentTerritory.containedBoar.get(j).y == toMerge.containedBoar.get(i).y)
@@ -519,6 +522,7 @@ public class Game {
 		duplicate = false;
 		for (int i = 0; i < toMerge.containedBuffalo.size(); i++)
 		{
+			duplicate = false;
 			for (int j = 0; j < currentTerritory.containedBuffalo.size(); j++)
 			{
 				if (currentTerritory.containedBuffalo.get(j).x == toMerge.containedBuffalo.get(i).x && currentTerritory.containedBuffalo.get(j).y == toMerge.containedBuffalo.get(i).y)
@@ -537,6 +541,7 @@ public class Game {
 		duplicate = false;
 		for (int i = 0; i < toMerge.containedCrocodile.size(); i++)
 		{
+			duplicate = false;
 			for (int j = 0; j < currentTerritory.containedCrocodile.size(); j++)
 			{
 				if (currentTerritory.containedCrocodile.get(j).x == toMerge.containedCrocodile.get(i).x && currentTerritory.containedCrocodile.get(j).y == toMerge.containedCrocodile.get(i).y)
