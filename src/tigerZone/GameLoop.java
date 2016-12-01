@@ -356,6 +356,10 @@ c = new int[5];
 //			if(game.deckSize() == 1 ){
 //				System.out.println(player1.score);
 //			}
+			if (turn%2 != 0)
+			{
+				System.out.println("Player 1 midgame score is: " + player1.score);
+			}
 //			
 			//Place tile, update positions and turn
 			turn++;
@@ -378,7 +382,7 @@ c = new int[5];
 		game.endGameScoring(player1, player2);
 		Printer.printScores(player1, player2);
 //		System.out.println(player1.score);
-		
+		Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
 		return player1.score - player2.score;
 		//Printer.printArrayList(ter18.containedTiles);
 	}
