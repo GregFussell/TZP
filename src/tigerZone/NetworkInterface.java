@@ -256,10 +256,10 @@ public class NetworkInterface {
 	                case MAKE_MOVE:
 	                	int AI[] = new int[5];
 	                	if(gid.equals(first) && gameA != null){
-	                		AI = gameA.makeMoveFlynn(tile);
+	                		AI = gameA.makeMoveClu(tile);
 	                	}
 	                	else if (gid.equals(second) && gameB != null){
-	                		AI = gameB.makeMoveFlynn(tile);
+	                		AI = gameB.makeMoveClu(tile);
 	                	}
 	                	if(AI[0] == -1){
 	                		fromUser = "GAME " + gid + " MOVE " + movenum + " TILE " + tile + " UNPLACEABLE PASS";

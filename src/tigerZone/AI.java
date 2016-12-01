@@ -332,13 +332,13 @@ public class AI {
 		int[] animalChoice = new int[2];
 
 		
-		//First check if crocodile is worth placing
+	/*	//First check if crocodile is worth placing
 		if (player.numCrocodiles > 0 && game.crocodilePlaceable(currentTile) == true && oppCrocodile(currentTile, myTerritories, terPtr) == true)
 		{
 			animalChoice[0] = 2;
 			return animalChoice;
 		}
-		
+		*/
 		//Only place last tiger if it will be returned
 		if(player.numTigers > 0)
 		{
@@ -346,14 +346,14 @@ public class AI {
 			for (int i = 0; i < zoneIndex.size(); i++)
 			{
 				if(((myTerritories[availableTigerLoc.get(i)].territory == 't' || myTerritories[availableTigerLoc.get(i)].territory == 'l')
-						&& myTerritories[availableTigerLoc.get(i)].openFaces == 0)  || (myTerritories[availableTigerLoc.get(i)].territory == 'd' && myTerritories[availableTigerLoc.get(i)].containedTiles.size() == 0))
+						&& myTerritories[availableTigerLoc.get(i)].openFaces == 0))  //|| (myTerritories[availableTigerLoc.get(i)].territory == 'd' && myTerritories[availableTigerLoc.get(i)].containedTiles.size() == 0))
 				{
 					animalChoice[0] = 1;
 					animalChoice[1] = zoneIndex.get(i);
 					return animalChoice;
 				}
 			}
-			
+		/*	
 			//Reserve at least 3 tigers for jungles that will score, or dens
 			if (player.numTigers > 1)
 			{
@@ -417,6 +417,7 @@ public class AI {
 					}
 				}	
 			}
+			*/
 		}
 		
 		//If game is almost over, start placing tigers

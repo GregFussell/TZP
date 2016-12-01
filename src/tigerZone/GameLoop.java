@@ -53,7 +53,7 @@ public class GameLoop {
 	public int[] makeMoveClu(String tile){
 		int move[] = new int[5];
 		Tile myTile = game.nextTile();
-		move = Clu.randomGreed(game.getBoard(), myTile, game.getPlaceable(), game, player1.numTigers);
+		move = Clu.decision(game.getBoard(), myTile, game.getPlaceable(), game, player1, player2);
 		int degree = 0, x = 0, y = 0;
 		if(move[0] == -1){
 			return move;
