@@ -163,7 +163,6 @@ public class GameLoop {
 		game.midGameScoring(myTile, currentDens, player1, player2, x, y);
 		game.addToBoard(x, y, myTile);
 		game.updatePlaceable(x, y);
-		
 	}
 	
 	public void scoreEndGame(){

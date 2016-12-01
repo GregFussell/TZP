@@ -21,8 +21,7 @@ public class NetworkInterface {
 	static String opponentPID;
 
 	 public static void main(String[] args) throws IOException {
-		 //TODO configure I/O stream between NetworkInterface and GameLoop
-         
+         	
 	        if (args.length != 5) {
 	            System.err.println(
 	                "Usage: java groupPClient <host name> <port number> <server password> <username> <user password>");
@@ -34,7 +33,9 @@ public class NetworkInterface {
 	    	String serverPassword = args[2];
 	    	String ourPID = args[3];
 	    	String ourPassword = args[4];
-	 
+
+	    	Printer.createNewLog();
+
 	        try (
 	            Socket tzSocket = new Socket(hostName, portNumber);
 	            PrintWriter out = new PrintWriter(tzSocket.getOutputStream(), true);
@@ -69,6 +70,7 @@ public class NetworkInterface {
 	            while ((fromServer = in.readLine()) != null) {
 	            	x = 0; y = 0; rotation = 0; state = WAIT;
 	            	System.out.println("Server: " + fromServer);
+	            	Printer.printLog("Server: " + fromServer);
 	                if (fromServer.equals("THANK YOU FOR PLAYING! GOODBYE"))
 	                    break;
 	                
@@ -83,12 +85,14 @@ public class NetworkInterface {
 	                	case "THIS IS SPARTA!":
 	                		fromUser = "JOIN " + serverPassword;
 	                		System.out.println("Client: "  + fromUser);
+	                		Printer.printLog("Client: "  + fromUser);
 	                		out.println(fromUser);
 	                		state = WAIT;
 	                		break;
 	                	case "HELLO!":
 	                		fromUser = "I AM " + ourPID + " " + ourPassword;
 	                		System.out.println("Client: "  + fromUser);
+	                		Printer.printLog("Client: "  + fromUser);
 	                		out.println(fromUser);
 	                		state = WAIT;
 	                		break;
@@ -282,6 +286,7 @@ public class NetworkInterface {
 	                		}
 	                	}
 	                	System.out.println("Client: "  + fromUser);
+	                	Printer.printLog("Client: "  + fromUser);
 	                	out.println(fromUser);
 	                	break;
 	                case OPPONENT_MOVE:
@@ -333,6 +338,7 @@ public class NetworkInterface {
 	                
 	                
 	            }
+	            Printer.closeLog();
 	            
 	        } catch (UnknownHostException e) {
 	            System.err.println("Don't know about host " + hostName);
@@ -342,6 +348,7 @@ public class NetworkInterface {
 	                hostName);
 	            System.exit(1);
 	        }
+	        
 	    }
 	
 

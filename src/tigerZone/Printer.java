@@ -1,8 +1,42 @@
 package tigerZone;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class Printer {
+	
+	public static PrintWriter log;
+	
+	public static void createNewLog(){
+		File file;
+		file = new File("gameLog.txt");
+		int i = 1;
+		while(file.exists()){
+			file = new File("gameLog(" + i + ").txt");
+			i++;
+		}
+		try {
+			log = new PrintWriter(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	Date date = new Date();
+		log.println(dateFormat.format(date));
+	}
+	
+	public static void closeLog(){
+		log.close();
+	}
+	
+	public static void printLog(String toPrint){
+		log.println(toPrint);
+	}
+	
 	// Method for printing out all of the placeable positions in (X,Y)
 	// coordinate form. Outputs to user for tile placement selection
 	public static void printPlaceable(ArrayList<ArrayCoord> placeablePos) {
@@ -102,18 +136,22 @@ public class Printer {
 						if (board[i][j] == null)
 						{
 							System.out.print(" ");
+							log.print(" ");
 						}
 						else
 						{
 							System.out.print(subtilePrintFormatter(board[i][j], myTerritories, terPtr)[k]);
+							log.print(subtilePrintFormatter(board[i][j], myTerritories, terPtr)[k]);
 						}
 						if (k == x + 4){
 							System.out.print("|");
+							log.print("|");
 						}
 					}
 				}
 				x = x + 5;
 				System.out.println();
+				log.println();
 			}
 			x = 0;
 		}
@@ -208,6 +246,8 @@ public class Printer {
 	{
 		System.out.println("Player 1's score is: " + player1.score);
 		System.out.println("Player 2's score is: " + player2.score);
+		log.println("Player 1's score is: " + player1.score);
+		log.println("Player 2's score is: " + player2.score);
 	}
 	
 	//END TESTING 
