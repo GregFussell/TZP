@@ -60,14 +60,12 @@ public class TilePlacementTest {
 		//Another tile placed...
 		thisGame.updatePlaceable(37, 36);
 		expectedPlaceables.remove(expectedPlaceables.indexOf(b));
-		ArrayCoord i = new ArrayCoord(36, 36);
-		ArrayCoord j = new ArrayCoord(38, 36);
-		ArrayCoord k = new ArrayCoord(37, 35);
-		ArrayCoord l = new ArrayCoord(37, 37);
+		ArrayCoord i = new ArrayCoord(38, 36);
+		ArrayCoord j = new ArrayCoord(37, 35);
+		ArrayCoord k = new ArrayCoord(37, 37);
 		expectedPlaceables.add(i);
 		expectedPlaceables.add(j);
 		expectedPlaceables.add(k);
-		expectedPlaceables.add(l);
 
 //		System.out.println("Method result: " + thisGame.getPlaceable().toString());
 //		System.out.println("Expected result: " + expectedPlaceables.toString());
@@ -129,14 +127,14 @@ public class TilePlacementTest {
 		
 		thisGame.mergeTile(tile2, currentDens, 35, 36);
 		thisGame.addToBoard(35, 36, tile2);
-		//System.out.println("Post Merge1:" + Arrays.toString(thePointers));
+		System.out.println("Post Merge1:" + Arrays.toString(thePointers));
 		
 		//create expected pointersArray
-		int[] expectedPointers = new int[258];
-		for(int i = 0; i<258; i++)
+		int[] expectedPointers = new int[300];
+		for(int i = 0; i<300; i++)
 		{ expectedPointers[i] = i; }
 		expectedPointers[1] = 2;
-		//System.out.println("expected:   " + Arrays.toString(expectedPointers));
+		System.out.println("expected:   " + Arrays.toString(expectedPointers));
 		assertTrue(Arrays.equals(expectedPointers, thePointers));
 		
 		//Second merge
@@ -145,7 +143,7 @@ public class TilePlacementTest {
 		expectedPointers[3] = 12;
 		expectedPointers[4] = 11;
 		expectedPointers[5] = 10;
-		//System.out.println("Post Merge2:" + Arrays.toString(thePointers));
+		System.out.println("Post Merge2:" + Arrays.toString(thePointers));
 		assertTrue(Arrays.equals(expectedPointers, thePointers));
 		
 		//Third merge
