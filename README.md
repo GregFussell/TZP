@@ -1,11 +1,9 @@
-# TZP (Tiger Zone GrouP) Documentation
-
-Group P
-Luis, Greg, Logan, Zack, Jonathan, Tyler
-
+TZP (Tiger Zone GrouP) Documentation
+===========================
+GrouP:  Luis Pino(Luispino), Greg Fussell(GregFussell), Logan Freedman(ldfreedman), Zach Scribner(zscrib0619), Jonathan Moriarty(Jona0thann), Tyler Barkley(TylerBarkley)
 ----------------------------------------------------------------------------------------------------------------------------------------
-Sprint 1:
-||Product Backlog||
+##Sprint 1:
+###||Product Backlog||
 Give the player(AI) the ability to play an implementation of Carcassonne called “Tiger Zone”.  The players will have the following capabilities:
 	Placing tiles -- The user can place tiles that are randomly selected by the server.
 	Rotating tiles -- Tiles can be rotated by the user to access more valid movements.
@@ -15,10 +13,10 @@ Give the player(AI) the ability to play an implementation of Carcassonne called 
 Having another iteration of Carcassonne allows players to try another version if the basic Carcassonne becomes too boring.  This story will take approximately three weeks to realize and will entail the development team familiarizing ourselves with the game and collaborating on implementation.  Testing and implementing AI will involve more discussion/research on good software engineering techniques.  
 In order to know if acceptance criteria are met we will ensure the game rules are met and correct point values are awarded. We will also make sure our product successfully communicates with the server and opponent AI.
 
-|| Sprint Goal ||
+##|| Sprint Goal ||
 Understand domain and business rules.  Also, discuss appropriate architectures and schedule of the development.
 
-|| Sprint Backlog ||
+##|| Sprint Backlog ||
 System design artifacts:
    “Clean” architecture
 Development planning artifacts:
@@ -26,13 +24,13 @@ Development planning artifacts:
 FIT/Fitnesse
 Ubiquitous language (“tiles”, “sub-tiles”, “territory”)
 
-|| Sprint Review ||
+##|| Sprint Review ||
 We decided to implement “clean” architecture. 
 The team defined the development planning artifacts such as product backlog, use cases, sprint backlog, UML diagrams, Testing
 The team decided on Fitnesse for acceptance testing.
 To avoid confusion, we agreed on a Ubiquitous language
 
-|| Burndown Chart (in hours) ||
+##|| Burndown Chart (in hours) ||
 Discuss product’s domain
 5
 Discuss architecture and design artifacts
@@ -42,7 +40,7 @@ UML creation
 Diagram creation
 1.5
 
-|| Sprint Retrospective ||
+##|| Sprint Retrospective ||
 Works: Meeting in person, creating diagrams, agile methods
 Does not work: Sharing ideas just over online/group messaging
 
