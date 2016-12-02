@@ -3,6 +3,7 @@ TZP (Tiger Zone GrouP) Documentation
 GrouP:  Luis Pino(Luispino), Greg Fussell(GregFussell), Logan Freedman(ldfreedman), Zach Scribner(zscrib0619), Jonathan Moriarty(Jona0thann), Tyler Barkley(TylerBarkley)
 ----------------------------------------------------------------------------------------------------------------------------------------
 ##Sprint 1:
+
 ###||Product Backlog||
 Give the player(AI) the ability to play an implementation of Carcassonne called “Tiger Zone”.  The players will have the following capabilities:
 	Placing tiles -- The user can place tiles that are randomly selected by the server.
