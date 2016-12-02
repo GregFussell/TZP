@@ -12,7 +12,7 @@ Adding the rest of the TigerZone game functionality (territory merging, tiger pl
 
 ######(Implemented on Windows machines)
 
-### Instructions to Run Game
+### Instructions to Compile and Run Game
 #### From Eclipse
 
 1)on our GITHUB master branch click clone or download  
