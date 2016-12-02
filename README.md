@@ -10,5 +10,7 @@ Understand domain and business rules.  Also, discuss appropriate architectures a
 Adding the rest of the TigerZone game functionality (territory merging, tiger placement, merging territories). Also, developing implementation of AI and introducing server connectivity capability.
 ###~More detail in Wiki~
 
-
+######(Implemented on Windows machines)
+###|| JUnit testing || 
+TilePlacementTest 
 
