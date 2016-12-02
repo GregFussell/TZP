@@ -12,6 +12,7 @@ public class GameLoop {
 	private Player player1;
 	private Player player2;
 	private ArrayList<Integer> currentDens;
+	Scanner sc = new Scanner(System.in);	
 	AI Flynn;
 	AI Clu;
 	
@@ -48,6 +49,70 @@ public class GameLoop {
 		
 		Flynn = new AI(game.getDeck());
 		Clu = new AI(game.getDeck());
+	}
+
+	public void manualMove1(){
+		Tile myTile = game.nextTile();
+		
+		int degree = 0, x = 0, y = 0;
+		x = sc.nextInt();
+		y = sc.nextInt();
+		degree = sc.nextInt();
+		myTile.Rotate(degree);
+		boolean valid = false;
+		valid = game.validPlacement(myTile, x, y);
+		game.addContainedTile(myTile, x, y);
+		game.mergeTile(myTile, currentDens, x, y);
+		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
+		ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
+		ArrayList<Character> tigerTerritory = new ArrayList<Character>();
+		
+		int choice = sc.nextInt();
+		int zone = sc.nextInt();
+		if(choice == 1){
+			game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
+			game.tigerPlacementAI(myTile, player1, zone, availableTigerLoc, zoneIndex);	
+		} 
+		else if(choice == 2){
+			if(game.crocodilePlaceable(myTile) == true && player1.numCrocodiles > 0){
+				game.crocodilePlacement(myTile, player1, x, y);
+			}
+		}
+		game.midGameScoringPrint(myTile, currentDens, player1, player2, x, y);
+		game.addToBoard(x, y, myTile);
+		game.updatePlaceable(x, y);
+	}
+	
+	public void manualMove2(){
+		Tile myTile = game.nextTile();
+		
+		int degree = 0, x = 0, y = 0;
+		x = sc.nextInt();
+		y = sc.nextInt();
+		degree = sc.nextInt();
+		myTile.Rotate(degree);
+		boolean valid = false;
+		valid = game.validPlacement(myTile, x, y);
+		game.addContainedTile(myTile, x, y);
+		game.mergeTile(myTile, currentDens, x, y);
+		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
+		ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
+		ArrayList<Character> tigerTerritory = new ArrayList<Character>();
+		
+		int choice = sc.nextInt();
+		int zone = sc.nextInt();
+		if(choice == 1){
+			game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
+			game.tigerPlacementAI(myTile, player2, zone, availableTigerLoc, zoneIndex);	
+		} 
+		else if(choice == 2){
+			if(game.crocodilePlaceable(myTile) == true && player2.numCrocodiles > 0){
+				game.crocodilePlacement(myTile, player2, x, y);
+			}
+		}
+		game.midGameScoringPrint(myTile, currentDens, player1, player2, x, y);
+		game.addToBoard(x, y, myTile);
+		game.updatePlaceable(x, y);
 	}
 	
 	public int[] makeMoveClu(String tile){
@@ -88,7 +153,7 @@ public class GameLoop {
 				game.crocodilePlacement(myTile, player1, x, y);
 			}
 		}
-		game.midGameScoring(myTile, currentDens, player1, player2, x, y);
+		game.midGameScoringPrint(myTile, currentDens, player1, player2, x, y);
 		game.addToBoard(x, y, myTile);
 		game.updatePlaceable(x, y);
 		
@@ -129,7 +194,7 @@ public class GameLoop {
 				game.crocodilePlacement(myTile, player1, x, y);
 			}
 		}
-		game.midGameScoring(myTile, currentDens, player1, player2, x, y);
+		game.midGameScoringPrint(myTile, currentDens, player1, player2, x, y);
 		game.addToBoard(x, y, myTile);
 		game.updatePlaceable(x, y);
 		
@@ -160,14 +225,15 @@ public class GameLoop {
 				game.crocodilePlacement(myTile, player2, x, y);
 			}
 		}
-		game.midGameScoring(myTile, currentDens, player1, player2, x, y);
+		game.midGameScoringPrint(myTile, currentDens, player1, player2, x, y);
 		game.addToBoard(x, y, myTile);
 		game.updatePlaceable(x, y);
 		
 	}
 	
 	public void scoreEndGame(){
-		game.endGameScoring(player1, player2);
+		System.out.println("End Game Score is: ");
+		game.endGameScoringPrint(player1, player2);
 		Printer.printScores(player1, player2);
 		Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
 	}
