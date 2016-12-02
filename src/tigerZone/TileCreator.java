@@ -262,7 +262,7 @@ public class TileCreator {
 			territories[9] = count-1;
 			territories[10] = count-1;
 			territories[11] = count-1;
-			territories[12] = 0;
+			territories[12] = count;
 			
 			created = new Tile(territories, "JLLL-");
 			count++;
