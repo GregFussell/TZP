@@ -62,11 +62,11 @@ public class AI {
 		
 	}
 	
-	public int[] decision(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable, Game game, Player player1, Player player2){
+	public int[] decision(Tile[][] board, Tile tile_AI, ArrayList<ArrayCoord> placeable, Game game, Player player1, Player player2){
 		
 		ArrayList<Integer> currentDens = new ArrayList<Integer>();
 		
-		int bestP = 0;
+		int best_Zone = 0;
 		
 		Game copy = new Game(155,155);
 		Player player1_copy = new Player(3);
@@ -83,7 +83,7 @@ public class AI {
 			for(int j = 0; j < 4; j++){
 				PlacementArray[(4*i) + j] = 0;
 				animalPlacementArray[(4*i)+j] = 0;
-				isvalid = game.validPlacement(t, placeable.get(i).x, placeable.get(i).y);
+				isvalid = game.validPlacement(tile_AI, placeable.get(i).x, placeable.get(i).y);
 				if (!isvalid){
 					PlacementArray[(4*i)+j] = -1000;
 					animalPlacementArray[(4*i)+j] = -1;
@@ -96,14 +96,14 @@ public class AI {
 					ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
 					ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
 					ArrayList<Character> tigerTerritory = new ArrayList<Character>();
-					copy.addContainedTile(t, placeable.get(i).x, placeable.get(i).y);
-					copy.mergeTile(t, currentDens, placeable.get(i).x, placeable.get(i).y);
-					copy.tigerPlacementLoc(t, availableTigerLoc, zoneIndex, tigerTerritory);
+					copy.addContainedTile(tile_AI, placeable.get(i).x, placeable.get(i).y);
+					copy.mergeTile(tile_AI, currentDens, placeable.get(i).x, placeable.get(i).y);
+					copy.tigerPlacementLoc(tile_AI, availableTigerLoc, zoneIndex, tigerTerritory);
 					priority = 0;
 					//decision loop
 					for(int p = 0; p < zoneIndex.size(); p++){
 						//places tigers if there are more tigers than tiles left to place
-						if(player1.numTigers > (game.deckSize() / 2)-1 && player1.numTigers > 0){
+						if(player1_copy.numTigers > (game.deckSize() / 2)-1 && player1_copy.numTigers > 0){
 							//prioritizes dens
 							for (int z = 0; z < zoneIndex.size(); z++)
 							{
@@ -111,7 +111,7 @@ public class AI {
 								{
 									animalPlacementArray[(4*i)+j] = 5;
 									priority = 5;
-									bestP = 5;
+									best_Zone = 5;
 									continue;
 								}
 							}
@@ -122,7 +122,7 @@ public class AI {
 								{
 									animalPlacementArray[(4*i)+j] = zoneIndex.get(z);
 									priority = 4;
-									bestP = zoneIndex.get(z);
+									best_Zone = zoneIndex.get(z);
 									continue;
 								}
 							}
@@ -133,44 +133,44 @@ public class AI {
 								{
 									animalPlacementArray[(4*i)+j] = zoneIndex.get(z);
 									priority = 2;
-									bestP = zoneIndex.get(z);
+									best_Zone = zoneIndex.get(z);
 									continue;
 								}
 							}
 						}
 						//if there is a den, place in den
-						if(tigerTerritory.get(p) == 'd' && player1.numTigers > 2){
+						if(tigerTerritory.get(p) == 'd' && player1_copy.numTigers > 2){
 							animalPlacementArray[(4*i)+j] = 5;
 							priority = 5;
-							bestP = 5;
+							best_Zone = 5;
 							continue;
 						}
 						
 						// If no den, and lake place a tiger while numTigers is higher than 3
-						else if(tigerTerritory.get(p) == 'l' && player1.numTigers > 3 && priority < 5){
+						else if(tigerTerritory.get(p) == 'l' && player1_copy.numTigers > 3 && priority < 5){
 							animalPlacementArray[(4*i)+j] = zoneIndex.get(p);
 							priority = 4;
-							bestP = zoneIndex.get(p);
+							best_Zone = zoneIndex.get(p);
 							continue;
 						}
 						// If no lake, and trail place a tiger while numTigers is higher than 4
-						else if(tigerTerritory.get(p) == 't' && player1.numTigers > 4 && priority < 4){
+						else if(tigerTerritory.get(p) == 't' && player1_copy.numTigers > 4 && priority < 4){
 							animalPlacementArray[(4*i)+j] = zoneIndex.get(p);
 							//System.out.println(zoneIndex.get(p));
 							priority = 3;
-							bestP = zoneIndex.get(p);
+							best_Zone = zoneIndex.get(p);
 							continue;
 						}
 						//Place a tiger on a jungle connected to more than 3 territories
-						else if(tigerTerritory.get(p) == 'j' && player1.numTigers > 2 && priority < 6){
+						else if(tigerTerritory.get(p) == 'j' && player1_copy.numTigers > 2 && priority < 6){
 							if(completedTerritories(copy.getTerritories()[availableTigerLoc.get(p)], copy.getTerritories(), copy.getTerPtr()) == true){
 								animalPlacementArray[(4*i)+j] = zoneIndex.get(p);
 								priority = 5;
-								bestP = zoneIndex.get(p);
+								best_Zone = zoneIndex.get(p);
 							}
 							//if not placing a tiger, see if placing a crocodile would have an effect
 							else{
-								if (player1.numCrocodiles > 0 && game.crocodilePlaceable(t) == true && oppCrocodile(t, copy.getTerritories(), copy.getTerPtr()) == true)
+								if (player1_copy.numCrocodiles > 0 && game.crocodilePlaceable(tile_AI) == true && oppCrocodile(tile_AI, copy.getTerritories(), copy.getTerPtr()) == true)
 								{
 									animalPlacementArray[(4*i)+j] = 10;
 									continue;
@@ -182,26 +182,26 @@ public class AI {
 //							bestP = zoneIndex.get(p);
 //							continue;
 						}
-						if(player1.numTigers > 0){
+						if(player1_copy.numTigers > 0){
 							for (int e = 0; e < zoneIndex.size(); e++)
 							{
 								if(((copy.getTerritories()[availableTigerLoc.get(e)].territory == 't' || copy.getTerritories()[availableTigerLoc.get(e)].territory == 'l')
 										&& copy.getTerritories()[availableTigerLoc.get(e)].openFaces == 0)  || (copy.getTerritories()[availableTigerLoc.get(e)].territory == 'd' && copy.getTerritories()[availableTigerLoc.get(e)].containedTiles.size() == 0))
 								{
 									animalPlacementArray[(4*i+j)] = zoneIndex.get(e);
-									bestP = zoneIndex.get(e);
+									best_Zone = zoneIndex.get(e);
 									continue;
 								}
 							}
 						}
 					}
-					copy.tigerPlacementAI(t, player1_copy, bestP, availableTigerLoc, zoneIndex);
-					copy.midGameScoring(t, currentDens, player1_copy, player2_copy, placeable.get(i).x, placeable.get(i).y);
+					copy.tigerPlacementAI(tile_AI, player1_copy, best_Zone, availableTigerLoc, zoneIndex);
+					copy.midGameScoring(tile_AI, currentDens, player1_copy, player2_copy, placeable.get(i).x, placeable.get(i).y);
 					copy.endGameScoring(player1_copy, player2_copy);
 					//gets a min-max weighted value for possible moves
 					PlacementArray[(4*i)+j] = player1_copy.score - player2_copy.score;
 				}
-				t.Rotate(1);
+				tile_AI.Rotate(1);
 			}
 		}
 		
@@ -215,32 +215,32 @@ public class AI {
 			}
 		}
 		
-		int d[] = new int[5];
+		int preferred_move[] = new int[5];
 		
 		//-1 indicates a pass if there are no valid moves
 		if(bestMove == -1000){
-			d[0] = -1;
-			return  d;
+			preferred_move[0] = -1;
+			return  preferred_move;
 		}
 
 		
-		d[3] = 3;
-		d[4] = 1;
+		preferred_move[3] = 3;
+		preferred_move[4] = 1;
 		
 		//if the bestMoveindex is 0, it makes no animal placement
 		if(animalPlacementArray[bestMoveindex] == 0){
-			d[3] = 3;
+			preferred_move[3] = 3;
 		}
 		
 		//if the bestMoveindex is 10, it places a crocodile
 		else if(animalPlacementArray[bestMoveindex] == 10){
-			d[3] = 2;
+			preferred_move[3] = 2;
 		}
 		
 		//if the bestMoveindex is between 1 and 10, it places a tiger at that zoneNum
 		else{
-			d[3] = 1;
-			d[4] = animalPlacementArray[bestMoveindex];
+			preferred_move[3] = 1;
+			preferred_move[4] = animalPlacementArray[bestMoveindex];
 		}
 		
 		setRotationValue(bestMoveindex%4);
@@ -249,10 +249,10 @@ public class AI {
 		
 		setXPlacement(placeable.get(bestMoveindex).x);
 		setYPlacement(placeable.get(bestMoveindex).y);
-		d[0] = getRotationValue();
-		d[1] = getXPlacement();
-		d[2] = getYPlacement();
-		return d;
+		preferred_move[0] = getRotationValue();
+		preferred_move[1] = getXPlacement();
+		preferred_move[2] = getYPlacement();
+		return preferred_move;
 		
 		
 	}
