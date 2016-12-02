@@ -18,23 +18,23 @@ Having another iteration of Carcassonne allows players to try another version if
 In order to know if acceptance criteria are met we will ensure the game rules are met and correct point values are awarded. We will also make sure our product successfully communicates with the server and opponent AI.
 
 ###|| Sprint Backlog ||
-System design artifacts:
-   “Clean” architecture
-Development planning artifacts:
-   Testing artifacts(Unit, Integration, end-to-end/acceptance)
-Application Services (Adapters)
-Code that will communicate between the server (external elements) and application
-External Details (Actors)
--- Server
--- AI
-FIT/Fitnesse
-Ubiquitous language (“tiles”, “sub-tiles”, “territory”)
+  + System design artifacts:
+      “Clean” architecture
+  + Development planning artifacts:
+      Testing artifacts(Unit, Integration, end-to-end/acceptance)
+  + Application Services (Adapters)
+      Code that will communicate between the server (external elements) and application
+  + External Details (Actors)
+      - Server
+      - AI
+  + FIT/Fitnesse
+  + Ubiquitous language (“tiles”, “sub-tiles”, “territory”)
 
 ###|| Sprint Review ||
-We decided to implement “clean” architecture. 
-The team defined the development planning artifacts such as product backlog, use cases, sprint backlog, UML diagrams, Testing
-The team decided on Fitnesse for acceptance testing.
-To avoid confusion, we agreed on a Ubiquitous language
+  + Decided to implement “clean” architecture. 
+  + Developed planning artifacts such as product backlog, use cases, sprint backlog, UML diagrams, Testing
+  + Decided on Fitnesse for acceptance testing.
+  + Agreed on a Ubiquitous language
 
 ###|| Burndown Chart (in hours) ||
 Discuss product’s domain
