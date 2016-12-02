@@ -127,14 +127,14 @@ public class TilePlacementTest {
 		
 		thisGame.mergeTile(tile2, currentDens, 35, 36);
 		thisGame.addToBoard(35, 36, tile2);
-		System.out.println("Post Merge1:" + Arrays.toString(thePointers));
+		//System.out.println("Post Merge1:" + Arrays.toString(thePointers));
 		
 		//create expected pointersArray
 		int[] expectedPointers = new int[300];
 		for(int i = 0; i<300; i++)
 		{ expectedPointers[i] = i; }
 		expectedPointers[1] = 2;
-		System.out.println("expected:   " + Arrays.toString(expectedPointers));
+		//System.out.println("expected:   " + Arrays.toString(expectedPointers));
 		assertTrue(Arrays.equals(expectedPointers, thePointers));
 		
 		//Second merge
@@ -143,7 +143,7 @@ public class TilePlacementTest {
 		expectedPointers[3] = 12;
 		expectedPointers[4] = 11;
 		expectedPointers[5] = 10;
-		System.out.println("Post Merge2:" + Arrays.toString(thePointers));
+		//System.out.println("Post Merge2:" + Arrays.toString(thePointers));
 		assertTrue(Arrays.equals(expectedPointers, thePointers));
 		
 		//Third merge
