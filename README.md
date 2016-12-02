@@ -24,5 +24,8 @@ set CLASSPATH=%CLASSPATH%;%JUNIT_HOME%\junit.jar
 3) Run code using java command: java -cp [classPath] TilePlacementTest. 
 *classPath* - is the list of directories or jar files where your compiled classes are, if you jave multiple entries separate them using ";" (windows) 
 
+###|| Known bugs/issues ||
+Occasionally score discrepencies will arise between our score calculation and the server's.
+
 
 
