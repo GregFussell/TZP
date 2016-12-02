@@ -809,7 +809,8 @@ public class Game {
 		
 		//Map for Zone 5//
 		//If a den is present, add it to available tiger locations
-		if ((myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 'd' || myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 't')
+		if ((myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 'd' || myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 't' 
+				|| myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 'j' || myTerritories[terPtr.pointers[currentTile.subtiles[12]]].territory == 'l')
 				&& myTerritories[terPtr.pointers[currentTile.subtiles[12]]].player1Tigers == 0 && myTerritories[terPtr.pointers[currentTile.subtiles[12]]].player2Tigers == 0)
 		{
 			if (availableTigerLoc.contains(myTerritories[terPtr.pointers[currentTile.subtiles[12]]].id) == false)
