@@ -12,5 +12,9 @@ Adding the rest of the TigerZone game functionality (territory merging, tiger pl
 
 ######(Implemented on Windows machines)
 ###|| JUnit testing || 
-TilePlacementTest 
+1) Compile the project using javac command.
+
+2) Run code using java command: java -cp [classPath] TilePlacementTest. 
+*classPath* - is the list of directories or jar files where your compiled classes are, if you jave multiple entries separate them using ";" (windows) 
+
 
