@@ -2,7 +2,9 @@ package tigerZone;
 
 import java.util.ArrayList;
 
+
 public class TileCreator {
+	//Array to store all potential territory combinations
 	private Territory[] myTerritories = new Territory[300];
 	private int territoriesSize;
 	
@@ -36,11 +38,25 @@ public class TileCreator {
 	public int getTerritoriesSize(){
 		return territoriesSize;
 	}
-	
+	//Allows player to create any previously defined tile by passing in tile name as string.
 	public Tile create(String toCreate){
 		Tile created = null;
 		int[] territories = new int[13];
-		
+		//To create new tile follow template demonstrated by existing cases:
+		/*Each tile is organized into 13 territories.
+		* The "count" sets the index of each subtile to access their corresponding territory via the territory 
+		*pointers array in the TerritoryPtr class.
+		*As territories (ie. lakes, jungle, trail) merge and get completed, the
+		*corresponding territory pointers are set equal so they point to the same territory object.
+		*For example, the ID of the territory being added to an already existing lake will make all 
+		*tiles constituting the lake equal to the new ID.
+		*
+		*	 0 1 2
+		*     10       3
+		*     11   13  4
+		*     12       5 
+		*        8 7 6
+		*/
 		switch(toCreate){
 		case "JJJJ-":
 			Territory ter1 = new Territory(count, 'j', 0, noPreyAnim, noBorderLakes, noBorderDens); myTerritories[count] = ter1; territoriesSize++;
