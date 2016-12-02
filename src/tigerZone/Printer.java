@@ -11,13 +11,13 @@ public class Printer {
 	public static PrintWriter log;
 	
 	public static void createNewLog(){
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd HH_mm_ss");
     	Date date = new Date();
 		File file;
-		file = new File(dateFormat.format(date));
+		file = new File(dateFormat.format(date) + ".txt");
 		int i = 1;
 		while(file.exists()){
-			file = new File(dateFormat.format(date) + "_" + i);
+			file = new File(dateFormat.format(date) + "_" + i + ".txt");
 			i++;
 		}
 		try {
