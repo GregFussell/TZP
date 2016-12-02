@@ -11,11 +11,13 @@ public class Printer {
 	public static PrintWriter log;
 	
 	public static void createNewLog(){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	Date date = new Date();
 		File file;
-		file = new File("gameLog.txt");
+		file = new File(dateFormat.format(date));
 		int i = 1;
 		while(file.exists()){
-			file = new File("gameLog(" + i + ").txt");
+			file = new File(dateFormat.format(date) + "_" + i);
 			i++;
 		}
 		try {
@@ -23,9 +25,6 @@ public class Printer {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    	Date date = new Date();
 		log.println(dateFormat.format(date));
 	}
 	
@@ -246,8 +245,8 @@ public class Printer {
 	{
 		System.out.println("Player 1's score is: " + player1.score);
 		System.out.println("Player 2's score is: " + player2.score);
-		//log.println("Player 1's score is: " + player1.score);
-		//log.println("Player 2's score is: " + player2.score);
+		log.println("Player 1's score is: " + player1.score);
+		log.println("Player 2's score is: " + player2.score);
 	}
 	
 	//END TESTING 
