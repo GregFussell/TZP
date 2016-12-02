@@ -78,7 +78,7 @@ public class GameLoop {
 				game.crocodilePlacement(myTile, player1, x, y);
 			}
 		}
-		game.midGameScoring(myTile, currentDens, player1, player2, x, y);
+		game.midGameScoringPrint(myTile, currentDens, player1, player2, x, y);
 		game.addToBoard(x, y, myTile);
 		game.updatePlaceable(x, y);
 	}
@@ -110,7 +110,7 @@ public class GameLoop {
 				game.crocodilePlacement(myTile, player2, x, y);
 			}
 		}
-		game.midGameScoring(myTile, currentDens, player1, player2, x, y);
+		game.midGameScoringPrint(myTile, currentDens, player1, player2, x, y);
 		game.addToBoard(x, y, myTile);
 		game.updatePlaceable(x, y);
 	}
@@ -153,7 +153,7 @@ public class GameLoop {
 				game.crocodilePlacement(myTile, player1, x, y);
 			}
 		}
-		game.midGameScoring(myTile, currentDens, player1, player2, x, y);
+		game.midGameScoringPrint(myTile, currentDens, player1, player2, x, y);
 		game.addToBoard(x, y, myTile);
 		game.updatePlaceable(x, y);
 		
@@ -194,7 +194,7 @@ public class GameLoop {
 				game.crocodilePlacement(myTile, player1, x, y);
 			}
 		}
-		game.midGameScoring(myTile, currentDens, player1, player2, x, y);
+		game.midGameScoringPrint(myTile, currentDens, player1, player2, x, y);
 		game.addToBoard(x, y, myTile);
 		game.updatePlaceable(x, y);
 		
@@ -225,14 +225,15 @@ public class GameLoop {
 				game.crocodilePlacement(myTile, player2, x, y);
 			}
 		}
-		game.midGameScoring(myTile, currentDens, player1, player2, x, y);
+		game.midGameScoringPrint(myTile, currentDens, player1, player2, x, y);
 		game.addToBoard(x, y, myTile);
 		game.updatePlaceable(x, y);
 		
 	}
 	
 	public void scoreEndGame(){
-		game.endGameScoring(player1, player2);
+		System.out.println("End Game Score is: ");
+		game.endGameScoringPrint(player1, player2);
 		Printer.printScores(player1, player2);
 		Printer.printBoard(game.getBoard(), game.getPlaced(), game.getTerritories(), game.getTerPtr());
 	}

@@ -35,7 +35,7 @@ public class ManualPlay {
 			gameA.manualMove2();
 			turn++;
 		}
-		
+		//
 		gameA.scoreEndGame();
 		Printer.closeLog();
 
