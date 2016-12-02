@@ -1,7 +1,9 @@
 package tigerZone;
 
 import java.util.ArrayList;
-
+//this class serves as our represents the chained cross tile regions of the game
+//This object is not held directly by tiles within their subtile arrays, instead they exist in an array called myTerritories
+//from there they are accessed using a simulated pointer system
 public class Territory {
 	
 	int id;
@@ -26,7 +28,8 @@ public class Territory {
 	
 	
 	
-	ArrayList<Integer> borderingLakes;
+	ArrayList<Integer> borderingLakes;//this contains indexes in the pointer array that allow access to the true territory object of a border lake or den
+									  //this way if two lakes bordering a single jungle merge the jungle only scores one lake since they point to the same territory object
 	ArrayList<Integer> borderingDens;
 	ArrayList<ArrayCoord> containedTiles;
 	//ArrayList<Integer> containedCrocodiles = new ArrayList<Integer>();

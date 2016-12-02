@@ -62,6 +62,11 @@ public class AI {
 		
 	}
 	
+	//The AI currently clones games for each move possibility, and finds the move that maximizes the score difference each time a move is requested.
+	//As the AI relies on the scoring methods, if they change to reflect scoring differences the AI will not need to be changed the AI will change its strategy
+	//to whatever strategy maximizes score, for however score is determined in scoring
+	//for example if jungles became worth zero points in our scoring methods the AI would stop trying to score them by itself.
+	
 	public int[] decision(Tile[][] board, Tile tile_AI, ArrayList<ArrayCoord> placeable, Game game, Player player1, Player player2){
 		
 		ArrayList<Integer> currentDens = new ArrayList<Integer>();
@@ -256,7 +261,7 @@ public class AI {
 		
 		
 	}
-	
+	//this is a relatively random substitute for our AI's decisionmaking, not the actual AI decisionmaking process
 	public int[] randomGreed(Tile[][] board, Tile t, ArrayList<ArrayCoord> placeable, Game game, Integer numTigers){	
 		
 		int[] PlacementArray = new int[placeable.size()*4];

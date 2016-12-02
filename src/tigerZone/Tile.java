@@ -2,7 +2,7 @@ package tigerZone;
 
 public class Tile {
 
-	int subtiles[];
+	int subtiles[];//these represent the indexes to go to in the Territoryptr array to access Territory objects for each subtile
 
 	int position[] = new int[2];
 	String id;

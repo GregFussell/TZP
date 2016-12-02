@@ -13,8 +13,8 @@ public class GameLoop {
 	private Player player2;
 	private ArrayList<Integer> currentDens;
 	Scanner sc = new Scanner(System.in);	
-	AI Flynn;
-	AI Clu;
+	AI Flynn; //Flynn is the good AI
+	AI Clu; //Clu is the less good AI
 	
 	public GameLoop(String[] tileSet, int startRotation){
 		//initializes tile creation engine

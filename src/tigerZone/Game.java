@@ -16,9 +16,9 @@ public class Game {
 
 	/////constructor
 	public Game(int boardWidth, int boardLength){
-		placeablePos = new ArrayList<ArrayCoord>();
-		placedPos = new ArrayList<ArrayCoord>();
-		board = new Tile[boardWidth][boardLength];
+		placeablePos = new ArrayList<ArrayCoord>();//an Array of placeable positions(locations adjacent to placed tiles)
+		placedPos = new ArrayList<ArrayCoord>();//an array of all placed positions, that is where tiles are placed no
+		board = new Tile[boardWidth][boardLength];//our coordinate system is based off of matrix coordinates, so the x's and y's are flipped from cartesian
 		myDeck = new Deck();
 		myTerritories = new Territory[300];
 		setMyTerritoriesSize(0);
@@ -169,7 +169,7 @@ public class Game {
 			}
 		}
 		
-		// Check if adjacent tile space has already been placed
+		// Check if adjacent tile space is already marked as a placeable position
 		for (int i = 0; i < placeablePos.size(); i++) {
 
 			if ((x - 1) == placeablePos.get(i).x && y == placeablePos.get(i).y) {
@@ -183,7 +183,7 @@ public class Game {
 			}
 		}
 
-		// Adds a placeable tile location if no tile has been placed adjacent
+		// Adds a placeable tile location if no tile has been placed adjacent and the location is not already considered placeable
 		if (north == false) {
 			placeablePos.add(new ArrayCoord((x - 1), y));
 		}
@@ -242,7 +242,7 @@ public class Game {
 	
 	////////////////////////////////////////// MERGING /////////////////////////////////////////////////////////////////////
 
-	
+	//see index system in Tile Creator
 	public void mergeTile( Tile myTile, ArrayList<Integer> currentDens, int x, int y)
 	{
 		int[] rewriteIDs = new int[12];

@@ -1,5 +1,5 @@
 package tigerZone;
-
+//this was a class created to determine a score discrepancy between the server and our own scoring methods
 public class ManualPlay {
 
 	public static void main(String[] args) {
