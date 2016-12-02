@@ -246,8 +246,8 @@ public class Printer {
 	{
 		System.out.println("Player 1's score is: " + player1.score);
 		System.out.println("Player 2's score is: " + player2.score);
-		log.println("Player 1's score is: " + player1.score);
-		log.println("Player 2's score is: " + player2.score);
+		//log.println("Player 1's score is: " + player1.score);
+		//log.println("Player 2's score is: " + player2.score);
 	}
 	
 	//END TESTING 
