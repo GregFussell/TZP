@@ -269,6 +269,7 @@ public class NetworkInterface {
 	                		fromUser = "GAME " + gid + " MOVE " + movenum + " TILE " + tile + " UNPLACEABLE PASS";
 	                	}
 	                	else{
+	                		//convert from local to cartesian coordinate system
 	                		x = AI[2] - (GameLoop.BOARD_WIDTH / 2);
 	                		y = (GameLoop.BOARD_LENGTH / 2) - AI[1];
 	                		rotation = AI[0];
@@ -290,7 +291,8 @@ public class NetworkInterface {
 	                	out.println(fromUser);
 	                	break;
 	                case OPPONENT_MOVE:
-	                	if(rotation != -1){
+	                	if(rotation != -1){		//if not unplaceable
+	                		//convert from cartesian to local coordinate system
 		                	int tempX = x;
 		                	x = (GameLoop.BOARD_WIDTH / 2) - y;
 		                	y = (GameLoop.BOARD_LENGTH / 2) + tempX;

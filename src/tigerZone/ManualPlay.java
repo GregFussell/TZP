@@ -28,10 +28,11 @@ public class ManualPlay {
 		
 		int turn = 1;
 		while(turn < 15){
-			System.out.println("Player 1 move: " + turn);
+			System.out.println("Player 1 move " + turn + " place " + tileSet[turn]);
 			gameA.manualMove1();
 			turn++;
-			System.out.println("Player 2 move: " + turn);
+			if(turn >= 15) { break; }
+			System.out.println("Player 2 move " + turn + " place " + tileSet[turn]);
 			gameA.manualMove2();
 			turn++;
 		}

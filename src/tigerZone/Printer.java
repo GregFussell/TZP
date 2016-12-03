@@ -8,6 +8,11 @@ import java.text.SimpleDateFormat;
 
 public class Printer {
 	
+	
+	/*	Begin logger methods
+	 * 	
+	 * 	createNewLog configures an output stream and generates a new log file 
+	 */
 	public static PrintWriter log;
 	
 	public static void createNewLog(){
@@ -28,6 +33,9 @@ public class Printer {
 		log.println(dateFormat.format(date));
 	}
 	
+	/*	always call closeLog to close stream when done writing to file
+	 * 	use printLog to print strings to the log
+	 */
 	public static void closeLog(){
 		log.close();
 	}

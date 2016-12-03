@@ -16,6 +16,11 @@ public class GameLoop {
 	AI Flynn; //Flynn is the good AI
 	AI Clu; //Clu is the less good AI
 	
+	
+	/*	
+	 * 	Constructor to initialize a new game
+	 * 	with a new tile set
+	 */
 	public GameLoop(String[] tileSet, int startRotation){
 		//initializes tile creation engine
 		tileEngine = new TileCreator();
@@ -50,24 +55,33 @@ public class GameLoop {
 		Flynn = new AI(game.getDeck());
 		Clu = new AI(game.getDeck());
 	}
-
+	
+	/*
+	 * Method to make player1 moves from ManualPlay controller
+	 */
 	public void manualMove1(){
 		Tile myTile = game.nextTile();
 		
 		int degree = 0, x = 0, y = 0;
+		System.out.println("Enter x coordinate: ");
 		x = sc.nextInt();
+		System.out.println("Enter y coordinate: ");
 		y = sc.nextInt();
+		System.out.println("Enter clockwise rotation (0, 1, 2 or 3): ");
 		degree = sc.nextInt();
+		int tempX = x;
+    	x = (GameLoop.BOARD_WIDTH / 2) - y;
+    	y = (GameLoop.BOARD_LENGTH / 2) + tempX;
 		myTile.Rotate(degree);
-		boolean valid = false;
-		valid = game.validPlacement(myTile, x, y);
 		game.addContainedTile(myTile, x, y);
 		game.mergeTile(myTile, currentDens, x, y);
 		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
 		ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
 		ArrayList<Character> tigerTerritory = new ArrayList<Character>();
 		
+		System.out.println("Enter 1(place Tiger) 2(place crocodile) or 3(no placement): ");
 		int choice = sc.nextInt();
+		System.out.println("Enter tiger zone placemnet(0 if no tiger): ");
 		int zone = sc.nextInt();
 		if(choice == 1){
 			game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
@@ -83,23 +97,32 @@ public class GameLoop {
 		game.updatePlaceable(x, y);
 	}
 	
+	/*
+	 * Method to make player1 moves from ManualPlay controller
+	 */
 	public void manualMove2(){
 		Tile myTile = game.nextTile();
 		
 		int degree = 0, x = 0, y = 0;
+		System.out.println("Enter x coordinate: ");
 		x = sc.nextInt();
+		System.out.println("Enter y coordinate: ");
 		y = sc.nextInt();
+		System.out.println("Enter clockwise rotation (0, 1, 2 or 3): ");
 		degree = sc.nextInt();
+		int tempX = x;
+    	x = (GameLoop.BOARD_WIDTH / 2) - y;
+    	y = (GameLoop.BOARD_LENGTH / 2) + tempX;
 		myTile.Rotate(degree);
-		boolean valid = false;
-		valid = game.validPlacement(myTile, x, y);
 		game.addContainedTile(myTile, x, y);
 		game.mergeTile(myTile, currentDens, x, y);
 		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
 		ArrayList<Integer> zoneIndex = new ArrayList<Integer>();
 		ArrayList<Character> tigerTerritory = new ArrayList<Character>();
 		
+		System.out.println("Enter 1(place Tiger) 2(place crocodile) or 3(no placement): ");
 		int choice = sc.nextInt();
+		System.out.println("Enter tiger zone placemnet(0 if no tiger): ");
 		int zone = sc.nextInt();
 		if(choice == 1){
 			game.tigerPlacementLoc(myTile, availableTigerLoc, zoneIndex, tigerTerritory);
@@ -115,6 +138,9 @@ public class GameLoop {
 		game.updatePlaceable(x, y);
 	}
 	
+	/*
+	 * Method to make move for the Flynn AI
+	 */
 	public int[] makeMoveClu(String tile){
 		int move[] = new int[5];
 		Tile myTile = game.nextTile();
@@ -127,8 +153,6 @@ public class GameLoop {
 		myTile.Rotate(degree);
 		x = move[1];
 		y = move[2];
-		boolean valid = false;
-		valid = game.validPlacement(myTile, x, y);
 		game.addContainedTile(myTile, x, y);
 		game.mergeTile(myTile, currentDens, x, y);
 		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
@@ -160,6 +184,9 @@ public class GameLoop {
 		return move;
 	}
 	
+	/*	Method to make move for the Flynn AI
+	 *	move[] = { rotation, x, y, placement, zone } 
+	 */
 	public int[] makeMoveFlynn(String tile){
 		int move[] = new int[5];
 		Tile myTile = game.nextTile();
@@ -173,8 +200,6 @@ public class GameLoop {
 		myTile.Rotate(degree);
 		x = move[1];
 		y = move[2];
-		boolean valid = false;
-		valid = game.validPlacement(myTile, x, y);
 		game.addContainedTile(myTile, x, y);
 		game.mergeTile(myTile, currentDens, x, y);
 		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
@@ -201,6 +226,9 @@ public class GameLoop {
 		return move;
 	}
 	
+	/*	method to place move for the opponent player
+	 * 	move[] = { rotation, x, y, placement, zone } 
+	 */
 	public void opponentMove(String tile, int[] move){
 		Tile myTile = game.nextTile();
 		int degree = 0, x = 0, y = 0;
@@ -208,8 +236,6 @@ public class GameLoop {
 		myTile.Rotate(degree);
 		x = move[1];
 		y = move[2];
-		boolean valid = false;
-		valid = game.validPlacement(myTile, x, y);
 		game.addContainedTile(myTile, x, y);
 		game.mergeTile(myTile, currentDens, x, y);
 		ArrayList<Integer> availableTigerLoc = new ArrayList<Integer>();
