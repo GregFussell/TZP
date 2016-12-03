@@ -138,8 +138,8 @@ public class GameLoop {
 		game.updatePlaceable(x, y);
 	}
 	
-	/*
-	 * Method to make move for the Flynn AI
+	/*	Method to make move for the Clu AI
+	 *	move[] = { rotation, x, y, placement, zone } 
 	 */
 	public int[] makeMoveClu(String tile){
 		int move[] = new int[5];
