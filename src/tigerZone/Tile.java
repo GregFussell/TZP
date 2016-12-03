@@ -1,11 +1,17 @@
 package tigerZone;
 
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
+
 public class Tile {
 
 	int subtiles[];
 
 	int position[] = new int[2];
 	String id;
+	BufferedImage tile;
+	String test;
 
 	boolean shield;
 
@@ -46,4 +52,21 @@ public class Tile {
 		}
 
 	}
+	
+	public void setImage(String s){
+		
+		test = s;
+		// Passes the path as a string and loads it in an image
+		// i.e., Resources/SomeTile.png
+		try {
+			tile = ImageIO.read(getClass().getResourceAsStream(s));
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
 }

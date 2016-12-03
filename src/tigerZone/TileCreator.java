@@ -59,6 +59,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "JJJJ-");
+			created.setImage("/JJJJ-.png");
 			count++;
 			break;
 		case "JJJJX":
@@ -83,6 +84,7 @@ public class TileCreator {
 			territories[12] = count-1;
 			
 			created = new Tile(territories, "JJJJX");
+			created.setImage("/JJJJX.png");
 			count++;	
 			break;
 		case "JJTJX":
@@ -109,6 +111,7 @@ public class TileCreator {
 			territories[12] = count-2;
 			
 			created = new Tile(territories, "JJTJX");
+			created.setImage("/JJTJX.png");
 			count++;
 			break;
 		case "TTTT-":
@@ -143,6 +146,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "TTTT-");
+			created.setImage("/TTTT-.png");
 			count++;
 			break;
 		case "TJTJ-":
@@ -167,6 +171,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "TJTJ-");
+			created.setImage("/TJTJ-.png");
 			count++;
 			break;
 		case "TJJT-":
@@ -191,6 +196,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "TJJT-");
+			created.setImage("/TJJT-.png");
 			count++;
 			break;
 		case "TJTT-":
@@ -221,6 +227,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "TJJT-");
+			created.setImage("/TJJT-.png");
 			count++;
 			break;
 		case "LLLL-":
@@ -241,6 +248,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "LLLL-");
+			created.setImage("/LLLL-.png");
 			count++;
 			break;
 		case "JLLL-":
@@ -265,6 +273,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "JLLL-");
+			created.setImage("/JLLL-.png");
 			count++;
 			break;
 		case "LLJJ-":
@@ -289,6 +298,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "LLJJ-");
+			created.setImage("/LLJJ-.png");
 			count++;
 			break;
 		case "JLJL-":
@@ -315,6 +325,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "JLJL-");
+			created.setImage("/JLJL-.png");
 			count++;
 			break;
 		case "LJLJ-":
@@ -342,6 +353,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "LJLJ-");
+			created.setImage("/LJLJ-.png");
 			count++;
 			break;
 		case "LJJJ-":
@@ -366,6 +378,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "LJJJ-");
+			created.setImage("/LJJJ-.png");
 			count++;
 			break;
 		case "JLLJ-":
@@ -393,6 +406,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "JLLJ-");
+			created.setImage("/JLLJ-.png");
 			count++;
 			break;
 		case "TLJT-":
@@ -421,6 +435,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "TLJT-");
+			created.setImage("/TLJT-.png");
 			count++;
 			break;
 		case "TLJTP":
@@ -449,6 +464,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "TLJTP");
+			created.setImage("/TLJTP.png");
 			count++;
 			break;
 		case "JLTT-":
@@ -477,6 +493,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "JLTT-");
+			created.setImage("/JLTT-.png");
 			count++;
 			break;
 		case "JLTTB":
@@ -505,6 +522,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "JLTTB");
+			created.setImage("/JLTTB.png");
 			count++;
 			break;
 		case "TLTJ-":
@@ -533,6 +551,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "TLTJ-");
+			created.setImage("/TLTJ-.png");
 			count++;
 			break;
 		case "TLTJD":
@@ -561,6 +580,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "TLTJD");
+			created.setImage("/TLTJD.png");
 			count++;
 			break;
 		case "TLLL-":
@@ -589,6 +609,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "TLLL-");
+			created.setImage("/TLLL-.png");
 			count++;
 			break;
 		case "TLTT-":
@@ -623,6 +644,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "TLTT-");
+			created.setImage("/TLTT-.png");
 			count++;
 			break;
 		case "TLTTP":
@@ -657,6 +679,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "TLTTP");
+			created.setImage("/TLTTP.png");
 			count++;
 			break;
 		case "TLLT-":
@@ -685,6 +708,7 @@ public class TileCreator {
 			territories[12] = 0;
 		
 			created = new Tile(territories, "TLLT-");
+			created.setImage("/TLLT-.png");
 			count++;
 			break;
 		case "TLLTB":
@@ -713,6 +737,7 @@ public class TileCreator {
 			territories[12] = 0;
 		
 			created = new Tile(territories, "TLLTB");
+			created.setImage("/TLLTB.png");
 			count++;
 			break;
 		case "LJTJ-":
@@ -741,6 +766,7 @@ public class TileCreator {
 			territories[12] = 0;
 		
 			created = new Tile(territories, "LJTJ-");
+			created.setImage("/LJTJ-.png");
 			count++;
 			break;
 		case "LJTJD":
@@ -769,6 +795,7 @@ public class TileCreator {
 			territories[12] = 0;
 		
 			created = new Tile(territories, "LJTJD");
+			created.setImage("/LJTJD.png");
 			count++;
 			break;
 		case "TLLLC":
@@ -797,6 +824,7 @@ public class TileCreator {
 			territories[12] = 0;
 			
 			created = new Tile(territories, "TLLLC");
+			created.setImage("/TLLLC.png");
 			count++;
 			break;
 		default:

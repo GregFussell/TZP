@@ -3,11 +3,14 @@ package tigerZone;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
+
 public class GameLoop {
 	public static final int BOARD_WIDTH = 156;
 	public static final int BOARD_LENGTH = 156;
 	
-	public static int gl() {
+	public static void main(String args[]){
 		// TODO Auto-generated method stub
 
 		// Initializes the array lists that contain placed positions and
@@ -142,6 +145,22 @@ t = new int[3];
 
 int[] c;
 c = new int[5];
+
+
+// Jframe here
+JFrame window = new JFrame("Game");
+canvas panel = new canvas();
+
+window.setContentPane(panel);
+window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+window.setResizable(false);
+window.pack();
+window.setVisible(true);
+
+
+int position = 10;
+
+
 
 ///////////////////////////////////////////////////// GAMEPLAY LOOP \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 		
@@ -301,7 +320,10 @@ c = new int[5];
 					{
 //						System.out.println("Crocodile can not be placed or no crocodiles remaining");
 					}
-				}	
+				}
+				
+				panel.draw(myTile.tile, position, position, 0, 0, 0,myTile.test);
+				position += 10;
 			}
 			
 			
@@ -347,7 +369,13 @@ c = new int[5];
 					{
 //						System.out.println("Crocodile can not be placed or no crocodiles remaining");
 					}
-				}		
+				}
+				
+				
+				//////////////// displaying test
+				panel.draw(myTile.tile, position, position, 0, 0, 0,myTile.test);
+				position += 10;
+				
 			}
 		
 			//Scoring
@@ -361,7 +389,6 @@ c = new int[5];
 			game.addToBoard(x, y, myTile);
 			game.updatePlaceable( x, y);
 //			System.out.println("P1: " + player1.numTigers + " P2: " + player2.numTigers);
-//			System.out.println("P1: " + player1.score + " P2: " + player2.score);
 		}
 
 //		Printer.printScores(player1, player2);
@@ -377,8 +404,9 @@ c = new int[5];
 //		Printer.printScores(player1, player2);
 //		System.out.println(player1.score);
 		
-		return player1.score - player2.score;
+		//return player1.score - player2.score;
 		//Printer.printArrayList(ter18.containedTiles);
+		System.out.println("P1: " + player1.score + " P2: " + player2.score);
 	}
 	
 

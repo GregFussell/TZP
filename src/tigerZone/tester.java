@@ -1,6 +1,8 @@
 package tigerZone;
 
 public class tester {
+	
+	/*
 		public static void main(String args[]){
 			int pd = 0;
 			int ave = 0;
@@ -32,4 +34,6 @@ public class tester {
 			double t = (double)totalTime;
 			System.out.println("Total execution time: " + (t/1000) + " seconds or a " + (t/100000) + " seconds per game average");
 		}
+		
+		*/
 }
