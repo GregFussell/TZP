@@ -98,7 +98,7 @@ public class GameLoop {
 	}
 	
 	/*
-	 * Method to make player1 moves from ManualPlay controller
+	 * Method to make player2 moves from ManualPlay controller
 	 */
 	public void manualMove2(){
 		Tile myTile = game.nextTile();
