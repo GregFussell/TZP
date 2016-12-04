@@ -1,38 +1,61 @@
 package tigerZone;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
-public class canvas extends JPanel{
+public class canvas extends JScrollPane{
 
+	
+	public static final int BOARD_WIDTH = 156;
+	public static final int BOARD_LENGTH = 156;
+	public static final int TILE_WIDTH = 100;
 	int WIDTH = 800;
 	int HEIGHT = 800;
-	BufferedImage ima;
-	private Graphics2D g;
+	JPanel panel;
 	
 	public canvas(){
 		
 		super();
-		setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		this.setBounds(0, 0, 800, 800);
+		
+		panel = new JPanel();
+		this.setViewportView(panel);
+		panel.setPreferredSize(new Dimension(6000, 6000));
+		this.getViewport().setViewPosition(new java.awt.Point(3000,3000));
+		//setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		setFocusable(true);
 		requestFocus();
-		ima = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
+		//setBackground(Color.BLACK);
 		
-		g = (Graphics2D)ima.getGraphics();
 	}
 	
-	public void draw(BufferedImage im, int x, int y, int rotation, int animal, int zone, String s) {
+	public void paintComponent(Graphics g) {
 		
-		//System.out.println(s);
-		g.drawImage(im, (int)x, (int)y, null);
-		g.drawLine(100, 100, 500, 500);
-		//repaint();
-		
+		super.paintComponent(g);
 		
 	}
+	
+	public void render(BufferedImage image, int x, int y){
+		
+		Graphics g = this.getGraphics();
+		int correctX = (x - BOARD_WIDTH/2) * 100;
+		int correctY = (y - BOARD_WIDTH/2) * 100;
+		g.drawImage(image,correctY,correctX, null);
+
+	}
+	
 	
 }

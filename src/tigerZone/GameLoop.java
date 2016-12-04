@@ -1,9 +1,12 @@
 package tigerZone;
 
+import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
+
 
 
 public class GameLoop {
@@ -148,8 +151,10 @@ c = new int[5];
 
 
 // Jframe here
+
 JFrame window = new JFrame("Game");
 canvas panel = new canvas();
+window.setPreferredSize(new Dimension(800,800));
 
 window.setContentPane(panel);
 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -158,7 +163,7 @@ window.pack();
 window.setVisible(true);
 
 
-int position = 10;
+int position = 400;
 
 
 
@@ -322,8 +327,9 @@ int position = 10;
 					}
 				}
 				
-				panel.draw(myTile.tile, position, position, 0, 0, 0,myTile.test);
-				position += 10;
+				
+				//Displaying try
+				panel.render(myTile.tile, x, y);
 			}
 			
 			
@@ -372,9 +378,8 @@ int position = 10;
 				}
 				
 				
-				//////////////// displaying test
-				panel.draw(myTile.tile, position, position, 0, 0, 0,myTile.test);
-				position += 10;
+				//////////////// displaying try
+				panel.render(myTile.tile, x, y);
 				
 			}
 		
