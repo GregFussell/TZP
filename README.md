@@ -8,12 +8,13 @@ Understand domain and business rules.  Also, discuss appropriate architectures a
 ##Sprint 2:
 ###|| Sprint Goal ||
 Adding the rest of the TigerZone game functionality (territory merging, tiger placement, merging territories). Also, developing implementation of AI and introducing server connectivity capability.
-###~More detail in Wiki~
+##~For UMLs and more details check out the Wiki~
+###(wiki tab near top of screen, 4 tabs over from the main "<> code" tab)
 
 ######(Implemented on Windows machines)
 
 ### Instructions to Compile and Run Game
-#### From Eclipse
+##### From Eclipse
 
 1)on our GITHUB master branch click clone or download  
 
