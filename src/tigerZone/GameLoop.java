@@ -28,9 +28,7 @@ public class GameLoop implements KeyListener{
 	
 	public static final int BOARD_WIDTH = 156;
 	public static final int BOARD_LENGTH = 156;
-	
-	Thread thread;
-	
+
 	
 	 public static void main(String args[]) throws InterruptedException{
 		// TODO Auto-generated method stub
@@ -193,8 +191,8 @@ int animalZone = 0;
 
 //Attempt at keylistener
 JOptionPane optionPane = new JOptionPane();
-JDialog d = optionPane.createDialog((JFrame)null, "Prompt");
-d.setLocation(10,10);
+JDialog dialog = optionPane.createDialog((JFrame)null, "Prompt");
+dialog.setLocation(10,10);
 
 //WIndow menu
 JMenu fileMenu = new JMenu("Save");
@@ -405,7 +403,7 @@ window.setJMenuBar (menuBar);
 				
 				/********* Uncomment this for keylistener *******/
 				
-				//d.setVisible(true);
+				//dialog.setVisible(true);
 				
 			}
 			
@@ -476,7 +474,7 @@ window.setJMenuBar (menuBar);
 					
 					
 					/********* Uncomment this for keylistener *******/
-					//d.setVisible(true);
+					//dialog.setVisible(true);
 									
 			}
 		
