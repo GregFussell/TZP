@@ -1,11 +1,17 @@
 package tigerZone;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 
 
 
@@ -151,16 +157,15 @@ c = new int[5];
 
 
 // Jframe here
+ImageIcon icon;
 
 JFrame window = new JFrame("Game");
 canvas panel = new canvas();
-window.setPreferredSize(new Dimension(800,800));
+//window.setPreferredSize(new Dimension(700,700));
 
-window.setContentPane(panel);
+//window.setContentPane(panel);
 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-window.setResizable(false);
-window.pack();
-window.setVisible(true);
+
 
 
 int position = 400;
@@ -329,7 +334,12 @@ int position = 400;
 				
 				
 				//Displaying try
-				panel.render(myTile.tile, x, y);
+				try {
+					panel.render(myTile.tile, x, y,turn);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 			
@@ -379,7 +389,12 @@ int position = 400;
 				
 				
 				//////////////// displaying try
-				panel.render(myTile.tile, x, y);
+				try {
+					panel.render(myTile.tile, x, y,turn);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 		
@@ -412,6 +427,15 @@ int position = 400;
 		//return player1.score - player2.score;
 		//Printer.printArrayList(ter18.containedTiles);
 		System.out.println("P1: " + player1.score + " P2: " + player2.score);
+		
+		icon = new ImageIcon(panel.getIma());
+		
+		JScrollPane scrollPane = new JScrollPane(new JLabel(icon));
+		scrollPane.setPreferredSize(new Dimension(800, 800));
+		window.getContentPane().add(scrollPane);
+		window.pack();
+		window.setVisible(true);
+		
 	}
 	
 
