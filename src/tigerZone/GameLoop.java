@@ -3,6 +3,8 @@ package tigerZone;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -14,6 +16,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
@@ -168,7 +173,7 @@ c = new int[5];
 ImageIcon icon;
 
 JFrame window = new JFrame("Game");
-canvas panel = new canvas();
+final canvas panel = new canvas();
 //window.setPreferredSize(new Dimension(700,700));
 
 JScrollPane scrollPane;
@@ -190,6 +195,28 @@ int animalZone = 0;
 JOptionPane optionPane = new JOptionPane();
 JDialog d = optionPane.createDialog((JFrame)null, "Prompt");
 d.setLocation(10,10);
+
+//WIndow menu
+JMenu fileMenu = new JMenu("Save");
+JMenuItem save = new JMenuItem("Save image");
+save.addActionListener(new
+   ActionListener()
+   {
+      public void actionPerformed(ActionEvent event)
+      {
+          try {
+			panel.saveImage();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      }
+   
+   });
+fileMenu.add(save);
+JMenuBar menuBar = new JMenuBar();
+menuBar.add(fileMenu);
+window.setJMenuBar (menuBar); 
 
 
 ///////////////////////////////////////////////////// GAMEPLAY LOOP \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -373,7 +400,12 @@ d.setLocation(10,10);
 				
 				// Awful keylistener, but hey
 				optionPane.setMessage("Player 2 Placed a Tile @ " + x + ":" + y);
-				d.setVisible(true);
+				
+				
+				
+				/********* Uncomment this for keylistener *******/
+				
+				//d.setVisible(true);
 				
 			}
 			
@@ -440,7 +472,11 @@ d.setLocation(10,10);
 					window.getContentPane().add(scrollPane);
 					window.pack();
 					optionPane.setMessage("Player 1 Placed a Tile @ " + x + ":" + y);
-					d.setVisible(true);
+					
+					
+					
+					/********* Uncomment this for keylistener *******/
+					//d.setVisible(true);
 									
 			}
 		

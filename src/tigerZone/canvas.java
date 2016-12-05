@@ -114,7 +114,6 @@ public class canvas {
 			}
 		}
 		
-		
 		/*
 		if(turn >= 76){
 			
@@ -131,6 +130,12 @@ public class canvas {
 	public BufferedImage getIma(){
 		
 		return ima;
+	}
+	
+	public void saveImage() throws IOException{
+		
+		File file = new File("ImageTest.png");
+		ImageIO.write(ima, "png",file);
 	}
 	
 	
