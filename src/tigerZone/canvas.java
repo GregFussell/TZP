@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,50 +24,58 @@ public class canvas {
 
 	
 	public static final int BOARD_WIDTH = 156;
-	public static final int BOARD_LENGTH = 156;
 	public static final int TILE_WIDTH = 100;
 	int WIDTH = 800;
 	int HEIGHT = 800;
 	ImageIcon icon;
 	BufferedImage ima;
+	BufferedImage startingTile;
 	Graphics2D g;
-	//JPanel panel;
+	Grid grid;
 	
 	public canvas(){
 		
-		super();
-		//this.setBounds(0, 0, 800, 800);
-		
-		ima = new BufferedImage(3000,3000, BufferedImage.TYPE_INT_RGB);
+		// the image is that big so that every tile could fit in the semi worst case, 77 tiles next to each other
+		//worst case would be starting from the center of the grid and 76 tiles next to one another
+		ima = new BufferedImage(7800,7800, BufferedImage.TYPE_INT_RGB);
 		g = ima.createGraphics();
 		
+		// grid to keep track of the pixel locations
+		grid = new Grid();
+		grid.setCorners();
 		
-		//panel = new JPanel();
-		//this.setViewportView(panel);
-		//panel.setPreferredSize(new Dimension(5000, 5000));
-		//this.getViewport().setViewPosition(new java.awt.Point(2500,2500));
-		//setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		//setFocusable(true);
-		//requestFocus();
-		//setBackground(Color.BLACK);
-		//this.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
-		//setPreferredSize(new Dimension(5000, 5000));
+		// Place starting Tile
+		try {
+			startingTile = ImageIO.read(getClass().getResourceAsStream("/TLTJ-.png"));
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-	}
-	
-	public void paintComponent(Graphics g) {
-		
-		//super.paintComponent(g);
+		g.drawImage(startingTile,grid.getSquare(39, 39).returnX(),grid.getSquare(39, 39).returnY(),null);
 		
 	}
 	
-	public void render(BufferedImage image, int x, int y, int turn) throws IOException{
-		
-		int correctX = (x - BOARD_WIDTH/2) * 100;
-		int correctY = (y - BOARD_WIDTH/2) * 100;
-		g.drawImage(image,correctY,correctX, null);
+	public void render(BufferedImage image, int x, int y, int rotation, int animalselected, int zone){
 		
 		
+		//receive the position from The Ais, Gameloop´s grid starts at 0,0 ends at 156,156
+		// Math below fixes that to the 78 by 78 board size used by GUI, why 78? because..
+		int cX = x - (BOARD_WIDTH/4);
+		int cY = y - (BOARD_WIDTH/4);
+		
+		//Rotation
+		double rotationRequired = (Math.toRadians(90))* rotation;
+		double locationX = image.getWidth() / 2;
+		double locationY = image.getWidth() / 2;
+		AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
+		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+		
+		// Apply rotation and display image at correct location
+		g.drawImage(op.filter(image,null),grid.getSquare(cX, cY).returnX(),grid.getSquare(cX, cY).returnY(),null);
+		
+		
+		/*
 		if(turn >= 76){
 			
 			System.out.println("Here");
@@ -73,11 +83,11 @@ public class canvas {
 			File file = new File("ImageTest.png");
 			ImageIO.write(ima, "png",file);
 		}
+		*/
 		
-		
-
 	}
 	
+	// Returns the image so that they could be displayed on the fly instead of at the end of game
 	public BufferedImage getIma(){
 		
 		return ima;

@@ -3,6 +3,8 @@ package tigerZone;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +17,8 @@ import javax.swing.JScrollPane;
 
 
 
-public class GameLoop {
+public class GameLoop implements KeyListener{
+	
 	public static final int BOARD_WIDTH = 156;
 	public static final int BOARD_LENGTH = 156;
 	
@@ -156,19 +159,27 @@ int[] c;
 c = new int[5];
 
 
-// Jframe here
+// GUI STuff here
 ImageIcon icon;
 
 JFrame window = new JFrame("Game");
 canvas panel = new canvas();
 //window.setPreferredSize(new Dimension(700,700));
 
+JScrollPane scrollPane;
+
+window.setVisible(true);
+
 //window.setContentPane(panel);
 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//window.setLocationRelativeTo(null);
 
+//Rotation purposes
+int imageRotation = 0;
 
-
-int position = 400;
+//Animal Placement and location purposes
+int animalSelected = 0;
+int animalZone = 0;
 
 
 
@@ -202,6 +213,7 @@ int position = 400;
 					int degree = 0;
 					
 					degree = c[0];
+					imageRotation = degree;
 
 					myTile.Rotate(degree);
 
@@ -243,6 +255,7 @@ int position = 400;
 					int degree = 0;
 					
 					degree = t[0];
+					imageRotation = degree;
 					if(degree > 3){
 						System.out.println(degree);
 					}
@@ -296,6 +309,12 @@ int position = 400;
 				
 				int choice;
 				choice = animalPlacement[0];
+				
+				//whatever animal was selected, is stored here to send to gui
+				animalSelected = choice;
+				animalZone = animalPlacement[1];
+				System.out.println("Animal selected: " + animalSelected + " Zone: " + animalSelected);
+				
 			//	System.out.println("Choice is " + choice);
 				
 				while (choice != 1 && choice != 2 && choice != 3)
@@ -333,13 +352,15 @@ int position = 400;
 				}
 				
 				
-				//Displaying try
-				try {
-					panel.render(myTile.tile, x, y,turn);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				//Displaying For player 2
+				panel.render(myTile.tile, x, y, imageRotation, animalSelected, animalZone);
+				icon = new ImageIcon(panel.getIma());
+				
+				scrollPane = new JScrollPane(new JLabel(icon));
+				scrollPane.setPreferredSize(new Dimension(1500, 800));
+				scrollPane.getViewport().setViewPosition(new java.awt.Point(3200,3600 ));
+				window.getContentPane().add(scrollPane);
+				window.pack();
 			}
 			
 			
@@ -351,6 +372,14 @@ int position = 400;
 //				System.out.println("Would you like to place a (1) tiger, (2) crocodile, or (3) none?");
 				choice = t[3];
 				//choice = sc.nextInt();
+				
+				// Animal business again for gui
+				animalSelected = choice;
+				animalZone = t[4];
+				System.out.println("Animal selected: " + animalSelected + " Zone: " + animalSelected);
+				
+				
+				
 				while (choice != 1 && choice != 2 && choice != 3)
 				{
 //					System.out.println("Invalid input, please enter 1 for tiger, 2 for crocodile, or 3 for none");
@@ -388,13 +417,16 @@ int position = 400;
 				}
 				
 				
-				//////////////// displaying try
-				try {
-					panel.render(myTile.tile, x, y,turn);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				// Displaying for player 1
+					panel.render(myTile.tile, x, y, imageRotation, animalSelected, animalZone);
+					icon = new ImageIcon(panel.getIma());
+					
+					scrollPane = new JScrollPane(new JLabel(icon));
+					scrollPane.setPreferredSize(new Dimension(1500, 800));
+					scrollPane.getViewport().setViewPosition(new java.awt.Point(3200,3600));
+					window.getContentPane().add(scrollPane);
+					window.pack();
+				
 				
 			}
 		
@@ -428,6 +460,8 @@ int position = 400;
 		//Printer.printArrayList(ter18.containedTiles);
 		System.out.println("P1: " + player1.score + " P2: " + player2.score);
 		
+		
+		/*
 		icon = new ImageIcon(panel.getIma());
 		
 		JScrollPane scrollPane = new JScrollPane(new JLabel(icon));
@@ -435,6 +469,26 @@ int position = 400;
 		window.getContentPane().add(scrollPane);
 		window.pack();
 		window.setVisible(true);
+		*/
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 	
