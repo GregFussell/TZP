@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 
@@ -22,7 +24,10 @@ public class GameLoop implements KeyListener{
 	public static final int BOARD_WIDTH = 156;
 	public static final int BOARD_LENGTH = 156;
 	
-	public static void main(String args[]){
+	Thread thread;
+	
+	
+	 public static void main(String args[]) throws InterruptedException{
 		// TODO Auto-generated method stub
 
 		// Initializes the array lists that contain placed positions and
@@ -181,14 +186,19 @@ int imageRotation = 0;
 int animalSelected = 0;
 int animalZone = 0;
 
+//Attempt at keylistener
+JOptionPane optionPane = new JOptionPane();
+JDialog d = optionPane.createDialog((JFrame)null, "Prompt");
+d.setLocation(10,10);
 
 
 ///////////////////////////////////////////////////// GAMEPLAY LOOP \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 		
+
 	//	printTile(starter);
-		int turn = 1;
 		long startTime = System.currentTimeMillis();
 		// Users plays game
+		int turn = 1;
 		while (game.deckSize() > 0) {
 			
 			
@@ -313,7 +323,6 @@ int animalZone = 0;
 				//whatever animal was selected, is stored here to send to gui
 				animalSelected = choice;
 				animalZone = animalPlacement[1];
-				System.out.println("Animal selected: " + animalSelected + " Zone: " + animalSelected);
 				
 			//	System.out.println("Choice is " + choice);
 				
@@ -353,7 +362,7 @@ int animalZone = 0;
 				
 				
 				//Displaying For player 2
-				panel.render(myTile.tile, x, y, imageRotation, animalSelected, animalZone);
+				panel.render(myTile.tile, x, y, imageRotation, animalSelected, animalZone, turn);
 				icon = new ImageIcon(panel.getIma());
 				
 				scrollPane = new JScrollPane(new JLabel(icon));
@@ -361,6 +370,11 @@ int animalZone = 0;
 				scrollPane.getViewport().setViewPosition(new java.awt.Point(3200,3600 ));
 				window.getContentPane().add(scrollPane);
 				window.pack();
+				
+				// Awful keylistener, but hey
+				optionPane.setMessage("Player 2 Placed a Tile @ " + x + ":" + y);
+				d.setVisible(true);
+				
 			}
 			
 			
@@ -376,7 +390,6 @@ int animalZone = 0;
 				// Animal business again for gui
 				animalSelected = choice;
 				animalZone = t[4];
-				System.out.println("Animal selected: " + animalSelected + " Zone: " + animalSelected);
 				
 				
 				
@@ -418,7 +431,7 @@ int animalZone = 0;
 				
 				
 				// Displaying for player 1
-					panel.render(myTile.tile, x, y, imageRotation, animalSelected, animalZone);
+					panel.render(myTile.tile, x, y, imageRotation, animalSelected, animalZone,turn);
 					icon = new ImageIcon(panel.getIma());
 					
 					scrollPane = new JScrollPane(new JLabel(icon));
@@ -426,8 +439,9 @@ int animalZone = 0;
 					scrollPane.getViewport().setViewPosition(new java.awt.Point(3200,3600));
 					window.getContentPane().add(scrollPane);
 					window.pack();
-				
-				
+					optionPane.setMessage("Player 1 Placed a Tile @ " + x + ":" + y);
+					d.setVisible(true);
+									
 			}
 		
 			//Scoring
@@ -441,6 +455,8 @@ int animalZone = 0;
 			game.addToBoard(x, y, myTile);
 			game.updatePlaceable( x, y);
 //			System.out.println("P1: " + player1.numTigers + " P2: " + player2.numTigers);
+			
+			
 		}
 
 //		Printer.printScores(player1, player2);
@@ -458,9 +474,13 @@ int animalZone = 0;
 		
 		//return player1.score - player2.score;
 		//Printer.printArrayList(ter18.containedTiles);
-		System.out.println("P1: " + player1.score + " P2: " + player2.score);
+		JOptionPane.showMessageDialog(window, "P1: " + player1.score + " P2: " + player2.score);
+		
+		//System.out.println("P1: " + player1.score + " P2: " + player2.score);
 		
 		
+		
+		//////////////// TO print at the end of the game ONLY
 		/*
 		icon = new ImageIcon(panel.getIma());
 		
@@ -474,10 +494,12 @@ int animalZone = 0;
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
+	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
-		
+		    int key = e.getKeyCode();
+
+		    if (key == KeyEvent.VK_ENTER) {
+		    }
 	}
 
 	@Override
@@ -491,7 +513,6 @@ int animalZone = 0;
 		// TODO Auto-generated method stub
 		
 	}
-	
 
 	
 }
