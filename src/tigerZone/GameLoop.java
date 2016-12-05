@@ -399,7 +399,7 @@ window.setJMenuBar (menuBar);
 				window.pack();
 				
 				// Awful keylistener, but hey
-				optionPane.setMessage("Player 2 Placed a Tile @ " + x + ":" + y);
+				optionPane.setMessage("Player 2 Placed a Tile @ " + (x-BOARD_WIDTH/2) + ":" + (y-BOARD_WIDTH/2));
 				
 				
 				
@@ -471,7 +471,7 @@ window.setJMenuBar (menuBar);
 					scrollPane.getViewport().setViewPosition(new java.awt.Point(3200,3600));
 					window.getContentPane().add(scrollPane);
 					window.pack();
-					optionPane.setMessage("Player 1 Placed a Tile @ " + x + ":" + y);
+					optionPane.setMessage("Player 1 Placed a Tile @ " + (x-BOARD_WIDTH/2) + ":" + (y-BOARD_WIDTH/2));
 					
 					
 					
